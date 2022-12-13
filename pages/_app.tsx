@@ -1,49 +1,59 @@
-import type {AppProps} from "next/app";
+import type { AppProps } from 'next/app';
 
-import "../styles/globals.scss";
+import '../styles/globals.scss';
 
+import { Montserrat } from '@next/font/google';
 
-import {Montserrat} from "@next/font/google";
-
-import Head from "next/head";
-
+import Head from 'next/head';
+import { NextPage } from 'next';
+import { ReactElement, ReactNode } from 'react';
 
 const montserrat = Montserrat({
-    subsets: ["latin"],
+    subsets: ['latin'],
 });
 
-function MyApp({Component, pageProps}: AppProps) {
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+    getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+    Component: NextPageWithLayout;
+};
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+    const getLayout = Component.getLayout ?? ((page) => page);
+
     return (
         <>
             <Head>
                 <title>1Zap</title>
-                <meta name="description" content="Купи и сравни"/>
-                <link rel="icon" href="/images/favicon/favicon.ico"/>
+                <meta name="description" content="Купи и сравни" />
+                <link rel="icon" href="/assets/favicon/favicon.ico" />
                 <link
                     rel="apple-touch-icon"
                     sizes="180x180"
-                    href="/images/favicon/apple-touch-icon.png"
+                    href="/assets/favicon/apple-touch-icon.png"
                 />
                 <link
                     rel="icon"
                     type="image/png"
                     sizes="32x32"
-                    href="/images/favicon/favicon-32x32.png"
+                    href="/assets/favicon/favicon-32x32.png"
                 />
                 <link
                     rel="icon"
                     type="image/png"
                     sizes="16x16"
-                    href="/images/favicon/favicon-16x16.png"
+                    href="/assets/favicon/favicon-16x16.png"
                 />
-                <meta name="theme-color" content="#ee3300"/>
+                <meta name="theme-color" content="#ee3300" />
             </Head>
             <style jsx global>{`
-              html {
-                font-family: ${montserrat.style.fontFamily};
-              }
+                html {
+                    font-family: ${montserrat.style.fontFamily};
+                }
             `}</style>
-            <Component {...pageProps} />
+            {getLayout(<Component {...pageProps} />)}
         </>
     );
 }

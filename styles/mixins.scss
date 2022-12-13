@@ -1,17 +1,19 @@
-@mixin fs_lh_fw_c($fs, $lh, $fw, $col) {
+@import "styles/variables";
+
+@mixin fs_lh_fw_c($fs:inherit, $lh:normal, $fw:400, $col:$secondary) {
   font-size: $fs;
   line-height: $lh;
   font-weight: $fw;
   color: $col;
 }
 
-@mixin df_jc_ii($jc,$ii) {
+@mixin flex-items($jc:stretch,$ii:stretch) {
   display: flex;
   justify-content: $jc;
   align-items: $ii;
 }
 
-@mixin dg_gc_gr_gg($col,$row,$gap) {
+@mixin dg_gc_gr_gg($col:auto,$row:auto,$gap:10px) {
   display: grid;
   grid-template-columns:$col;
   grid-template-rows: $row;
@@ -29,14 +31,14 @@
   height: $h;
 }
 
-@mixin pf_t_l($t,$l){
+@mixin pf_t_l($t:0,$l:0) {
   position: fixed;
   top: $t;
   left: $l;
 }
 
 
-@mixin pa_t_l($t,$l){
+@mixin pa_t_l($t:0,$l:0) {
   position: absolute;
   top: $t;
   left: $l;
