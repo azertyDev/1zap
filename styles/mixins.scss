@@ -1,0 +1,43 @@
+@mixin fs_lh_fw_c($fs, $lh, $fw, $col) {
+  font-size: $fs;
+  line-height: $lh;
+  font-weight: $fw;
+  color: $col;
+}
+
+@mixin df_jc_ii($jc,$ii) {
+  display: flex;
+  justify-content: $jc;
+  align-items: $ii;
+}
+
+@mixin dg_gc_gr_gg($col,$row,$gap) {
+  display: grid;
+  grid-template-columns:$col;
+  grid-template-rows: $row;
+  grid-gap: $gap;
+}
+
+@mixin w_h($w,$h) {
+  width: $w;
+  height: $h;
+}
+
+@mixin w_mw__h($w,$mw,$h) {
+  width: $w;
+  min-width: $mw;
+  height: $h;
+}
+
+@mixin pf_t_l($t,$l){
+  position: fixed;
+  top: $t;
+  left: $l;
+}
+
+
+@mixin pa_t_l($t,$l){
+  position: absolute;
+  top: $t;
+  left: $l;
+}
