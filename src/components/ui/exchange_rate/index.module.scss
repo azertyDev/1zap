@@ -1,0 +1,17 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.rate_wr{
+  @include  flex-items(stretch,center);
+  cursor: pointer;
+}
+
+.img{
+  position: relative;
+  @include w_mw__h(18px,18px,18px);
+  margin-right: 6px;
+}
+
+.rate{
+  @include  fs_lh_fw_c(14px,21px,600,$text);
+}

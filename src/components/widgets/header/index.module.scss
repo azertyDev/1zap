@@ -1,0 +1,26 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.inner {
+  @include flex-items(space-between, center);
+}
+
+.controls {
+  @include flex-items(stretch, center);
+}
+
+.login {
+  @include flex-items(stretch, center);
+}
+
+.img_block {
+  @include flex-items(center, center);
+  @include w_mw__h(32px, 32px, 32px);
+  background: $blockBg;
+  border-radius: 10px;
+  margin-right: 9px;
+}
+
+.text{
+  @include  fs_lh_fw_c(14px,21px,600,$text);
+}

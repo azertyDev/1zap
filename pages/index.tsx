@@ -1,7 +1,25 @@
-import { Home } from 'src/components/pages/home';
+import { GetServerSideProps } from 'next';
+
 import type { NextPageWithLayout } from './_app';
+
 import { Layout } from 'components/layout/client';
 import { Container } from 'components/ui/container';
+import { Home } from 'src/components/pages/home';
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const { locale } = context;
+
+    return {
+        props: {
+            ...(await serverSideTranslations(locale as string, [
+                'header',
+                'common',
+            ])),
+        },
+    };
+};
 
 const HomePage: NextPageWithLayout = () => {
     return <Home />;

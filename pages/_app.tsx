@@ -7,6 +7,7 @@ import { Montserrat } from '@next/font/google';
 import Head from 'next/head';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
+import { appWithTranslation } from 'next-i18next';
 
 const montserrat = Montserrat({
     subsets: ['latin'],
@@ -58,4 +59,4 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

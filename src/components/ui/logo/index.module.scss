@@ -1,0 +1,26 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.logo {
+  @include flex-items(stretch, center);
+  margin-right: 30px;
+}
+
+.logoOne {
+  @include w_mw__h(55px, 55px, 50px);
+  position: relative;
+  margin-right: 9px;
+}
+
+.right{
+  padding-top: 4px;
+}
+
+.logoZap {
+  @include w_mw__h(71px, 71px, 33px);
+  position: relative;
+}
+
+.text {
+  @include fs_lh_fw_c(10px, 14px, 900, #323232);
+}

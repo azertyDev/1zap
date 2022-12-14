@@ -1,0 +1,9 @@
+@import "styles/mixins";
+
+.layout {
+  padding: 18px 0 0;
+  @include flex-items(space-between, stretch);
+  min-height: 100vh;
+  height: 100%;
+  flex-direction: column;
+}
