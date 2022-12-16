@@ -55,3 +55,26 @@ input{
   border: none;
   background: #fff;
 }
+
+.mi{
+  cursor: pointer;
+  &:hover{
+    color: red;
+  }
+
+  &.xs{
+    font-size: 18px;
+  }
+
+  &.sm{
+    font-size: 22px;
+  }
+
+  &.md{
+    font-size: 26px;
+  }
+
+  &.lg{
+
+  }
+}
