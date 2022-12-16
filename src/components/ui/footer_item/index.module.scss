@@ -1,0 +1,21 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+
+.list {
+  p {
+    @include fs_lh_fw_c(14px, 33px, 400, $text);
+    cursor: pointer;
+  }
+
+}
+
+.list_title {
+  margin-bottom: 6px;
+  @include fs_lh_fw_c(14px, 21px, 600, $secondary);
+}
+
+.link {
+  @include fs_lh_fw_c(14px, 33px, 400, $text);
+  display: block;
+}

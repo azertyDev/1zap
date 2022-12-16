@@ -1,5 +1,4 @@
 import { GetServerSideProps } from 'next';
-
 import type { NextPageWithLayout } from './_app';
 
 import { Layout } from 'components/layout/client';
@@ -16,6 +15,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             ...(await serverSideTranslations(locale as string, [
                 'header',
                 'common',
+                'footer',
+                'home',
             ])),
         },
     };

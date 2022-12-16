@@ -4,11 +4,14 @@
   "job": "Работа",
   "contacts": "Контакты",
   "mainCateg": "Основные категории",
-  "searchVin": "Запрос по VIN",
-  "sparePartsCat": "Каталог запчастей",
-  "oil": "Масла",
-  "batteries": "Аккуму",
-  "tires": "Шины",
   "becomeSupplier": "Стать поставщиком",
-  "create  lo": "Стать поставщиком"
+  "createAccount": "Создать аккаунт",
+  "addDetail": "Добавить запчасть",
+  "terms": "Условия",
+  "helpCenter": "Центр помощи",
+  "support": "Поддержка",
+  "infoCenter": "Справочный центр",
+  "trustSecur": "Доверие и безопасность",
+  "privacyPolicy": "Политика конфиденциальности",
+  "offer": "Оферта"
 }

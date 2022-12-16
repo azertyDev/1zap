@@ -1,19 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 export const useHandleRate = () => {
-    const [rate, setRate] = useState('uzs');
+    const {
+        pathname,
+        query,
+        push,
+        query: { rate },
+    } = useRouter();
 
     const handleRate = useCallback((val: string) => {
-        return () => {
-            localStorage.setItem('rate', val);
-            setRate(val);
-        };
+        return () => push({ pathname, query: { ...query, rate: val } });
     }, []);
 
-    useEffect(() => {
-        const locRate = localStorage.getItem('rate');
-        setRate(locRate ? locRate : 'uzs');
-    }, []);
-
-    return { handleRate, rate };
+    return { handleRate };
 };

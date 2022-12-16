@@ -1,8 +1,42 @@
 @import "styles/variables";
 @import "styles/mixins";
 
-.footer{
-  background: red;
-  height: 100px;
-  width: 100%;
+.footer {
+
+}
+
+.footer_top {
+  background: $blockBg;
+
+}
+
+.footer_top_inner {
+  @include dg_gc_gr_gg(repeat(4, 1fr), auto, 30px);
+  padding: 56px 56px 14px;
+}
+
+.footer_bot {
+  @include flex-items(stretch, center);
+  padding: 17px 45px 17px 56px;
+}
+
+.privacy {
+  @include flex-items(stretch, center);
+
+  a {
+    @include fs_lh_fw_c(14px, 21px, 700, $secondary);
+    margin-right: 24px;
+    letter-spacing: -0.1px;
+  }
+}
+
+.copy {
+  @include fs_lh_fw_c(14px, 21px, 400, $text);
+  letter-spacing: -0.1px;
+  margin-left: 65px;
+}
+
+.controls {
+  @include flex-items(stretch, center);
+  margin-left: auto;
 }
