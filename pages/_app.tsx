@@ -47,6 +47,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                     sizes="16x16"
                     href="/assets/favicon/favicon-16x16.png"
                 />
+
                 <meta name="theme-color" content="#ee3300" />
             </Head>
             <style jsx global>{`

@@ -5,11 +5,24 @@
   max-width: 953px;
   padding: 97px 0 109px;
   margin: 0 auto;
+
+
 }
+
+//.mdi-home {
+//  &:hover {
+//  col
+//  }
+//}
 
 .title {
   @include fs_lh_fw_c(56px, 64px, 800, $secondary);
   text-align: center;
   letter-spacing: -0.266667px;
   margin-bottom: 80px;
+}
+
+.color{
+  color: red;
+
 }
