@@ -31,7 +31,6 @@ export const Home: FC = (): JSX.Element => {
             <h1 className={s.title}>{t('home:market')}</h1>
             <SearchHome />
             <div className={s.partners}></div>
-            <Icon size={'md'} color={s.color} name={'ads_click'} />
         </div>
     );
 };

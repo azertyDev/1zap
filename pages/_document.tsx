@@ -16,11 +16,7 @@ class MyDocument extends Document {
                     <meta charSet="utf-8" />
                     <link
                         rel="stylesheet"
-                        href="https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css"
-                    />
-                    <link
-                        rel="stylesheet"
-                        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+                        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=optional"
                     />
                 </Head>
 
