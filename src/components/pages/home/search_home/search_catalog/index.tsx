@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import s from '../index.module.scss';
+import s from './index.module.scss';
 import { useTranslation } from 'next-i18next';
 import { useHandleCatalog } from 'src/hooks/search_home/useHandleCatalog';
 
@@ -281,7 +281,7 @@ export const SearchCatalog: FC = (): JSX.Element => {
                         activeCat === 1 ? s.active : ''
                     }`}
                 >
-                    {t('home:light')}{' '}
+                    {t('home:light')}
                 </p>
                 <p
                     onClick={handleActiveCatalog(2)}

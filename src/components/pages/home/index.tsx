@@ -1,8 +1,7 @@
 import s from './index.module.scss';
 import { FC } from 'react';
 import { useTranslation } from 'next-i18next';
-import { SearchHome } from 'components/search_home';
-import { Icon } from 'components/ui/icon';
+import { SearchHome } from 'components/pages/home/search_home';
 
 const fakePartners = [
     {

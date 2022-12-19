@@ -7,6 +7,7 @@ import s from './index.module.scss';
 import Image from 'next/image';
 
 import { useHandleLang } from 'src/hooks/header/useHandleLang';
+import { Icon } from 'components/ui/icon';
 
 export const Language: FC = (): JSX.Element => {
     const { asPath, pathname, query, locale } = useRouter();
@@ -15,11 +16,7 @@ export const Language: FC = (): JSX.Element => {
     return (
         <div className={s.lang_wr}>
             <div className={s.img}>
-                <Image
-                    src={'/assets/icons/world.svg'}
-                    alt={'language'}
-                    fill={true}
-                />
+                <Icon size={'18'} name={'public'} />
             </div>
 
             {locale === 'ru' ? (

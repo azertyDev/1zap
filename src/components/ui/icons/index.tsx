@@ -1,1 +1,0 @@
-export {CorrectIcon} from "./CorrectIcon";

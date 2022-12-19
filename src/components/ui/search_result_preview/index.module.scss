@@ -1,0 +1,48 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.search_res {
+  background: $main;
+  padding: 0 18px 27px 59px;
+  box-shadow: 0 3px 4px rgba(153, 155, 168, 0.15);
+  border-radius: 0 0 25px 25px;
+  display: none;
+
+
+  &.active {
+    display: block;
+  }
+
+}
+
+.search_res_border {
+  height: 1px;
+  background: #EDE8E9;
+  margin-bottom: 18px;
+}
+
+.search_res_item {
+  background: $light;
+  border-radius: 8px;
+  @include flex-items(stretch, center);
+  margin-bottom: 14px;
+  padding: 5px 0;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.search_res_title {
+  padding: 3px 12px 3px 24px;
+  min-width: 118px;
+  width: 118px;
+  @include fs_lh_fw_c(14px, 20px, 600, $secondary);
+  text-transform: uppercase;
+  border-right: 1px solid #EDE8E9;
+}
+
+.search_res_text {
+  padding: 3px 18px;
+  @include fs_lh_fw_c(12px, 20px, 600, $secondary);
+}

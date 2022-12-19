@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useHandleRate } from 'src/hooks/header/useHandleRate';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { Icon } from 'components/ui/icon';
 
 export const ExchangeRate: FC = (): JSX.Element => {
     const {
@@ -15,11 +16,7 @@ export const ExchangeRate: FC = (): JSX.Element => {
     return (
         <div className={s.rate_wr}>
             <div className={s.img}>
-                <Image
-                    src={'/assets/icons/dots.svg'}
-                    alt={'dots'}
-                    fill={true}
-                />
+                <Icon size={'19'} name={'more_horiz'} />
             </div>
 
             {rate === 'usd' ? (
