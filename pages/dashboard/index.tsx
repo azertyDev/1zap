@@ -1,11 +1,7 @@
 import { GetServerSideProps } from 'next';
 import type { NextPageWithLayout } from '../_app';
-
-import { Layout } from 'components/layout/client';
-import { Container } from 'components/ui/container';
-
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { DashboardContent } from 'src/components/pages/dashboard';
+import DashboardContent from 'src/components/pages/dashboard';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale } = context;
