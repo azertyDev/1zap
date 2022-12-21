@@ -2,6 +2,11 @@ import s from './index.module.scss';
 import { FC } from 'react';
 import { useTranslation } from 'next-i18next';
 import { SearchHome } from 'components/pages/home/search_home';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import Image from 'next/image';
 
 const fakePartners = [
     {
@@ -20,6 +25,10 @@ const fakePartners = [
         id: 4,
         img: '/assets/images/home/hyundai.svg',
     },
+    {
+        id: 5,
+        img: '/assets/images/home/hyundai.svg',
+    },
 ];
 
 export const Home: FC = (): JSX.Element => {
@@ -29,7 +38,23 @@ export const Home: FC = (): JSX.Element => {
         <div className={s.home}>
             <h1 className={s.title}>{t('home:market')}</h1>
             <SearchHome />
-            <div className={s.partners}></div>
+            <div className={s.partners}>
+                <Swiper spaceBetween={15} slidesPerView={4.3}>
+                    {fakePartners.map((item) => {
+                        return (
+                            <SwiperSlide key={item.id}>
+                                <div className={s.slide}>
+                                    <Image
+                                        src={item.img}
+                                        alt={'partner'}
+                                        fill={true}
+                                    />
+                                </div>
+                            </SwiperSlide>
+                        );
+                    })}
+                </Swiper>
+            </div>
         </div>
     );
 };
