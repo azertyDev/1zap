@@ -1,17 +1,10 @@
 import type { AppProps } from 'next/app';
-
-import '../styles/globals.scss';
-
-import { Montserrat } from '@next/font/google';
-
 import Head from 'next/head';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
 import { appWithTranslation } from 'next-i18next';
 
-const montserrat = Montserrat({
-    subsets: ['latin'],
-});
+import '../styles/globals.scss';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode;
@@ -50,11 +43,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
                 <meta name="theme-color" content="#ee3300" />
             </Head>
-            <style jsx global>{`
-                html {
-                    font-family: ${montserrat.style.fontFamily};
-                }
-            `}</style>
             {getLayout(<Component {...pageProps} />)}
         </>
     );

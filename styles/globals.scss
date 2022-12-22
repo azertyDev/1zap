@@ -1,80 +1,77 @@
+@import 'styles/fonts.scss';
+
 * {
-  padding: 0;
-  margin: 0;
-  border: none;
+    padding: 0;
+    margin: 0;
+    border: none;
 }
 *,
 *:before,
 *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
-
-
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-  line-height: normal;
+    padding: 0;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    line-height: normal;
 }
 
-
 button {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 button::-moz-focus-inner {
-  padding: 0;
-  border: 0;
+    padding: 0;
+    border: 0;
 }
 
-a{
-  color: inherit;
-  text-decoration: none;
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 a,
 a:visited {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
-
-li{
-  list-style-type: none;
+li {
+    list-style-type: none;
 }
 
-input{
-  outline: none;
-  border: none;
-  background: #fff;
+input {
+    outline: none;
+    border: none;
+    background: #fff;
 }
 
-.mi{
-  cursor: pointer;
-  &:hover{
-    color: red;
-  }
+.mi {
+    cursor: pointer;
+    &:hover {
+        color: red;
+    }
 
-  &.xs{
-    font-size: 18px;
-  }
+    &.xs {
+        font-size: 18px;
+    }
 
-  &.sm{
-    font-size: 22px;
-  }
+    &.sm {
+        font-size: 22px;
+    }
 
-  &.md{
-    font-size: 26px;
-  }
+    &.md {
+        font-size: 26px;
+    }
 
-  &.lg{
-
-  }
+    &.lg {
+    }
 }

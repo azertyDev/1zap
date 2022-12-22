@@ -2,9 +2,11 @@ import { FC } from 'react';
 import s from './index.module.scss';
 
 interface PropsType extends FC {
-    name: string;
+    query: {
+        slug: string;
+    };
 }
 
-export default ({ name }: PropsType) => {
-    return <div className={s.wrapper}>Content</div>;
+export default (props: PropsType): JSX.Element => {
+    return <div className={s.wrapper}>{props.query.slug}</div>;
 };

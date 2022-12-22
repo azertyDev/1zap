@@ -1,5 +1,5 @@
-import { GetServerSideProps } from 'next';
 import type { NextPageWithLayout } from '../_app';
+import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import DashboardContent from 'src/components/pages/dashboard';
 import { Layout } from 'src/components/layout/admin';
