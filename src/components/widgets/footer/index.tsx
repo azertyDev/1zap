@@ -53,7 +53,7 @@ export const Footer: FC = (): JSX.Element => {
     const { t } = useTranslation();
 
     return (
-        <div className={s.footer}>
+        <footer className={s.footer}>
             <div className={s.footer_top}>
                 <Container>
                     <div className={s.footer_top_inner}>
@@ -100,6 +100,6 @@ export const Footer: FC = (): JSX.Element => {
                     </div>
                 </div>
             </Container>
-        </div>
+        </footer>
     );
 };

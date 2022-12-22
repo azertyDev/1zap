@@ -35,7 +35,7 @@ export const Home: FC = (): JSX.Element => {
     const { t } = useTranslation();
 
     return (
-        <div className={s.home}>
+        <main className={s.home}>
             <h1 className={s.title}>{t('home:market')}</h1>
             <SearchHome />
             <div className={s.partners}>
@@ -55,6 +55,6 @@ export const Home: FC = (): JSX.Element => {
                     })}
                 </Swiper>
             </div>
-        </div>
+        </main>
     );
 };

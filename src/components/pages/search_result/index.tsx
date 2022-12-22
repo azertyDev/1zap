@@ -6,17 +6,9 @@ import { YMaps } from '@pbe/react-yandex-maps';
 
 export const SearchResult: FC = (): JSX.Element => {
     return (
-        <div>
-            <YMaps
-                query={{
-                    lang: 'en_RU',
-                    ns: 'use-load-option',
-                    load: 'Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon',
-                }}
-            >
-                <ResultMap />
-                {/*<ResultTableForm />*/}
-            </YMaps>
-        </div>
+        <main>
+            <ResultMap />
+            {/*<ResultTableForm />*/}
+        </main>
     );
 };

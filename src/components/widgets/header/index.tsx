@@ -16,7 +16,7 @@ export const Header: FC = (): JSX.Element => {
     const { t } = useTranslation();
 
     return (
-        <div className={s.header}>
+        <header className={s.header}>
             <Container>
                 <div className={s.inner}>
                     <Logo />
@@ -37,6 +37,6 @@ export const Header: FC = (): JSX.Element => {
                     </div>
                 </div>
             </Container>
-        </div>
+        </header>
     );
 };
