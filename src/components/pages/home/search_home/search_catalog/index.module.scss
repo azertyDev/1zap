@@ -1,0 +1,42 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.catalog {
+  padding: 20px 50px;
+  background: $main;
+  border-radius: 0 25px 25px 25px;
+}
+
+.cat_text {
+  display: inline-block;
+  margin-right: 23px;
+  @include fs_lh_fw_c(14px, 20px, 600, $light);
+  cursor: pointer;
+
+  &.active {
+    text-decoration: underline;
+  }
+}
+
+.catalog_items_wr {
+  margin-top: 31px;
+  column-count: 4;
+  -webkit-column-count: 4;
+  -moz-column-count: 4;
+}
+
+.catalog_item {
+  display: flex;
+  margin: 2px 3px;
+}
+
+.catalog_letter {
+  @include fs_lh_fw_c(14px, 20px, 400, $light);
+  margin-right: 18px;
+}
+
+.catalog_subitem {
+  text-transform: uppercase;
+  @include fs_lh_fw_c(14px, 20px, 700, $light);
+}
+

@@ -10,6 +10,7 @@ import { ExchangeRate } from 'components/ui/exchange_rate';
 
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
+import { Icon } from 'components/ui/icon';
 
 export const Header: FC = (): JSX.Element => {
     const { t } = useTranslation();

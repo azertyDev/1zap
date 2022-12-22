@@ -1,12 +1,30 @@
 import { FC } from 'react';
+import { useRouter } from 'next/router';
+import { Main } from './sections/main';
+import { Profile } from './sections/profile';
+import Header from 'src/components/layout/admin/header';
 import s from './index.module.scss';
 
-interface PropsType extends FC {
-    query: {
-        slug: string;
-    };
-}
+interface PropsType extends FC {}
 
 export default (props: PropsType): JSX.Element => {
-    return <div className={s.wrapper}>{props.query.slug}</div>;
+    const { asPath, query } = useRouter();
+
+    const page = () => {
+        switch (asPath) {
+            case '/dashboard/main':
+                return <Main />;
+            case `/dashboard/profile`:
+                return <Profile />;
+            default:
+                return 'Page not found';
+        }
+    };
+
+    return (
+        <div className={s.wrapper}>
+            <Header title={query.slug as string} />
+            {page()}
+        </div>
+    );
 };

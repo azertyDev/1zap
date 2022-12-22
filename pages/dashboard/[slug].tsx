@@ -9,9 +9,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
         props: {
-            query: context.query,
             ...(await serverSideTranslations(locale as string, [
                 'header',
+                'dashboard',
                 'common',
                 'footer',
                 'home',

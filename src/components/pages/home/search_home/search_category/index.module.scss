@@ -1,0 +1,28 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+
+.big_search_img {
+  position: relative;
+  @include w_mw__h(23px, 23px, 23px);
+  background: transparent;
+  margin-right: 18px;
+}
+
+.input_categ {
+  width: 523px !important;
+  margin-right: 18px;
+}
+
+.form_categ {
+  margin-right: 36px;
+}
+
+.categ_links {
+  width: 100%;
+
+  a {
+    @include fs_lh_fw_c(14px, 20px, 600, $light);
+    margin-left: 18px;
+  }
+}

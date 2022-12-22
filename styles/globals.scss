@@ -5,6 +5,7 @@
     margin: 0;
     border: none;
 }
+
 *,
 *:before,
 *:after {
@@ -17,7 +18,7 @@ html,
 body {
     padding: 0;
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat';
     line-height: normal;
 }
 
@@ -56,22 +57,5 @@ input {
 
 .mi {
     cursor: pointer;
-    &:hover {
-        color: red;
-    }
-
-    &.xs {
-        font-size: 18px;
-    }
-
-    &.sm {
-        font-size: 22px;
-    }
-
-    &.md {
-        font-size: 26px;
-    }
-
-    &.lg {
-    }
+    color: #9a9ea7;
 }

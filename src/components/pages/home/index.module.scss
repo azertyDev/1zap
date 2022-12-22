@@ -2,18 +2,13 @@
 @import "styles/mixins";
 
 .home {
-  max-width: 953px;
+  max-width: 945px;
   padding: 97px 0 109px;
   margin: 0 auto;
 
 
 }
 
-//.mdi-home {
-//  &:hover {
-//  col
-//  }
-//}
 
 .title {
   @include fs_lh_fw_c(56px, 64px, 800, $secondary);
@@ -22,7 +17,15 @@
   margin-bottom: 80px;
 }
 
-.color{
-  color: red;
+.partners {
+  margin-top: 108px;
+  overflow: hidden;
+  cursor: pointer;
+}
 
+.slide {
+  height: 35px;
+  position: relative;
+  justify-self: center;
+  width: auto !important;
 }

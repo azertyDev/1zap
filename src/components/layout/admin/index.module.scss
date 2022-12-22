@@ -1,27 +1,14 @@
+@import 'styles/variables.scss';
+
 .layout {
+    height: 100%;
     display: flex;
-    max-width: 1440px;
-    height: 100vh;
     margin: 0 auto;
-
-    & div.navbar {
-        width: 100%;
-        display: flex;
-        max-width: 305px;
-        flex-direction: column;
-        background: lavender;
-        padding: 28px;
-
-        & div.menu {
-            margin-top: 32px;
-            & p {
-                font-weight: 200;
-            }
-        }
-    }
+    min-height: 100vh;
+    max-width: 1440px;
 
     & div.content {
         width: 100%;
-        background: whitesmoke;
+        // padding: 33px 55px;
     }
 }

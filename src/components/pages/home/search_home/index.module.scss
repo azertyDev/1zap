@@ -1,0 +1,31 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+
+.form_wr {
+  background: $main;
+  padding: 18px;
+  box-shadow: 0 3px 4px rgba(153, 155, 168, 0.15);
+  border-radius: 0 25px 25px 25px;
+  @include flex-items(stretch, center);
+
+  &.active{
+    border-radius: 0 25px 0 0;
+  }
+
+  form {
+    width: 100%;
+    @include flex-items(stretch, center);
+
+  }
+  input {
+    width: 100%;
+    padding: 13px 18px;
+    @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+    border-radius: 15px;
+
+    &::placeholder {
+      @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+    }
+  }
+}

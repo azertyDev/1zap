@@ -1,0 +1,25 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+
+.btn {
+  border-radius: 15px;
+  padding: 13px 24px;
+  margin-left: 16px;
+  background: $light;
+  @include flex-items(center, center);
+  @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+
+  span {
+    margin-left: 6px;
+  }
+}
+
+
+.big_search_img {
+  position: relative;
+  @include w_mw__h(23px, 23px, 23px);
+  background: transparent;
+  margin-right: 18px;
+}
+
