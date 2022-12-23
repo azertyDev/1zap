@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { Main } from './sections/main';
 import { Profile } from './sections/profile';
 import Header from 'src/components/layout/admin/header';
+import BottomFooter from 'src/components/widgets/footer/bottom_footer';
 import s from './index.module.scss';
 
 interface PropsType extends FC {}
@@ -25,6 +26,7 @@ export default (props: PropsType): JSX.Element => {
         <div className={s.wrapper}>
             <Header title={query.slug as string} />
             {page()}
+            <BottomFooter className={s.footer} />
         </div>
     );
 };

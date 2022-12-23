@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Icon } from 'src/components/ui/icon';
 import { IconsWrapper } from 'src/components/ui/icons_wrapper';
 import s from './index.module.scss';
@@ -33,11 +34,49 @@ const overviewData = [
     },
 ];
 
+const linksData = [
+    {
+        id: 1,
+        link: '#',
+        icon: 'person',
+        title: 'Общая информация',
+        desc: 'Контактные данные, адреса',
+    },
+    {
+        id: 2,
+        link: '#',
+        icon: 'account_balance',
+        title: 'Реквизиты',
+        desc: 'Обновление реквизитов',
+    },
+    {
+        id: 3,
+        link: '#',
+        icon: 'person',
+        title: 'Глобальные настройки',
+        desc: 'Валюта , язык и пароль',
+    },
+    {
+        id: 4,
+        link: '#',
+        icon: 'person',
+        title: 'Баланс аккаунта',
+        desc: 'Информация и пополнение',
+    },
+    {
+        id: 5,
+        link: '#',
+        icon: 'person',
+        title: 'Уведомления',
+        desc: 'Ваши уведомления',
+    },
+];
+
 export const Main = () => {
     return (
         <div className={s.wrapper}>
             <h1>
-                С возвращением, Вадим
+                С возвращением, User
                 <span>Основная информация по вашему магазину</span>
             </h1>
 
@@ -56,6 +95,22 @@ export const Main = () => {
                         </div>
                     );
                 })}
+            </div>
+
+            <hr />
+
+            <div className={s.links}>
+                {linksData.map(({ id, link, desc, title, icon }) => (
+                    <Link href={link} key={id}>
+                        <IconsWrapper style={s.icon_wrapper}>
+                            <Icon name={icon} size="22" />
+                        </IconsWrapper>
+                        <div>
+                            <p>{title}</p>
+                            <span>{desc}</span>
+                        </div>
+                    </Link>
+                ))}
             </div>
         </div>
     );

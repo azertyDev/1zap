@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +7,7 @@ import { Logo } from 'src/components/ui/logo';
 import { dashboardMenu } from 'src/data/common';
 import s from './index.module.scss';
 
-export default (): JSX.Element => {
+const Navbar = (): JSX.Element => {
     const {
         query: { slug },
     } = useRouter();
@@ -66,3 +67,7 @@ export default (): JSX.Element => {
         </div>
     );
 };
+
+export default dynamic(() => Promise.resolve(Navbar), {
+    ssr: false,
+});
