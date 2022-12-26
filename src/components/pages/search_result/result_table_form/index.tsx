@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import s from './index.module.scss';
+
 export const ResultTableForm: FC = (): JSX.Element => {
-    return <div>Result Form</div>;
+    return <div className={s.table}>Result Form</div>;
 };
