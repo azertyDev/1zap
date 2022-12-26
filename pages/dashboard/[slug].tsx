@@ -1,11 +1,8 @@
-import { GetServerSideProps } from 'next';
 import type { NextPageWithLayout } from '../_app';
-
-import { Layout } from 'components/layout/client';
-import { Container } from 'components/ui/container';
-
+import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { DashboardContent } from 'src/components/pages/dashboard';
+import DashboardContent from 'src/components/pages/dashboard';
+import { Layout } from 'src/components/layout/admin';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale } = context;
@@ -14,6 +11,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         props: {
             ...(await serverSideTranslations(locale as string, [
                 'header',
+                'dashboard',
                 'common',
                 'footer',
                 'home',
@@ -22,16 +20,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
 };
 
-const Dashboard: NextPageWithLayout = () => {
-    return <DashboardContent />;
+const Dashboard: NextPageWithLayout = (props: any) => {
+    return <DashboardContent {...props} />;
 };
 
-// HomePage.getLayout = function getLayout(page) {
-//     return (
-//         <Layout>
-//             <Container>{page}</Container>
-//         </Layout>
-//     );
-// };
+Dashboard.getLayout = function getLayout(page) {
+    return <Layout>{page}</Layout>;
+};
 
 export default Dashboard;

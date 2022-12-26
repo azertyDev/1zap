@@ -1,12 +1,9 @@
 import { FC } from 'react';
-
-import s from './index.module.scss';
-import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { Container } from 'components/ui/container';
 import { FooterItem } from 'components/ui/footer_item';
-import { ExchangeRate } from 'components/ui/exchange_rate';
-import { Language } from 'components/ui/language';
+import BottomFooter from './bottom_footer';
+import s from './index.module.scss';
 
 const footerLinksFirst = {
     id: 1,
@@ -88,17 +85,7 @@ export const Footer: FC = (): JSX.Element => {
                 </Container>
             </div>
             <Container>
-                <div className={s.footer_bot}>
-                    <div className={s.privacy}>
-                        <Link href={'#!'}>{t('footer:privacyPolicy')}</Link>
-                        <Link href={'#!'}>{t('footer:offer')}</Link>
-                    </div>
-                    <p className={s.copy}>&copy; 2022 All rights reserved</p>
-                    <div className={s.controls}>
-                        <Language />
-                        <ExchangeRate />
-                    </div>
-                </div>
+                <BottomFooter />
             </Container>
         </footer>
     );

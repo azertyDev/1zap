@@ -3,11 +3,11 @@ import { FC } from 'react';
 export const Icon: FC<{ size: string; name: string; style?: string }> = ({
     size,
     name,
-    style,
+    style = '',
 }) => {
     return (
         <i
-            className={`material-symbols-outlined mi ${style}`}
+            className={`material-icons mi ${style ?? ''}`}
             style={{
                 fontSize: `${size}px`,
             }}

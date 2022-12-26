@@ -1,8 +1,22 @@
 {
-  "search": "Поиск",
-  "searchVin": "Запрос по VIN",
-  "sparePartsCat": "Каталог запчастей",
-  "oil": "Масла",
-  "batteries": "Аккумуляторы",
-  "tires": "Шины"
+    "search": "Поиск",
+    "searchVin": "Запрос по VIN",
+    "sparePartsCat": "Каталог запчастей",
+    "oil": "Масла",
+    "batteries": "Аккумуляторы",
+    "tires": "Шины",
+    "main": "Основные",
+    "profile_work": "Работа с профилем",
+    "profile": "Профиль",
+    "balance": "Баланс",
+    "statistic": "Статистика",
+    "position_work": "Работа с позициями",
+    "goods": "Товары",
+    "upload_products": "Загрузка товаров",
+    "incoming_requests": "Входящие запросы",
+    "support": "Поддержка",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
 }

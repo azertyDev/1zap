@@ -1,3 +1,12 @@
-.icon {
-    color: red;
+@import 'styles/mixins';
+@import 'styles/variables.scss';
+
+.wrapper {
+    height: 100%;
+    padding: 0px 55px;
+
+    .footer {
+        @include flex-items(stretch, center);
+        padding: 25px 0;
+    }
 }

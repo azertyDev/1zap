@@ -1,0 +1,54 @@
+@import 'styles/variables.scss';
+
+div.wrapper {
+    width: 30%;
+    display: flex;
+    // max-width: 305px;
+    flex-direction: column;
+    padding: 28px;
+    border-right: 1px solid #e4e6e8;
+
+    div.logo_wrapper {
+        margin: 0 auto;
+    }
+
+    & div.menu {
+        margin-top: 32px;
+        font-size: 0.875rem;
+        color: $text;
+
+        & p {
+            font-weight: 200;
+            padding: 17px 30px;
+        }
+
+        ul {
+            width: 100%;
+
+            a {
+                &.active,
+                &:hover {
+                    li {
+                        color: $secondary;
+                        background: $blockBg;
+                        cursor: pointer;
+                        i {
+                            color: $main;
+                        }
+                    }
+                }
+
+                li {
+                    display: flex;
+                    font-weight: 600;
+                    align-items: center;
+                    padding: 17px 30px;
+                    border-radius: 10px;
+                    & :where(i) {
+                        margin-right: 30px;
+                    }
+                }
+            }
+        }
+    }
+}
