@@ -1,0 +1,26 @@
+@import 'styles/mixins';
+@import 'styles/variables.scss';
+
+.wrapper {
+    gap: 20px;
+    padding: 34px;
+    display: flex;
+    margin-bottom: 30px;
+    border-radius: 16px;
+    background-color: $main;
+
+    div:has(i) {
+        cursor: pointer;
+    }
+
+    div.body {
+        color: $light;
+        display: flex;
+        flex-direction: column;
+        p {
+            font-weight: 700;
+        }
+        span {
+        }
+    }
+}
