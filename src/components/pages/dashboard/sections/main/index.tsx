@@ -1,9 +1,9 @@
-import Link from 'next/link';
 import { Icon } from 'src/components/ui/icon';
 import { IconsWrapper } from 'src/components/ui/icons_wrapper';
 import s from './index.module.scss';
+import { InfoLinks } from 'src/components/ui/dashboard/info_links';
 
-const overviewData = [
+export const overviewData = [
     {
         id: 1,
         title: 'Баланс',
@@ -34,7 +34,7 @@ const overviewData = [
     },
 ];
 
-const linksData = [
+export const linksData = [
     {
         id: 1,
         link: '#',
@@ -99,19 +99,7 @@ export const Main = () => {
 
             <hr />
 
-            <div className={s.links}>
-                {linksData.map(({ id, link, desc, title, icon }) => (
-                    <Link href={link} key={id}>
-                        <IconsWrapper style={s.icon_wrapper}>
-                            <Icon name={icon} size="22" />
-                        </IconsWrapper>
-                        <div>
-                            <p>{title}</p>
-                            <span>{desc}</span>
-                        </div>
-                    </Link>
-                ))}
-            </div>
+            <InfoLinks data={linksData} />
         </div>
     );
 };
