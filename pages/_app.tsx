@@ -4,6 +4,8 @@ import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
 import { appWithTranslation } from 'next-i18next';
 
+import '../styles/libraries/map.scss';
+import '../styles/libraries/react_select.scss';
 import '../styles/globals.scss';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

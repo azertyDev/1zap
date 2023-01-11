@@ -5,8 +5,9 @@ import s from './index.module.scss';
 import Image from 'next/image';
 
 import { useTranslation } from 'next-i18next';
-
-import Select from 'react-select';
+import { FilterSelections } from 'components/ui/filter_selections';
+import { useRouter } from 'next/router';
+import { FilterSelect } from 'components/ui/filter_selections/filter_select';
 
 const fakeAnchor = [
     [41.31240320650527, 69.27836058056674],
@@ -14,14 +15,36 @@ const fakeAnchor = [
     [41.31578747810986, 69.2709021702546],
 ];
 
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-];
-
 export const ResultMap: FC = (): JSX.Element => {
     const { t } = useTranslation();
+
+    const {
+        query: {
+            payment,
+            delivery,
+            services,
+            supply,
+            producer,
+            condition,
+            updates,
+        },
+        push,
+        pathname,
+        query,
+    } = useRouter();
+
+    const handleFilter = (key: string) => {
+        return (ev: any) => {
+            push({
+                pathname: pathname,
+                query: {
+                    ...query,
+                    page: 1,
+                    [key]: ev.value,
+                },
+            });
+        };
+    };
 
     return (
         <div className={s.map_wr}>
@@ -69,7 +92,7 @@ export const ResultMap: FC = (): JSX.Element => {
                         width={18}
                         height={21}
                     />
-                    <p>Открыть карту</p>
+                    <p>{t('common:openMap')}</p>
                 </button>
 
                 <div className={s.search}>
@@ -95,9 +118,90 @@ export const ResultMap: FC = (): JSX.Element => {
                             <span>{t('common:search')} </span>
                         </button>
                     </div>
-                    <div className={s.filter}>
-                        <Select options={options} />
-                    </div>
+                    <FilterSelections>
+                        <FilterSelect
+                            id={'payment'}
+                            title={t('filter:payment')}
+                            value={(payment ?? 'aaaaaaaaaa') as string}
+                            fun={handleFilter}
+                            labelAlt={'aaaaaaaaaa'}
+                            options={[
+                                {
+                                    value: 'aaaaaaaaaa',
+                                    label: 'aaaaaaaaaa',
+                                },
+                                { value: 'b', label: 'b' },
+                            ]}
+                        />
+                        <FilterSelect
+                            id={'delivery'}
+                            title={t('filter:delivery')}
+                            value={(delivery ?? 'a') as string}
+                            fun={handleFilter}
+                            labelAlt={'a'}
+                            options={[
+                                { value: 'a', label: 'a' },
+                                { value: 'b', label: 'b' },
+                            ]}
+                        />
+                        <FilterSelect
+                            id={'services'}
+                            title={t('filter:services')}
+                            value={(services ?? 'a') as string}
+                            fun={handleFilter}
+                            labelAlt={'a'}
+                            options={[
+                                { value: 'a', label: 'a' },
+                                { value: 'b', label: 'b' },
+                            ]}
+                        />
+
+                        <FilterSelect
+                            id={'supply'}
+                            title={t('filter:supply')}
+                            value={(supply ?? 'a') as string}
+                            fun={handleFilter}
+                            labelAlt={'a'}
+                            options={[
+                                { value: 'a', label: 'a' },
+                                { value: 'b', label: 'b' },
+                            ]}
+                        />
+                        <FilterSelect
+                            id={'producer'}
+                            title={t('filter:producer')}
+                            value={(producer ?? 'a') as string}
+                            fun={handleFilter}
+                            labelAlt={'a'}
+                            options={[
+                                { value: 'a', label: 'a' },
+                                { value: 'b', label: 'b' },
+                            ]}
+                        />
+
+                        <FilterSelect
+                            id={'condition'}
+                            title={t('filter:condition')}
+                            value={(condition ?? 'a') as string}
+                            fun={handleFilter}
+                            labelAlt={'a'}
+                            options={[
+                                { value: 'a', label: 'a' },
+                                { value: 'b', label: 'b' },
+                            ]}
+                        />
+                        <FilterSelect
+                            id={'updates'}
+                            title={t('filter:updates')}
+                            value={(updates ?? 'a') as string}
+                            fun={handleFilter}
+                            labelAlt={'a'}
+                            options={[
+                                { value: 'a', label: 'a' },
+                                { value: 'b', label: 'b' },
+                            ]}
+                        />
+                    </FilterSelections>
                 </div>
             </div>
         </div>

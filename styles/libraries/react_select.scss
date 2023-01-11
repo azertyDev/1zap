@@ -1,0 +1,66 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.filter_search__control {
+  border: none !important;
+  background: transparent !important;
+  cursor: pointer !important;
+}
+
+.filter_search__control--is-focused{
+  box-shadow: none !important;
+}
+
+.filter_search__value-container {
+  padding: 0 !important;
+}
+
+.filter_search__placeholder {
+
+}
+
+.filter_search__input-container {
+
+}
+
+.filter_search__single-value {
+  @include fs_lh_fw_c(14px, 21px, 600, $darkGrey)
+}
+
+.filter_search__indicators {
+
+}
+
+.filter_search__indicator-separator {
+  display: none;
+}
+
+.filter_search__dropdown-indicator {
+  svg {
+    fill: $secondary;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.filter_search__indicator {
+
+}
+
+.filter_search__menu {
+  @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+}
+
+.filter_search__option{
+  cursor: pointer !important;
+}
+.filter_search__option--is-selected {
+  background: none !important;
+  pointer-events: none !important;
+  color: $darkGrey !important;
+}
+
+.filter_search__option--is-focused {
+  background: $blockBg !important;
+  color: $darkGrey important;
+}
