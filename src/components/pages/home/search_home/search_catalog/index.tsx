@@ -292,28 +292,32 @@ export const SearchCatalog: FC = (): JSX.Element => {
                     {t('home:commercial')}{' '}
                 </p>
             </div>
-
-            <ul className={s.catalog_items_wr}>
-                {fakeCatalog.map((item) => {
-                    return (
-                        <li className={s.catalog_item} key={item.id}>
-                            <p className={s.catalog_letter}>{item.letter}</p>
-                            <ul className={s.catalog_subitems_wr}>
-                                {item.data.map((subitem) => {
-                                    return (
-                                        <li
-                                            className={s.catalog_subitem}
-                                            key={subitem.id}
-                                        >
-                                            {subitem.text}
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </li>
-                    );
-                })}
-            </ul>
+            <p className={s.text_resp}>Основные каталоги </p>
+            <div className={s.catalog_items_box}>
+                <ul className={s.catalog_items_wr}>
+                    {fakeCatalog.map((item) => {
+                        return (
+                            <li className={s.catalog_item} key={item.id}>
+                                <p className={s.catalog_letter}>
+                                    {item.letter}
+                                </p>
+                                <ul className={s.catalog_subitems_wr}>
+                                    {item.data.map((subitem) => {
+                                        return (
+                                            <li
+                                                className={s.catalog_subitem}
+                                                key={subitem.id}
+                                            >
+                                                {subitem.text}
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };

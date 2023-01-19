@@ -1,0 +1,19 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.no_result {
+  max-width: 350px;
+  margin: 90px auto;
+  @include flex-items(center,center);
+  flex-direction: column;
+  text-align: center;
+}
+
+.title {
+  margin-top: 29px;
+  @include fs_lh_fw_c(36px, 48px, 700, $darkGrey);
+}
+
+.text{
+  @include fs_lh_fw_c(14px, 21px, 400, $text);
+}

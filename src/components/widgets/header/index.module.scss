@@ -24,3 +24,11 @@
 .text{
   @include  fs_lh_fw_c(14px,21px,600,$text);
 }
+
+
+
+@media (max-width: 768px) {
+  .login{
+    display: none;
+  }
+}

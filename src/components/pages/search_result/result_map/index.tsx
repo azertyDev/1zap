@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useRef, useState } from 'react';
 
 import { Map, Overlay } from 'pigeon-maps';
 import s from './index.module.scss';
@@ -17,6 +17,12 @@ const fakeAnchor = [
 
 export const ResultMap: FC = (): JSX.Element => {
     const { t } = useTranslation();
+
+    const [mapIsOpen, setIsOpen] = useState(false);
+
+    const handleMapIsOpen = () => {
+        return setIsOpen((prev) => !prev);
+    };
 
     const {
         query: {
@@ -48,7 +54,7 @@ export const ResultMap: FC = (): JSX.Element => {
 
     return (
         <div className={s.map_wr}>
-            <div className={s.map}>
+            <div className={`${s.map} ${mapIsOpen ? s.active : ''}`}>
                 <Map
                     defaultCenter={[41.31300484525912, 69.27182341706133]}
                     defaultZoom={17}
@@ -84,18 +90,32 @@ export const ResultMap: FC = (): JSX.Element => {
                 </Map>
             </div>
 
-            <div className={s.search_wr}>
-                <button className={s.btn_map}>
-                    <Image
-                        src={'/assets/images/search/mini_map.svg'}
-                        alt={'map'}
-                        width={18}
-                        height={21}
-                    />
-                    <p>{t('common:openMap')}</p>
+            <div className={`${s.search_wr} ${mapIsOpen ? s.active : ''}`}>
+                <button className={s.btn_map} onClick={handleMapIsOpen}>
+                    {mapIsOpen ? (
+                        <Image
+                            src={'/assets/icons/search.svg'}
+                            alt={'map'}
+                            width={15}
+                            height={15}
+                        />
+                    ) : (
+                        <Image
+                            src={'/assets/images/search/mini_map.svg'}
+                            alt={'map'}
+                            width={18}
+                            height={21}
+                        />
+                    )}
+
+                    <p>
+                        {mapIsOpen
+                            ? t('common:openSearch')
+                            : t('common:openMap')}
+                    </p>
                 </button>
 
-                <div className={s.search}>
+                <div className={`${s.search} ${mapIsOpen ? s.notActive : ''}`}>
                     <div className={s.input_wr}>
                         <input
                             type={'text'}
@@ -122,13 +142,13 @@ export const ResultMap: FC = (): JSX.Element => {
                         <FilterSelect
                             id={'payment'}
                             title={t('filter:payment')}
-                            value={(payment ?? 'aaaaaaaaaa') as string}
+                            value={(payment ?? 'Aaaaaaaaaa') as string}
                             fun={handleFilter}
-                            labelAlt={'aaaaaaaaaa'}
+                            labelAlt={'Aaaaaaaaaa'}
                             options={[
                                 {
-                                    value: 'aaaaaaaaaa',
-                                    label: 'aaaaaaaaaa',
+                                    value: 'Aaaaaaaaaa',
+                                    label: 'Aaaaaaaaaa',
                                 },
                                 { value: 'b', label: 'b' },
                             ]}

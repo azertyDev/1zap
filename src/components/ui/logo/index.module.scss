@@ -24,3 +24,27 @@
 .text {
   @include fs_lh_fw_c(10px, 14px, 900, #323232);
 }
+
+
+@media (max-width: 768px) {
+
+  .logo {
+
+    margin-right: 10px;
+  }
+
+  .logoOne {
+    @include w_mw__h(33px, 32px, 33px);
+
+    margin-right: 5px;
+  }
+
+  .logoZap {
+    @include w_mw__h(42px, 42px, 20px);
+
+  }
+
+  .text {
+    @include fs_lh_fw_c(8px, 8px, 900, #323232);
+  }
+}

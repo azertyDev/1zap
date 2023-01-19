@@ -26,3 +26,50 @@
     margin-left: 18px;
   }
 }
+
+.categ_links_res{
+  display: none;
+}
+
+.search_icon_res {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .big_search_img{
+    display: none;
+  }
+
+  .input_categ {
+    width: 100% !important;
+    margin-right: 0;
+  }
+
+  .search_icon_res {
+    display: block;
+    position: absolute;
+    right: 11px;
+    top: 52%;
+    transform: translateY(-50%);
+  }
+
+  .categ_links{
+    display: none;
+  }
+
+
+  .categ_links_res{
+    margin-bottom: 17px;
+    display: block;
+    a{
+      background: $blockBg;
+      border-radius: 8px;
+      padding: 7px 15px;
+      margin-right: 5px;
+      display: inline-block;
+      @include fs_lh_fw_c(12px, 18px, 700, $text);
+    }
+
+  }
+
+}

@@ -3,10 +3,7 @@ import { FC } from 'react';
 import { useTranslation } from 'next-i18next';
 import { SearchHome } from 'components/pages/home/search_home';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import Image from 'next/image';
+import { homeSwiperBreakpoints } from 'src/constants/home_swiper_breakpoints';
 
 const fakePartners = [
     {
@@ -38,17 +35,16 @@ export const Home: FC = (): JSX.Element => {
         <main className={s.home}>
             <h1 className={s.title}>{t('home:market')}</h1>
             <SearchHome />
-            <div className={s.partners}>
-                <Swiper spaceBetween={15} slidesPerView={4.3}>
+            <div className={'home_page_partners'}>
+                <Swiper breakpoints={homeSwiperBreakpoints}>
                     {fakePartners.map((item) => {
                         return (
-                            <SwiperSlide key={item.id}>
-                                <div className={s.slide}>
-                                    <Image
-                                        src={item.img}
-                                        alt={'partner'}
-                                        fill={true}
-                                    />
+                            <SwiperSlide
+                                className={'home_page_partners_slide'}
+                                key={item.id}
+                            >
+                                <div className={'home_page_partners_slide_img'}>
+                                    <img src={item.img} alt={'q'} />
                                 </div>
                             </SwiperSlide>
                         );

@@ -11,11 +11,37 @@
 }
 
 .list_title {
-  margin-bottom: 6px;
   @include fs_lh_fw_c(14px, 21px, 600, $secondary);
 }
 
 .link {
   @include fs_lh_fw_c(14px, 33px, 400, $text);
   display: block;
+}
+
+.list_content{
+  margin-top: 6px;
+}
+
+@media (max-width: 768px) {
+
+  .list_title{
+    text-align: center;
+  }
+  .list_content{
+   text-align: center;
+    display: none;
+    &.active{
+      display: block;
+    }
+ }
+
+  .link {
+    @include fs_lh_fw_c(14px, 26px, 400, $text);
+  }
+
+  .list_content{
+    display: none;
+  }
+
 }

@@ -3,17 +3,21 @@
 
 
 .map_wr {
-  position: relative;
 }
 
 .map {
-  position: relative;
-  @include w_h(100%, 573px);
-  margin-top: 20px;
+  position: absolute;
+  top: 20px;
+  @include w_h(100%, 427px);
+  cursor: grab;
   border: 1px solid red;
 
   img {
     filter: grayscale(95%);
+  }
+
+  &.active{
+    height: 573px;
   }
 }
 
@@ -57,11 +61,14 @@
 }
 
 .search_wr {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   width: 100%;
+  z-index: 1;
+  position: relative;
+  margin-top: 285px;
+  &.active{
+    margin-top: 525px;
+    margin-bottom: 60px;
+  }
 }
 
 .btn_map {
@@ -80,13 +87,19 @@
 
 
 .search {
+
+
   background: $main;
   padding: 24px;
   max-width: 1024px;
   margin: 20px auto 0;
   box-shadow: 0 8px 12px rgba(153, 155, 168, 0.15);
   border-radius: 25px;
+  z-index:1;
 
+  &.notActive{
+    display: none;
+  }
 }
 
 .input_wr {
@@ -121,3 +134,16 @@
   }
 }
 
+
+@media (max-width: 1000px) {
+  .map {
+    position: relative;
+    @include w_h(100%, 573px);
+    margin-top: 20px;
+    border: 1px solid red;
+
+    img {
+      filter: grayscale(95%);
+    }
+  }
+}

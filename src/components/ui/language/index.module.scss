@@ -10,9 +10,19 @@
   position: relative;
   @include w_mw__h(18px,18px,18px);
   margin-right: 6px;
-
 }
 
 .link{
   @include  fs_lh_fw_c(14px,21px,600,$text);
+}
+
+@media (max-width: 768px) {
+  .lang_wr{
+    @include  flex-items(stretch,center);
+    margin: 0 0 0 10px;
+  }
+
+  .link{
+    @include  fs_lh_fw_c(12px,21px,600,$text);
+  }
 }

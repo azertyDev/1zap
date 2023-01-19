@@ -8,7 +8,6 @@
   border-radius: 0 0 25px 25px;
   display: none;
 
-
   &.active {
     display: block;
   }
@@ -45,4 +44,15 @@
 .search_res_text {
   padding: 3px 18px;
   @include fs_lh_fw_c(12px, 20px, 600, $secondary);
+}
+
+@media (max-width: 1000px) {
+  .search_res{
+    padding: 16px;
+  }
+
+  .search_res_border {
+    display: none;
+  }
+
 }

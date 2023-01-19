@@ -2,6 +2,8 @@
 @import "styles/mixins";
 
 
+.tabs {
+}
 
 .tab {
   background: #979797;
@@ -14,5 +16,34 @@
 
   &.active {
     background: $main;
+  }
+}
+
+.tabs_res {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .tabs {
+    display: none;
+  }
+  .tabs_res {
+    display: grid;
+    grid-gap: 17px;
+    margin-bottom: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+  }
+  .tab {
+    background: $blockBg;
+    border-radius: 10px;
+    @include flex-items(center, center);
+    text-align: center;
+    margin: 0;
+    padding: 13px;
+    color: $text;
+
+    &.active {
+      color: $light
+    }
   }
 }

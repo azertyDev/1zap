@@ -7,7 +7,7 @@
   cursor: pointer !important;
 }
 
-.filter_search__control--is-focused{
+.filter_search__control--is-focused {
   box-shadow: none !important;
 }
 
@@ -48,12 +48,14 @@
 }
 
 .filter_search__menu {
+  min-width: 300px;
   @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
 }
 
-.filter_search__option{
+.filter_search__option {
   cursor: pointer !important;
 }
+
 .filter_search__option--is-selected {
   background: none !important;
   pointer-events: none !important;

@@ -7,7 +7,10 @@ import { SearchCatalog } from 'components/pages/home/search_home/search_catalog'
 import { SearchCategory } from 'components/pages/home/search_home/search_category';
 import { SearchTabs } from 'components/ui/search_tabs';
 
-import { searchHomeTabs } from 'src/constants/searchHomeTabs';
+import {
+    searchHomeTabs,
+    searchHomeTabsRes,
+} from 'src/constants/searchHomeTabs';
 import s from './index.module.scss';
 import { useHandleActivetTabHome } from 'src/hooks/search_home/useHandleActivetTabHome';
 
@@ -24,6 +27,7 @@ export const SearchHome: FC = (): JSX.Element => {
         <SearchTabs
             activeTab={activeTab}
             handleTab={handleActivetab}
+            tabsRes={searchHomeTabsRes}
             tabs={searchHomeTabs}
         >
             {activeTab === 1 && (

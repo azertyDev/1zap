@@ -8,8 +8,9 @@
   box-shadow: 0 3px 4px rgba(153, 155, 168, 0.15);
   border-radius: 0 25px 25px 25px;
   @include flex-items(stretch, center);
+  position: relative;
 
-  &.active{
+  &.active {
     border-radius: 0 25px 0 0;
   }
 
@@ -18,6 +19,7 @@
     @include flex-items(stretch, center);
 
   }
+
   input {
     width: 100%;
     padding: 13px 18px;
@@ -28,4 +30,29 @@
       @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
     }
   }
+}
+
+
+@media (max-width: 1000px) {
+  .form_wr {
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+
+    &.active {
+      border-radius: 0;
+
+      input {
+
+        border-radius: 15px 15px 0 0;
+      }
+    }
+
+    input {
+      padding: 17px 40px 17px 20px;
+      border: 2px solid #C6303C;
+    }
+  }
+
+
 }

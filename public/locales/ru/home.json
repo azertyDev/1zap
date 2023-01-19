@@ -5,5 +5,7 @@
   "categoryProduct": "Категории товаров",
   "light": "Легковые",
   "commercial": "Коммерческие",
-  "searchTitle": "Поиск по названию, производителю или артикулу"
+  "searchTitle": "Поиск по названию",
+  "searchDetailShort": "По номеру детали"
+
 }

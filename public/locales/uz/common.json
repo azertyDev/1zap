@@ -1,9 +1,14 @@
 {
   "search": "Qidirmoq",
   "openMap": "Xaritani ochish",
+  "openSearch": "Qidiruvni oching",
+  "noresult": "Hech qanday natija topilmadi",
+  "noresulttext": "Qidiruvingiz boʻyicha hech qanday natija topilmadi yoki boʻsh soʻz kiritildi",
   "searchVin": "VIN orqali so'rov",
   "sparePartsCat": "Ehtiyot qismlar katalogi",
   "oil": "Yog'lar",
   "batteries": "Batareyalar",
-  "tires": "Shinalar"
+  "tires": "Shinalar",
+  "catalogs": "Kataloglar",
+  "categories": "Kategoriyalar"
 }

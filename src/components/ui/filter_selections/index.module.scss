@@ -8,13 +8,38 @@
   box-shadow: 0 3px 4px rgba(153, 155, 168, 0.15);
   border-radius: 15px;
   margin-top: 24px;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(137px, 1fr));
+
+
+  .select_wr:last-child {
+    &:after {
+  display: none;
+    }
+  }
+
 }
 
 .select_wr {
-
   padding: 8px 15px;
   flex: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  position: relative;
+
+  &:after {
+    content: "";
+    width: 1px;
+    position: absolute;
+    background: #EDE8E9;
+    height: 57%;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+
 }
 
 .select_title {

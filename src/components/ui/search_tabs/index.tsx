@@ -11,6 +11,7 @@ export const SearchTabs: FC<SearchTabsInt> = ({
     children,
     activeTab,
     handleTab,
+    tabsRes,
 }): JSX.Element => {
     const { t } = useTranslation();
 
@@ -18,6 +19,22 @@ export const SearchTabs: FC<SearchTabsInt> = ({
         <div className={s.search}>
             <div className={s.tabs}>
                 {tabs.map((item) => {
+                    return (
+                        <span
+                            onClick={handleTab(item.id)}
+                            className={`${s.tab} ${
+                                activeTab === item.id ? s.active : ''
+                            }`}
+                            key={item.id}
+                        >
+                            {t(item.text)}
+                        </span>
+                    );
+                })}
+            </div>
+
+            <div className={s.tabs_res}>
+                {tabsRes.map((item) => {
                     return (
                         <span
                             onClick={handleTab(item.id)}
