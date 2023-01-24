@@ -4,9 +4,10 @@
 .no_result {
   max-width: 350px;
   margin: 90px auto;
-  @include flex-items(center,center);
+  @include flex-items(center, center);
   flex-direction: column;
   text-align: center;
+  z-index: 1;
 }
 
 .title {
@@ -14,6 +15,6 @@
   @include fs_lh_fw_c(36px, 48px, 700, $darkGrey);
 }
 
-.text{
+.text {
   @include fs_lh_fw_c(14px, 21px, 400, $text);
 }

@@ -1,7 +1,6 @@
 @import "styles/variables";
 @import "styles/mixins";
 
-
 .map_wr {
 }
 
@@ -16,39 +15,9 @@
     filter: grayscale(95%);
   }
 
-  &.active{
+  &.active {
     height: 573px;
   }
-}
-
-.mark {
-  @include flex-items(center, center);
-  flex-direction: column;
-
-  img {
-    filter: grayscale(0);
-  }
-}
-
-.point_wr {
-  position: relative;
-  @include w_mw__h(24px, 24px, 30px);
-  cursor: pointer;
-  margin-bottom: 7px;
-}
-
-.point_number {
-  @include pa_t_l(40%, 50%);
-  @include fs_lh_fw_c(15px, 15px, 600, $light);
-  transform: translate(-50%, -50%);
-}
-
-.mark_price {
-  @include fs_lh_fw_c(12px, 17px, 700, $light);
-  background: $main;
-  padding: 1px 13px;
-  border-radius: 12px;
-  cursor: pointer;
 }
 
 
@@ -65,85 +34,64 @@
   z-index: 1;
   position: relative;
   margin-top: 285px;
-  &.active{
+
+  &.active {
     margin-top: 525px;
     margin-bottom: 60px;
   }
 }
 
-.btn_map {
-  background: $main;
-  @include flex-items(center, center);
-  padding: 10px 14px;
-  border-radius: 10px;
-  margin: 0 auto;
-
-  p {
-    @include fs_lh_fw_c(14px, 21px, 600, $light);
-    margin-left: 5px;
-  }
-
-}
-
-
 .search {
-
-
   background: $main;
   padding: 24px;
   max-width: 1024px;
   margin: 20px auto 0;
   box-shadow: 0 8px 12px rgba(153, 155, 168, 0.15);
   border-radius: 25px;
-  z-index:1;
+  z-index: 1;
 
-  &.notActive{
+  &.notActive {
+    display: none;
+  }
+
+  &.notActiveInput{
     display: none;
   }
 }
 
-.input_wr {
-
-  position: relative;
-
-  input {
-    width: 100%;
-    padding: 17px 100px 17px 20px;
-    @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
-    border-radius: 8px;
-
-    &::placeholder {
-      @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
-    }
-  }
+.filter_for_respon {
+  display: none;
 }
-
-.btn_sub {
-  position: absolute;
-  right: 7px;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 10px 25px;
-  background: $main;
-  @include fs_lh_fw_c(14px, 21px, 600, $light);
-  border-radius: 8px;
-  @include flex-items(center, center);
-
-  span {
-    margin-left: 6px;
-  }
-}
-
 
 @media (max-width: 1000px) {
-  .map {
-    position: relative;
-    @include w_h(100%, 573px);
-    margin-top: 20px;
-    border: 1px solid red;
+  .search {
+    padding: 16px;
+  }
+}
 
-    img {
-      filter: grayscale(95%);
-    }
+@media (max-width: 768px) {
+  .map {
+    position: absolute;
+    top: 20px;
+    @include w_h(100%, 523px);
+  }
+
+  .search_wr {
+    margin-top: 240px;
+  }
+
+  .search {
+    padding: 0;
+    background: #fff;
+    border: 2px solid #EDE8E9;
+    border-radius: 8px;
+    box-shadow: none;
+    overflow: hidden;
+    margin-top: 9px;
+  }
+
+  .filter_for_respon {
+    display: block;
+    padding: 8px 13px;
   }
 }

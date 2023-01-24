@@ -27,9 +27,7 @@
   @include fs_lh_fw_c(14px, 21px, 600, $darkGrey)
 }
 
-.filter_search__indicators {
-
-}
+.filter_search__indicators {}
 
 .filter_search__indicator-separator {
   display: none;
@@ -44,11 +42,27 @@
 }
 
 .filter_search__indicator {
+}
 
+.filter_search__control {
 }
 
 .filter_search__menu {
-  min-width: 300px;
+  ::-webkit-scrollbar {
+    height: 7px !important;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $blockBg;
+
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $main;
+  }
+}
+
+.filter_search__menu-list {
   @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
 }
 
@@ -60,9 +74,10 @@
   background: none !important;
   pointer-events: none !important;
   color: $darkGrey !important;
+  width: 100% !important;
 }
 
 .filter_search__option--is-focused {
-  background: $blockBg !important;
+  background: transparent !important;
   color: $darkGrey important;
 }

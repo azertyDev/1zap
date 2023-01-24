@@ -1,0 +1,46 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.filter_wr {
+
+}
+
+
+.btn_title{
+  padding: 7px 15px;
+  background: $blockBg;
+  border-radius: 8px;
+  @include fs_lh_fw_c(12px,18px,700,$text);
+}
+
+.filter_content{
+  display: none;
+  background: #FFFFFF;
+  box-shadow: 0px -15px 20px rgba(13, 10, 25, 0.1);
+  border-radius: 12px 12px 0 0;
+}
+
+.filter_header {
+  padding: 20px 14px 16px;
+  @include flex-items(space-between, center);
+}
+
+.filter_header_left{
+  @include fs_lh_fw_c(14px,21px,700,$text);
+  @include flex-items(stretch, center);
+  p{
+    margin-left: 2px;
+  }
+}
+
+
+.cancel{
+  padding: 10px 17px;
+  background: $blockBg;
+  border-radius: 10px;
+  @include fs_lh_fw_c(14px,21px,600,$text);
+}
+
+@media (max-width: 768px) {
+
+}

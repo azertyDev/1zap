@@ -65,10 +65,10 @@ export const SearchDetails: FC<{ className: (val: boolean) => string }> = ({
 
                     <input
                         {...formik.getFieldProps('searchVal')}
-                        // name="searchVal"
                         type="text"
                         className={s.input}
                         placeholder={t('home:searchOem')!}
+                        // name="searchVal"
                         // onChange={formik.handleChange}
                         // value={formik.values.searchVal}
                     />

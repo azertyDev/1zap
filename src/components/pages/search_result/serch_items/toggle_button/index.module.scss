@@ -1,0 +1,23 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+
+.btn_map {
+  background: $main;
+  @include flex-items(center, center);
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin: 0 auto;
+
+  p {
+    @include fs_lh_fw_c(14px, 21px, 600, $light);
+    margin-left: 5px;
+  }
+
+}
+@media (max-width: 768px) {
+  .btn_map {
+    display: none;
+  }
+
+}

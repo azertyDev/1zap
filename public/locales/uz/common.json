@@ -10,5 +10,15 @@
   "batteries": "Batareyalar",
   "tires": "Shinalar",
   "catalogs": "Kataloglar",
-  "categories": "Kategoriyalar"
+  "categories": "Kategoriyalar",
+  "filter": "Filtrlar",
+  "anotherFilter": "Boshqa filtrlar",
+  "cancel": "Bekor qilish",
+  "opencontact": "Kontaktni oching",
+  "onezapmust": "1zap yoki qo'ng'iroq orqali bandlovni tasdiqlashni unutmang",
+  "wehave": "Sotuvda mavjud",
+  "hourago": "soat oldin",
+  "minutesago": "daqiqa oldin",
+  "secondago": "soniya oldin",
+  "howmany": "dona"
 }

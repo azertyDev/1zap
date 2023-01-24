@@ -1,0 +1,33 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+
+.mark {
+  @include flex-items(center, center);
+  flex-direction: column;
+
+  img {
+    filter: grayscale(0) !important;
+  }
+}
+
+.point_wr {
+  position: relative;
+  @include w_mw__h(24px, 24px, 30px);
+  cursor: pointer;
+  margin-bottom: 7px;
+}
+
+.point_number {
+  @include pa_t_l(40%, 50%);
+  @include fs_lh_fw_c(15px, 15px, 600, $light);
+  transform: translate(-50%, -50%);
+}
+
+.mark_price {
+  @include fs_lh_fw_c(12px, 17px, 700, $light);
+  background: $main;
+  padding: 1px 13px;
+  border-radius: 12px;
+  cursor: pointer;
+}

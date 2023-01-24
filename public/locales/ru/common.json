@@ -20,5 +20,15 @@
   "incoming_requests": "Входящие запросы",
   "support": "Поддержка",
   "catalogs": "Каталоги",
-  "categories": "Категории"
+  "categories": "Категории",
+  "filter": "Фильтры",
+  "anotherFilter": "Другие фильтры",
+  "cancel": "Отмена",
+  "opencontact": "Открыть контакт",
+  "onezapmust": "Обязательно получите подтверждение резерва на 1zap или по звонку",
+  "wehave": "В наличии",
+  "hourago": "ч назад",
+  "minutesago": "мин назад",
+  "secondago": "сек назад",
+  "howmany": "шт."
 }

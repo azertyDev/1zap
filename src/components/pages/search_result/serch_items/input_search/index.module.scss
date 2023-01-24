@@ -1,0 +1,63 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.input_wr {
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: 17px 130px 17px 20px;
+    @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+    border-radius: 8px;
+
+    &::placeholder {
+      @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+    }
+  }
+}
+
+.close_res_input {
+  display: none;
+}
+
+.btn_sub {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px 25px;
+  background: $main;
+  @include fs_lh_fw_c(14px, 21px, 600, $light);
+  border-radius: 8px;
+  @include flex-items(center, center);
+
+  span {
+    margin-left: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .input_wr {
+    input {
+      border-radius: 0;
+      padding: 13px 35px 13px 20px;
+      border-bottom: 2px solid #EDE8E9;
+
+      &::placeholder {
+        @include fs_lh_fw_c(12px, 12px, 400, $darkGrey);
+      }
+    }
+  }
+
+  .btn_sub {
+    display: none;
+  }
+
+  .close_res_input {
+    display: block;
+    position: absolute;
+    right: 14px;
+    top: 53%;
+    transform: translateY(-50%);
+  }
+}
