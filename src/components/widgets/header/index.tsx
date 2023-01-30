@@ -19,7 +19,10 @@ export const Header: FC = (): JSX.Element => {
         <header className={s.header}>
             <Container>
                 <div className={s.inner}>
-                    <Logo />
+                    <Link href={'/'}>
+                        <Logo />
+                    </Link>
+
                     <div className={s.controls}>
                         <ExchangeRate />
                         <Language />

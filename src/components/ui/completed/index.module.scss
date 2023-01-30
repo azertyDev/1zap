@@ -1,0 +1,47 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.comp {
+  max-width: 420px;
+  margin-bottom: 34px;
+  @include flex-items(center, center);
+  flex-direction: column;
+  text-align: center;
+}
+
+
+.img_wr {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 33px;
+}
+
+.circle {
+  @include w_mw__h(73px, 73px, 73px);
+  @include flex-items(center, center);
+  background: $main;
+  border-radius: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  & > * {
+    color: #fff;
+  }
+}
+
+.title {
+  @include fs_lh_fw_c(36px, 48px, 700, $secondary);
+  margin-bottom: 6px;
+}
+
+.text {
+  p {
+    @include fs_lh_fw_c(14px, 21px, 400, $text);
+  }
+
+  span {
+    @include fs_lh_fw_c(14px, 21px, 700, $text);
+  }
+}

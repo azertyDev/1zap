@@ -5,5 +5,11 @@
   "supply": "Поставка",
   "producer": "Производитель",
   "condition": "Условия",
-  "updates": "Обновление"
+  "updates": "Обновление",
+  "company": "Производитель",
+  "number": "Номер",
+  "nameProduct": "Наименование",
+  "howmany": "Наличие",
+  "price": "Цена",
+  "seller": "Продавец"
 }

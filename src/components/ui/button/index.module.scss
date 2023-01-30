@@ -4,13 +4,14 @@
 
 @mixin btnCommon{
   @include  w_h(100%,100%);
+  padding: 17px;
 }
 
 @mixin btnMain {
   @include btnCommon;
   background: $main;
   border-radius: 10px;
-  @include fs_lh_fw_c(14px, 21px, 600);
+  @include fs_lh_fw_c(14px, 21px, 600,#fff);
 }
 
 .img {

@@ -23,9 +23,10 @@ export const footerLinksThird = {
     id: 2,
     title: 'footer:becomeSupplier',
     links: [
-        { id: 1, link: '#!', text: 'footer:addDetail' },
-        { id: 2, link: '#!', text: 'footer:terms' },
-        { id: 3, link: '#!', text: 'footer:helpCenter' },
+        { id: 1, link: '/become_provider', text: 'footer:createAccount' },
+        { id: 2, link: '#!', text: 'footer:addDetail' },
+        { id: 3, link: '#!', text: 'footer:terms' },
+        { id: 4, link: '#!', text: 'footer:helpCenter' },
     ],
 };
 

@@ -1,0 +1,116 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.wrapper {
+  max-width: 1025px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+.header {
+  @include flex-items(space-between, center);
+  margin-bottom: 95px;
+
+  button {
+    padding: 12px 20px;
+    @include fs_lh_fw_c(14px, 21px, 600, $text);
+    background: $blockBg;
+    border-radius: 10px;
+  }
+}
+
+
+
+@import "styles/variables";
+@import "styles/mixins";
+
+.title {
+  @include fs_lh_fw_c(36px, 48px, 700, $secondary);
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+.form {
+  max-width: 420px;
+  margin: 0 auto;
+  & > div {
+    margin-bottom: 8px;
+  }
+
+  input {
+    border-radius: 8px !important;
+  }
+
+  label {
+    font-weight: 600 !important;;
+  }
+}
+
+.select_wr {
+  @include dg_gc_gr_gg(1fr 1fr, auto, 20px);
+
+}
+
+.btn {
+  background: $main;
+  display: block;
+  width: 100%;
+  padding: 17px;
+  border-radius: 10px;
+  @include fs_lh_fw_c(14px, 21px, 600, #fff);
+  margin-top: 27px;
+}
+
+.inputs_wr{
+  @include dg_gc_gr_gg(repeat(2,1fr), auto, 8px);
+  & > div{
+    min-width: 200px;
+  }
+}
+
+.warn_text {
+  margin-top: 10px;
+  text-align: center;
+  @include fs_lh_fw_c(11px, 21px, 400, #000);
+}
+
+.second_form_wr{
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+
+  .wrapper {
+    padding: 20px 16px;
+  }
+
+  .header {
+    margin-bottom: 35px;
+
+    button {
+      padding: 10px;
+      @include fs_lh_fw_c(12px, 12px, 600, $text);
+
+    }
+  }
+
+  .title {
+    @include fs_lh_fw_c(26px, 30px, 700, $secondary);
+    margin-bottom: 20px;
+  }
+  .select_wr {
+    display: block;
+
+    & > div:first-child {
+      margin-bottom: 5px;
+    }
+  }
+
+  .inputs_wr{
+    @include dg_gc_gr_gg(1fr, auto, 8px);
+    & > div{
+      min-width: 200px;
+    }
+  }
+}

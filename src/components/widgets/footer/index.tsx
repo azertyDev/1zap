@@ -44,11 +44,7 @@ export const Footer: FC = (): JSX.Element => {
                         <FooterItem
                             title={footerLinksThird.title}
                             links={footerLinksThird.links}
-                        >
-                            <p className={s.link}>
-                                {t('footer:createAccount')}
-                            </p>
-                        </FooterItem>
+                        />
                         <FooterItem
                             title={footerLinksFourth.title}
                             links={footerLinksFourth.links}

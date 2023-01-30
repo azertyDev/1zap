@@ -3,6 +3,8 @@
 
 .table_wr {
   display: none;
+
+  padding-top: 20px;
 }
 
 
@@ -11,6 +13,7 @@
   border: 1px solid #E4E6E8;
   border-radius: 14px;
   padding: 12px 14px 18px;
+  margin-bottom: 20px;
 }
 
 .titles_big_wr {
@@ -87,6 +90,13 @@
   .table_wr {
     display: block;
     margin-top: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .table_wr {
+
+    margin-top: 0;
   }
 }
 

@@ -7,7 +7,7 @@
   cursor: pointer !important;
 }
 
-.filter_search__control--is-focused {
+.filter_search__control--is-focused, .filter_provider__control--is-focused {
   box-shadow: none !important;
 }
 
@@ -27,9 +27,10 @@
   @include fs_lh_fw_c(14px, 21px, 600, $darkGrey)
 }
 
-.filter_search__indicators {}
+.filter_search__indicators {
+}
 
-.filter_search__indicator-separator {
+.filter_search__indicator-separator, .filter_provider__indicator-separator {
   display: none;
 }
 
@@ -66,7 +67,7 @@
   @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
 }
 
-.filter_search__option {
+.filter_search__option, .filter_provider__option {
   cursor: pointer !important;
 }
 
@@ -80,4 +81,56 @@
 .filter_search__option--is-focused {
   background: transparent !important;
   color: $darkGrey important;
+}
+
+
+//select_provider
+
+.filter_provider {
+
+}
+
+.filter_provider__control {
+  border: 1px solid  #E4E6E8 !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+}
+
+.filter_provider__value-container {
+  padding: 25px 16px !important;
+}
+
+.filter_provider__single-value {
+  @include fs_lh_fw_c(14px, 21px, 700, red) ;
+  color: $text !important;
+}
+
+.filter_provider__option--is-selected {
+  background: none !important;
+  pointer-events: none !important;
+  color: $darkGrey !important;
+  width: 100% !important;
+}
+
+.filter_provider__option--is-focused {
+  background: transparent !important;
+  color: $darkGrey important;
+}
+
+.filter_provider__placeholder{
+  @include fs_lh_fw_c(14px, 21px, 600, $text) ;
+  color: $text !important;
+}
+
+
+.filter_provider__menu-list {
+  @include fs_lh_fw_c(14px, 21px, 600, $text);
+}
+
+.filter_provider__dropdown-indicator {
+  svg {
+    fill: $text;
+    width: 13px;
+    height: 13px;
+  }
 }
