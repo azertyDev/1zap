@@ -7,6 +7,8 @@ import { FloatingInput } from 'components/ui/float_input';
 import { Formik } from 'formik';
 
 import Select, { SingleValue } from 'react-select';
+import { Button } from 'components/ui/button';
+import { InputWrapper } from 'components/ui/input_wrapper';
 
 export const FirstFormProvider: FC<{
     fun: Dispatch<SetStateAction<boolean>>;
@@ -32,10 +34,18 @@ export const FirstFormProvider: FC<{
             >
                 {({ handleSubmit, setFieldValue }) => (
                     <form onSubmit={handleSubmit} className={s.form}>
-                        <FloatingInput name={'username'} />
-                        <FloatingInput name={'surname'} />
-                        <FloatingInput name={'lastname'} />
-                        <FloatingInput name={'contactNumber'} />
+                        <InputWrapper>
+                            <FloatingInput name={'username'} />
+                        </InputWrapper>
+                        <InputWrapper>
+                            <FloatingInput name={'surname'} />
+                        </InputWrapper>
+                        <InputWrapper>
+                            <FloatingInput name={'lastname'} />
+                        </InputWrapper>
+                        <InputWrapper>
+                            <FloatingInput name={'contactNumber'} />
+                        </InputWrapper>
 
                         <div className={s.select_wr}>
                             <Select
@@ -71,13 +81,13 @@ export const FirstFormProvider: FC<{
                                 classNamePrefix={'filter_provider'}
                             />
                         </div>
-                        <button
-                            type="submit"
-                            // disabled={isSubmitting}
-                            className={s.btn}
+                        <Button
+                            // isSubmitting={isSubmitting}
+                            className={'main'}
+                            type={'submit'}
                         >
                             {t('common:next')}
-                        </button>
+                        </Button>
                     </form>
                 )}
             </Formik>

@@ -7,7 +7,9 @@ export const Icon: FC<{ size: number; name: string; style?: string }> = ({
 }) => {
     return (
         <i
-            className={`material-icons mi ${style ?? ''}`}
+            className={`material-icons mi material-symbols-outlined ${
+                style ?? ''
+            }`}
             style={{
                 fontSize: `${size}px`,
             }}

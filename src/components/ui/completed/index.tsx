@@ -6,9 +6,10 @@ import { useTranslation } from 'next-i18next';
 
 export const Completed: FC<{
     title: string;
-    children: React.ReactNode;
+    smallTitle?: boolean;
+    children?: React.ReactNode;
     img: JSX.Element;
-}> = ({ title, children, img }): JSX.Element => {
+}> = ({ title, children, img, smallTitle }): JSX.Element => {
     const { t } = useTranslation();
 
     return (
@@ -23,7 +24,9 @@ export const Completed: FC<{
                 <div className={s.circle}>{img}</div>
             </div>
 
-            <h4 className={s.title}>{t(`common:${title}`)}</h4>
+            <h4 className={`${s.title} ${smallTitle ? s.small : ''}`}>
+                {t(`common:${title}`)}
+            </h4>
             <div className={s.text}>{children}</div>
         </div>
     );

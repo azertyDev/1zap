@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
 import s from '../../index.module.scss';
@@ -6,13 +6,16 @@ import s from '../../index.module.scss';
 import { FloatingInput } from 'components/ui/float_input';
 import { Formik } from 'formik';
 
-import Select, { SingleValue } from 'react-select';
 import { Completed } from 'components/ui/completed';
 import { Icon } from 'components/ui/icon';
 import { Button } from 'components/ui/button';
+import { InputWrapper } from 'components/ui/input_wrapper';
+
 import Link from 'next/link';
 
-export const SecondFormProvider: FC = (): JSX.Element => {
+export const SecondFormProvider: FC<{
+    fun: Dispatch<SetStateAction<boolean>>;
+}> = ({ fun }): JSX.Element => {
     const { t } = useTranslation();
 
     const [isDone, setIsDone] = useState(false);
@@ -35,27 +38,34 @@ export const SecondFormProvider: FC = (): JSX.Element => {
                         onSubmit={(values, { setSubmitting }) => {
                             alert(JSON.stringify(values));
                             setIsDone(true);
+                            fun(false);
                         }}
                     >
                         {({ handleSubmit }) => (
                             <form onSubmit={handleSubmit} className={s.form}>
-                                <FloatingInput name={'companyName'} />
-                                <FloatingInput name={'address'} />
-                                <FloatingInput name={'nameBoss'} />
+                                <InputWrapper>
+                                    <FloatingInput name={'companyName'} />
+                                </InputWrapper>
+                                <InputWrapper>
+                                    <FloatingInput name={'address'} />
+                                </InputWrapper>
+                                <InputWrapper>
+                                    <FloatingInput name={'nameBoss'} />
+                                </InputWrapper>
+
                                 <div className={s.inputs_wr}>
                                     <FloatingInput name={'inn'} />
                                     <FloatingInput name={'okd'} />
                                     <FloatingInput name={'bankName'} />
                                     <FloatingInput name={'check'} />
                                 </div>
-
-                                <button
-                                    type="submit"
-                                    // disabled={isSubmitting}
-                                    className={s.btn}
+                                <Button
+                                    // isSubmitting={isSubmitting}
+                                    className={'main'}
+                                    type={'submit'}
                                 >
                                     {t('common:sendRequest')}
-                                </button>
+                                </Button>
                             </form>
                         )}
                     </Formik>

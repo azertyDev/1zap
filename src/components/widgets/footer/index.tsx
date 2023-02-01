@@ -81,11 +81,7 @@ export const Footer: FC = (): JSX.Element => {
                         <FooterItem
                             title={footerLinksThird.title}
                             links={footerLinksThird.links}
-                        >
-                            <p className={s.link}>
-                                {t('footer:createAccount')}
-                            </p>
-                        </FooterItem>
+                        />
                     </div>
                     <p className={s.copy}>&copy; 2022 All rights reserved</p>
                 </Container>

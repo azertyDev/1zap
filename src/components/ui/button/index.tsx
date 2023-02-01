@@ -7,6 +7,7 @@ interface ButtonInt {
     className: string;
     type?: 'button' | 'submit' | 'reset';
     icon?: React.ReactNode;
+    isSubmitting?: boolean;
 }
 
 export const Button: FC<ButtonInt> = ({
@@ -14,9 +15,15 @@ export const Button: FC<ButtonInt> = ({
     children,
     className,
     icon,
+
+    isSubmitting,
 }): JSX.Element => {
     return (
-        <button className={`${s.button} ${s[className]}`} type={type}>
+        <button
+            disabled={isSubmitting}
+            className={`${s.button} ${s[className]}`}
+            type={type}
+        >
             {icon && <span className={s.img}>{icon}</span>}
 
             {children}

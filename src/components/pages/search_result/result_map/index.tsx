@@ -20,6 +20,7 @@ import { ToggleButton } from 'components/pages/search_result/serch_items/toggle_
 import { InputSearch } from 'components/pages/search_result/serch_items/input_search';
 import { ToggleResize } from 'components/pages/search_result/serch_items/toggle_resize';
 import { ResultTableFormResp } from 'components/pages/search_result/result_table_form_resp';
+import { BookDetail } from 'components/pages/search_result/book_detail';
 
 const fakeAnchor = [
     [41.31240320650527, 69.27836058056674],
@@ -209,6 +210,8 @@ export const ResultMap: FC = (): JSX.Element => {
                     {/*<NoResult />*/}
                 </div>
             </Container>
+
+            <BookDetail />
         </div>
     );
 };

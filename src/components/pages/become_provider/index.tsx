@@ -10,6 +10,7 @@ import { SecondFormProvider } from 'components/pages/become_provider/form_items/
 export const BecomeProviderComp: FC = (): JSX.Element => {
     const { t } = useTranslation();
     const [form, setForm] = useState(false);
+    const [cancleBtn, setCancelBtn] = useState(true);
 
     return (
         <div className={s.wrapper}>
@@ -17,14 +18,16 @@ export const BecomeProviderComp: FC = (): JSX.Element => {
                 <Link href={'/'}>
                     <Logo />
                 </Link>
-                <button type={'button'}>{t('common:cancel')}</button>
+                {cancleBtn && (
+                    <button type={'button'}>{t('common:cancel')}</button>
+                )}
             </header>
 
             <div>
                 {!form ? (
                     <FirstFormProvider fun={setForm} />
                 ) : (
-                    <SecondFormProvider />
+                    <SecondFormProvider fun={setCancelBtn} />
                 )}
             </div>
         </div>
