@@ -1,16 +1,14 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 import Navbar from 'src/components/ui/dashboard/navbar';
 import s from './index.module.scss';
 
-export const Layout: FC<{ children: React.ReactNode }> = ({
-    children,
-}): JSX.Element => {
+export const Layout: FC<PropsWithChildren> = ({ children }): JSX.Element => {
     const { t } = useTranslation();
 
     return (
         <div className={s.layout}>
-            <Navbar />
+            <Navbar t={t} />
             <div className={s.content}>{children}</div>
         </div>
     );

@@ -1,9 +1,16 @@
 import { FC } from 'react';
 import * as Yup from 'yup';
-import { Form, Formik, FormikHelpers, FormikProps, FormikValues } from 'formik';
+import {
+    Form,
+    FormikHelpers,
+    FormikValues,
+    FormikProvider,
+    useFormik,
+} from 'formik';
 import { Heading } from 'src/components/ui/dashboard/heading';
 import { InfoLinks } from 'src/components/ui/dashboard/info_links';
 import { FloatingInput } from 'src/components/ui/float_input';
+import { Button } from 'src/components/ui/button';
 import s from './index.module.scss';
 
 export const linksData = [
@@ -35,6 +42,7 @@ export const Profile: FC = (): JSX.Element => {
         firstName: '',
         lastName: '',
         email: '',
+        isAdmin: false,
     };
 
     const validationSchema = Yup.object().shape({
@@ -53,8 +61,14 @@ export const Profile: FC = (): JSX.Element => {
         values: FormikValues,
         {}: FormikHelpers<typeof initialValues>
     ) => {
-        console.log(values);
+        alert(JSON.stringify(values, null, 2));
     };
+
+    const formik = useFormik({
+        initialValues,
+        onSubmit,
+        validationSchema,
+    });
 
     return (
         <div className={s.wrapper}>
@@ -65,19 +79,22 @@ export const Profile: FC = (): JSX.Element => {
 
             <InfoLinks data={linksData} />
 
-            <Formik
-                onSubmit={onSubmit}
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-            >
-                {(props: FormikProps<typeof initialValues>) => (
-                    <Form>
-                        <FloatingInput name="firstName" />
-                        <FloatingInput name="lastName" />
-                        <FloatingInput name="email" />
-                    </Form>
-                )}
-            </Formik>
+            <FormikProvider value={formik}>
+                <Form>
+                    <FloatingInput {...formik.getFieldProps('firstName')} />
+                    <FloatingInput {...formik.getFieldProps('lastName')} />
+                    <FloatingInput {...formik.getFieldProps('email')} />
+
+                    <div>
+                        <Button className="" type="submit">
+                            Submit
+                        </Button>
+                        <Button className="" type="reset">
+                            Reset
+                        </Button>
+                    </div>
+                </Form>
+            </FormikProvider>
         </div>
     );
 };
