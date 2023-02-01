@@ -1,29 +1,32 @@
-import { Field, FieldProps } from 'formik';
-import { FC } from 'react';
+import { FC, memo } from 'react';
+import { ErrorMessage, Field, FieldHookConfig, useField } from 'formik';
 import s from './index.module.scss';
+import { IconsWrapper } from '../icons_wrapper';
+import { Icon } from '../icon';
 
-export const FloatingInput: FC<{ name: string }> = ({
-    name,
-    ...rest
-}): JSX.Element => {
+const Input: FC<FieldHookConfig<any>> = (props): JSX.Element => {
+    const [field, meta] = useField(props);
+
     return (
-        <Field name={name}>
-            {({ field, form, meta }: FieldProps) => {
-                return (
-                    <div className={s.container}>
-                        <input {...field} type="text" id={field.name} />
-                        <label
-                            htmlFor={field.name}
-                            className={field.value && s.filled}
-                        >
-                            {field.name}
-                        </label>
-                        {meta.touched && meta.error && (
-                            <div className={s.error}>{meta.error}</div>
-                        )}
-                    </div>
-                );
-            }}
-        </Field>
+        <div className={s.container}>
+            <div>
+                <label htmlFor={field.name} className={field.value && s.filled}>
+                    {field.name}
+                </label>
+                <Field {...field} {...props} />
+
+                <Icon name="edit" size="22" />
+            </div>
+
+            {meta.touched || meta.error ? (
+                <ErrorMessage
+                    component="span"
+                    name={field.name}
+                    className={s.error}
+                />
+            ) : null}
+        </div>
     );
 };
+
+export const FloatingInput = memo(Input);

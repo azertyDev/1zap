@@ -2,6 +2,9 @@ import { FC } from 'react';
 import { useRouter } from 'next/router';
 import { Main } from './sections/main';
 import { Profile } from './sections/profile';
+import { Balance } from './sections/balance';
+import { Statistics } from './sections/statistics';
+import { Products } from './sections/products';
 import Header from 'src/components/ui/dashboard/header';
 import BottomFooter from 'src/components/widgets/footer/bottom_footer';
 import s from './index.module.scss';
@@ -17,6 +20,12 @@ export default (props: PropsType): JSX.Element => {
                 return <Main />;
             case `/dashboard/profile`:
                 return <Profile />;
+            case `/dashboard/balance`:
+                return <Balance />;
+            case `/dashboard/statistics`:
+                return <Statistics />;
+            case `/dashboard/products`:
+                return <Products />;
             default:
                 return 'Page not found';
         }

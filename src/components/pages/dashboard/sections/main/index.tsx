@@ -1,76 +1,7 @@
-import { Icon } from 'src/components/ui/icon';
-import { IconsWrapper } from 'src/components/ui/icons_wrapper';
-import s from './index.module.scss';
+import { linksData, overviewData } from 'src/data/common';
 import { InfoLinks } from 'src/components/ui/dashboard/info_links';
-
-export const overviewData = [
-    {
-        id: 1,
-        title: 'Баланс',
-        text: '1,000 монет',
-        upload: 'До 01.01.23',
-        icon: 'payments',
-    },
-    {
-        id: 2,
-        title: 'Переходов',
-        text: '2,354',
-        upload: '+123 Сегодня',
-        icon: 'ads_click',
-    },
-    {
-        id: 3,
-        title: 'Товаров',
-        text: '13,213',
-        upload: 'Обновление 3 дня назад',
-        icon: 'inventory_2',
-    },
-    {
-        id: 4,
-        title: 'Запросов',
-        text: '503',
-        upload: '+13 Сегодня',
-        icon: 'inbox',
-    },
-];
-
-export const linksData = [
-    {
-        id: 1,
-        link: '#',
-        icon: 'person',
-        title: 'Общая информация',
-        desc: 'Контактные данные, адреса',
-    },
-    {
-        id: 2,
-        link: '#',
-        icon: 'account_balance',
-        title: 'Реквизиты',
-        desc: 'Обновление реквизитов',
-    },
-    {
-        id: 3,
-        link: '#',
-        icon: 'person',
-        title: 'Глобальные настройки',
-        desc: 'Валюта , язык и пароль',
-    },
-    {
-        id: 4,
-        link: '#',
-        icon: 'person',
-        title: 'Баланс аккаунта',
-        desc: 'Информация и пополнение',
-    },
-    {
-        id: 5,
-        link: '#',
-        icon: 'person',
-        title: 'Уведомления',
-        desc: 'Ваши уведомления',
-    },
-];
+import { OverviewBlock } from 'src/components/ui/dashboard/overview_block';
+import s from './index.module.scss';
 
 export const Main = () => {
     return (
@@ -80,22 +11,7 @@ export const Main = () => {
                 <span>Основная информация по вашему магазину</span>
             </h1>
 
-            <div className={s.overview}>
-                {overviewData.map((overview) => {
-                    return (
-                        <div className={s.item} key={overview.id}>
-                            <div className={s.header}>
-                                <IconsWrapper style={s.icon_wrapper}>
-                                    <Icon name={overview.icon} size="22" />
-                                </IconsWrapper>
-                                <span>{overview.title}</span>
-                            </div>
-                            <div className={s.description}>{overview.text}</div>
-                            <div className={s.footer}>{overview.upload}</div>
-                        </div>
-                    );
-                })}
-            </div>
+            <OverviewBlock data={overviewData} />
 
             <hr />
 

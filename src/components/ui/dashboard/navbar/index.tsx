@@ -1,17 +1,19 @@
+import { WithT } from 'i18next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'react-i18next';
+import { FC } from 'react';
 import { Icon } from 'src/components/ui/icon';
 import { Logo } from 'src/components/ui/logo';
 import { dashboardMenu } from 'src/data/common';
 import s from './index.module.scss';
 
-const Navbar = (): JSX.Element => {
+type NavbarProps = {} & WithT;
+
+const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
     const {
         query: { slug },
     } = useRouter();
-    const { t } = useTranslation();
 
     return (
         <div className={s.wrapper}>
@@ -54,6 +56,7 @@ const Navbar = (): JSX.Element => {
                                 key={item.id}
                                 href={`/dashboard/${item.name}`}
                                 className={slug === item.name ? s.active : ''}
+                                shallow
                             >
                                 <li>
                                     <Icon name={item.icon} size="22" />

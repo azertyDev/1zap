@@ -1,8 +1,16 @@
 {
-  "search": "Qidirmoq",
-  "searchVin": "VIN orqali so'rov",
-  "sparePartsCat": "Ehtiyot qismlar katalogi",
-  "oil": "Yog'lar",
-  "batteries": "Batareyalar",
-  "tires": "Shinalar"
+    "search": "Qidirmoq",
+    "searchVin": "VIN orqali so'rov",
+    "sparePartsCat": "Ehtiyot qismlar katalogi",
+    "oil": "Yog'lar",
+    "batteries": "Batareyalar",
+    "tires": "Shinalar",
+    "profile": "Профиль",
+    "balance": "Баланс",
+    "statistics": "Статистика",
+    "position_work": "Работа с позициями",
+    "products": "Товары",
+    "upload_products": "Загрузка товаров",
+    "incoming_requests": "Входящие запросы",
+    "support": "Поддержка"
 }

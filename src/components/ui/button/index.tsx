@@ -16,7 +16,7 @@ export const Button: FC<ButtonInt> = ({
     icon,
 }): JSX.Element => {
     return (
-        <button className={`${s.button} ${s[className]}`} type={type}>
+        <button className={`${s.button} ${className}`} type={type}>
             {icon && <span className={s.img}>{icon}</span>}
 
             {children}

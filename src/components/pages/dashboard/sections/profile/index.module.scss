@@ -4,29 +4,6 @@
 .wrapper {
     height: 100%;
 
-    div.heading {
-        padding: 34px;
-        background-color: $main;
-        border-radius: 16px;
-        display: flex;
-        gap: 20px;
-
-        div:has(i) {
-            cursor: pointer;
-        }
-
-        div.body {
-            color: $light;
-            display: flex;
-            flex-direction: column;
-            p {
-                font-weight: 700;
-            }
-            span {
-            }
-        }
-    }
-
     form {
         gap: 8px;
         display: grid;
