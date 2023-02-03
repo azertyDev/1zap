@@ -1,0 +1,18 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.point_wr {
+  position: relative;
+  @include w_mw__h(24px, 24px, 30px);
+  cursor: pointer;
+  margin-bottom: 7px;
+  img{
+    filter: grayscale(0) !important;
+  }
+}
+
+.point_number {
+  @include pa_t_l(40%, 50%);
+  @include fs_lh_fw_c(15px, 15px, 600, $light);
+  transform: translate(-50%, -50%);
+}

@@ -21,6 +21,7 @@ import { InputSearch } from 'components/pages/search_result/serch_items/input_se
 import { ToggleResize } from 'components/pages/search_result/serch_items/toggle_resize';
 import { ResultTableFormResp } from 'components/pages/search_result/result_table_form_resp';
 import { BookDetail } from 'components/pages/search_result/book_detail';
+import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 
 const fakeAnchor = [
     [41.31240320650527, 69.27836058056674],
@@ -32,6 +33,8 @@ export const ResultMap: FC = (): JSX.Element => {
     const { t } = useTranslation();
     const [mapIsOpen, setIsOpen] = useState(false);
     const [isOpenFilter, setIsOpenFilter] = useState(false);
+
+    const { openClose, handleOpenClose } = useOpenCloseWithVal();
 
     const {
         query: {
@@ -84,7 +87,7 @@ export const ResultMap: FC = (): JSX.Element => {
                                 offset={[30, 30]}
                                 key={index}
                             >
-                                <MapItem />
+                                <MapItem amount={1} price={2} />
                             </Overlay>
                         );
                     })}
@@ -205,13 +208,18 @@ export const ResultMap: FC = (): JSX.Element => {
                             />
                         </FilterSelections>
                     </div>
-                    <ResultTableForm />
-                    <ResultTableFormResp />
+                    <ResultTableForm fun={handleOpenClose} />
+                    <ResultTableFormResp fun={handleOpenClose} />
                     {/*<NoResult />*/}
                 </div>
             </Container>
 
-            <BookDetail />
+            {openClose && (
+                <BookDetail
+                    fun={handleOpenClose}
+                    handleOpen={handleOpenClose}
+                />
+            )}
         </div>
     );
 };

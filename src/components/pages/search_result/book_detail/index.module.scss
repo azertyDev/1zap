@@ -13,17 +13,11 @@
   @include flex-items(center, center);
 }
 
-.book_inner {
-  max-width: 558px;
-  width: 100%;
-  background: #FFFFFF;
-  border-radius: 12px;
-  padding: 25px;
-}
 
 
-.detail_header{
-  i{
-    color: $text;
+@media (max-width: 425px) {
+  .book_wr{
+    padding: 0;
   }
+
 }

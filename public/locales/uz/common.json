@@ -68,10 +68,11 @@
   "break": "{{dan}} {{to}}gacha tanaffus",
   "sevendays": "Haftada etti kun",
   "infoonezap": "Sotuvchiga ma'lumotni 1zap.uz saytidan topganingizni ayting",
-  "toOrder": "Забронировать",
-  "ordering": "Бронирование заказа",
-  "orderDetail": "Забронировать деталь",
-  "smsSend": "Введите свои контактные данные, информация заказе поступит вам и поставщику в виде SMS",
-  "phoneNumber": "Номер телефона",
-  "phoneSms": "Мы отправили информацию о вашем заказе в виде SMS на номер {{phone}}.Пожалуйста, не удаляйте полученное SMS до покупки товара!"
+  "toOrder": "Kitob",
+  "ordering": "Buyurtmani bron qilish",
+  "orderDetail": "Bir qismini bron qiling",
+  "smsSend": "Aloqa ma'lumotlarini kiriting, buyurtma ma'lumotlari sizga va yetkazib beruvchiga SMS shaklida yuboriladi",
+  "phoneNumber": "Telefon raqami",
+  "phoneSms": "Buyurtmangiz haqidagi maʼlumotni SMS sifatida {{phone}} raqamiga yubordik. Mahsulotni xarid qilishdan oldin olingan SMSni oʻchirib tashlamang!",
+  "continueSearch": "Qidiruvni davom ettiring"
 }

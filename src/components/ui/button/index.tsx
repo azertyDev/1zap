@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEventHandler } from 'react';
 
 import s from './index.module.scss';
 
@@ -8,6 +8,7 @@ interface ButtonInt {
     type?: 'button' | 'submit' | 'reset';
     icon?: React.ReactNode;
     isSubmitting?: boolean;
+    fun?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export const Button: FC<ButtonInt> = ({
@@ -15,12 +16,13 @@ export const Button: FC<ButtonInt> = ({
     children,
     className,
     icon,
-
+    fun,
     isSubmitting,
 }): JSX.Element => {
     return (
         <button
             disabled={isSubmitting}
+            onClick={fun}
             className={`${s.button} ${s[className]}`}
             type={type}
         >

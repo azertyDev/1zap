@@ -4,7 +4,9 @@ import s from './index.module.scss';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 
-export const ResultTableForm: FC = (): JSX.Element => {
+export const ResultTableForm: FC<{ fun: (val: boolean) => () => void }> = ({
+    fun,
+}): JSX.Element => {
     const { t } = useTranslation();
 
     return (
@@ -67,7 +69,7 @@ export const ResultTableForm: FC = (): JSX.Element => {
                         <p>{t('common:onezapmust')}</p>
                     </div>
                     <div className={`${s.table_el} ${s.table_b}`}>
-                        <button type={'button'}>
+                        <button type={'button'} onClick={fun(true)}>
                             <span>{t('common:opencontact')}</span>
                             <span>Ифтихор, 77</span>
                         </button>

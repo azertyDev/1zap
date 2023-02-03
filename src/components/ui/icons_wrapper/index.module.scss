@@ -4,7 +4,18 @@
 
 .icon_wr {
   @include flex-items(center,center);
-  @include w_mw__h(48px, 48px, 48px);
   background: $blockBg;
   border-radius: 8px;
+}
+
+.big{
+  @include w_mw__h(48px, 48px, 48px);
+}
+
+.medium{
+  @include w_mw__h(36px, 36px, 36px);
+}
+
+.small{
+
 }

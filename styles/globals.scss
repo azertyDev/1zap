@@ -23,15 +23,15 @@ body {
   font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
 
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 5px;
   }
 
-  ::-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {
     background: $blockBg;
   }
 
-  ::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     background: $main;
   }
 
