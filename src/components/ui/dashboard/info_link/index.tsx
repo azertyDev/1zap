@@ -20,7 +20,7 @@ export const InfoLink: FC<LinkBlockProps> = ({
     return (
         <Link href={link} className={s.wrapper}>
             <IconsWrapper style={s.icon_wrapper}>
-                <Icon name={icon} size="22" />
+                <Icon name={icon} size={22} />
             </IconsWrapper>
             <div>
                 <p>{title}</p>

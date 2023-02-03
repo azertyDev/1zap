@@ -1,22 +1,24 @@
 import { FC, memo } from 'react';
 import { ErrorMessage, Field, FieldHookConfig, useField } from 'formik';
-import s from './index.module.scss';
-import { IconsWrapper } from '../icons_wrapper';
-import { Icon } from '../icon';
+import { Icon } from 'src/components/ui/icon';
 import { useTranslation } from 'next-i18next';
+import s from './index.module.scss';
 
 const Input: FC<FieldHookConfig<any>> = (props): JSX.Element => {
     const [field, meta] = useField(props);
     const { t } = useTranslation('');
+
     return (
         <div className={s.container}>
             <div>
                 <label htmlFor={field.name} className={field.value && s.filled}>
                     {t(`common:${field.name}`)}
                 </label>
-                <Field {...field} {...props} />
+                <div>
+                    <Field {...field} {...props} />
 
-                <Icon name="edit" size={22} />
+                    <Icon name="mail" size={18} />
+                </div>
             </div>
 
             {meta.touched || meta.error ? (
@@ -30,4 +32,4 @@ const Input: FC<FieldHookConfig<any>> = (props): JSX.Element => {
     );
 };
 
-export const FloatingInput = memo(Input);
+export const IconInput = memo(Input);

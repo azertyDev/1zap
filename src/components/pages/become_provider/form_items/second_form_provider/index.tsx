@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next';
 
 import s from '../../index.module.scss';
 
-import { FloatingInput } from 'components/ui/float_input';
+import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Formik } from 'formik';
 
 import { Completed } from 'components/ui/completed';

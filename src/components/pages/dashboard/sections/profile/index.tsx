@@ -9,9 +9,10 @@ import {
 } from 'formik';
 import { Heading } from 'src/components/ui/dashboard/heading';
 import { InfoLinks } from 'src/components/ui/dashboard/info_links';
-import { FloatingInput } from 'src/components/ui/float_input';
+import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Button } from 'src/components/ui/button';
 import s from './index.module.scss';
+import { IconInput } from 'src/components/ui/input/icon_input';
 
 export const linksData = [
     {
@@ -81,7 +82,8 @@ export const Profile: FC = (): JSX.Element => {
 
             <FormikProvider value={formik}>
                 <Form>
-                    <FloatingInput {...formik.getFieldProps('firstName')} />
+                    <IconInput {...formik.getFieldProps('firstName')} />
+                    {/* <FloatingInput {...formik.getFieldProps('firstName')} /> */}
                     <FloatingInput {...formik.getFieldProps('lastName')} />
                     <FloatingInput {...formik.getFieldProps('email')} />
 

@@ -4,7 +4,7 @@ import s from '../index.module.scss';
 
 import { useTranslation } from 'next-i18next';
 import { Formik } from 'formik';
-import { FloatingInput } from 'components/ui/float_input';
+import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Button } from 'components/ui/button';
 import { InputWrapper } from 'components/ui/input_wrapper';
 
