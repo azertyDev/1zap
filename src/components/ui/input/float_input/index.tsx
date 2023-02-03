@@ -4,7 +4,13 @@ import { Icon } from 'src/components/ui/icon';
 import { useTranslation } from 'next-i18next';
 import s from './index.module.scss';
 
-const Input: FC<FieldHookConfig<any>> = (props): JSX.Element => {
+interface InputProps {
+    iconName?: string;
+    iconSize?: number;
+}
+
+const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
+    const { iconName, iconSize = 18 } = props;
     const [field, meta] = useField(props);
     const { t } = useTranslation('');
 
@@ -16,7 +22,9 @@ const Input: FC<FieldHookConfig<any>> = (props): JSX.Element => {
                 </label>
                 <Field {...field} {...props} />
 
-                <Icon name="edit" size={22} />
+                {iconName ? (
+                    <Icon name={iconName ?? ''} size={iconSize} />
+                ) : null}
             </div>
 
             {meta.touched || meta.error ? (
