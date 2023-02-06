@@ -7,20 +7,11 @@ import { Formik } from 'formik';
 import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Button } from 'components/ui/button';
 import { InputWrapper } from 'components/ui/input_wrapper';
-import * as Yup from 'yup';
 
 export const Login: FC<{ fun: (val: number) => () => void }> = ({
     fun,
 }): JSX.Element => {
     const { t } = useTranslation();
-
-    const LoginSchema = Yup.object().shape({
-        password: Yup.string()
-            .min(2, 'Too Short!')
-            .max(10, 'Too Long!')
-            .required('Required'),
-        email: Yup.string().email('Invalid email').required('Required'),
-    });
 
     return (
         <div className={s.login}>
@@ -29,7 +20,6 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                     email: '',
                     password: '',
                 }}
-                validationSchema={LoginSchema}
                 onSubmit={(values, { setSubmitting }) => {
                     alert(JSON.stringify(values));
                 }}
