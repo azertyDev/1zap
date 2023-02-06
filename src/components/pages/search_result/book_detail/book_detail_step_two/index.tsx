@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next';
 import { Completed } from 'components/ui/completed';
 
 import { Formik } from 'formik';
-import { FloatingInput } from 'components/ui/float_input';
+import { FloatingInput } from 'components/ui/input/float_input';
 import { Button } from 'components/ui/button';
 
 export const BookDetailStepTwo: FC<{ fun: (val: boolean) => () => void }> = ({
