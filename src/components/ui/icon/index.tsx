@@ -1,9 +1,17 @@
 import { FC } from 'react';
 
-export const Icon: FC<{ size: number; name: string; style?: string }> = ({
+interface IconProps {
+    size: number;
+    name: string;
+    style?: string;
+    color?: string;
+}
+
+export const Icon: FC<IconProps> = ({
     size,
     name,
     style = '',
+    color = '#9a9ea7',
 }) => {
     return (
         <i
@@ -12,6 +20,7 @@ export const Icon: FC<{ size: number; name: string; style?: string }> = ({
             }`}
             style={{
                 fontSize: `${size}px`,
+                color: `${color}`,
             }}
         >
             {name}

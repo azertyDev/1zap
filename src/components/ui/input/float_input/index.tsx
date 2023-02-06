@@ -23,7 +23,22 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                 <Field {...field} {...props} />
 
                 {iconName ? (
-                    <Icon name={iconName ?? ''} size={iconSize} />
+                    <Icon
+                        color={
+                            !field.value
+                                ? '#000'
+                                : (field.value || meta.touched || meta.error) &&
+                                  '#C6303C'
+                        }
+                        size={iconSize}
+                        name={
+                            !field.value
+                                ? iconName
+                                : meta.touched && meta.error
+                                ? 'cancel'
+                                : 'check_circle'
+                        }
+                    />
                 ) : null}
             </div>
 
