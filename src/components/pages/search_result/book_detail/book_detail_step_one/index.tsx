@@ -9,14 +9,14 @@ import { useTranslation } from 'next-i18next';
 import { IconsWrapper } from 'components/ui/icons_wrapper';
 
 export const BookDetailStepOne: FC<{
-    fun: (val: number) => () => void;
+    handleOrder: (val: number) => () => void;
     handleOpen: (val: boolean) => () => void;
-}> = ({ fun, handleOpen }): JSX.Element => {
+}> = ({ handleOrder, handleOpen }): JSX.Element => {
     const { t } = useTranslation();
     return (
         <div className={s.book_inner}>
-            <div className={s.close_res} onClick={handleOpen(false)}>
-                <IconsWrapper size={'medium'}>
+            <div className={s.close_res}>
+                <IconsWrapper size={'medium'} fun={handleOpen(false)}>
                     <Icon size={18} name={'chevron_left'} />
                 </IconsWrapper>
             </div>
@@ -150,7 +150,7 @@ export const BookDetailStepOne: FC<{
                     </div>
                     <p className={s.final_step_text}>PARTS-MALL</p>
                 </div>
-                <Button fun={fun(2)} className={'main'}>
+                <Button fun={handleOrder(2)} className={'main'}>
                     {t('toOrder')}
                 </Button>
             </div>

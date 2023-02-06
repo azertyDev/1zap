@@ -2,10 +2,9 @@ import React, { Dispatch, FC, SetStateAction, useCallback } from 'react';
 import { useTranslation } from 'next-i18next';
 
 import s from '../../index.module.scss';
-
-import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Formik } from 'formik';
 
+import { FloatingInput } from 'src/components/ui/input/float_input';
 import Select, { SingleValue } from 'react-select';
 import { Button } from 'components/ui/button';
 import { InputWrapper } from 'components/ui/input_wrapper';

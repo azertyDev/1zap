@@ -7,6 +7,8 @@ import { Formik } from 'formik';
 import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Button } from 'components/ui/button';
 import { InputWrapper } from 'components/ui/input_wrapper';
+import { IconInput } from 'components/ui/input/icon_input';
+import { LoginVal } from 'src/validation/login';
 
 export const Login: FC<{ fun: (val: number) => () => void }> = ({
     fun,
@@ -20,6 +22,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                     email: '',
                     password: '',
                 }}
+                validationSchema={LoginVal}
                 onSubmit={(values, { setSubmitting }) => {
                     alert(JSON.stringify(values));
                 }}
@@ -27,10 +30,15 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                 {({ handleSubmit, isSubmitting }) => (
                     <form onSubmit={handleSubmit} className={s.form}>
                         <InputWrapper>
-                            <FloatingInput name={'email'} />
+                            <FloatingInput
+                                name={'email'}
+                                iconName={'email'}
+                                iconSize={14}
+                                iconColor={'#0D0A19'}
+                            />
                         </InputWrapper>
 
-                        <FloatingInput name={'password'} />
+                        {/*<FloatingInput name={'password'} />*/}
                         <div className={s.remember_wr}>
                             <div className={s.remember}>
                                 <input

@@ -8,10 +8,12 @@ import { Completed } from 'components/ui/completed';
 import { Formik } from 'formik';
 import { FloatingInput } from 'components/ui/input/float_input';
 import { Button } from 'components/ui/button';
+import { IconsWrapper } from 'components/ui/icons_wrapper';
 
-export const BookDetailStepTwo: FC<{ fun: (val: boolean) => () => void }> = ({
-    fun,
-}): JSX.Element => {
+export const BookDetailStepTwo: FC<{
+    handleOrder: (val: number) => () => void;
+    toggleBookDetail: (val: boolean) => () => void;
+}> = ({ toggleBookDetail, handleOrder }): JSX.Element => {
     const { t } = useTranslation();
 
     const [done, setDone] = useState(false);
@@ -20,11 +22,25 @@ export const BookDetailStepTwo: FC<{ fun: (val: boolean) => () => void }> = ({
     return (
         <div className={s.inner}>
             <div className={s.header}>
-                <p className={s.header_title}>{t('common:ordering')}</p>
+                <p className={s.header_title}>{t('common:orderingDetail')}</p>
 
-                <div onClick={fun(false)}>
+                <div onClick={toggleBookDetail(false)}>
                     <Icon size={19} name={'close'} />
                 </div>
+            </div>
+
+            <div className={`${s.header_res}`}>
+                {!done && (
+                    <IconsWrapper size={'medium'} fun={handleOrder(1)}>
+                        <Icon size={16} name={'chevron_left'} />
+                    </IconsWrapper>
+                )}
+
+                <p className={s.header_title}>{t('common:ordering')}</p>
+
+                <IconsWrapper size={'medium'} fun={toggleBookDetail(false)}>
+                    <Icon size={16} name={'close'} />
+                </IconsWrapper>
             </div>
             <div className={s.book_wr}>
                 <Completed
@@ -79,7 +95,7 @@ export const BookDetailStepTwo: FC<{ fun: (val: boolean) => () => void }> = ({
                     </div>
                 )}
                 {done && (
-                    <Button fun={fun(false)} className={'main'}>
+                    <Button fun={toggleBookDetail(false)} className={'main'}>
                         {t('common:continueSearch')}
                     </Button>
                 )}

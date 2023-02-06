@@ -25,6 +25,13 @@
   }
 }
 
+.header_res {
+  @include flex-items(space-between, center);
+  margin-top: 30px;
+  padding: 17px 16px;
+  display: none;
+}
+
 .header_title {
   margin: 0 auto;
   display: flex;
@@ -58,10 +65,10 @@
 }
 
 
-
 @media (max-width: 610px) {
-  .inner{
+  .inner {
     overflow-y: scroll;
+
     &::-webkit-scrollbar {
       width: 0;
     }
@@ -74,12 +81,21 @@
   }
 }
 
-@media (max-width: 425px){
-  .inner{
+@media (max-width: 425px) {
+
+  .header_res{
+    display: flex;
+  }
+  .header {
+    display: none;
+  }
+
+  .inner {
+    border-radius: 0;
     height: 100%;
   }
 
-  .book_wr{
+  .book_wr {
     padding: 14px 20px;
     margin: 0 auto;
   }

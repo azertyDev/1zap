@@ -7,10 +7,11 @@ import s from './index.module.scss';
 interface InputProps {
     iconName?: string;
     iconSize?: number;
+    iconColor: string;
 }
 
 const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
-    const { iconName, iconSize = 18 } = props;
+    const { iconName, iconSize = 18, iconColor } = props;
     const [field, meta] = useField(props);
     const { t } = useTranslation('');
 
@@ -21,19 +22,33 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                     {t(`common:${field.name}`)}
                 </label>
                 <Field {...field} {...props} />
-
-                {iconName ? (
-                    <Icon name={iconName ?? ''} size={iconSize} />
-                ) : null}
+                <div
+                    style={{
+                        color: 'red',
+                        fill: 'red',
+                    }}
+                >
+                    {iconName ? (
+                        <Icon
+                            name={
+                                meta.touched && meta.error ? 'cancel' : iconName
+                            }
+                            size={meta.touched && meta.error ? 18 : iconSize}
+                            color={
+                                meta.touched && meta.error ? 'red' : iconColor
+                            }
+                        />
+                    ) : null}
+                </div>
             </div>
 
-            {meta.touched || meta.error ? (
-                <ErrorMessage
-                    component="span"
-                    name={field.name}
-                    className={s.error}
-                />
-            ) : null}
+            {/*{meta.touched || meta.error ? (*/}
+            {/*    <ErrorMessage*/}
+            {/*        component="span"*/}
+            {/*        name={field.name}*/}
+            {/*        className={s.error}*/}
+            {/*    />*/}
+            {/*) : null}*/}
         </div>
     );
 };

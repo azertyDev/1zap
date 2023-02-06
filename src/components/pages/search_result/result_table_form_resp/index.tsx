@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 
 export const ResultTableFormResp: FC<{
-    fun: (val: boolean) => () => void;
-}> = ({ fun }): JSX.Element => {
+    toggleBookDetail: (val: boolean) => () => void;
+}> = ({ toggleBookDetail }): JSX.Element => {
     const { t } = useTranslation();
 
     return (
@@ -39,7 +39,7 @@ export const ResultTableFormResp: FC<{
                 <p className={s.text}>{t('common:onezapmust')}</p>
                 <div className={s.order_wr}>
                     <p className={s.titles_big}>Ифтихор, 77</p>
-                    <button type={'button'} onClick={fun(true)}>
+                    <button type={'button'} onClick={toggleBookDetail(true)}>
                         {t('common:opencontact')}
                     </button>
                 </div>

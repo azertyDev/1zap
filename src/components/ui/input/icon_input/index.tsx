@@ -4,7 +4,10 @@ import { Icon } from 'src/components/ui/icon';
 import { useTranslation } from 'next-i18next';
 import s from './index.module.scss';
 
-const Input: FC<FieldHookConfig<any>> = (props): JSX.Element => {
+const Input: FC<{ icon: string } & FieldHookConfig<string>> = ({
+    icon,
+    ...props
+}): JSX.Element => {
     const [field, meta] = useField(props);
     const { t } = useTranslation('');
 
@@ -16,8 +19,7 @@ const Input: FC<FieldHookConfig<any>> = (props): JSX.Element => {
                 </label>
                 <div>
                     <Field {...field} {...props} />
-
-                    <Icon name="mail" size={18} />
+                    <Icon name={icon} size={18} />
                 </div>
             </div>
 

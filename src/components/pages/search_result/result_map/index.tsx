@@ -13,7 +13,6 @@ import { FilterSelections } from 'components/ui/filter_selections';
 import { FilterSelect } from 'components/ui/filter_selections/filter_select';
 import { Container } from 'components/ui/container';
 import { FilterResponsive } from 'components/ui/filter_responsive';
-import { NoResult } from 'components/pages/search_result/no_result';
 import { ResultTableForm } from 'components/pages/search_result/result_table_form';
 import { MapItem } from 'components/pages/search_result/serch_items/map_item';
 import { ToggleButton } from 'components/pages/search_result/serch_items/toggle_button';
@@ -208,18 +207,13 @@ export const ResultMap: FC = (): JSX.Element => {
                             />
                         </FilterSelections>
                     </div>
-                    <ResultTableForm fun={handleOpenClose} />
-                    <ResultTableFormResp fun={handleOpenClose} />
+                    <ResultTableForm toggleBookDetail={handleOpenClose} />
+                    <ResultTableFormResp toggleBookDetail={handleOpenClose} />
                     {/*<NoResult />*/}
                 </div>
             </Container>
 
-            {openClose && (
-                <BookDetail
-                    fun={handleOpenClose}
-                    handleOpen={handleOpenClose}
-                />
-            )}
+            {openClose && <BookDetail toggleBookDetail={handleOpenClose} />}
         </div>
     );
 };
