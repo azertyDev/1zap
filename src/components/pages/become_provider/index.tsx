@@ -1,9 +1,10 @@
 import s from './index.module.scss';
 import { FC, useState } from 'react';
 import Link from 'next/link';
-import { Logo } from 'components/ui/logo';
-import { Button } from 'components/ui/button';
+
 import { useTranslation } from 'next-i18next';
+
+import { Logo } from 'components/ui/logo';
 import { FirstFormProvider } from 'components/pages/become_provider/form_items/first_form_provider';
 import { SecondFormProvider } from 'components/pages/become_provider/form_items/second_form_provider';
 
