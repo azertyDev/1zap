@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler } from 'react';
+import React, {FC, MouseEventHandler} from 'react';
 
 import s from './index.module.scss';
 
@@ -22,8 +22,8 @@ export const Button: FC<ButtonInt> = ({
     return (
         <button
             disabled={isSubmitting}
+            className={`${s.button} ${s[className ?? '']}`}
             onClick={fun}
-            className={`${s.button} ${s[className]}`}
             type={type}
         >
             {icon && <span className={s.img}>{icon}</span>}

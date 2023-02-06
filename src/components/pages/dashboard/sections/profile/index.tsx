@@ -84,16 +84,16 @@ export const Profile: FC = (): JSX.Element => {
                 <Form>
                     <IconInput {...formik.getFieldProps('firstName')} />
                     {/* <FloatingInput {...formik.getFieldProps('firstName')} /> */}
-                    <FloatingInput {...formik.getFieldProps('lastName')} />
+                    <FloatingInput
+                        {...formik.getFieldProps('lastName')}
+                        iconName="mail"
+                        iconSize={18}
+                    />
                     <FloatingInput {...formik.getFieldProps('email')} />
 
                     <div>
-                        <Button className="" type="submit">
-                            Submit
-                        </Button>
-                        <Button className="" type="reset">
-                            Reset
-                        </Button>
+                        <Button type="submit">Submit</Button>
+                        <Button type="reset">Reset</Button>
                     </div>
                 </Form>
             </FormikProvider>
