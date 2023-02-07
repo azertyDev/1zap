@@ -1,11 +1,18 @@
 import { FC } from 'react';
 
-export const Icon: FC<{
+interface IconProps {
     size: number;
     name: string;
     style?: string;
     color?: string;
-}> = ({ size, name, style = '', color = '#9a9ea7' }) => {
+}
+
+export const Icon: FC<IconProps> = ({
+    size,
+    name,
+    style = '',
+    color = '#9a9ea7',
+}) => {
     return (
         <i
             className={`material-icons mi material-symbols-outlined ${
@@ -13,7 +20,7 @@ export const Icon: FC<{
             }`}
             style={{
                 fontSize: `${size}px`,
-                color: color,
+                color: `${color}`,
             }}
         >
             {name}

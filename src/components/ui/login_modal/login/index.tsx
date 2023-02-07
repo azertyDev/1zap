@@ -7,8 +7,7 @@ import { Formik } from 'formik';
 import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Button } from 'components/ui/button';
 import { InputWrapper } from 'components/ui/input_wrapper';
-import { IconInput } from 'components/ui/input/icon_input';
-import { LoginVal } from 'src/validation/login';
+import {LoginVal} from "src/validation/login";
 
 export const Login: FC<{ fun: (val: number) => () => void }> = ({
     fun,
@@ -27,43 +26,43 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                     alert(JSON.stringify(values));
                 }}
             >
-                {({ handleSubmit, isSubmitting }) => (
-                    <form onSubmit={handleSubmit} className={s.form}>
-                        <InputWrapper>
-                            <FloatingInput
-                                name={'email'}
-                                iconName={'email'}
-                                iconSize={14}
-                                iconColor={'#0D0A19'}
-                            />
-                        </InputWrapper>
-
-                        {/*<FloatingInput name={'password'} />*/}
-                        <div className={s.remember_wr}>
-                            <div className={s.remember}>
-                                <input
-                                    type={'checkbox'}
-                                    className={s.remember_checkbox}
+                {({ handleSubmit, ...rest }) => {
+                    return (
+                        <form onSubmit={handleSubmit} className={s.form}>
+                            <InputWrapper>
+                                <FloatingInput
+                                    name={'email'}
+                                    iconName="email"
                                 />
-                                <div className={s.remember_checkbox_img}>
-                                    <div></div>
-                                </div>
+                            </InputWrapper>
 
-                                <p>{t('common:rememberme')}</p>
+                            <FloatingInput name={'password'} iconName="key" />
+                            <div className={s.remember_wr}>
+                                <div className={s.remember}>
+                                    <input
+                                        type={'checkbox'}
+                                        className={s.remember_checkbox}
+                                    />
+                                    <div className={s.remember_checkbox_img}>
+                                        <div></div>
+                                    </div>
+
+                                    <p>{t('common:rememberme')}</p>
+                                </div>
+                                <p className={s.fix_password} onClick={fun(2)}>
+                                    {t('common:tofixPassword')}
+                                </p>
                             </div>
-                            <p className={s.fix_password} onClick={fun(2)}>
-                                {t('common:tofixPassword')}
-                            </p>
-                        </div>
-                        <Button
-                            // isSubmitting={isSubmitting}
-                            className={'main'}
-                            type={'submit'}
-                        >
-                            {t('header:login')}
-                        </Button>
-                    </form>
-                )}
+                            <Button
+                                // isSubmitting={isSubmitting}
+                                className={'main'}
+                                type={'submit'}
+                            >
+                                {t('header:login')}
+                            </Button>
+                        </form>
+                    );
+                }}
             </Formik>
         </div>
     );

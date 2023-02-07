@@ -7,11 +7,10 @@ import s from './index.module.scss';
 interface InputProps {
     iconName?: string;
     iconSize?: number;
-    iconColor: string;
 }
 
 const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
-    const { iconName, iconSize = 18, iconColor } = props;
+    const { iconName, iconSize = 18 } = props;
     const [field, meta] = useField(props);
     const { t } = useTranslation('');
 
@@ -22,33 +21,34 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                     {t(`common:${field.name}`)}
                 </label>
                 <Field {...field} {...props} />
-                <div
-                    style={{
-                        color: 'red',
-                        fill: 'red',
-                    }}
-                >
-                    {iconName ? (
-                        <Icon
-                            name={
-                                meta.touched && meta.error ? 'cancel' : iconName
-                            }
-                            size={meta.touched && meta.error ? 18 : iconSize}
-                            color={
-                                meta.touched && meta.error ? 'red' : iconColor
-                            }
-                        />
-                    ) : null}
-                </div>
+
+                {iconName ? (
+                    <Icon
+                        color={
+                            !field.value
+                                ? '#000'
+                                : (field.value || meta.touched || meta.error) &&
+                                  '#C6303C'
+                        }
+                        size={iconSize}
+                        name={
+                            !field.value
+                                ? iconName
+                                : meta.touched && meta.error
+                                ? 'cancel'
+                                : 'check_circle'
+                        }
+                    />
+                ) : null}
             </div>
 
-            {/*{meta.touched || meta.error ? (*/}
-            {/*    <ErrorMessage*/}
-            {/*        component="span"*/}
-            {/*        name={field.name}*/}
-            {/*        className={s.error}*/}
-            {/*    />*/}
-            {/*) : null}*/}
+            {meta.touched || meta.error ? (
+                <ErrorMessage
+                    component="span"
+                    name={field.name}
+                    className={s.error}
+                />
+            ) : null}
         </div>
     );
 };
