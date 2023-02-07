@@ -3,6 +3,7 @@ import { ErrorMessage, Field, FieldHookConfig, useField } from 'formik';
 import { Icon } from 'src/components/ui/icon';
 import { useTranslation } from 'next-i18next';
 import s from './index.module.scss';
+import { PatternFormat } from 'react-number-format';
 
 interface InputProps {
     iconName?: string;
@@ -22,33 +23,18 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                 </label>
                 <Field {...field} {...props} />
 
-                {iconName ? (
-                    <Icon
-                        color={
-                            !field.value
-                                ? '#000'
-                                : (field.value || meta.touched || meta.error) &&
-                                  '#C6303C'
-                        }
-                        size={iconSize}
-                        name={
-                            !field.value
-                                ? iconName
-                                : meta.touched && meta.error
-                                ? 'cancel'
-                                : 'check_circle'
-                        }
-                    />
+                {iconName && field.value.length === 0 ? (
+                    <Icon size={iconSize} name={iconName} color={'#0D0A19'} />
+                ) : null}
+
+                {meta.error ? (
+                    <Icon size={18} name={'cancel'} color={'#C6303C'} />
+                ) : null}
+
+                {field.value && !meta.error ? (
+                    <Icon size={18} name={'check_circle'} color={'#C6303C'} />
                 ) : null}
             </div>
-
-            {meta.touched || meta.error ? (
-                <ErrorMessage
-                    component="span"
-                    name={field.name}
-                    className={s.error}
-                />
-            ) : null}
         </div>
     );
 };

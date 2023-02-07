@@ -8,6 +8,7 @@ import { FloatingInput } from 'src/components/ui/input/float_input';
 import Select, { SingleValue } from 'react-select';
 import { Button } from 'components/ui/button';
 import { InputWrapper } from 'components/ui/input_wrapper';
+import { becomeProviderOne } from 'src/validation/beacome_provider';
 
 export const FirstFormProvider: FC<{
     fun: Dispatch<SetStateAction<boolean>>;
@@ -26,6 +27,7 @@ export const FirstFormProvider: FC<{
                     autoService: '',
                     city: '',
                 }}
+                validationSchema={becomeProviderOne}
                 onSubmit={(values, { setSubmitting }) => {
                     fun(true);
                     // alert(JSON.stringify(values));
