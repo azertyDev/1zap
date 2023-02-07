@@ -75,5 +75,8 @@
   "smsSend": "Aloqa ma'lumotlarini kiriting, buyurtma ma'lumotlari sizga va yetkazib beruvchiga SMS shaklida yuboriladi",
   "phoneNumber": "Telefon raqami",
   "phoneSms": "Buyurtmangiz haqidagi maʼlumotni SMS sifatida {{phone}} raqamiga yubordik. Mahsulotni xarid qilishdan oldin olingan SMSni oʻchirib tashlamang!",
-  "continueSearch": "Qidiruvni davom ettiring"
+  "continueSearch": "Qidiruvni davom ettiring",
+  "fitParams": "Parametrlar bo'yicha tanlash",
+  "fitCar": "Avtomobil bilan tanlash",
+  "findModelVim": "Modelni VIN raqami bo'yicha toping"
 }

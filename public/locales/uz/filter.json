@@ -11,5 +11,10 @@
   "nameProduct": "Ism",
   "howmany": "Mavjudligi",
   "price": "Narxi",
-  "seller": "Sotuvchi"
+  "seller": "Sotuvchi",
+  "year": "Yil",
+  "brand": "Brend",
+  "modelMeaning": "Model belgisi",
+  "region": "Mintaqa",
+  "model": "Model"
 }

@@ -1,0 +1,42 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.form_wr {
+
+  @include flex-items(stretch, center);
+  position: relative;
+  form {
+    width: 100%;
+    @include flex-items(stretch, center);
+  }
+
+  input {
+    width: 523px;
+    padding: 13px 18px;
+    @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+    border-radius: 15px;
+    &::placeholder {
+      @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+    }
+  }
+}
+
+.btn {
+  border-radius: 15px;
+  padding: 13px 24px;
+margin-left: 16px;
+  background: $light;
+  @include flex-items(center, center);
+  @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+
+  span {
+    margin-left: 4px;
+  }
+}
+
+
+.search_icon_res{
+  display: none;
+}
+
+
