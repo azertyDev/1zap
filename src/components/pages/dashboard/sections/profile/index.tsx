@@ -55,7 +55,7 @@ export const Profile: FC = (): JSX.Element => {
             .min(2, 'Too Short!')
             .max(50, 'Too Long!')
             .required('Required'),
-        email: Yup.string().email('Invalid email').required('Required'),
+        email: Yup.string().email('Invalid email').required(''),
     });
 
     const onSubmit = async (
@@ -82,8 +82,8 @@ export const Profile: FC = (): JSX.Element => {
 
             <FormikProvider value={formik}>
                 <Form>
-                    <IconInput {...formik.getFieldProps('firstName')} />
-                    {/* <FloatingInput {...formik.getFieldProps('firstName')} /> */}
+                    <FloatingInput {...formik.getFieldProps('firstName')} />
+
                     <FloatingInput
                         {...formik.getFieldProps('lastName')}
                         iconName="mail"

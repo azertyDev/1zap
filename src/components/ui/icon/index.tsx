@@ -11,7 +11,7 @@ export const Icon: FC<IconProps> = ({
     size,
     name,
     style = '',
-    color = '#9a9ea7',
+    color,
 }) => {
     return (
         <i

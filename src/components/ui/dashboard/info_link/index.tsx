@@ -19,7 +19,7 @@ export const InfoLink: FC<LinkBlockProps> = ({
 }): JSX.Element => {
     return (
         <Link href={link} className={s.wrapper}>
-            <IconsWrapper style={s.icon_wrapper}>
+            <IconsWrapper size='big'>
                 <Icon name={icon} size={22} />
             </IconsWrapper>
             <div>

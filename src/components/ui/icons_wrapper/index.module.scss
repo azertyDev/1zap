@@ -1,21 +1,27 @@
-@import "styles/variables";
-@import "styles/mixins";
-
+@import 'styles/variables';
+@import 'styles/mixins';
 
 .icon_wr {
-  @include flex-items(center,center);
-  background: $blockBg;
-  border-radius: 8px;
+    @include flex-items(center, center);
+    background: $blockBg;
+    border-radius: 8px;
 }
 
-.big{
-  @include w_mw__h(48px, 48px, 48px);
+.big {
+    @include w_mw__h(48px, 48px, 48px);
 }
 
-.medium{
-  @include w_mw__h(36px, 36px, 36px);
+.medium {
+    @include w_mw__h(36px, 36px, 36px);
 }
 
-.small{
+.small {
+}
 
+.rounded {
+    border-radius: 50%;
+}
+
+.square {
+    border-radius: 8px;
 }

@@ -13,8 +13,8 @@ export const Heading = ({ title, desc }: HeadingProps) => {
 
     return (
         <div className={s.wrapper}>
-            <IconsWrapper onClick={() => back()}>
-                <Icon name="keyboard_arrow_left" size="18" />
+            <IconsWrapper onClick={() => back()} size="big">
+                <Icon name="keyboard_arrow_left" size={18} />
             </IconsWrapper>
             <div className={s.body}>
                 <p>{title}</p>

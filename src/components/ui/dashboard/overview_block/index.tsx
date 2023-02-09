@@ -9,8 +9,12 @@ export const OverviewBlock = ({ data }: { data: any }) => {
                 return (
                     <div className={s.item} key={overview.id}>
                         <div className={s.header}>
-                            <IconsWrapper style={s.icon_wrapper}>
-                                <Icon name={overview.icon} size="22" />
+                            <IconsWrapper
+                                size="big"
+                                variant="rounded"
+                                aria-label="icon"
+                            >
+                                <Icon name={overview.icon} size={22} />
                             </IconsWrapper>
                             <span>{overview.heading}</span>
                         </div>
