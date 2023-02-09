@@ -1,20 +1,20 @@
-import React, { FC, useState } from 'react';
+import React, {FC, useState} from 'react';
 
 import s from './index.module.scss';
-import { Icon } from 'components/ui/icon';
-import { useTranslation } from 'next-i18next';
-import { Completed } from 'components/ui/completed';
+import {Icon} from 'components/ui/icon';
+import {useTranslation} from 'next-i18next';
+import {Completed} from 'components/ui/completed';
 
-import { Formik } from 'formik';
-import { FloatingInput } from 'components/ui/input/float_input';
-import { Button } from 'components/ui/button';
-import { IconsWrapper } from 'components/ui/icons_wrapper';
+import {Formik} from 'formik';
+import {FloatingInput} from 'components/ui/input/float_input';
+import {Button} from 'components/ui/button';
+import {IconsWrapper} from 'components/ui/icons_wrapper';
 
 export const BookDetailStepTwo: FC<{
     handleOrder: (val: number) => () => void;
     toggleBookDetail: (val: boolean) => () => void;
-}> = ({ toggleBookDetail, handleOrder }): JSX.Element => {
-    const { t } = useTranslation();
+}> = ({toggleBookDetail, handleOrder}): JSX.Element => {
+    const {t} = useTranslation();
 
     const [done, setDone] = useState(false);
     const [phoneVal, setPhoneVal] = useState('');
@@ -25,21 +25,21 @@ export const BookDetailStepTwo: FC<{
                 <p className={s.header_title}>{t('common:orderingDetail')}</p>
 
                 <div onClick={toggleBookDetail(false)}>
-                    <Icon size={19} name={'close'} />
+                    <Icon size={19} name={'close'}/>
                 </div>
             </div>
 
             <div className={`${s.header_res}`}>
                 {!done && (
-                    <IconsWrapper size={'medium'} fun={handleOrder(1)}>
-                        <Icon size={16} name={'chevron_left'} />
+                    <IconsWrapper size={'medium'} onClick={handleOrder(1)}>
+                        <Icon size={16} name={'chevron_left'}/>
                     </IconsWrapper>
                 )}
 
                 <p className={s.header_title}>{t('common:ordering')}</p>
 
-                <IconsWrapper size={'medium'} fun={toggleBookDetail(false)}>
-                    <Icon size={16} name={'close'} />
+                <IconsWrapper size={'medium'} onClick={toggleBookDetail(false)}>
+                    <Icon size={16} name={'close'}/>
                 </IconsWrapper>
             </div>
             <div className={s.book_wr}>
@@ -55,7 +55,7 @@ export const BookDetailStepTwo: FC<{
                 >
                     <p>
                         {done
-                            ? t('common:phoneSms', { phone: phoneVal })
+                            ? t('common:phoneSms', {phone: phoneVal})
                             : t('common:smsSend')}
                     </p>
                 </Completed>
@@ -66,26 +66,25 @@ export const BookDetailStepTwo: FC<{
                                 phoneNumber: '',
                                 surname: '',
                             }}
-                            onSubmit={(values, { setSubmitting }) => {
+                            onSubmit={(values, {setSubmitting}) => {
                                 setDone(true);
                                 setPhoneVal(values.phoneNumber);
                                 alert(JSON.stringify(values));
                             }}
                         >
-                            {({ handleSubmit, isSubmitting }) => (
+                            {({handleSubmit, isSubmitting}) => (
                                 <form
                                     onSubmit={handleSubmit}
                                     className={s.form}
                                 >
                                     <div className={s.inputs_wr}>
-                                        <FloatingInput name={'surname'} />
-                                        <FloatingInput name={'phoneNumber'} />
+                                        <FloatingInput name={'surname'}/>
+                                        <FloatingInput name={'phoneNumber'}/>
                                     </div>
 
                                     <Button
                                         // isSubmitting={isSubmitting}
-                                        className={'main'}
-                                        type={'submit'}
+                                        classN={'main'}
                                     >
                                         {t('header:login')}
                                     </Button>
@@ -95,7 +94,7 @@ export const BookDetailStepTwo: FC<{
                     </div>
                 )}
                 {done && (
-                    <Button fun={toggleBookDetail(false)} className={'main'}>
+                    <Button onClick={toggleBookDetail(false)} classN={'main'}>
                         {t('common:continueSearch')}
                     </Button>
                 )}

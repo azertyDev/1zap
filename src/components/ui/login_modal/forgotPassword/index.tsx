@@ -52,8 +52,7 @@ export const ForgotPassword: FC = (): JSX.Element => {
                                     <FloatingInput name={'email'} />
                                     <Button
                                         // isSubmitting={isSubmitting}
-                                        className={'main'}
-                                        type={'submit'}
+                                        classN={'main'}
                                     >
                                         {t('header:login')}
                                     </Button>

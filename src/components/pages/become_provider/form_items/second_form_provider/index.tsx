@@ -61,8 +61,7 @@ export const SecondFormProvider: FC<{
                                 </div>
                                 <Button
                                     // isSubmitting={isSubmitting}
-                                    className={'main'}
-                                    type={'submit'}
+                                    classN={'main'}
                                 >
                                     {t('common:sendRequest')}
                                 </Button>
@@ -83,7 +82,7 @@ export const SecondFormProvider: FC<{
                         <p>{t('common:weWillConnect')}</p>
                     </Completed>
                     <Link href={'/'}>
-                        <Button className={'main'}>
+                        <Button classN={'main'}>
                             {t('common:returnHone')}
                         </Button>
                     </Link>

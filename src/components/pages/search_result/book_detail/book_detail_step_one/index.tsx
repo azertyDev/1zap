@@ -1,23 +1,23 @@
-import React, { FC } from 'react';
+import React, {FC} from 'react';
 import s from './index.module.scss';
-import { Icon } from 'components/ui/icon';
+import {Icon} from 'components/ui/icon';
 import Image from 'next/image';
-import { Map, Overlay } from 'pigeon-maps';
-import { MapPoint } from 'components/ui/map_point';
-import { Button } from 'components/ui/button';
-import { useTranslation } from 'next-i18next';
-import { IconsWrapper } from 'components/ui/icons_wrapper';
+import {Map, Overlay} from 'pigeon-maps';
+import {MapPoint} from 'components/ui/map_point';
+import {Button} from 'components/ui/button';
+import {useTranslation} from 'next-i18next';
+import {IconsWrapper} from 'components/ui/icons_wrapper';
 
 export const BookDetailStepOne: FC<{
     handleOrder: (val: number) => () => void;
     handleOpen: (val: boolean) => () => void;
-}> = ({ handleOrder, handleOpen }): JSX.Element => {
-    const { t } = useTranslation();
+}> = ({handleOrder, handleOpen}): JSX.Element => {
+    const {t} = useTranslation();
     return (
         <div className={s.book_inner}>
             <div className={s.close_res}>
-                <IconsWrapper size={'medium'} fun={handleOpen(false)}>
-                    <Icon size={18} name={'chevron_left'} />
+                <IconsWrapper size={'medium'} onClick={handleOpen(false)}>
+                    <Icon size={18} name={'chevron_left'}/>
                 </IconsWrapper>
             </div>
 
@@ -35,7 +35,7 @@ export const BookDetailStepOne: FC<{
                         }
                         offset={[30, 30]}
                     >
-                        <MapPoint val={1} />
+                        <MapPoint val={1}/>
                     </Overlay>
                     <div className={s.shadow}></div>
                 </Map>
@@ -48,7 +48,7 @@ export const BookDetailStepOne: FC<{
                 <div className={s.details_wr}>
                     <div className={s.detail}>
                         <div className={s.detail_header}>
-                            <Icon size={18} name={'call'} />
+                            <Icon size={18} name={'call'}/>
                             <p className={s.de}>{t('contacts')}</p>
                         </div>
                         <div className={s.detail_content}>
@@ -58,7 +58,7 @@ export const BookDetailStepOne: FC<{
 
                     <div className={s.detail}>
                         <div className={s.detail_header}>
-                            <Icon size={18} name={'local_shipping'} />
+                            <Icon size={18} name={'local_shipping'}/>
                             <p className={s.de}>{t('delivery')}</p>
                         </div>
                         <div className={s.detail_content}>
@@ -67,15 +67,15 @@ export const BookDetailStepOne: FC<{
                     </div>
                     <div className={s.detail}>
                         <div className={s.detail_header}>
-                            <Icon size={18} name={'watch_later'} />
+                            <Icon size={18} name={'watch_later'}/>
                             <p className={s.de}>{t('workTime')}</p>
                         </div>
                         <div className={s.detail_content}>
-                            <p> {t('monfri', { from: '1', to: '2' })}</p>
-                            <p> {t('sunsut', { from: '1', to: '2' })}</p>
+                            <p> {t('monfri', {from: '1', to: '2'})}</p>
+                            <p> {t('sunsut', {from: '1', to: '2'})}</p>
 
                             <div className={s.detail_border_wr}>
-                                <p> {t('break', { from: '1', to: '2' })}</p>
+                                <p> {t('break', {from: '1', to: '2'})}</p>
                                 <p> {t('sevendays')}</p>
                             </div>
                             <p>{t('infoonezap')}</p>
@@ -83,7 +83,7 @@ export const BookDetailStepOne: FC<{
                     </div>
                     <div className={s.detail}>
                         <div className={s.detail_header}>
-                            <Icon size={18} name={'payments'} />
+                            <Icon size={18} name={'payments'}/>
                             <p className={s.de}>{t('payment')}</p>
                         </div>
                         <div className={s.detail_content}>
@@ -92,7 +92,7 @@ export const BookDetailStepOne: FC<{
                     </div>
                     <div className={s.detail}>
                         <div className={s.detail_header}>
-                            <Icon size={18} name={'home_repair_service'} />
+                            <Icon size={18} name={'home_repair_service'}/>
                             <p className={s.de}>{t('services')}</p>
                         </div>
                         <div className={s.detail_content}>
@@ -124,7 +124,7 @@ export const BookDetailStepOne: FC<{
                                 }
                                 offset={[30, 30]}
                             >
-                                <MapPoint val={1} />
+                                <MapPoint val={1}/>
                             </Overlay>
                             <div className={s.shadow}></div>
                         </Map>
@@ -150,7 +150,7 @@ export const BookDetailStepOne: FC<{
                     </div>
                     <p className={s.final_step_text}>PARTS-MALL</p>
                 </div>
-                <Button fun={handleOrder(2)} className={'main'}>
+                <Button onClick={handleOrder(2)} classN={'main'}>
                     {t('toOrder')}
                 </Button>
             </div>

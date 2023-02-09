@@ -55,8 +55,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                             </div>
                             <Button
                                 // isSubmitting={isSubmitting}
-                                className={'main'}
-                                type={'submit'}
+                                classN={'main'}
                             >
                                 {t('header:login')}
                             </Button>

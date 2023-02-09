@@ -84,8 +84,7 @@ export const FirstFormProvider: FC<{
                         </div>
                         <Button
                             // isSubmitting={isSubmitting}
-                            className={'main'}
-                            type={'submit'}
+                            classN={'main'}
                         >
                             {t('common:next')}
                         </Button>
