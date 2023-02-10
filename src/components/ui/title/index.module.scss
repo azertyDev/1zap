@@ -1,0 +1,6 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.title{
+  @include fs_lh_fw_c(36px,48px,700,$secondary);
+}

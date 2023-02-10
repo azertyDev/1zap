@@ -7,9 +7,8 @@
   background: $light;
   box-shadow: 0 3px 4px rgba(153, 155, 168, 0.15);
   border-radius: 15px;
-  margin-top: 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(137px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(137px, 1fr));
 
 
   .select_wr:last-child {
@@ -45,11 +44,7 @@
   @include fs_lh_fw_c(12px, 18px, 400, $text);
 }
 
-@media (max-width: 1000px) {
-  .filter{
-    margin-top: 16px;
-  }
-}
+
 
 @media (max-width: 768px) {
   .filter{

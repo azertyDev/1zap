@@ -29,8 +29,8 @@ export const FirstFormProvider: FC<{
                 }}
                 validationSchema={becomeProviderOne}
                 onSubmit={(values, { setSubmitting }) => {
-                    fun(true);
-                    // alert(JSON.stringify(values));
+                    // fun(true);
+                    alert(JSON.stringify(values));
                 }}
             >
                 {({ handleSubmit, setFieldValue }) => (
@@ -45,7 +45,7 @@ export const FirstFormProvider: FC<{
                             <FloatingInput name={'lastname'} />
                         </InputWrapper>
                         <InputWrapper>
-                            <FloatingInput name={'contactNumber'} />
+                            <FloatingInput name={'contactNumber'} isPhone/>
                         </InputWrapper>
 
                         <div className={s.select_wr}>

@@ -111,8 +111,8 @@ export const ResultMap: FC = (): JSX.Element => {
                             values={formik.getFieldProps('searchVal')}
                         />
                         <div className={s.filter_for_respon}>
-                            <button className={s.filter_btn}>Цена</button>
-                            <button className={s.filter_btn}>Наличие</button>
+                            <button className={s.filter_btn}>{t("filter:price")}</button>
+                            <button className={s.filter_btn}>{t("filter:howmany")}</button>
                             <FilterResponsive
                                 btnText={'anotherFilter'}
                                 isOpen={isOpenFilter}

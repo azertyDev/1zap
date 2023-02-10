@@ -31,8 +31,8 @@ export const Header: FC = (): JSX.Element => {
                     <div className={s.controls}>
                         <ExchangeRate />
                         <Language />
-                        <Link
-                            href={'#'}
+                        <div
+
                             className={s.login}
                             onClick={handleOpenClose(true)}
                         >
@@ -45,7 +45,7 @@ export const Header: FC = (): JSX.Element => {
                                 />
                             </div>
                             <span className={s.text}>{t('header:login')}</span>
-                        </Link>
+                        </div>
 
                         {openClose && <LoginModal fun={handleOpenClose} />}
                     </div>

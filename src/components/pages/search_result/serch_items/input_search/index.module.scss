@@ -3,6 +3,7 @@
 
 .input_wr {
   position: relative;
+  margin-bottom: 24px;
 
   input {
     width: 100%;
@@ -38,6 +39,7 @@
 
 @media (max-width: 768px) {
   .input_wr {
+    margin-bottom: 0;
     input {
       border-radius: 0;
       padding: 13px 35px 13px 20px;
