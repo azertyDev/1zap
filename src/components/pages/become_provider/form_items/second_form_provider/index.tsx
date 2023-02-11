@@ -9,9 +9,10 @@ import { Formik } from 'formik';
 import { Completed } from 'components/ui/completed';
 import { Icon } from 'components/ui/icon';
 import { Button } from 'components/ui/button';
-import { InputWrapper } from 'components/ui/input_wrapper';
+import { InputWrapper } from 'components/ui/input/input_wrapper';
 
 import Link from 'next/link';
+import {becomeProviderSec} from "src/validation/beacome_provider";
 
 export const SecondFormProvider: FC<{
     fun: Dispatch<SetStateAction<boolean>>;
@@ -35,6 +36,7 @@ export const SecondFormProvider: FC<{
                             bankName: '',
                             check: '',
                         }}
+                        validationSchema={becomeProviderSec}
                         onSubmit={(values, { setSubmitting }) => {
                             alert(JSON.stringify(values));
                             setIsDone(true);
@@ -61,7 +63,7 @@ export const SecondFormProvider: FC<{
                                 </div>
                                 <Button
                                     // isSubmitting={isSubmitting}
-                                    classN={'main'}
+                                  variant={"primary"}
                                 >
                                     {t('common:sendRequest')}
                                 </Button>
@@ -82,7 +84,7 @@ export const SecondFormProvider: FC<{
                         <p>{t('common:weWillConnect')}</p>
                     </Completed>
                     <Link href={'/'}>
-                        <Button classN={'main'}>
+                        <Button variant={"primary"}>
                             {t('common:returnHone')}
                         </Button>
                     </Link>

@@ -2,50 +2,18 @@
 @import "styles/mixins";
 
 
-@mixin btnCommon{
-  @include  w_h(100%,100%);
-  padding: 17px;
+.btn {
+  @include fs_lh_fw_c(14px, 21px, 600, #fff);
+  border-radius: 10px;
+  padding: 16px;
+  width: 100%;
 }
 
-@mixin btnMain {
-  @include btnCommon;
+.primary {
   background: $main;
-  border-radius: 10px;
-  @include fs_lh_fw_c(14px, 21px, 600,#fff);
 }
 
-.img {
-  @include w_mw__h(18px, 18px, 22px);
-  margin-right: 6px;
-}
-
-.main {
-  @include btnMain;
-}
-
-.mainS {
-  @include btnMain;
-
-}
-
-.second {
-  @include btnCommon;
-  @include fs_lh_fw_c(14px, 21px, 600, $main);
-  background: rgba(198, 48, 60, 0.2);
-
-  border-radius: 10px;
-  transition: .4s;
-
-  &:hover {
-    background: $main;
-    color: $light;
-  }
-}
-
-
-.third{
-  @include btnCommon;
-  @include fs_lh_fw_c(14px, 21px, 600, $text);
+.disabled {
   background: $blockBg;
-  border-radius: 10px;
+  color: $text;
 }

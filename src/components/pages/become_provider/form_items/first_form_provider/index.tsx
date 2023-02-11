@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 import { FloatingInput } from 'src/components/ui/input/float_input';
 import Select, { SingleValue } from 'react-select';
 import { Button } from 'components/ui/button';
-import { InputWrapper } from 'components/ui/input_wrapper';
+import { InputWrapper } from 'components/ui/input/input_wrapper';
 import { becomeProviderOne } from 'src/validation/beacome_provider';
 
 export const FirstFormProvider: FC<{
@@ -65,6 +65,7 @@ export const FirstFormProvider: FC<{
                                 placeholder={t('common:autoService')}
                                 classNamePrefix={'filter_provider'}
                             />
+
                             <Select
                                 instanceId={'city'}
                                 isSearchable={false}
@@ -84,7 +85,7 @@ export const FirstFormProvider: FC<{
                         </div>
                         <Button
                             // isSubmitting={isSubmitting}
-                            classN={'main'}
+                            variant={"primary"}
                         >
                             {t('common:next')}
                         </Button>

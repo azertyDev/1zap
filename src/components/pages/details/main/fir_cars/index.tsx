@@ -1,5 +1,5 @@
-import {FilterSelections} from "components/ui/filter_selections";
-import {FilterSelect} from "components/ui/filter_selections/filter_select";
+import {FilterSelections} from "components/ui/filter/filter_selections";
+import {FilterSelect} from "components/ui/filter/filter_selections/filter_select";
 import React, {useState} from "react";
 import {useTranslation} from "next-i18next";
 import {useOpenCloseWithVal} from "src/hooks/common/useOpenCloseWithVal";

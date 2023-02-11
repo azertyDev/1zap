@@ -1,18 +1,19 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, {Dispatch, FC, SetStateAction} from 'react';
 
 import s from '../index.module.scss';
 
-import { useTranslation } from 'next-i18next';
-import { Formik } from 'formik';
-import { FloatingInput } from 'src/components/ui/input/float_input';
-import { Button } from 'components/ui/button';
-import { InputWrapper } from 'components/ui/input_wrapper';
-import {LoginVal} from "src/validation/login";
+import {useTranslation} from 'next-i18next';
+import {Formik} from 'formik';
+import {FloatingInput} from 'src/components/ui/input/float_input';
+import {Button} from 'components/ui/button';
+import {InputWrapper} from 'components/ui/input/input_wrapper';
+
+import {LoginValidation} from "src/validation/login";
 
 export const Login: FC<{ fun: (val: number) => () => void }> = ({
-    fun,
-}): JSX.Element => {
-    const { t } = useTranslation();
+                                                                    fun,
+                                                                }): JSX.Element => {
+    const {t} = useTranslation();
 
     return (
         <div className={s.login}>
@@ -21,12 +22,12 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                     email: '',
                     password: '',
                 }}
-                validationSchema={LoginVal}
-                onSubmit={(values, { setSubmitting }) => {
+                validationSchema={LoginValidation}
+                onSubmit={(values, {setSubmitting}) => {
                     alert(JSON.stringify(values));
                 }}
             >
-                {({ handleSubmit, ...rest }) => {
+                {({handleSubmit, ...rest}) => {
                     return (
                         <form onSubmit={handleSubmit} className={s.form}>
                             <InputWrapper>
@@ -36,7 +37,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                                 />
                             </InputWrapper>
 
-                            <FloatingInput name={'password'} iconName="key" />
+                            <FloatingInput name={'password'} iconName="key"/>
                             <div className={s.remember_wr}>
                                 <div className={s.remember}>
                                     <input
@@ -55,7 +56,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                             </div>
                             <Button
                                 // isSubmitting={isSubmitting}
-                                classN={'main'}
+                                variant={"primary"}
                             >
                                 {t('header:login')}
                             </Button>

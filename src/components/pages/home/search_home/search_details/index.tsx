@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 import { useFormik } from 'formik';
 
 import Image from 'next/image';
-import { SearchResultPreview } from 'components/ui/search_result_preview';
+import { SearchResultPreview } from 'components/ui/search/result_preview';
 import { usePreviewSearchResult } from 'src/hooks/search_home/usePreviewSearchResult';
 import { Icon } from 'components/ui/icon';
 

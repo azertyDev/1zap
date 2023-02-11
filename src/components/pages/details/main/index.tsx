@@ -2,11 +2,11 @@ import {FC, useCallback} from 'react';
 import {useHandleActivetTabHome} from 'src/hooks/search_home/useHandleActivetTabHome';
 
 import {useTranslation} from 'next-i18next';
-import {SearchTabs} from 'components/ui/search_tabs';
+import {SearchTabs} from 'components/ui/search/tabs';
 
 import {detailsTabs, detailsTabsRes} from 'src/constants/detailsTabs';
 
-import {InputSelectWrTabs} from 'components/ui/input_filter_wr_tabs';
+import {InputSelectWrTabs} from 'components/ui/input/input_filter_wr_tabs';
 import {FitParams} from 'components/pages/details/main/fit_params';
 
 import s from './index.module.scss';

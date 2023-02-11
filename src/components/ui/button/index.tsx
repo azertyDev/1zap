@@ -1,25 +1,22 @@
-import React, {FC, HtmlHTMLAttributes, MouseEventHandler, PropsWithChildren} from 'react';
-
+import React, {FC, HTMLAttributes, ReactNode} from 'react';
 import s from './index.module.scss';
 
-interface ButtonInt extends PropsWithChildren {
-    classN: string;
-    icon?: React.ReactNode;
+type ButtonVariants = 'primary' | 'disabled';
+
+export interface ButtonPropsType extends HTMLAttributes<HTMLButtonElement> {
+    className?: string;
+    variant: ButtonVariants;
     isSubmitting?: boolean;
 }
 
+export const Button: FC<ButtonPropsType> = (props) => {
+    const {className, children, variant, ...rest} = props;
 
-export const Button: FC<ButtonInt & HtmlHTMLAttributes<HTMLButtonElement>> = (props): JSX.Element => {
-    const {children, icon, isSubmitting, classN} = props;
     return (
-        <button
-            disabled={isSubmitting}
-            className={`${s.button} ${s[classN ?? '']}`}
-            {...props}
-        >
-            {icon && <span className={s.img}>{icon}</span>}
-
+        <button className={`${s.btn} ${className ?? ''} ${s[variant]}`} {...rest}>
             {children}
         </button>
     );
 };
+
+

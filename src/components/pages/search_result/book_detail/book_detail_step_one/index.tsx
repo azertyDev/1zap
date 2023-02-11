@@ -150,7 +150,7 @@ export const BookDetailStepOne: FC<{
                     </div>
                     <p className={s.final_step_text}>PARTS-MALL</p>
                 </div>
-                <Button onClick={handleOrder(2)} classN={'main'}>
+                <Button onClick={handleOrder(2)} variant={"primary"}>
                     {t('toOrder')}
                 </Button>
             </div>

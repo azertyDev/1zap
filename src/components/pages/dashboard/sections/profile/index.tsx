@@ -92,10 +92,10 @@ export const Profile: FC = (): JSX.Element => {
                     <FloatingInput {...formik.getFieldProps('email')} />
 
                     <div>
-                        <Button classN={'main'}>
+                        <Button variant={"primary"}>
                             Submit
                         </Button>
-                        <Button  classN={'main'}>
+                        <Button  variant={"primary"}>
                             Reset
                         </Button>
                     </div>
