@@ -9,7 +9,7 @@
 
 
 .title {
-  @include fs_lh_fw_c(56px, 64px, 800, $secondary);
+  @include fs_fw_c(56px,800, $secondary);
   text-align: center;
   letter-spacing: -0.266667px;
   margin-bottom: 80px;
@@ -26,7 +26,7 @@
     max-width: 953px;
   }
   .title {
-    @include fs_lh_fw_c(36px, 40px, 800, $secondary);
+    @include fs_fw_c(36px,800, $secondary);
     margin-bottom: 50px;
   }
 
@@ -39,7 +39,7 @@
     padding: 50px 0;
   }
   .title {
-    @include fs_lh_fw_c(32px, 42px, 800, $secondary);
+    @include fs_fw_c(32px,800, $secondary);
     margin-bottom: 30px;
     text-align: left;
   }

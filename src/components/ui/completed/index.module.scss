@@ -32,27 +32,27 @@
 }
 
 .title {
-  @include fs_lh_fw_c(36px, 48px, 700, $secondary);
+  @include fs_fw_c(36px,700, $secondary);
   margin-bottom: 6px;
 
   &.small{
-    @include fs_lh_fw_c(28px, 36px, 700, $secondary);
+    @include fs_fw_c(28px,700, $secondary);
   }
 }
 
 .text {
   p {
-    @include fs_lh_fw_c(14px, 21px, 400, $text);
+    @include fs_fw_c(14px,400, $text);
   }
 
   span {
-    @include fs_lh_fw_c(14px, 21px, 700, $text);
+    @include fs_fw_c(14px,700, $text);
   }
 }
 
 @media (max-width: 768px) {
   .title {
-    @include fs_lh_fw_c(30px, 32px, 700, $secondary);
+    @include fs_fw_c(30px,700, $secondary);
     margin-bottom: 6px;
   }
 

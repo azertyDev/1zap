@@ -10,7 +10,7 @@
   margin: 0 auto;
 
   p {
-    @include fs_lh_fw_c(14px, 21px, 600, $light);
+    @include fs_fw_c(14px,600, $light);
     margin-left: 5px;
   }
 

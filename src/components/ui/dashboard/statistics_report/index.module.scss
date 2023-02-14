@@ -17,7 +17,7 @@ div.root {
             flex: 1;
 
             .title {
-                @include fs_lh_fw_c(1.125rem, inherit, 700, $secondary);
+                @include fs_fw_c(1.125rem, 700, $secondary);
                 margin-bottom: 10px;
             }
             span {

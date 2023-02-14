@@ -1,0 +1,13 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.content_title {
+  @include fs_fw_c(22px, 700, $secondary);
+  margin-bottom: 30px;
+}
+
+.content_inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px 21px;
+}

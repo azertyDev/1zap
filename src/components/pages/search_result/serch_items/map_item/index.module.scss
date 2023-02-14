@@ -14,7 +14,7 @@
 
 
 .mark_price {
-  @include fs_lh_fw_c(12px, 17px, 700, $light);
+  @include fs_fw_c(12px,700, $light);
   background: $main;
   padding: 1px 13px;
   border-radius: 12px;

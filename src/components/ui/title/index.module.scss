@@ -2,5 +2,5 @@
 @import "styles/mixins";
 
 .title{
-  @include fs_lh_fw_c(36px,48px,700,$secondary);
+  @include fs_fw_c(36px,700,$secondary);
 }

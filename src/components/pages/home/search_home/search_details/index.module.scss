@@ -8,7 +8,7 @@
   margin-left: 16px;
   background: $light;
   @include flex-items(center, center);
-  @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+  @include fs_fw_c(14px ,600, $darkGrey);
 
   span {
     margin-left: 4px;

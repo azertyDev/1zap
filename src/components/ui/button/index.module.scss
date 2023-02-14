@@ -3,7 +3,7 @@
 
 
 .btn {
-  @include fs_lh_fw_c(14px, 21px, 600, #fff);
+  @include fs_fw_c(14px,600, #fff);
   border-radius: 10px;
   padding: 16px;
   width: 100%;

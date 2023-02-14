@@ -6,6 +6,9 @@
   "noresulttext": "Qidiruvingiz boʻyicha hech qanday natija topilmadi yoki boʻsh soʻz kiritildi",
   "searchVin": "VIN orqali so'rov",
   "sparePartsCat": "Ehtiyot qismlar katalogi",
+  "oilCat": "Neft katalogi",
+  "tiresCat": "Shinalar katalogi",
+  "batteryCat": "Batareya katalogi",
   "oil": "Yog'lar",
   "batteries": "Batareyalar",
   "tires": "Shinalar",
@@ -78,5 +81,9 @@
   "continueSearch": "Qidiruvni davom ettiring",
   "fitParams": "Parametrlar bo'yicha tanlash",
   "fitCar": "Avtomobil bilan tanlash",
-  "findModelVim": "Modelni VIN raqami bo'yicha toping"
+  "findModelVim": "Modelni VIN raqami bo'yicha toping",
+  "open": "Ochiq",
+  "groupDetails": "Ehtiyot qismlar guruhlari",
+  "find": "Toping",
+  "show": "Ko'rsatish"
 }

@@ -16,5 +16,21 @@
   "brand": "Brend",
   "modelMeaning": "Model belgisi",
   "region": "Mintaqa",
-  "model": "Model"
+  "model": "Model",
+  "oilType": "Yog 'turi",
+  "stickType": "Yopishqoqlik turi",
+  "volume": "Ovoz balandligi",
+  "photo": "Surat",
+  "middlePrice": "O'rtacha narx",
+  "offer": "Takliflar",
+  "typeAndStick": "Turi va yopishqoqligi",
+  "size": "Hajmi",
+  "width":"Kengligi",
+  "height": "Balandligi",
+  "diameter": "Diametri",
+  "season": "Mavsum",
+  "modification": "Modifikatsiya",
+  "polarity": "Polarlik",
+  "capacity": "Imkoniyat",
+  "electricity": "Hozirgi"
 }

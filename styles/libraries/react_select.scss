@@ -24,7 +24,7 @@
 }
 
 .filter_search__single-value {
-  @include fs_lh_fw_c(14px, 21px, 600, $darkGrey)
+  @include fs_fw_c(14px,600, $darkGrey)
 }
 
 .filter_search__indicators {
@@ -64,7 +64,7 @@
 }
 
 .filter_search__menu-list {
-  @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+  @include fs_fw_c(14px,600, $darkGrey);
 }
 
 .filter_search__option, .filter_provider__option {
@@ -101,7 +101,7 @@
 }
 
 .filter_provider__single-value {
-  @include fs_lh_fw_c(14px, 21px, 700, red) ;
+  @include fs_fw_c(14px,700, red) ;
   color: $text !important;
 }
 
@@ -118,13 +118,13 @@
 }
 
 .filter_provider__placeholder{
-  @include fs_lh_fw_c(14px, 21px, 600, $text) ;
+  @include fs_fw_c(14px,600, $text) ;
   color: $text !important;
 }
 
 
 .filter_provider__menu-list {
-  @include fs_lh_fw_c(14px, 21px, 600, $text);
+  @include fs_fw_c(14px,600, $text);
 }
 
 .filter_provider__dropdown-indicator {

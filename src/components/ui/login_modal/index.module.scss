@@ -45,14 +45,14 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  @include fs_lh_fw_c(18px, 27px, 700, $secondary);
+  @include fs_fw_c(18px,700, $secondary);
 }
 
 
 .remember_wr {
   margin: 15px 0 30px;
   @include flex-items(space-between, center);
-  @include fs_lh_fw_c(14px, 21px, 600, $secondary);
+  @include fs_fw_c(14px,600, $secondary);
 }
 
 .remember {
@@ -99,11 +99,11 @@
   padding: 22px;
   background: $blockBg;
   @include flex-items(center, center);
-  @include fs_lh_fw_c(16px, 24px, 400, $text);
+  @include fs_fw_c(16px,400, $text);
   border-radius: 0 0 12px 12px;
 
   a {
-    @include fs_lh_fw_c(14px, 21px, 600, $text);
+    @include fs_fw_c(14px,600, $text);
     margin-left: 60px;
   }
 }
@@ -128,7 +128,7 @@
 @media (max-width: 565px) {
 
   .header_title {
-    @include fs_lh_fw_c(16px, 20px, 700, $secondary);
+    @include fs_fw_c(16px,700, $secondary);
   }
   .remember_wr {
     margin: 15px 0 30px;

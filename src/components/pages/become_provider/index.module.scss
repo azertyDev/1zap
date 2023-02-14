@@ -13,7 +13,7 @@
 
   button {
     padding: 12px 20px;
-    @include fs_lh_fw_c(14px, 21px, 600, $text);
+    @include fs_fw_c(14px,600, $text);
     background: $blockBg;
     border-radius: 10px;
   }
@@ -22,7 +22,7 @@
 
 
 .title {
-  @include fs_lh_fw_c(36px, 48px, 700, $secondary);
+  @include fs_fw_c(36px,700, $secondary);
   margin-bottom: 35px;
   text-align: center;
 }
@@ -48,7 +48,7 @@ margin-bottom: 35px;
   width: 100%;
   padding: 17px;
   border-radius: 10px;
-  @include fs_lh_fw_c(14px, 21px, 600, #fff);
+  @include fs_fw_c(14px,600, #fff);
   margin-top: 27px;
 }
 
@@ -63,7 +63,7 @@ margin-bottom: 35px;
 .warn_text {
   margin-top: 10px;
   text-align: center;
-  @include fs_lh_fw_c(11px, 21px, 400, #000);
+  @include fs_fw_c(11px, 400, #000);
 }
 
 .second_form_wr{
@@ -82,13 +82,13 @@ margin-bottom: 35px;
 
     button {
       padding: 10px;
-      @include fs_lh_fw_c(12px, 12px, 600, $text);
+      @include fs_fw_c(12px,600, $text);
 
     }
   }
 
   .title {
-    @include fs_lh_fw_c(26px, 30px, 700, $secondary);
+    @include fs_fw_c(26px,700, $secondary);
     margin-bottom: 20px;
   }
   .select_wr {

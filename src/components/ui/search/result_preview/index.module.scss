@@ -1,5 +1,5 @@
-@import "../../../../../styles/variables";
-@import "../../../../../styles/mixins";
+@import "styles/variables";
+@import "styles/mixins";
 
 .search_res {
   background: $main;
@@ -36,14 +36,14 @@
   padding: 3px 12px 3px 24px;
   min-width: 118px;
   width: 118px;
-  @include fs_lh_fw_c(14px, 20px, 600, $secondary);
+  @include fs_fw_c(14px,600, $secondary);
   text-transform: uppercase;
   border-right: 1px solid #EDE8E9;
 }
 
 .search_res_text {
   padding: 3px 18px;
-  @include fs_lh_fw_c(12px, 20px, 600, $secondary);
+  @include fs_fw_c(12px,600, $secondary);
 }
 
 @media (max-width: 1000px) {

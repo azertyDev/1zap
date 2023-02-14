@@ -23,11 +23,11 @@
   input {
     width: 100%;
     padding: 13px 18px;
-    @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+    @include fs_fw_c(14px, 600, $darkGrey);
     border-radius: 15px;
 
     &::placeholder {
-      @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+      @include fs_fw_c(14px, 600, $darkGrey);
     }
   }
 }

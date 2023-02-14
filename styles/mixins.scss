@@ -1,8 +1,7 @@
 @import "styles/variables";
 
-@mixin fs_lh_fw_c($fs:inherit, $lh:normal, $fw:400, $col:$secondary) {
+@mixin fs_fw_c($fs:inherit, $fw:400, $col:$secondary) {
   font-size: $fs;
-  line-height: $lh;
   font-weight: $fw;
   color: $col;
 }

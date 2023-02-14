@@ -1,0 +1,17 @@
+
+.title {
+  margin-bottom: 30px;
+}
+
+.tabs_wr {
+  max-width: 755px;
+}
+
+.table{
+  margin-top: 70px;
+}
+
+.table_row{
+  display: grid;
+  grid-template-columns: 102px 120px 70px minmax(170px,207px) minmax(130px,160px)  minmax(130px,150px) 124px;
+}

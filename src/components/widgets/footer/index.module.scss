@@ -2,7 +2,7 @@
 @import 'styles/mixins';
 
 .footer {
-margin-top: auto;
+  margin-top: auto;
 }
 
 .footer_top {
@@ -23,14 +23,14 @@ margin-top: auto;
   @include flex-items(stretch, center);
 
   a {
-    @include fs_lh_fw_c(14px, 21px, 700, $secondary);
+    @include fs_fw_c(14px, 700, $secondary);
     margin-right: 24px;
     letter-spacing: -0.1px;
   }
 }
 
 .copy {
-  @include fs_lh_fw_c(14px, 21px, 400, $text);
+  @include fs_fw_c(14px, 400, $text);
   letter-spacing: -0.1px;
   margin-left: 65px;
 }
@@ -49,7 +49,7 @@ margin-top: auto;
   .copy {
     text-align: center;
     margin: 0;
-    @include fs_lh_fw_c(12px, 21px, 400, $text);
+    @include fs_fw_c(12px, 400, $text);
   }
 }
 
@@ -61,6 +61,7 @@ margin-top: auto;
   @include dg_gc_gr_gg(repeat(3, 1fr), auto, 30px);
   justify-items: center;
   margin: 25px 0;
+
 }
 
 @media (max-width: 1000px) {

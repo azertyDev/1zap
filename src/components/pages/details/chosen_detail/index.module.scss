@@ -1,0 +1,35 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.title {
+  margin-bottom: 50px;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 47% 50%;
+  grid-gap: 30px;
+  justify-content: space-between;
+}
+
+.link {
+  padding: 23px 27px;
+  display: block;
+}
+
+.img {
+  height: 600px;
+  width: 100%;
+  position: relative;
+}
+
+.table_title {
+  @include fs_fw_c(22px, 700, $secondary);
+  margin-bottom: 30px;
+}
+
+.table_row{
+  display: grid;
+  grid-template-columns: 40px 1fr 120px;
+
+}
