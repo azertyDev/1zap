@@ -12,7 +12,7 @@ import { InfoLinks } from 'src/components/ui/dashboard/info_links';
 import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Button } from 'src/components/ui/button';
 import s from './index.module.scss';
-import { IconInput } from 'src/components/ui/input/icon_input';
+import { Switch } from 'src/components/ui/switch';
 
 export const linksData = [
     {
@@ -55,7 +55,7 @@ export const Profile: FC = (): JSX.Element => {
             .min(2, 'Too Short!')
             .max(50, 'Too Long!')
             .required('Required'),
-        email: Yup.string().email('Invalid email').required(''),
+        email: Yup.string().email('Invalid email').required('Required'),
     });
 
     const onSubmit = async (
@@ -71,6 +71,8 @@ export const Profile: FC = (): JSX.Element => {
         validationSchema,
     });
 
+    console.log(formik.values);
+
     return (
         <div className={s.wrapper}>
             <Heading
@@ -82,22 +84,20 @@ export const Profile: FC = (): JSX.Element => {
 
             <FormikProvider value={formik}>
                 <Form>
+                    <Switch {...formik.getFieldProps('isAdmin')} />
+                    <br />
+
                     <FloatingInput {...formik.getFieldProps('firstName')} />
 
                     <FloatingInput
                         {...formik.getFieldProps('lastName')}
                         iconName="mail"
-                        iconSize={18}
                     />
                     <FloatingInput {...formik.getFieldProps('email')} />
 
-                    <div>
-                        <Button classN={'main'}>
-                            Submit
-                        </Button>
-                        <Button  classN={'main'}>
-                            Reset
-                        </Button>
+                    <div className={s.actionButtons}>
+                        <Button classN={'main'}>Submit</Button>
+                        <Button classN={'main'}>Reset</Button>
                     </div>
                 </Form>
             </FormikProvider>

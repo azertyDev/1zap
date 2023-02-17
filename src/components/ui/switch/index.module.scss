@@ -1,0 +1,50 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.switch {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+
+    input {
+        appearance: none;
+        min-width: 40px;
+        min-height: 22px;
+        margin: 0;
+
+        position: relative;
+        background-color: $blockBg;
+        border-radius: 32px;
+        border: 1px solid $blockBg;
+
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.1s, border-color 0.1s;
+
+        &:checked {
+            background-color: $main;
+            border-color: $main;
+
+            &::before {
+                left: unset;
+                transform: translateX(calc(100% + 4px));
+                background-color: $light;
+            }
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            height: 16px;
+            width: 16px;
+            top: 2px;
+            left: 2px;
+            bottom: 2px;
+            background-color: #c8ccd4;
+            transition: all 0.2s;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1;
+        }
+    }
+}

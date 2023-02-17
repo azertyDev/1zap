@@ -29,12 +29,12 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                         }
                     >
                         <li>
-                            <Icon name="timelapse" size="22" />
-                            {t('common:main')}
+                            <Icon name="timelapse" size={22} />
+                            {t('dashboard:main')}
                         </li>
                     </Link>
 
-                    <p>{t('common:profile_work')}</p>
+                    <p>{t('dashboard:profile_work')}</p>
                     {dashboardMenu.slice(1, 4).map((item) => {
                         return (
                             <Link
@@ -43,8 +43,8 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                                 className={slug === item.name ? s.active : ''}
                             >
                                 <li>
-                                    <Icon name={item.icon} size="22" />
-                                    {t(`common:${item.name}`)}
+                                    <Icon name={item.icon} size={22} />
+                                    {t(`dashboard:${item.name}`)}
                                 </li>
                             </Link>
                         );
@@ -59,8 +59,8 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                                 shallow
                             >
                                 <li>
-                                    <Icon name={item.icon} size="22" />
-                                    {t(`common:${item.name}`)}
+                                    <Icon name={item.icon} size={22} />
+                                    {t(`dashboard:${item.name}`)}
                                 </li>
                             </Link>
                         );
