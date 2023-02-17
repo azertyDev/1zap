@@ -18,7 +18,7 @@ export const LoginEnd: FC<{
             >
                 <p>{t('common:wesendemail', { email: emailVal })}</p>
             </Completed>
-            <Button classN={'main'}>{t('common:openemail')}</Button>
+            <Button variant={"primary"}>{t('common:openemail')}</Button>
         </div>
     );
 };

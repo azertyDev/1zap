@@ -36,7 +36,7 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  @include fs_lh_fw_c(18px, 27px, 700, $secondary);
+  @include fs_fw_c(18px,700, $secondary);
 }
 
 .book_wr {

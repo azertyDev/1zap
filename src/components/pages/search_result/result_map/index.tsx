@@ -9,10 +9,10 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 
-import { FilterSelections } from 'components/ui/filter_selections';
-import { FilterSelect } from 'components/ui/filter_selections/filter_select';
+import { FilterSelections } from 'components/ui/filter/filter_selections';
+import { FilterSelect } from 'components/ui/filter/filter_selections/filter_select';
 import { Container } from 'components/ui/container';
-import { FilterResponsive } from 'components/ui/filter_responsive';
+import { FilterResponsive } from 'components/ui/filter/filter_responsive';
 import { ResultTableForm } from 'components/pages/search_result/result_table_form';
 import { MapItem } from 'components/pages/search_result/serch_items/map_item';
 import { ToggleButton } from 'components/pages/search_result/serch_items/toggle_button';

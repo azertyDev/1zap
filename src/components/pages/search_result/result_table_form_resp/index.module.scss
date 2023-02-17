@@ -28,11 +28,11 @@
 }
 
 .titles_big {
-  @include fs_lh_fw_c(14px, 24px, 600, $secondary);
+  @include fs_fw_c(14px,600, $secondary);
 }
 
 .titles_small {
-  @include fs_lh_fw_c(12px, 16px, 600, $secondary);
+  @include fs_fw_c(12px, 600, $secondary);
 }
 
 .info_wr {
@@ -74,7 +74,7 @@
 
 .text {
   margin: 5px 0 10px;
-  @include fs_lh_fw_c(12px, 16px, 400, $secondary);
+  @include fs_fw_c(12px,400, $secondary);
 }
 
 .order_wr {
@@ -82,7 +82,7 @@
 
   button {
     background: transparent;
-    @include fs_lh_fw_c(14px, 21px, 600, $main);
+    @include fs_fw_c(14px,600, $main);
   }
 }
 

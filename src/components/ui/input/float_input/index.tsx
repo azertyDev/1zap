@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 import s from './index.module.scss';
 import { PatternFormat } from 'react-number-format';
 
-interface InputProps {
+interface InputProps{
     iconName?: string;
     iconSize?: number;
     isPhone?: boolean;

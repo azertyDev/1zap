@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 
 import s from '../index.module.scss';
 import { Formik } from 'formik';
-import { InputWrapper } from 'components/ui/input_wrapper';
+import { InputWrapper } from 'components/ui/input/input_wrapper';
 import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Button } from 'components/ui/button';
 import { useTranslation } from 'next-i18next';
@@ -10,6 +10,7 @@ import { Completed } from 'components/ui/completed';
 import { Icon } from 'components/ui/icon';
 import Image from 'next/image';
 import { LoginEnd } from 'components/ui/login_modal/login_end';
+import {LoginForgotValidation} from "src/validation/login";
 
 export const ForgotPassword: FC = (): JSX.Element => {
     const { t } = useTranslation();
@@ -39,6 +40,7 @@ export const ForgotPassword: FC = (): JSX.Element => {
                             initialValues={{
                                 email: '',
                             }}
+                            validationSchema={LoginForgotValidation}
                             onSubmit={(values, { setSubmitting }) => {
                                 setDone(true);
                                 setEmailVal(values.email);
@@ -52,7 +54,7 @@ export const ForgotPassword: FC = (): JSX.Element => {
                                     <FloatingInput name={'email'} />
                                     <Button
                                         // isSubmitting={isSubmitting}
-                                        classN={'main'}
+                                      variant={"primary"}
                                     >
                                         {t('header:login')}
                                     </Button>

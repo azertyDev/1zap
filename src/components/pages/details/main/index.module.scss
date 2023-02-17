@@ -3,5 +3,15 @@
 }
 
 .title{
-  margin: 50px 0 30px;
+  margin: 0 0 30px;
 }
+
+.table{
+  margin-top: 70px;
+}
+
+.table_row {
+  grid-template-columns: 150px minmax(200px,1fr) 60px minmax(150px,200px) 120px;
+  grid-gap: 5px;
+}
+

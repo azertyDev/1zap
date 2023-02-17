@@ -16,5 +16,21 @@
   "brand": "Марка",
   "modelMeaning": "Обозначение модели",
   "region": "Регион",
-  "model": "Модель"
+  "model": "Модель",
+  "oilType": "Тип масла",
+  "stickType": "Тип вязкости",
+  "volume": "Объем",
+  "photo": "Фото",
+  "middlePrice": "Средняя цена",
+  "offer": "Предложения",
+  "typeAndStick": "Тип и вязкость",
+  "size": "Размер",
+  "width": "Ширина",
+  "height": "Высота",
+  "diameter": "Диаметр",
+  "season": "Сезон",
+  "modification": "Модификация",
+  "polarity": "Полярность",
+  "capacity": "Емкость",
+  "electricity": "Ток"
 }

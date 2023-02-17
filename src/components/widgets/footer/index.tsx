@@ -36,9 +36,7 @@ export const Footer: FC = (): JSX.Element => {
                             links={footerLinksSec.links}
                         >
                             <p className={s.link}>{t('common:searchVin')}</p>
-                            <p className={s.link}>
-                                {t('common:sparePartsCat')}
-                            </p>
+
                         </FooterItem>
 
                         <FooterItem

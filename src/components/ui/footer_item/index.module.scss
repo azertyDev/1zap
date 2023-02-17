@@ -4,19 +4,22 @@
 
 .list {
   p {
-    @include fs_lh_fw_c(14px, 33px, 400, $text);
+    @include fs_fw_c(14px,400, $text);
     cursor: pointer;
+    margin-bottom: 15px;
   }
 
 }
 
 .list_title {
-  @include fs_lh_fw_c(14px, 21px, 600, $secondary);
+  @include fs_fw_c(14px,600, $secondary);
+  margin-bottom: 10px;
 }
 
 .link {
-  @include fs_lh_fw_c(14px, 33px, 400, $text);
+  @include fs_fw_c(14px,400, $text);
   display: block;
+  margin-bottom: 15px;
 }
 
 .list_content{
@@ -37,7 +40,7 @@
  }
 
   .link {
-    @include fs_lh_fw_c(14px, 26px, 400, $text);
+    @include fs_fw_c(14px,400, $text);
   }
 
   .list_content{

@@ -13,7 +13,7 @@
 }
 
 .link{
-  @include  fs_lh_fw_c(14px,21px,600,$text);
+  @include  fs_fw_c(14px,600,$text);
 }
 
 @media (max-width: 768px) {
@@ -23,6 +23,6 @@
   }
 
   .link{
-    @include  fs_lh_fw_c(12px,21px,600,$text);
+    @include  fs_fw_c(12px,600,$text);
   }
 }

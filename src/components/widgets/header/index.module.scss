@@ -23,7 +23,7 @@
 }
 
 .text{
-  @include  fs_lh_fw_c(14px,21px,600,$text);
+  @include  fs_fw_c(14px,600,$text);
 }
 
 

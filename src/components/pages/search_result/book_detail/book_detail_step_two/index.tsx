@@ -9,6 +9,7 @@ import {Formik} from 'formik';
 import {FloatingInput} from 'components/ui/input/float_input';
 import {Button} from 'components/ui/button';
 import {IconsWrapper} from 'components/ui/icons_wrapper';
+import {bookValidation} from "src/validation/book";
 
 export const BookDetailStepTwo: FC<{
     handleOrder: (val: number) => () => void;
@@ -63,12 +64,13 @@ export const BookDetailStepTwo: FC<{
                     <div className={s.book_form}>
                         <Formik
                             initialValues={{
-                                phoneNumber: '',
+                                contactNumber: '',
                                 surname: '',
                             }}
+                            validationSchema={bookValidation}
                             onSubmit={(values, {setSubmitting}) => {
                                 setDone(true);
-                                setPhoneVal(values.phoneNumber);
+                                setPhoneVal(values.contactNumber);
                                 alert(JSON.stringify(values));
                             }}
                         >
@@ -79,12 +81,12 @@ export const BookDetailStepTwo: FC<{
                                 >
                                     <div className={s.inputs_wr}>
                                         <FloatingInput name={'surname'}/>
-                                        <FloatingInput name={'phoneNumber'}/>
+                                        <FloatingInput name={'contactNumber'} isPhone/>
                                     </div>
 
                                     <Button
                                         // isSubmitting={isSubmitting}
-                                        classN={'main'}
+                                        variant={"primary"}
                                     >
                                         {t('header:login')}
                                     </Button>
@@ -94,7 +96,7 @@ export const BookDetailStepTwo: FC<{
                     </div>
                 )}
                 {done && (
-                    <Button onClick={toggleBookDetail(false)} classN={'main'}>
+                    <Button onClick={toggleBookDetail(false)} variant={"primary"}>
                         {t('common:continueSearch')}
                     </Button>
                 )}

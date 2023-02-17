@@ -24,7 +24,7 @@ export const StatisticsReport: FC<StatisticsReportProps> = ({ data }) => {
                         <span>
                             {`${coins ? `${coins} монет` : 'Бесплатно'}`}
                         </span>
-                        <Button classN={s.btn}>Заказать</Button>
+                        <Button variant={"primary"}>Заказать</Button>
                     </div>
                 );
             })}

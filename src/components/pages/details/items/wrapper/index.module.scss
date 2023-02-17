@@ -1,0 +1,12 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.title {
+  margin: 0 0 50px;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-gap: 48px;
+}

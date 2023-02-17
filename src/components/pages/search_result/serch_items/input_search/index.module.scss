@@ -8,11 +8,11 @@
   input {
     width: 100%;
     padding: 17px 130px 17px 20px;
-    @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+    @include fs_fw_c(14px,600, $darkGrey);
     border-radius: 8px;
 
     &::placeholder {
-      @include fs_lh_fw_c(14px, 21px, 600, $darkGrey);
+      @include fs_fw_c(14px,600, $darkGrey);
     }
   }
 }
@@ -28,7 +28,7 @@
   transform: translateY(-50%);
   padding: 10px 25px;
   background: $main;
-  @include fs_lh_fw_c(14px, 21px, 600, $light);
+  @include fs_fw_c(14px,600, $light);
   border-radius: 8px;
   @include flex-items(center, center);
 
@@ -46,7 +46,7 @@
       border-bottom: 2px solid #EDE8E9;
 
       &::placeholder {
-        @include fs_lh_fw_c(12px, 12px, 400, $darkGrey);
+        @include fs_fw_c(12px,400, $darkGrey);
       }
     }
   }

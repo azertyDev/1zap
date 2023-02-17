@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 import { SearchDetails } from 'components/pages/home/search_home/search_details';
 import { SearchCatalog } from 'components/pages/home/search_home/search_catalog';
 import { SearchCategory } from 'components/pages/home/search_home/search_category';
-import { SearchTabs } from 'components/ui/search_tabs';
+import { SearchTabs } from 'components/ui/search/tabs';
 
 import {
     searchHomeTabs,

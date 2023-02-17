@@ -1,17 +1,13 @@
-import {FilterSelections} from "components/ui/filter_selections";
-import {FilterSelect} from "components/ui/filter_selections/filter_select";
+import {FilterSelections} from "components/ui/filter/filter_selections";
+import {FilterSelect} from "components/ui/filter/filter_selections/filter_select";
 import React, {useState} from "react";
 import {useTranslation} from "next-i18next";
-import {useOpenCloseWithVal} from "src/hooks/common/useOpenCloseWithVal";
+
 import {useRouter} from "next/router";
 import {useFormik} from "formik";
 
 export const FirCars = () => {
     const {t} = useTranslation();
-    const [mapIsOpen, setIsOpen] = useState(false);
-    const [isOpenFilter, setIsOpenFilter] = useState(false);
-
-    const {openClose, handleOpenClose} = useOpenCloseWithVal();
 
     const {
         query: {
