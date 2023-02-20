@@ -1,17 +1,48 @@
-import React, {FC} from "react";
-import {Props as SelectProps} from "react-select/dist/declarations/src";
-import {FieldProps, useField} from "formik";
-import Select from "react-select";
+import React, { FC } from 'react';
+import { FieldProps, useField } from 'formik';
+import Select, { Props as SelectProps } from 'react-select';
+import s from './index.module.scss';
 
-export const SelectField: FC<SelectProps & FieldProps> = (props) => {
-    const [field, state, {setValue, setTouched},] = useField(props.field.name);
+interface SelectField extends SelectProps {
+    label?: string;
+}
 
-    const onChange = ({value}: { value: string | number }) => {
+export const SelectField: FC<SelectField & FieldProps> = ({
+    label = 'Select',
+    ...props
+}) => {
+    const [field, form, { setValue }] = useField(props.field.name);
+
+    const onChange = ({ value }: any) => {
         setValue(value);
-
     };
 
     return (
-        <Select {...props} onChange={onChange}/>
+        <div className={s.root}>
+            <label htmlFor={field.name}>{label}</label>
+            <Select
+                {...props}
+                onChange={onChange}
+                id={field.name}
+                required
+                classNamePrefix={s.root}
+                styles={{
+                    container: (base) => ({
+                        ...base,
+                    }),
+                    placeholder: (base) => ({
+                        ...base,
+                        display: 'none',
+                    }),
+                    control: (base) => ({
+                        ...base,
+                        border: 'none',
+                    }),
+                    indicatorSeparator: (base) => ({
+                        display: 'none',
+                    }),
+                }}
+            />
+        </div>
     );
-}
+};

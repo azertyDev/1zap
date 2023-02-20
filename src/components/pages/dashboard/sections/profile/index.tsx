@@ -12,7 +12,7 @@ import { InfoLinks } from 'src/components/ui/dashboard/info_links';
 import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Button } from 'src/components/ui/button';
 import s from './index.module.scss';
-import { Switch } from 'src/components/ui/switch';
+import { Checkbox } from 'src/components/ui/checkbox';
 
 export const linksData = [
     {
@@ -71,8 +71,6 @@ export const Profile: FC = (): JSX.Element => {
         validationSchema,
     });
 
-    // console.log(formik.values);
-
     return (
         <div className={s.wrapper}>
             <Heading
@@ -84,6 +82,7 @@ export const Profile: FC = (): JSX.Element => {
 
             <FormikProvider value={formik}>
                 <Form>
+                    <Checkbox {...formik.getFieldProps('isAdmin')} />
                     <FloatingInput {...formik.getFieldProps('firstName')} />
 
                     <FloatingInput
