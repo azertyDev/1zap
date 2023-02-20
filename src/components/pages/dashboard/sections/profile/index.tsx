@@ -71,7 +71,7 @@ export const Profile: FC = (): JSX.Element => {
         validationSchema,
     });
 
-    console.log(formik.values);
+    // console.log(formik.values);
 
     return (
         <div className={s.wrapper}>
@@ -84,24 +84,17 @@ export const Profile: FC = (): JSX.Element => {
 
             <FormikProvider value={formik}>
                 <Form>
-                    <Switch {...formik.getFieldProps('isAdmin')} />
-                    <br />
-
                     <FloatingInput {...formik.getFieldProps('firstName')} />
 
                     <FloatingInput
                         {...formik.getFieldProps('lastName')}
-                        iconName="mail"
+                        iconname="mail"
                     />
                     <FloatingInput {...formik.getFieldProps('email')} />
 
                     <div>
-                        <Button variant={"primary"}>
-                            Submit
-                        </Button>
-                        <Button  variant={"primary"}>
-                            Reset
-                        </Button>
+                        <Button variant={'primary'}>Submit</Button>
+                        <Button variant={'primary'}>Reset</Button>
                     </div>
                 </Form>
             </FormikProvider>

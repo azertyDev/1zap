@@ -5,14 +5,14 @@ import { useTranslation } from 'next-i18next';
 import s from './index.module.scss';
 import { PatternFormat } from 'react-number-format';
 
-interface InputProps{
-    iconName?: string;
+interface InputProps {
+    iconname?: string;
     iconSize?: number;
     isPhone?: boolean;
 }
 
 const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
-    const { iconName, iconSize = 18, isPhone } = props;
+    const { iconname, iconSize = 18, isPhone } = props;
     const [field, meta] = useField(props);
     const { t } = useTranslation('');
 
@@ -40,8 +40,8 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                     <Field {...field} {...props} />
                 )}
 
-                {iconName && field.value.length === 0 && !meta.error ? (
-                    <Icon size={iconSize} name={iconName} color={'#0D0A19'} />
+                {iconname && field.value.length === 0 && !meta.error ? (
+                    <Icon size={iconSize} name={iconname} color={'#0D0A19'} />
                 ) : null}
 
                 {field.value && !meta.error ? (
