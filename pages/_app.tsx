@@ -5,6 +5,7 @@ import { ReactElement, ReactNode } from 'react';
 import { appWithTranslation } from 'next-i18next';
 
 import '../styles/libraries/map.scss';
+import '../styles/libraries/pagination.scss';
 import '../styles/libraries/react_select.scss';
 import '../styles/libraries/home_partners_swiper.scss';
 

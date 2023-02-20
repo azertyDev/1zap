@@ -21,6 +21,8 @@ import { ToggleResize } from 'components/pages/search_result/serch_items/toggle_
 import { ResultTableFormResp } from 'components/pages/search_result/result_table_form_resp';
 import { BookDetail } from 'components/pages/search_result/book_detail';
 import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
+import {Pagination} from "components/ui/pagination/Pagination";
+import {useFilter} from "src/hooks/common/useFilter";
 
 const fakeAnchor = [
     [41.31240320650527, 69.27836058056674],
@@ -34,6 +36,7 @@ export const ResultMap: FC = (): JSX.Element => {
     const [isOpenFilter, setIsOpenFilter] = useState(false);
 
     const { openClose, handleOpenClose } = useOpenCloseWithVal();
+    const {handleFilter}= useFilter();
 
     const {
         query: {
@@ -45,9 +48,6 @@ export const ResultMap: FC = (): JSX.Element => {
             condition,
             updates,
         },
-        push,
-        pathname,
-        query,
     } = useRouter();
 
     const formik = useFormik({
@@ -59,18 +59,7 @@ export const ResultMap: FC = (): JSX.Element => {
         },
     });
 
-    const handleFilter = (key: string) => {
-        return (ev: any) => {
-            push({
-                pathname: pathname,
-                query: {
-                    ...query,
-                    page: 1,
-                    [key]: ev.value,
-                },
-            });
-        };
-    };
+
 
     return (
         <div className={s.map_wr}>
@@ -209,6 +198,7 @@ export const ResultMap: FC = (): JSX.Element => {
                     </div>
                     <ResultTableForm toggleBookDetail={handleOpenClose} />
                     <ResultTableFormResp toggleBookDetail={handleOpenClose} />
+                    <Pagination pageCount={5} />
                     {/*<NoResult />*/}
                 </div>
             </Container>

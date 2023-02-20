@@ -57,7 +57,7 @@ export const SearchDetails: FC<{ className: (val: boolean) => string }> = ({
             <div className={className(searchRes)}>
                 <form className={s.form} onSubmit={formik.handleSubmit}>
                     <button type="submit" className={s.big_search_img}>
-                        <Icon size={25} name={'search'} color={'#fff'} />
+                        <Icon size={30} name={'search'} color={'#fff'} />
                     </button>
 
                     <input

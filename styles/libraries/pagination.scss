@@ -1,0 +1,65 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.pagination {
+  margin: 50px 0;
+
+
+  ul {
+    @include flex-items(flex-start, center);
+
+    a {
+      display: block;
+      @include fs_fw_c(14px, 700, $secondary);
+      padding: 10px 16px;
+      cursor: pointer;
+    }
+
+    .selected {
+      pointer-events: none;
+    }
+
+    .active_box {
+      background: $main;
+      border-radius: 6px;
+      color: #fff;
+    }
+  }
+
+  .next {
+    border: 1px solid #E4E6E8;
+    border-radius: 6px;
+    transition: .5s;
+
+    &:hover {
+      box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.07);
+    }
+
+    a {
+      @include fs_fw_c(14px, 600, $text);
+      position: relative;
+      display: block;
+      padding: 10px 23px 10px 14px;
+      height: 100%;
+
+      &:after {
+        content: "";
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 10px;
+        height: 10px;
+        background: url("/assets/icons/arrow_filter.svg") no-repeat;
+      }
+
+    }
+
+  }
+
+  .previous {
+    display: none;
+  }
+
+
+}

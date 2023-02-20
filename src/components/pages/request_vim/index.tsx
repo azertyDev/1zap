@@ -6,11 +6,12 @@ import Link from 'next/link';
 import {useTranslation} from 'next-i18next';
 
 import {Logo} from 'components/ui/logo';
-import {FirstFormProvider} from 'components/pages/become_provider/form_items/first_form_provider';
-import {SecondFormProvider} from 'components/pages/become_provider/form_items/second_form_provider';
-import {Button} from "components/ui/button";
 
-export const BecomeProviderComp: FC = (): JSX.Element => {
+import {Button} from "components/ui/button";
+import {FirstFormVim} from "components/pages/request_vim/form_items/first_form";
+import {SecondFormVim} from "components/pages/request_vim/form_items/second_form";
+
+export const RequestVimComp: FC = (): JSX.Element => {
     const {t} = useTranslation();
     const [form, setForm] = useState(false);
     const [cancleBtn, setCancelBtn] = useState(true);
@@ -30,9 +31,9 @@ export const BecomeProviderComp: FC = (): JSX.Element => {
 
             <div>
                 {!form ? (
-                    <FirstFormProvider fun={setForm}/>
+                    <FirstFormVim fun={setForm}/>
                 ) : (
-                    <SecondFormProvider fun={setCancelBtn}/>
+                    <SecondFormVim fun={setCancelBtn}/>
                 )}
             </div>
         </div>

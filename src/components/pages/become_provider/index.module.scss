@@ -16,6 +16,7 @@
     @include fs_fw_c(14px,600, $text);
     background: $blockBg;
     border-radius: 10px;
+    width: auto;
   }
 }
 

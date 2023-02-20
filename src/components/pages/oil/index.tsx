@@ -16,9 +16,13 @@ import {TableRow} from "components/ui/table/table_row";
 import {TableElement} from "components/ui/table/table_element";
 import Image from "next/image";
 import {OilTabs} from "src/constants/oilTabs";
+import {Pagination} from "components/ui/pagination/Pagination";
+import {useFilter} from "src/hooks/common/useFilter";
 
 export const Oil = (): JSX.Element => {
     const {activeTab, handleActivetab} = useHandleActivetTabHome();
+    const {handleFilter}= useFilter();
+
     const {t} = useTranslation();
 
     const {
@@ -28,24 +32,8 @@ export const Oil = (): JSX.Element => {
             stickType,
             volume,
         },
-        push,
-        pathname,
-        query,
     } = useRouter();
 
-
-    const handleFilter = (key: string) => {
-        return (ev: any) => {
-            push({
-                pathname: pathname,
-                query: {
-                    ...query,
-                    page: 1,
-                    [key]: ev.value,
-                },
-            });
-        };
-    };
 
     return <>
 
@@ -150,7 +138,9 @@ export const Oil = (): JSX.Element => {
                     <h5>31232131</h5>
                 </TableElement>
                 <TableElement className={"table_b"}>
-                    <Image src={"https://images.unsplash.com/photo-1676296825236-8c06ac83938b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=385&q=80"} alt={"oil"}  width={52} height={70}/>
+                    <Image
+                        src={"https://images.unsplash.com/photo-1676296825236-8c06ac83938b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=385&q=80"}
+                        alt={"oil"} width={52} height={70}/>
                 </TableElement>
                 <TableElement className={"table_b"}>
                     <h5>POLYMERIUM XPRO1 5W30 C3 DEXOS2 4L</h5>
@@ -170,5 +160,9 @@ export const Oil = (): JSX.Element => {
                 </TableElement>
             </TableRow>
         </div>
+
+        <Pagination pageCount={12}/>
+
     </>
+
 }
