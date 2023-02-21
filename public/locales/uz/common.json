@@ -86,5 +86,11 @@
   "open": "Ochiq",
   "groupDetails": "Ehtiyot qismlar guruhlari",
   "find": "Toping",
-  "show": "Ko'rsatish"
+  "show": "Ko'rsatish",
+  "vinNumber": "VIN raqami",
+  "yearIssue": "Chiqarilgan yili",
+  "describeDetail": "Qaysi qismlarni qidirayotganingizni, har bir ehtiyot qismni yangi qatorda batafsil tasvirlab bering",
+  "downloadPhoto": "Tafsilotli fotosuratni yuklang",
+  "photoDownloaded": "Surat yuklandi",
+  "modification": "Modifikatsiya"
 }

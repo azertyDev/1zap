@@ -1,20 +1,15 @@
 import React, {Dispatch, FC, SetStateAction, useCallback} from 'react';
 import {useTranslation} from 'next-i18next';
 
-import s from '../../index.module.scss';
-import {Formik} from 'formik';
+import s from './index.module.scss';
+import {FieldProps, Formik} from 'formik';
 import {Field} from 'formik';
 import {FloatingInput} from 'src/components/ui/input/float_input';
 
 import {Button} from 'components/ui/button';
 import {InputWrapper} from 'components/ui/input/input_wrapper';
-import {SelectField} from "components/ui/select";
-
-
-const options = [
-    {value: 1, label: 'text'},
-    {value: 2, label: 'text2'},
-]
+import {Icon} from "components/ui/icon";
+import {Title} from "components/ui/title";
 
 
 export const FirstFormVim: FC<{
@@ -24,51 +19,68 @@ export const FirstFormVim: FC<{
 
     return (
         <div className={s.first_form_wr}>
-            <h2 className={s.title}>{t('footer:becomeSupplier')}</h2>
+            <Title className={s.title} main>
+                {t('common:searchDetailVin')}
+            </Title>
+
             <Formik
                 initialValues={{
-                    vimNumber: '',
-                    brand: '',
-                    lastname: '',
-                    contactNumber: '',
-                    autoService: '',
-                    city: '',
+                    vinNumber: '',
+                    yearIssue: "",
+                    modification: "",
+                    description: ""
                 }}
                 onSubmit={(values, {setSubmitting}) => {
                     // fun(true);
                     alert(JSON.stringify(values));
                 }}
             >
-                {({handleSubmit, setFieldValue}) => (
+                {({handleSubmit, values}) => (
                     <form onSubmit={handleSubmit}>
                         <div className={s.first_form}>
                             <div>
                                 <InputWrapper>
-                                    <FloatingInput name={'vimNumber'}/>
+                                    <FloatingInput name={'vinNumber'}/>
                                 </InputWrapper>
 
-                                <div className={s.select_wr}>
-                                    <Field component={SelectField} name="city" options={options}/>
-                                </div>
-
-
                                 <InputWrapper>
-                                    <FloatingInput name={'year'}/>
+                                    <FloatingInput name={'yearIssue'}/>
                                 </InputWrapper>
                                 <InputWrapper>
                                     <FloatingInput name={'modification'}/>
                                 </InputWrapper>
+
                             </div>
 
                             <div>
-                                <FloatingInput name={'year'}/>
+                                <Field name="description">
+                                    {({
+                                          field,
+                                          meta
+                                      }: FieldProps) => {
+                                        return (
+                                            <textarea
+                                                className={s.textarea}
+                                                placeholder={t("common:describeDetail") as string}
+                                                {...field}
+                                                {...meta}
+                                            ></textarea>
+                                        );
+                                    }}
+                                </Field>
+
+                                <Button variant={"primary"} className={s.btn_upload}>
+                                    <Icon size={20} name={"backup"} color={"#fff"}/>
+                                    {t("common:downloadPhoto")}
+                                </Button>
                             </div>
                         </div>
-
 
                         <Button
                             // isSubmitting={isSubmitting}
                             variant={"primary"}
+                            type={"submit"}
+                            className={s.submit_btn}
                         >
                             {t('common:next')}
                         </Button>
