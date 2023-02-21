@@ -1,0 +1,17 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.root {
+    border: 1px solid #e4e6e8;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 10px;
+
+    // &__control {
+    //     background-color: #eecc00 !important;
+    // }
+
+    // &__placeholder {
+    //     color: red !important;
+    // }
+}
