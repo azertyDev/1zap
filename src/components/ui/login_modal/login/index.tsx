@@ -18,7 +18,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
     const { t } = useTranslation();
     const { push } = useRouter();
     const { login, data, error } = useStore();
-
+    console.log(typeof error);
     const onSubmit = () => {};
 
     return (
@@ -35,6 +35,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                     if (error) {
                         console.log('error:', error);
                     }
+
                     if (data?.user?.role === 'admin') {
                         push('/dashboard/main');
                     }
