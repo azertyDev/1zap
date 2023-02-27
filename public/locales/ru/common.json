@@ -39,7 +39,7 @@
   "username": "Ваше имя",
   "surname": "Фамилия",
   "lastname": "Отчество",
-  "contactNumber": "Контактный номер",
+  "phone": "Контактный номер",
   "autoService": "Авто-сервис",
   "city": "Город",
   "next": "Далее",

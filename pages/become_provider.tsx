@@ -15,6 +15,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                 'footer',
                 'home',
                 'filter',
+                'select',
             ])),
         },
     };

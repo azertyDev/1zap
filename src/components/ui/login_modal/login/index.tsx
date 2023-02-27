@@ -1,19 +1,25 @@
-import React, {Dispatch, FC, SetStateAction} from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 
 import s from '../index.module.scss';
 
-import {useTranslation} from 'next-i18next';
-import {Formik} from 'formik';
-import {FloatingInput} from 'src/components/ui/input/float_input';
-import {Button} from 'components/ui/button';
-import {InputWrapper} from 'components/ui/input/input_wrapper';
+import { useTranslation } from 'next-i18next';
+import { Formik } from 'formik';
+import { FloatingInput } from 'src/components/ui/input/float_input';
+import { Button } from 'components/ui/button';
+import { InputWrapper } from 'components/ui/input/input_wrapper';
 
-import {LoginValidation} from "src/validation/login";
+import { LoginValidation } from 'src/validation/login';
+import { useStore } from 'src/store/useStore';
+import { useRouter } from 'next/router';
 
 export const Login: FC<{ fun: (val: number) => () => void }> = ({
-                                                                    fun,
-                                                                }): JSX.Element => {
-    const {t} = useTranslation();
+    fun,
+}): JSX.Element => {
+    const { t } = useTranslation();
+    const { push } = useRouter();
+    const { login, data, error } = useStore();
+
+    const onSubmit = () => {};
 
     return (
         <div className={s.login}>
@@ -23,21 +29,32 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                     password: '',
                 }}
                 validationSchema={LoginValidation}
-                onSubmit={(values, {setSubmitting}) => {
-                    alert(JSON.stringify(values));
+                onSubmit={(values, { setSubmitting }) => {
+                    login(values.email, values.password);
+
+                    if (error) {
+                        console.log('error:', error);
+                    }
+                    if (data?.user?.role === 'admin') {
+                        push('/dashboard/main');
+                    }
                 }}
             >
-                {({handleSubmit, ...rest}) => {
+                {({ handleSubmit, values, ...rest }) => {
                     return (
-                        <form onSubmit={handleSubmit} className={s.form}>
+                        <form onSubmit={handleSubmit}>
                             <InputWrapper>
                                 <FloatingInput
                                     name={'email'}
-                                    iconName="email"
+                                    iconname="email"
                                 />
                             </InputWrapper>
 
-                            <FloatingInput name={'password'} iconName="key"/>
+                            <FloatingInput
+                                name={'password'}
+                                iconname="key"
+                                type={'password'}
+                            />
                             <div className={s.remember_wr}>
                                 <div className={s.remember}>
                                     <input
@@ -56,7 +73,8 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                             </div>
                             <Button
                                 // isSubmitting={isSubmitting}
-                                variant={"primary"}
+                                variant={'primary'}
+                                type={'submit'}
                             >
                                 {t('header:login')}
                             </Button>

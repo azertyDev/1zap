@@ -9,18 +9,14 @@ export const Logo: FC = (): JSX.Element => {
     return (
         <div className={s.logo}>
             <div className={s.logoOne}>
-                <Image
-                    src={'/assets/icons/logoOne.svg'}
-                    alt={'logo'}
-                    fill={true}
-                />
+                <Image src={'/assets/icons/logoOne.svg'} alt={'logo'} fill />
             </div>
             <div className={s.right}>
                 <div className={s.logoZap}>
                     <Image
                         src={'/assets/icons/logoZap.svg'}
                         alt={'logo'}
-                        fill={true}
+                        fill
                     />
                 </div>
                 <p className={s.text}>{t('header:comparebuy')}</p>
