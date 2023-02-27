@@ -25,17 +25,17 @@
         & label {
             position: absolute;
             pointer-events: none;
-            transform: translate(0, 23px) scale(1);
+            transform: translate(0, 28px) scale(1);
             transform-origin: top left;
             transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
             color: $text;
             font-size: 14px;
             left: 16px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         & input {
-            height: 64px;
+            height: 72px;
             border-radius: 8px;
             border: none;
             padding: 25px 35px 4px 16px;

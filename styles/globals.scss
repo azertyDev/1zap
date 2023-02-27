@@ -1,5 +1,5 @@
 @import 'styles/fonts.scss';
-@import 'styles/variables';
+@import "styles/variables";
 
 * {
     padding: 0;
@@ -18,61 +18,61 @@
 
 html,
 body {
-    padding: 0;
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    line-height: 1.5;
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
 
-    &::-webkit-scrollbar {
-        width: 5px;
-    }
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
 
-    &::-webkit-scrollbar-track {
-        background: $blockBg;
-    }
+  &::-webkit-scrollbar-track {
+    background: $blockBg;
+  }
 
-    &::-webkit-scrollbar-thumb {
-        background: $main;
-    }
-    overflow-x: hidden;
+  &::-webkit-scrollbar-thumb {
+    background: $main;
+  }
 
-    scrollbar-color: $main $main;
+  scrollbar-color: $main $main;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 button::-moz-focus-inner {
-    padding: 0;
-    border: 0;
+  padding: 0;
+  border: 0;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 a,
 a:visited {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 input {
-    outline: none;
-    border: none;
-    background: #fff;
+  outline: none;
+  border: none;
+  background: #fff;
 }
 
 .mi {
-    cursor: pointer;
-    color: #9a9ea7;
+  cursor: pointer;
+  color: #9a9ea7;
 }
+
