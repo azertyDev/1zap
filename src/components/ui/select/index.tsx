@@ -19,6 +19,7 @@ export const SelectField: FC<SelectField & FieldProps> = ({
     const onChange = ({value}: any) => {
         setValue(value);
     };
+console.log(field);
 
     return (
         <div className={`${s.root} ${props.field.value ? s.active : ""}`}>

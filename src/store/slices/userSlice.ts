@@ -16,12 +16,16 @@ export interface IUserSlice {
     fetchModerators: () => void;
 }
 
-export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
+const initialState = {
     data: {
         token: '',
         balance: 0,
         user: {},
     },
+};
+
+export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
+    ...initialState,
     moderators: [],
     loading: false,
     error: null,
@@ -33,26 +37,20 @@ export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
             email,
             password,
         });
+
         try {
             const response = await axiosInstance.post('/login', json);
 
-            // set((state) => ({
-            //     data: (state.data = response.data),
-            //     loading: false,
-            // }));
-
             set({ data: response.data, loading: false });
         } catch (err: any) {
-            set({ error: err.message });
+            set({ error: err.response.data.error, loading: false });
         } finally {
             set({ loading: false });
         }
     },
     logout: () => {
-        // set((state) => ({
-        //     data: (state.data = { token: '', balance: 0, user: {} }),
-        // }));
         localStorage.removeItem('bound-store');
+        set(initialState);
     },
 
     fetchModerators: async () => {

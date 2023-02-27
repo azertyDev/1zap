@@ -3,6 +3,15 @@ import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import DashboardContent from 'src/components/pages/dashboard';
 import { Layout } from 'src/components/layout/admin';
+import dynamic from 'next/dynamic';
+
+const DynamicDashboardContent = dynamic(
+    () => import('src/components/pages/dashboard'),
+    {
+        ssr: false,
+        // loading: (props) => <div>Loading...</div>,
+    }
+);
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale } = context;
@@ -21,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const Dashboard: NextPageWithLayout = (props: any) => {
-    return <DashboardContent {...props} />;
+    return <DynamicDashboardContent {...props} />;
 };
 
 Dashboard.getLayout = function getLayout(page) {

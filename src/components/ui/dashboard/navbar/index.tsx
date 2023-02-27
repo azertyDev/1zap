@@ -6,6 +6,7 @@ import { FC } from 'react';
 import { Icon } from 'src/components/ui/icon';
 import { Logo } from 'src/components/ui/logo';
 import { dashboardMenu } from 'src/data/common';
+import { useStore } from 'src/store/useStore';
 import s from './index.module.scss';
 
 type NavbarProps = {} & WithT;
@@ -13,7 +14,15 @@ type NavbarProps = {} & WithT;
 const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
     const {
         query: { slug },
+        push,
     } = useRouter();
+
+    const { logout, login } = useStore();
+
+    const handleLogout = () => {
+        push('/');
+        logout();
+    };
 
     return (
         <div className={s.wrapper}>
@@ -66,6 +75,10 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                         );
                     })}
                 </ul>
+                <button onClick={() => handleLogout}>Logout</button>
+                <button onClick={() => login('admin@mail.ru', 'password')}>
+                    Login user
+                </button>
             </div>
         </div>
     );
