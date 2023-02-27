@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { ExchangeRate } from 'src/components/ui/exchange_rate';
 import { Language } from 'src/components/ui/language';
 import s from '../index.module.scss';

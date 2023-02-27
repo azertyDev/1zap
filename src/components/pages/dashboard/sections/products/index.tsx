@@ -3,7 +3,7 @@ import s from './index.module.scss';
 
 export const Products = () => {
     return (
-        <div className={s.wrapper}>
+        <div>
             <Table />
         </div>
     );

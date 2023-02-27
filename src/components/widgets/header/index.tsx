@@ -12,7 +12,6 @@ import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import { Icon } from 'components/ui/icon';
 import { LoginModal } from 'components/ui/login_modal';
-import { useSSR } from 'react-i18next';
 import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 
 export const Header: FC = (): JSX.Element => {

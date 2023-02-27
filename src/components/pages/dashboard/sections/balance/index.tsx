@@ -15,7 +15,7 @@ export const Balance = () => {
                 <OverviewBlock data={balanceCardsData} />
             </div>
 
-            <div className={s.historyTable}>
+            <div>
                 <p className={s.block_title}> История пополнений и списаний</p>
             </div>
         </div>

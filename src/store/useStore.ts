@@ -12,10 +12,7 @@ export const useStore = create<IStoreState>()(
             }),
             {
                 name: 'bound-store',
-                // partialize(state) {
-                //     console.log(state);
-                // },
-                partialize: (state) => state.data,
+                partialize: (state) => ({ data: state.data }),
             }
         )
     )
