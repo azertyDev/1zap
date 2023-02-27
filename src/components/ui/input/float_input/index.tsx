@@ -26,14 +26,7 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                 {isPhone ? (
                     <Field {...props}>
                         {() => {
-                            return (
-                                <PatternFormat
-                                    type="tel"
-                                    format="+998 ## #######"
-                                    autoComplete="on"
-                                    {...field}
-                                />
-                            );
+                            return <PatternFormat type="tel" format="+998 ## #######" autoComplete="on" {...field} />;
                         }}
                     </Field>
                 ) : (
@@ -45,15 +38,14 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                 ) : null}
 
                 {field.value && !meta.error ? (
-                    <Icon
-                        size={iconSize}
-                        name={'check_circle'}
-                        color={'#C6303C'}
-                    />
+                    <Icon size={iconSize} name={'check_circle'} color={'#C6303C'} />
                 ) : meta.error ? (
                     <Icon size={iconSize} name={'cancel'} color={'#C6303C'} />
                 ) : null}
             </div>
+            {meta.touched || meta.error ? (
+                <ErrorMessage component="span" name={field.name} className={s.error} />
+            ) : null}
         </div>
     );
 };
