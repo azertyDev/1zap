@@ -59,6 +59,7 @@
   "email": "Email",
   "password": "Parolingiz",
   "contacts": "Kontaktlar",
+  "contactsData": "Aloqa ma'lumotlarini",
   "delivery": "Yetkazib berish",
   "workTime": "Ish grafigi",
   "payment": "To'lov",
@@ -91,6 +92,6 @@
   "yearIssue": "Chiqarilgan yili",
   "describeDetail": "Qaysi qismlarni qidirayotganingizni, har bir ehtiyot qismni yangi qatorda batafsil tasvirlab bering",
   "downloadPhoto": "Tafsilotli fotosuratni yuklang",
-  "photoDownloaded": "Surat yuklandi",
+  "deletePhoto": "Suratni oʻchirish",
   "modification": "Modifikatsiya"
 }

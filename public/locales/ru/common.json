@@ -69,6 +69,7 @@
   "email": "Email",
   "password": "Ваш пароль",
   "contacts": "Контакты",
+  "contactsData": "Контактные данные",
   "delivery": "Доставка",
   "workTime": "График работы",
   "payment": "Оплата",
@@ -101,6 +102,6 @@
   "yearIssue": "Год выпуска",
   "describeDetail": "Опишите подробно, какие запчасти вы ищите, каждая запчасть с новой строки",
   "downloadPhoto": "Загрузите фото детали",
-  "photoDownloaded": "Фото загружено",
+  "deletePhoto": "Удалить фото",
   "modification": "Модификация"
 }

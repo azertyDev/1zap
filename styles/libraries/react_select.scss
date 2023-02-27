@@ -24,7 +24,7 @@
 }
 
 .filter_search__single-value {
-  @include fs_fw_c(14px,600, $darkGrey)
+  @include fs_fw_c(14px, 600, $darkGrey)
 }
 
 .filter_search__indicators {
@@ -64,7 +64,7 @@
 }
 
 .filter_search__menu-list {
-  @include fs_fw_c(14px,600, $darkGrey);
+  @include fs_fw_c(14px, 600, $darkGrey);
 }
 
 .filter_search__option, .filter_provider__option {
@@ -91,7 +91,7 @@
 }
 
 .filter_provider__control {
-  border: 1px solid  #E4E6E8 !important;
+  border: 1px solid #E4E6E8 !important;
   border-radius: 8px !important;
   cursor: pointer !important;
 }
@@ -101,7 +101,7 @@
 }
 
 .filter_provider__single-value {
-  @include fs_fw_c(14px,700, red) ;
+  @include fs_fw_c(14px, 700, red) ;
   color: $text !important;
 }
 
@@ -117,14 +117,14 @@
   color: $darkGrey important;
 }
 
-.filter_provider__placeholder{
-  @include fs_fw_c(14px,600, $text) ;
+.filter_provider__placeholder {
+  @include fs_fw_c(14px, 600, $text) ;
   color: $text !important;
 }
 
 
 .filter_provider__menu-list {
-  @include fs_fw_c(14px,600, $text);
+  @include fs_fw_c(14px, 600, $text);
 }
 
 .filter_provider__dropdown-indicator {
@@ -133,4 +133,30 @@
     width: 13px;
     height: 13px;
   }
+}
+
+.select {
+
+}
+
+.select__dropdown-indicator {
+
+
+}
+
+
+//select
+.select__value-container--has-value {
+  & ~ .select__indicators {
+    svg {
+
+      fill: $secondary;
+    }
+  }
+}
+
+.select__option--is-selected {
+  background: none !important;
+  color: $darkGrey !important;
+  width: 100% !important;
 }

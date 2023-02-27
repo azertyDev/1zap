@@ -10,6 +10,7 @@ import {Button} from 'components/ui/button';
 import {InputWrapper} from 'components/ui/input/input_wrapper';
 import {Icon} from "components/ui/icon";
 import {Title} from "components/ui/title";
+import {SelectField} from "components/ui/select";
 
 
 export const FirstFormVim: FC<{
@@ -28,28 +29,47 @@ export const FirstFormVim: FC<{
                     vinNumber: '',
                     yearIssue: "",
                     modification: "",
-                    description: ""
+                    description: "",
+                    brand: "",
+                    model: "",
+                    image: null
                 }}
                 onSubmit={(values, {setSubmitting}) => {
-                    // fun(true);
-                    alert(JSON.stringify(values));
+                    fun(true);
+                    console.log(values)
                 }}
             >
-                {({handleSubmit, values}) => (
+                {({handleSubmit, setFieldValue, values}) => (
                     <form onSubmit={handleSubmit}>
                         <div className={s.first_form}>
                             <div>
                                 <InputWrapper>
                                     <FloatingInput name={'vinNumber'}/>
                                 </InputWrapper>
+                                <InputWrapper>
+                                    <Field component={SelectField} name="brand" label={t("filter:brand")}
+                                           options={[{value: "FERRARY", label: "FERRARY"}, {
+                                               value: "BMW",
+                                               label: "BMW"
+                                           }]}/>
+                                </InputWrapper>
 
                                 <InputWrapper>
-                                    <FloatingInput name={'yearIssue'}/>
-                                </InputWrapper>
-                                <InputWrapper>
-                                    <FloatingInput name={'modification'}/>
+                                    <Field component={SelectField} name="model" label={t("filter:model")}
+                                           options={[{value: "FERRARY", label: "FERRARY"}, {
+                                               value: "BMW",
+                                               label: "BMW"
+                                           }]}/>
                                 </InputWrapper>
 
+                                <div className={s.inputs_wr}>
+                                    <InputWrapper>
+                                        <FloatingInput name={'yearIssue'}/>
+                                    </InputWrapper>
+                                    <InputWrapper>
+                                        <FloatingInput name={'modification'}/>
+                                    </InputWrapper>
+                                </div>
                             </div>
 
                             <div>
@@ -69,10 +89,24 @@ export const FirstFormVim: FC<{
                                     }}
                                 </Field>
 
-                                <Button variant={"primary"} className={s.btn_upload}>
-                                    <Icon size={20} name={"backup"} color={"#fff"}/>
-                                    {t("common:downloadPhoto")}
-                                </Button>
+                                {
+                                    !values.image ?
+                                        <>
+                                            <label htmlFor={"file"} className={s.file_label}>
+                                                <Icon size={20} name={"backup"} color={"#fff"}/>
+                                                {t("common:downloadPhoto")}
+                                            </label>
+                                            <input onChange={(ev) => setFieldValue("image", ev.target.files)}
+                                                   id={"file"}
+                                                   accept={"image/*"}
+                                                   type={"file"}
+                                                   className={s.file_input}/>
+                                        </> :
+                                        <Button variant={"primary"} type={"button"} onClick={() =>setFieldValue("image", null)}>
+                                            {t("common:deletePhoto")}
+                                        </Button>
+                                }
+
                             </div>
                         </div>
 
