@@ -20,23 +20,18 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
     const { logout, login } = useStore();
 
     const handleLogout = () => {
-        push('/');
-        logout();
+        // push('/');
+        // logout();
     };
 
     return (
         <div className={s.wrapper}>
-            <div className={s.logo_wrapper}>
+            <Link href="/" className={s.logo_wrapper}>
                 <Logo />
-            </div>
+            </Link>
             <div className={s.menu}>
                 <ul>
-                    <Link
-                        href="/dashboard/main"
-                        className={
-                            slug === dashboardMenu[0].name ? s.active : ''
-                        }
-                    >
+                    <Link href="/dashboard/main" className={slug === dashboardMenu[0].name ? s.active : ''}>
                         <li>
                             <Icon name="timelapse" size={22} />
                             {t('dashboard:main')}
@@ -75,10 +70,8 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                         );
                     })}
                 </ul>
-                <button onClick={() => handleLogout}>Logout</button>
-                <button onClick={() => login('admin@mail.ru', 'password')}>
-                    Login user
-                </button>
+                <button onClick={logout}>Logout</button>
+                <button onClick={() => login('admin@mail.ru', 'password')}>Login user</button>
             </div>
         </div>
     );
