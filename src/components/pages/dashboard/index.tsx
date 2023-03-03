@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
-import { Main } from './sections/main';
-import { Profile } from './sections/profile';
-import { Balance } from './sections/balance';
-import { Statistics } from './sections/statistics';
-import { Products } from './sections/products';
+import { Main } from './admin/sections/main';
+import { Profile } from './admin/sections/profile';
+import { Balance } from './admin/sections/balance';
+import { Statistics } from './admin/sections/statistics';
+import { Products } from './admin/sections/products';
+import { Providers } from './admin/sections/providers';
 import Header from 'src/components/ui/dashboard/header';
 import BottomFooter from 'src/components/widgets/footer/bottom_footer';
 import s from './index.module.scss';
@@ -26,6 +27,8 @@ export default (props: PropsType): JSX.Element => {
                 return <Statistics />;
             case `/dashboard/products`:
                 return <Products />;
+            case `/dashboard/providers`:
+                return <Providers />;
             default:
                 return 'Page not found';
         }

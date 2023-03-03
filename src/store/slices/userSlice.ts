@@ -1,7 +1,9 @@
 import Cookies from 'js-cookie';
 import { axiosInstance } from 'src/utils/axios';
 import { StateCreator } from 'zustand';
-import { IUser } from '../types/IUser';
+import Router from 'next/router';
+import { IUser } from 'src/interfaces/IUser';
+import { login } from 'src/utils/api';
 
 export interface IUserSlice {
     data?: {
@@ -37,19 +39,28 @@ export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
         });
 
         try {
-            const { data } = await axiosInstance.post('/login', json);
+            const { data, status } = await axiosInstance.post('/login', json);
 
-            set({ data: await data, loading: false, error: null });
+            // await login(json);
 
-            Cookies.set('userInfo', JSON.stringify(data));
-            Cookies.set('token', JSON.stringify(data.token));
+            if (status === 200) {
+                set({ data: await data, loading: false, error: null });
+                Cookies.set('userInfo', JSON.stringify(data));
+                Cookies.set('token', JSON.stringify(data.token));
+
+                Router.push('/dashboard/main');
+            }
         } catch (err: any) {
-            set(() => ({ error: err.response.data.error, loading: false }));
+            set(() => ({ error: err.response?.data.error, loading: false }));
         } finally {
             set({ loading: false });
         }
     },
     logout: () => {
-        set(initialState);
+        set(() => initialState);
+        localStorage.removeItem('bound-store');
+        Cookies.remove('userInfo');
+        Cookies.remove('token');
+        Router.push('/');
     },
 });

@@ -1,21 +1,30 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import Image from 'next/image';
+import Cookies from 'js-cookie';
 import Link from 'next/link';
-
-import s from './index.module.scss';
 
 import { Container } from 'components/ui/container';
 import { Logo } from 'components/ui/logo';
 import { Language } from 'components/ui/language';
 import { ExchangeRate } from 'components/ui/exchange_rate';
-
-import { useTranslation } from 'next-i18next';
-import Image from 'next/image';
-import { Icon } from 'components/ui/icon';
 import { LoginModal } from 'components/ui/login_modal';
 import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 
+import s from './index.module.scss';
+import { useStore } from 'src/store/useStore';
+
 export const Header: FC = (): JSX.Element => {
     const { t } = useTranslation();
+    const { data } = useStore();
+    const token = Cookies.get('token');
+    const [signedIn, setSignedIn] = useState<boolean>(false);
+
+    const isAdmin = data?.user.role === 'admin';
+
+    useEffect(() => {
+        setSignedIn(!!token);
+    }, [token]);
 
     const { openClose, handleOpenClose } = useOpenCloseWithVal();
 
@@ -30,21 +39,18 @@ export const Header: FC = (): JSX.Element => {
                     <div className={s.controls}>
                         <ExchangeRate />
                         <Language />
-                        <div
-
-                            className={s.login}
-                            onClick={handleOpenClose(true)}
-                        >
-                            <div className={s.img_block}>
-                                <Image
-                                    src={'/assets/icons/person.svg'}
-                                    alt={'user'}
-                                    width={16}
-                                    height={16}
-                                />
+                        {signedIn ? (
+                            <Link href={isAdmin ? '/dashboard/main' : '/dashboard/merchant'}>
+                                {data?.user.fullName}
+                            </Link>
+                        ) : (
+                            <div className={s.login} onClick={handleOpenClose(true)}>
+                                <div className={s.img_block}>
+                                    <Image src={'/assets/icons/person.svg'} alt={'user'} width={16} height={16} />
+                                </div>
+                                <span className={s.text}>{t('header:login')}</span>
                             </div>
-                            <span className={s.text}>{t('header:login')}</span>
-                        </div>
+                        )}
 
                         {openClose && <LoginModal fun={handleOpenClose} />}
                     </div>

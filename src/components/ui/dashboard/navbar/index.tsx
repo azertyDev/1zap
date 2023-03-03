@@ -14,15 +14,9 @@ type NavbarProps = {} & WithT;
 const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
     const {
         query: { slug },
-        push,
     } = useRouter();
 
-    const { logout, login } = useStore();
-
-    const handleLogout = () => {
-        // push('/');
-        // logout();
-    };
+    const { logout } = useStore();
 
     return (
         <div className={s.wrapper}>
@@ -71,7 +65,6 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                     })}
                 </ul>
                 <button onClick={logout}>Logout</button>
-                <button onClick={() => login('admin@mail.ru', 'password')}>Login user</button>
             </div>
         </div>
     );
