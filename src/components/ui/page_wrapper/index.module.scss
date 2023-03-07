@@ -1,3 +1,10 @@
 .wr {
   padding: 50px 0;
 }
+
+
+@media (max-width: 768px) {
+  .wr {
+    padding: 30px 0;
+  }
+}

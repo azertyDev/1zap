@@ -1,0 +1,118 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.table {
+  padding: 12px 14px;
+  border: 1px solid #E4E6E8;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  display: none;
+  margin-bottom: 20px;
+
+  p {
+
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+
+  h5 {
+    @include fs_fw_c(14px, 600, $secondary);
+  }
+
+  p {
+    @include fs_fw_c(12px, 600, $secondary);
+  }
+}
+
+.last_item {
+  margin-bottom: 0;
+  justify-content: space-between;
+
+  & > div {
+    @include flex-items(stretch, center);
+  }
+}
+
+.item_text {
+  position: relative;
+  padding-right: 14px;
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 100px;
+    @include w_mw__h(4px, 4px, 4px);
+    background: $text;
+  }
+}
+
+.title_item {
+  margin-right: 25px;
+}
+
+
+.show_btn {
+  @include fs_fw_c(14px, 600, $main);
+  background: transparent;
+}
+
+.img_toggle {
+  background: $main;
+  border-radius: 100px;
+  @include w_mw__h(30px, 30px, 30px);
+  @include flex-items(center, center);
+  position: absolute;
+  right: 14px;
+  top: 12px;
+}
+
+
+.img_wr {
+  @include flex-items(center, center);
+  @include w_h(100%, 100%);
+  @include pa_t_l(0, 0);
+  border-radius: 14px;
+  transition: .6s;
+  transform: translateX(100%);
+  background: #fff;
+
+  &.active {
+
+    transform: translateX(0);
+  }
+}
+
+.icon_close {
+  position: absolute;
+  right: 14px;
+  top: 12px;
+}
+
+@media (max-width: 1110px) {
+  .table {
+    display: block;
+  }
+
+}
+
+@media (max-width: 375px) {
+  .last_item {
+
+    justify-content: stretch;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .show_btn{
+    margin-top: 10px;
+  }
+}

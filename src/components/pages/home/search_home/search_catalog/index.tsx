@@ -301,7 +301,7 @@ export const SearchCatalog: FC = (): JSX.Element => {
                                 <p className={s.catalog_letter}>
                                     {item.letter}
                                 </p>
-                                <ul className={s.catalog_subitems_wr}>
+                                <ul>
                                     {item.data.map((subitem) => {
                                         return (
                                             <li

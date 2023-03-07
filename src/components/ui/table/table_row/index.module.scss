@@ -4,3 +4,13 @@
   border-bottom: 1px solid #EDE8E9;
   grid-gap: 10px;
 }
+
+
+@media (max-width: 1110px) {
+  .table_row{
+    display: none;
+  }
+}
+
+
+

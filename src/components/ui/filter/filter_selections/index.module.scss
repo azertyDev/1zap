@@ -13,7 +13,7 @@
 
   .select_wr:last-child {
     &:after {
-  display: none;
+      display: none;
     }
   }
 }
@@ -37,17 +37,8 @@
     transform: translateY(-50%);
   }
 
-
 }
 
 .select_title {
-  @include fs_fw_c(12px,400, $text);
-}
-
-
-
-@media (max-width: 768px) {
-  .filter{
-    display: none;
-  }
+  @include fs_fw_c(12px, 400, $text);
 }

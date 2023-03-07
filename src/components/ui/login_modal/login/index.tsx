@@ -8,9 +8,9 @@ import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Button } from 'components/ui/button';
 import { InputWrapper } from 'components/ui/input/input_wrapper';
 
-import { LoginValidation } from 'src/validation/login';
 import { useStore } from 'src/store/useStore';
 import { useRouter } from 'next/router';
+import { client_validation } from 'src/validation/client_validation';
 
 export const Login: FC<{ fun: (val: number) => () => void }> = ({
     fun,
@@ -28,7 +28,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({
                     email: '',
                     password: '',
                 }}
-                validationSchema={LoginValidation}
+                validationSchema={client_validation.login}
                 onSubmit={(values, { setSubmitting }) => {
                     login(values.email, values.password);
 

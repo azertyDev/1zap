@@ -13,13 +13,11 @@ import {
 } from 'src/constants/searchHomeTabs';
 import s from './index.module.scss';
 import { useHandleActivetTabHome } from 'src/hooks/search_home/useHandleActivetTabHome';
+import { useRouter } from 'next/router';
 
 export const SearchHome: FC = (): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
-
-    const activeSearchFormPreview = useCallback((val: boolean) => {
-        return `${s.form_wr} ${val ? s.active : ''}`;
-    }, []);
+    const { push } = useRouter();
 
     const { t } = useTranslation();
 
@@ -30,16 +28,9 @@ export const SearchHome: FC = (): JSX.Element => {
             tabsRes={searchHomeTabsRes}
             tabs={searchHomeTabs}
         >
-            {activeTab === 1 && (
-                <SearchDetails className={activeSearchFormPreview} />
-            )}
-            {activeTab === 2 && (
-                <SearchDetails className={activeSearchFormPreview} />
-            )}
+            {activeTab === 1 && <SearchDetails className={s.form_wr} />}
             {activeTab === 3 && <SearchCatalog />}
-            {activeTab === 4 && (
-                <SearchCategory className={activeSearchFormPreview} />
-            )}
+            {activeTab === 4 && <SearchCategory className={s.form_wr} />}
         </SearchTabs>
     );
 };

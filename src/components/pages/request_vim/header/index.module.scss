@@ -1,0 +1,121 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+
+.header {
+  @include flex-items(space-between, center);
+  margin: 0 auto 95px;
+  max-width: 1025px;
+  padding: 20px 17px;
+
+  &.final{
+  display: block;
+  }
+
+  button {
+    padding: 12px 20px;
+    @include fs_fw_c(14px, 600, $text);
+    background: $blockBg;
+    border-radius: 10px;
+    width: auto;
+  }
+}
+
+
+.progress_line {
+  height: 6px;
+  width: 100%;
+  display: grid;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  grid-template-columns: repeat(3, 1fr);
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), #C6303C;
+}
+
+
+.progress_line_top {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  display: none;
+}
+
+
+.progress_line_item {
+  height: 100%;
+  grid-column: span 1;
+  background: $main;
+  border-radius: 0 15px 15px 0;
+
+  &.sec_step {
+    grid-column: span 2;
+  }
+
+  &.final_step {
+    grid-column: span 3;
+    border-radius: 0;
+  }
+}
+
+.sec_step {
+  grid-column: span 2;
+}
+
+.final_step {
+  grid-column: span 3;
+}
+
+.header_title {
+  @include fs_fw_c(22px, 700, $secondary);
+  display: none;
+text-align: center;
+}
+
+.icon {
+  display: none;
+
+
+  &.hidden_icon {
+    display: none;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .header {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 520px) {
+  .header {
+    padding-top: 47px;
+  }
+
+  .link {
+    display: none;
+  }
+
+  .link_btn_cancel {
+    display: none;
+  }
+
+  .header_title {
+    display: block;
+  }
+
+  .icon {
+    display: block;
+  }
+
+  .progress_line {
+    display: none;
+  }
+
+  .progress_line_top {
+    display: grid;
+  }
+
+}
+

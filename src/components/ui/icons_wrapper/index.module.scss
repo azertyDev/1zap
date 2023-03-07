@@ -5,6 +5,7 @@
     @include flex-items(center, center);
     background: $blockBg;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .big {

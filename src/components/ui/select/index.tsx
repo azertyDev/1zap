@@ -31,6 +31,7 @@ export const SelectField: FC<SelectField & FieldProps> = ({
                     {...props}
                     onChange={onChange}
                     id={field.name}
+                    instanceId={field.name}
                     isSearchable={false}
                     className="select_container"
                     classNamePrefix="select"

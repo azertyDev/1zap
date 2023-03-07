@@ -4,3 +4,9 @@
 .title{
   @include fs_fw_c(36px,700,$secondary);
 }
+
+@media (max-width: 768px) {
+  .title{
+    @include fs_fw_c(28px,700,$secondary);}
+
+}

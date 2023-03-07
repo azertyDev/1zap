@@ -1,21 +1,21 @@
-import React, {FC, useState} from 'react';
+import React, { FC, useState } from 'react';
 
 import s from './index.module.scss';
-import {Icon} from 'components/ui/icon';
-import {useTranslation} from 'next-i18next';
-import {Completed} from 'components/ui/completed';
+import { Icon } from 'components/ui/icon';
+import { useTranslation } from 'next-i18next';
+import { Completed } from 'components/ui/completed';
 
-import {Formik} from 'formik';
-import {FloatingInput} from 'components/ui/input/float_input';
-import {Button} from 'components/ui/button';
-import {IconsWrapper} from 'components/ui/icons_wrapper';
-import {bookValidation} from "src/validation/book";
+import { Formik } from 'formik';
+import { FloatingInput } from 'components/ui/input/float_input';
+import { Button } from 'components/ui/button';
+import { IconsWrapper } from 'components/ui/icons_wrapper';
+import { client_validation } from 'src/validation/client_validation';
 
 export const BookDetailStepTwo: FC<{
     handleOrder: (val: number) => () => void;
     toggleBookDetail: (val: boolean) => () => void;
-}> = ({toggleBookDetail, handleOrder}): JSX.Element => {
-    const {t} = useTranslation();
+}> = ({ toggleBookDetail, handleOrder }): JSX.Element => {
+    const { t } = useTranslation();
 
     const [done, setDone] = useState(false);
     const [phoneVal, setPhoneVal] = useState('');
@@ -26,21 +26,21 @@ export const BookDetailStepTwo: FC<{
                 <p className={s.header_title}>{t('common:orderingDetail')}</p>
 
                 <div onClick={toggleBookDetail(false)}>
-                    <Icon size={19} name={'close'}/>
+                    <Icon size={19} name={'close'} />
                 </div>
             </div>
 
             <div className={`${s.header_res}`}>
                 {!done && (
                     <IconsWrapper size={'medium'} onClick={handleOrder(1)}>
-                        <Icon size={16} name={'chevron_left'}/>
+                        <Icon size={16} name={'chevron_left'} />
                     </IconsWrapper>
                 )}
 
                 <p className={s.header_title}>{t('common:ordering')}</p>
 
                 <IconsWrapper size={'medium'} onClick={toggleBookDetail(false)}>
-                    <Icon size={16} name={'close'}/>
+                    <Icon size={16} name={'close'} />
                 </IconsWrapper>
             </div>
             <div className={s.book_wr}>
@@ -56,7 +56,7 @@ export const BookDetailStepTwo: FC<{
                 >
                     <p>
                         {done
-                            ? t('common:phoneSms', {phone: phoneVal})
+                            ? t('common:phoneSms', { phone: phoneVal })
                             : t('common:smsSend')}
                     </p>
                 </Completed>
@@ -67,26 +67,26 @@ export const BookDetailStepTwo: FC<{
                                 contactNumber: '',
                                 surname: '',
                             }}
-                            validationSchema={bookValidation}
-                            onSubmit={(values, {setSubmitting}) => {
+                            validationSchema={client_validation.book}
+                            onSubmit={(values, { setSubmitting }) => {
                                 setDone(true);
                                 setPhoneVal(values.contactNumber);
                                 alert(JSON.stringify(values));
                             }}
                         >
-                            {({handleSubmit, isSubmitting}) => (
-                                <form
-                                    onSubmit={handleSubmit}
-                                    className={s.form}
-                                >
+                            {({ handleSubmit, isSubmitting }) => (
+                                <form onSubmit={handleSubmit}>
                                     <div className={s.inputs_wr}>
-                                        <FloatingInput name={'surname'}/>
-                                        <FloatingInput name={'contactNumber'} isPhone/>
+                                        <FloatingInput name={'surname'} />
+                                        <FloatingInput
+                                            name={'contactNumber'}
+                                            isPhone
+                                        />
                                     </div>
 
                                     <Button
                                         // isSubmitting={isSubmitting}
-                                        variant={"primary"}
+                                        variant={'primary'}
                                     >
                                         {t('header:login')}
                                     </Button>
@@ -96,7 +96,10 @@ export const BookDetailStepTwo: FC<{
                     </div>
                 )}
                 {done && (
-                    <Button onClick={toggleBookDetail(false)} variant={"primary"}>
+                    <Button
+                        onClick={toggleBookDetail(false)}
+                        variant={'primary'}
+                    >
                         {t('common:continueSearch')}
                     </Button>
                 )}

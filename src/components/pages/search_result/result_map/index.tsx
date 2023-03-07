@@ -1,8 +1,7 @@
-import React, { FC, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { Map, Overlay } from 'pigeon-maps';
 import s from './index.module.scss';
-import Image from 'next/image';
 
 import { useTranslation } from 'next-i18next';
 
@@ -21,8 +20,10 @@ import { ToggleResize } from 'components/pages/search_result/serch_items/toggle_
 import { ResultTableFormResp } from 'components/pages/search_result/result_table_form_resp';
 import { BookDetail } from 'components/pages/search_result/book_detail';
 import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
-import {Pagination} from "components/ui/pagination/Pagination";
-import {useFilter} from "src/hooks/common/useFilter";
+import { Pagination } from 'components/ui/pagination/Pagination';
+import { useFilter } from 'src/hooks/common/useFilter';
+import { filterTitles } from 'src/constants/filterTitles';
+import { useGetFilterValues } from 'src/hooks/useGetFilterValues';
 
 const fakeAnchor = [
     [41.31240320650527, 69.27836058056674],
@@ -33,22 +34,14 @@ const fakeAnchor = [
 export const ResultMap: FC = (): JSX.Element => {
     const { t } = useTranslation();
     const [mapIsOpen, setIsOpen] = useState(false);
-    const [isOpenFilter, setIsOpenFilter] = useState(false);
 
     const { openClose, handleOpenClose } = useOpenCloseWithVal();
-    const {handleFilter}= useFilter();
+    const { openClose: isOpenFilter, handleOpenClose: setIsOpenFilter } =
+        useOpenCloseWithVal();
+    const { handleFilter } = useFilter();
+    const { searchValue } = useGetFilterValues();
 
-    const {
-        query: {
-            payment,
-            delivery,
-            services,
-            supply,
-            producer,
-            condition,
-            updates,
-        },
-    } = useRouter();
+    const { query } = useRouter();
 
     const formik = useFormik({
         initialValues: {
@@ -59,10 +52,8 @@ export const ResultMap: FC = (): JSX.Element => {
         },
     });
 
-
-
     return (
-        <div className={s.map_wr}>
+        <div>
             <div className={`${s.map} ${mapIsOpen ? s.active : ''}`}>
                 <Map
                     defaultCenter={[41.31300484525912, 69.27182341706133]}
@@ -86,7 +77,6 @@ export const ResultMap: FC = (): JSX.Element => {
             <Container>
                 <div className={`${s.search_wr} ${mapIsOpen ? s.active : ''}`}>
                     <ToggleButton mapIsOpen={mapIsOpen} fun={setIsOpen} />
-
                     <ToggleResize mapIsOpen={mapIsOpen} fun={setIsOpen} />
 
                     <div
@@ -100,101 +90,40 @@ export const ResultMap: FC = (): JSX.Element => {
                             values={formik.getFieldProps('searchVal')}
                         />
                         <div className={s.filter_for_respon}>
-                            <button className={s.filter_btn}>{t("filter:price")}</button>
-                            <button className={s.filter_btn}>{t("filter:howmany")}</button>
+                            <button className={s.filter_btn}>
+                                {t('filter:price')}
+                            </button>
+                            <button className={s.filter_btn}>
+                                {t('filter:howmany')}
+                            </button>
                             <FilterResponsive
                                 btnText={'anotherFilter'}
                                 isOpen={isOpenFilter}
-                                fun={setIsOpenFilter}
+                                toggleFilter={setIsOpenFilter}
+                                data={searchValue}
                             />
                         </div>
-                        <FilterSelections>
-                            <FilterSelect
-                                id={'payment'}
-                                title={t('filter:payment')}
-                                value={
-                                    (payment ??
-                                        'Aaaaaaaaaaaaaaaaaaaa') as string
-                                }
-                                fun={handleFilter}
-                                labelAlt={'Aaaaaaaaaaaaaaaaaaaa'}
-                                options={[
-                                    {
-                                        value: 'Aaaaaaaaaaaaaaaaaaaa',
-                                        label: 'Aaaaaaaaaaaaaaaaaaaa',
-                                    },
-                                    { value: 'b', label: 'b' },
-                                ]}
-                            />
-                            <FilterSelect
-                                id={'delivery'}
-                                title={t('filter:delivery')}
-                                value={(delivery ?? 'a') as string}
-                                fun={handleFilter}
-                                labelAlt={'a'}
-                                options={[
-                                    { value: 'a', label: 'a' },
-                                    { value: 'b', label: 'b' },
-                                ]}
-                            />
-                            <FilterSelect
-                                id={'services'}
-                                title={t('filter:services')}
-                                value={(services ?? 'a') as string}
-                                fun={handleFilter}
-                                labelAlt={'a'}
-                                options={[
-                                    { value: 'a', label: 'a' },
-                                    { value: 'b', label: 'b' },
-                                ]}
-                            />
-
-                            <FilterSelect
-                                id={'supply'}
-                                title={t('filter:supply')}
-                                value={(supply ?? 'a') as string}
-                                fun={handleFilter}
-                                labelAlt={'a'}
-                                options={[
-                                    { value: 'a', label: 'a' },
-                                    { value: 'b', label: 'b' },
-                                ]}
-                            />
-                            <FilterSelect
-                                id={'producer'}
-                                title={t('filter:producer')}
-                                value={(producer ?? 'a') as string}
-                                fun={handleFilter}
-                                labelAlt={'a'}
-                                options={[
-                                    { value: 'a', label: 'a' },
-                                    { value: 'b', label: 'b' },
-                                ]}
-                            />
-
-                            <FilterSelect
-                                id={'condition'}
-                                title={t('filter:condition')}
-                                value={(condition ?? 'a') as string}
-                                fun={handleFilter}
-                                labelAlt={'a'}
-                                options={[
-                                    { value: 'a', label: 'a' },
-                                    { value: 'b', label: 'b' },
-                                ]}
-                            />
-                            <FilterSelect
-                                id={'updates'}
-                                title={t('filter:updates')}
-                                value={(updates ?? 'a') as string}
-                                fun={handleFilter}
-                                labelAlt={'a'}
-                                options={[
-                                    { value: 'a', label: 'a' },
-                                    { value: 'b', label: 'b' },
-                                ]}
-                            />
-                        </FilterSelections>
+                        <div className={s.filter_laptop}>
+                            <FilterSelections>
+                                {filterTitles['search'].map((item) => {
+                                    return (
+                                        <FilterSelect
+                                            id={item}
+                                            key={item}
+                                            title={t(`filter:${item}`)}
+                                            value={
+                                                (query[item] ?? '') as string
+                                            }
+                                            fun={handleFilter}
+                                            labelAlt={
+                                                searchValue[item][0].label
+                                            }
+                                            options={searchValue[item]}
+                                        />
+                                    );
+                                })}
+                            </FilterSelections>
+                        </div>
                     </div>
                     <ResultTableForm toggleBookDetail={handleOpenClose} />
                     <ResultTableFormResp toggleBookDetail={handleOpenClose} />

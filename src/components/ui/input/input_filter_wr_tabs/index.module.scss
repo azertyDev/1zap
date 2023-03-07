@@ -1,8 +1,15 @@
-@import "../../../../../styles/variables";
+@import "styles/variables";
 
 .wr {
   background: $main;
   padding: 24px;
   box-shadow: 0 8px 12px rgba(153, 155, 168, 0.15);
   border-radius: 0 25px 25px 25px;
+}
+
+@media (max-width: 1000px) {
+  .wr {
+
+    border-radius:25px;
+  }
 }

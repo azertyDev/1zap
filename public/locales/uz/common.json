@@ -93,5 +93,6 @@
   "describeDetail": "Qaysi qismlarni qidirayotganingizni, har bir ehtiyot qismni yangi qatorda batafsil tasvirlab bering",
   "downloadPhoto": "Tafsilotli fotosuratni yuklang",
   "deletePhoto": "Suratni oʻchirish",
-  "modification": "Modifikatsiya"
+  "modification": "Modifikatsiya",
+  "searchRequest": "Yetkazib beruvchilar tez orada sizning so'rovingizni ko'rib chiqishni boshlaydilar, iltimos kuting",
 }

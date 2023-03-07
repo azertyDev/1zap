@@ -1,99 +1,79 @@
-import React from "react";
-import s from "./index.module.scss";
+import s from './index.module.scss';
 
-import {detailsTabs} from "src/constants/detailsTabs";
+import { detailsTabs } from 'src/constants/detailsTabs';
 
-import {Title} from "components/ui/title";
-import {SearchTabs} from "components/ui/search/tabs";
-import {InputSelectWrTabs} from "components/ui/input/input_filter_wr_tabs";
-import {useHandleActivetTabHome} from "src/hooks/search_home/useHandleActivetTabHome";
-import {useTranslation} from "next-i18next";
+import { Title } from 'components/ui/title';
+import { SearchTabs } from 'components/ui/search/tabs';
+import { InputSelectWrTabs } from 'components/ui/input/input_filter_wr_tabs';
+import { useHandleActivetTabHome } from 'src/hooks/search_home/useHandleActivetTabHome';
+import { useTranslation } from 'next-i18next';
 
+import { FilterSelections } from 'components/ui/filter/filter_selections';
 
-
-import {TableRow} from "components/ui/table/table_row";
-import {TableElement} from "components/ui/table/table_element";
-import Image from "next/image";
-import {FitParams} from "components/pages/tires/fit_params";
-import {FirCars} from "components/pages/tires/fir_cars";
-
+import { filterTitles } from 'src/constants/filterTitles';
+import { FilterSelect } from 'components/ui/filter/filter_selections/filter_select';
+import { useFilter } from 'src/hooks/common/useFilter';
+import { useFilterTabs } from 'src/hooks/common/useFilterTabs';
+import { useRouter } from 'next/router';
+import { FilterResponsive } from 'components/ui/filter/filter_responsive';
+import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 
 export const Tires = (): JSX.Element => {
-    const {activeTab, handleActivetab} = useHandleActivetTabHome();
-    const {t} = useTranslation();
+    const { activeTab, handleActivetab } = useHandleActivetTabHome();
+    const { handleOpenClose, openClose } = useOpenCloseWithVal();
+    const { handleFilter } = useFilter();
+    const { filterData } = useFilterTabs(4);
+    const { t } = useTranslation();
+    const { query } = useRouter();
 
+    return (
+        <>
+            <Title main className={s.title}>
+                {t('common:tiresCat')}
+            </Title>
 
-    return <>
-        <Title main className={s.title}>
-            {t("common:tiresCat")}
-        </Title>
-
-        <div className={s.tabs_wr}>
-            <SearchTabs
-                activeTab={activeTab}
-                handleTab={handleActivetab}
-                tabsRes={detailsTabs}
-                tabs={detailsTabs}
-            >
-                <InputSelectWrTabs>
-                        {activeTab === 1 && (<FitParams/>)}
-                        {activeTab === 2 && (<FirCars/>)}
-                </InputSelectWrTabs>
-            </SearchTabs>
-        </div>
-        <div className={s.table}>
-            <TableRow className={s.table_row}>
-                <TableElement className={"table_h"}>
-                    {t('filter:producer')}
-                </TableElement>
-                <TableElement className={"table_h"}>
-                    {t('filter:number')}
-                </TableElement>
-                <TableElement className={"table_h"}>
-                    {t('filter:photo')}
-                </TableElement>
-                <TableElement className={"table_h"}>
-                    {t('filter:nameProduct')}
-                </TableElement>
-                <TableElement className={"table_h"}>
-                    {t('filter:size')}
-                </TableElement>
-                <TableElement className={"table_h"}>
-                    {t('filter:middlePrice')}
-                </TableElement>
-                <TableElement className={"table_h"}>
-                    {t('filter:offer')}
-                </TableElement>
-            </TableRow>
-            <TableRow className={s.table_row}>
-                <TableElement className={"table_b"}>
-                    <h5>GM</h5>
-                </TableElement>
-                <TableElement className={"table_b"}>
-                    <h5>31232131</h5>
-                </TableElement>
-                <TableElement className={"table_b"}>
-                    <Image
-                        src={"https://images.unsplash.com/photo-1676296825236-8c06ac83938b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=385&q=80"}
-                        alt={"oil"} width={52} height={70}/>
-                </TableElement>
-                <TableElement className={"table_b"}>
-                    <h5>POLYMERIUM XPRO1 5W30 C3 DEXOS2 4L</h5>
-                </TableElement>
-                <TableElement className={"table_b"}>
-                    <h5>5W-30</h5>
-                    <p>Синтетическое 5л</p>
-                </TableElement>
-                <TableElement className={"table_b"}>
-                    <h5>$19</h5>
-                    <p>от 15$ до 23$</p>
-                </TableElement>
-                <TableElement className={"table_b"}>
-                    <button>
-                        {t("common:show")} - 44
-                    </button>
-                </TableElement>
-            </TableRow>
-        </div>
-    </>
-}
+            <div className={s.tabs_wr}>
+                {filterData && (
+                    <>
+                        <FilterResponsive
+                            btnText={'fitParams'}
+                            isOpen={openClose}
+                            toggleFilter={handleOpenClose}
+                            data={filterData}
+                        />
+                        <SearchTabs
+                            activeTab={activeTab}
+                            handleTab={handleActivetab}
+                            tabsRes={detailsTabs}
+                            tabs={detailsTabs}
+                            className={s.tabs_wr_out}
+                        >
+                            <InputSelectWrTabs>
+                                <FilterSelections>
+                                    {filterTitles['tires'].map((item) => {
+                                        return (
+                                            <FilterSelect
+                                                id={item}
+                                                key={item}
+                                                title={t(`filter:${item}`)}
+                                                value={
+                                                    (query[item] ??
+                                                        '') as string
+                                                }
+                                                fun={handleFilter}
+                                                labelAlt={
+                                                    filterData[item][0]?.label
+                                                }
+                                                options={filterData[item]}
+                                            />
+                                        );
+                                    })}
+                                </FilterSelections>
+                            </InputSelectWrTabs>
+                        </SearchTabs>
+                    </>
+                )}
+            </div>
+        </>
+    );
+};
