@@ -1,6 +1,9 @@
+import Cookies from 'js-cookie';
 import { axiosInstance } from 'src/utils/axios';
 import { StateCreator } from 'zustand';
-import { IUser } from '../types/IUser';
+import Router from 'next/router';
+import { IUser } from 'src/interfaces/IUser';
+import { login } from 'src/utils/api';
 
 export interface IUserSlice {
     data?: {
@@ -8,12 +11,10 @@ export interface IUserSlice {
         balance: number;
         user: IUser;
     };
-    moderators: [];
     loading?: boolean;
     error?: string | null;
     login: (email: string, password: string) => void;
     logout: () => void;
-    fetchModerators: () => void;
 }
 
 const initialState = {
@@ -26,7 +27,6 @@ const initialState = {
 
 export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
     ...initialState,
-    moderators: [],
     loading: false,
     error: null,
 
@@ -39,27 +39,28 @@ export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
         });
 
         try {
-            const response = await axiosInstance.post('/login', json);
+            const { data, status } = await axiosInstance.post('/login', json);
 
-            set({ data: response.data, loading: false });
+            // await login(json);
+
+            if (status === 200) {
+                set({ data: await data, loading: false, error: null });
+                Cookies.set('userInfo', JSON.stringify(data));
+                Cookies.set('token', JSON.stringify(data.token));
+
+                Router.push('/dashboard/main');
+            }
         } catch (err: any) {
-            set({ error: err.response.data.error, loading: false });
+            set(() => ({ error: err.response?.data.error, loading: false }));
         } finally {
             set({ loading: false });
         }
     },
     logout: () => {
+        set(() => initialState);
         localStorage.removeItem('bound-store');
-        set(initialState);
-    },
-
-    fetchModerators: async () => {
-        try {
-            const response = await axiosInstance.get('/moderators/all');
-
-            set({ moderators: response.data });
-        } catch (err: any) {
-            set({ error: err.message });
-        }
+        Cookies.remove('userInfo');
+        Cookies.remove('token');
+        Router.push('/');
     },
 });

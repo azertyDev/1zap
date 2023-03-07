@@ -12,7 +12,7 @@ interface InputProps {
 }
 
 const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
-    const { iconname, iconSize = 18, isPhone } = props;
+    const { iconname = 'edit', iconSize = 18, isPhone } = props;
     const [field, meta] = useField(props);
     const { t } = useTranslation('');
 
@@ -33,9 +33,7 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                     <Field {...field} {...props} />
                 )}
 
-                {iconname && field.value.length === 0 && !meta.error ? (
-                    <Icon size={iconSize} name={iconname} color={'#0D0A19'} />
-                ) : null}
+                {iconname && field.value.length === 0 && !meta.error ? <Icon size={iconSize} name={iconname} /> : null}
 
                 {field.value && !meta.error ? (
                     <Icon size={iconSize} name={'check_circle'} color={'#C6303C'} />
@@ -50,4 +48,4 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
     );
 };
 
-export const FloatingInput = memo(Input);
+export const StandartInput = memo(Input);

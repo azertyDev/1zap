@@ -1,12 +1,13 @@
 export const dashboardMenu = [
     { id: 0, name: 'main', icon: 'timelapse' },
-    { id: 1, name: 'profile', icon: 'person' },
-    { id: 2, name: 'balance', icon: 'payments' },
-    { id: 3, name: 'statistics', icon: 'bar_chart' },
-    { id: 1, name: 'products', icon: 'inventory_2' },
-    { id: 2, name: 'upload_products', icon: 'save_alt' },
-    { id: 3, name: 'incoming_requests', icon: 'inbox' },
-    { id: 4, name: 'support', icon: 'headset_mic' },
+    { id: 1, name: 'providers', icon: 'person' },
+    { id: 2, name: 'profile', icon: 'person' },
+    { id: 3, name: 'balance', icon: 'payments' },
+    { id: 4, name: 'statistics', icon: 'bar_chart' },
+    { id: 5, name: 'products', icon: 'inventory_2' },
+    { id: 6, name: 'upload_products', icon: 'save_alt' },
+    { id: 7, name: 'incoming_requests', icon: 'inbox' },
+    { id: 8, name: 'support', icon: 'headset_mic' },
 ];
 
 export const overviewData = [
