@@ -64,7 +64,10 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                         );
                     })}
                 </ul>
-                <button onClick={logout}>Logout</button>
+                <button onClick={logout}>
+                    <Icon name="logout" size={22} />
+                    {t(`common:logout`)}
+                </button>
             </div>
         </div>
     );

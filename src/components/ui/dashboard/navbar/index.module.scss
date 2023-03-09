@@ -50,5 +50,28 @@ div.wrapper {
                 }
             }
         }
+        button {
+            display: flex;
+            font-weight: 600;
+            align-items: center;
+            padding: 17px 30px;
+            border-radius: 10px;
+            width: 100%;
+            background: none;
+            color: $text;
+            &.active,
+            &:hover {
+                color: $secondary;
+                background: $blockBg;
+                cursor: pointer;
+                i {
+                    color: $main;
+                }
+            }
+
+            & :where(i) {
+                margin-right: 30px;
+            }
+        }
     }
 }

@@ -9,5 +9,51 @@
     "products": "Товары",
     "upload_products": "Загрузка товаров",
     "incoming_requests": "Входящие запросы",
-    "support": "Поддержка"
+    "support": "Поддержка",
+
+    "legalAddress": "Юридический адрес",
+    "companyName": "Наименование фирмы",
+    "fullName": "Фамилия и Имя директора",
+    "phone": "Контактный номер",
+    "inn": "ИНН",
+    "email": "Email",
+    "balanceFilling": "Пополнение баланса",
+    "enterCoins": "Введите нужное количество монет",
+
+    "providerBranch": {
+        "branchName": "Наименование филиала",
+        "phisicalAddress": "Физический адрес",
+        "phone": "Контактный номер",
+        "managerName": "ФИО Менеджера",
+        "landmark": "Ориентир или короткий адрес",
+        "location": "Локация",
+        "branchType": "Тип филиала",
+        "workingSchedule": "График в будни",
+        "weekendSchedule": "График в выходные",
+        "weekend": "Выходной",
+        "breakTime": "Перерыв",
+        "city": "Город",
+        "payment": {
+            "title": "Способ оплаты",
+            "cash": "Наличными",
+            "card": "Картой",
+            "transfer": "Перечисление"
+        },
+        "delivery": {
+            "title": "Способ доставки",
+            "pickup": "Самовывоз",
+            "courier": "Курьер"
+        },
+        "service": {
+            "title": "Услуги",
+            "tireFitting": "Шиномонтаж",
+            "autoService": "С физ лицами",
+            "partSelection": "Авто-сервис"
+        },
+        "clientType": {
+            "title": "Условия работы",
+            "legal": "С юр.лицами",
+            "individual": "Подбор деталей"
+        }
+    }
 }

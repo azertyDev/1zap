@@ -1,15 +1,17 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { baseURL } from './constants';
-const https = require('https');
 
 export const axiosInstance = axios.create({
     // withCredentials: true,
     baseURL,
 });
 
-// axios.interceptors.request.use((config) => {
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-//   });
+axiosInstance.interceptors.request.use((config) => {
+    const token = Cookies.get('token');
+
+    if (token) {
+        config.headers.Authorization = 'Bearer ' + JSON.parse(token);
+    }
+    return config;
+});

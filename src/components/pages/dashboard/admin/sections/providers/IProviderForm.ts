@@ -3,9 +3,9 @@ export interface IProviderForm {
     phone: string;
     fullName: string;
     email: string;
-    password: string;
+    companyName: string;
     inn: string;
-    coin: number;
+    coin: string;
     providerBranch: ProviderBranch[];
 }
 

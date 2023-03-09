@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { FieldProps, useField } from 'formik';
-
+import { useTranslation } from 'next-i18next';
 import Select, { Props as SelectProps } from 'react-select';
 
 import s from './index.module.scss';
@@ -9,10 +9,8 @@ interface SelectField extends SelectProps {
     label?: string;
 }
 
-export const SelectField: FC<SelectField & FieldProps> = ({
-    label = 'Select',
-    ...props
-}) => {
+export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ...props }) => {
+    const { t } = useTranslation();
     const [field, form, { setValue }] = useField(props.field.name);
 
     const onChange = ({ value }: any) => {
@@ -21,9 +19,9 @@ export const SelectField: FC<SelectField & FieldProps> = ({
 
     return (
         <div className={`${s.root} ${props.field.value ? s.active : ''}`}>
-            {props.field.value && (
+            {field.value && (
                 <label htmlFor={field.name} className={s.label}>
-                    {label}
+                    {t(label)}
                 </label>
             )}
             <div className={s.select_wr}>
@@ -34,7 +32,10 @@ export const SelectField: FC<SelectField & FieldProps> = ({
                     isSearchable={false}
                     className="select_container"
                     classNamePrefix="select"
-                    placeholder={label}
+                    placeholder={field.value ? null : t(label)}
+                    value={props.options!.filter((option: any) => {
+                        return option.value === field.value;
+                    })}
                     styles={{
                         container: (base) => ({
                             ...base,
@@ -43,6 +44,7 @@ export const SelectField: FC<SelectField & FieldProps> = ({
                             ...base,
                             color: '#9A9EA7',
                             fontWeight: '600',
+                            margin: 0,
                             fontSize: '14px',
                         }),
 

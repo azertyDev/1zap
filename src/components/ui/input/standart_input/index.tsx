@@ -9,18 +9,19 @@ interface InputProps {
     iconname?: string;
     iconSize?: number;
     isPhone?: boolean;
+    label?: string;
 }
 
 const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
-    const { iconname = 'edit', iconSize = 18, isPhone } = props;
+    const { iconname = 'edit', iconSize = 18, isPhone, label = 'Input' } = props;
     const [field, meta] = useField(props);
-    const { t } = useTranslation('');
+    const { t } = useTranslation();
 
     return (
         <div className={s.container}>
             <div>
                 <label htmlFor={field.name} className={field.value && s.filled}>
-                    {t(`common:${field.name}`)}
+                    {t(label)}
                 </label>
 
                 {isPhone ? (

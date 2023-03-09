@@ -1,15 +1,18 @@
 import { FC, useState } from 'react';
 import { Heading } from 'src/components/ui/dashboard/heading';
-import { Button } from 'src/components/ui/button';
-import s from './index.module.scss';
 import { FirstForm } from './first_form';
 import { SecondForm } from './second_form';
+import { providerValues } from './first_form/initialValues';
+import { IProviderForm } from './IProviderForm';
+
+import s from './index.module.scss';
 
 export const Providers: FC = (): JSX.Element => {
     const [tab, setTab] = useState(1);
+    const [initialValues, setInitialValues] = useState<IProviderForm>({ ...providerValues });
 
     const handleTabChange = (value: number) => {
-        setTab(2);
+        setTab(value);
     };
 
     return (
@@ -17,15 +20,21 @@ export const Providers: FC = (): JSX.Element => {
             <Heading title="Настройки филиала" desc="Введите данные филиала и загрузите фото " />
 
             <div className={s.tabs}>
-                <div className={s.tab}>{tab === 1 ? <FirstForm /> : tab === 2 ? <SecondForm /> : null}</div>
-            </div>
-            <div className={s.actionButtons}>
-                <Button variant={'disabled'} type="reset">
-                    Отмена
-                </Button>
-                <Button variant={'primary'} type="submit" onClick={() => handleTabChange(2)}>
-                    Далее
-                </Button>
+                <div className={s.tab}>
+                    {tab === 1 ? (
+                        <FirstForm
+                            initialValues={initialValues}
+                            setInitialValues={setInitialValues}
+                            handleTabChange={handleTabChange}
+                        />
+                    ) : tab === 2 ? (
+                        <SecondForm
+                            initialValues={initialValues}
+                            setInitialValues={setInitialValues}
+                            handleTabChange={handleTabChange}
+                        />
+                    ) : null}
+                </div>
             </div>
         </div>
     );

@@ -1,19 +1,47 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import * as Yup from 'yup';
 import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { Button } from 'src/components/ui/button';
 import { StandartInput } from 'src/components/ui/input/standart_input';
-import s from '../index.module.scss';
+import { FloatingInput } from 'src/components/ui/input/float_input';
+import { IProviderForm } from '../IProviderForm';
 
-export const SecondForm: FC = () => {
-    const initialValues = {
-        legalAddress: '',
-        phone: '',
-        fullName: '',
-        email: '',
-        password: '',
-        inn: '',
-        coin: 0,
+import s from '../index.module.scss';
+import { axiosInstance } from 'src/utils/axios';
+import { useStore } from 'src/store/useStore';
+
+interface SecondFormProps {
+    initialValues: IProviderForm;
+    setInitialValues: Dispatch<SetStateAction<IProviderForm>>;
+    handleTabChange: (value: number) => void;
+}
+
+export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValues, handleTabChange }) => {
+    const coinsData = [
+        {
+            id: Date.now() * 1000,
+            value: '50',
+        },
+        {
+            id: Date.now() * 1000,
+            value: '100',
+        },
+        {
+            id: Date.now() * 1000,
+            value: '250',
+        },
+        {
+            id: Date.now() * 1000,
+            value: '500',
+        },
+        {
+            id: Date.now() * 1000,
+            value: '1000',
+        },
+    ];
+
+    const selectCoin = (value: string) => {
+        formik.setFieldValue('coin', value);
     };
 
     const validationSchema = Yup.object().shape({
@@ -21,36 +49,82 @@ export const SecondForm: FC = () => {
         phone: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
         fullName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
         email: Yup.string().email('Invalid email').required('Required'),
-        password: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+        companyName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
         inn: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-        coin: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+        coin: Yup.number()
+            .positive('Must be a positive value')
+            .label('Coin')
+            .typeError(({ label, type }) => `${label} must be a ${type}`)
+            .required('Required'),
     });
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
-        alert(JSON.stringify(values, null, 2));
+        console.log(values);
+        await axiosInstance
+            .post('/providers/new', values)
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     const formik = useFormik({
-        initialValues,
+        initialValues: initialValues,
         onSubmit,
         validationSchema,
     });
 
+    useEffect(() => {
+        setInitialValues(formik.values);
+    }, [formik.values, setInitialValues]);
+
     return (
         <FormikProvider value={formik}>
             <Form>
-                <div>
-                    <StandartInput {...formik.getFieldProps('legalAddress')} iconname="edit" />
-                    <StandartInput {...formik.getFieldProps('phone')} iconname="edit" />
-                    <StandartInput {...formik.getFieldProps('email')} iconname="edit" />
+                <h4>Реквизиты</h4>
+                <div className={s.formGroup}>
+                    <div className={s.row}>
+                        <div className={s.block}>
+                            <StandartInput label="dashboard:legalAddress" {...formik.getFieldProps('legalAddress')} />
+                            <StandartInput label="dashboard:fullName" {...formik.getFieldProps('fullName')} />
+                            <StandartInput label="dashboard:inn" {...formik.getFieldProps('inn')} />
+                        </div>
+                        <div className={s.block}>
+                            <StandartInput label="dashboard:companyName" {...formik.getFieldProps('companyName')} />
+                            <StandartInput label="dashboard:phone" {...formik.getFieldProps('phone')} isPhone />
+                            <StandartInput label="dashboard:email" {...formik.getFieldProps('email')} />
+                        </div>
+                    </div>
+
+                    <div className={s.coinsBlock}>
+                        <h4>Пополнение баланса</h4>
+                        <div className={s.coins}>
+                            {coinsData.map((coin, index) => {
+                                return (
+                                    <span
+                                        key={coin.id * index}
+                                        onClick={() => selectCoin(coin.value)}
+                                        className={`${s.coin} ${formik.values.coin === coin.value ? s.active : ''}`}
+                                    >
+                                        {coin.value} Монет
+                                    </span>
+                                );
+                            })}
+                        </div>
+                        <div className={s.coinInput}>
+                            <FloatingInput {...formik.getFieldProps('coin')} iconname="edit" />
+                        </div>
+                    </div>
                 </div>
 
                 <div className={s.actionButtons}>
-                    <Button variant={'primary'} type="submit">
-                        Submit
+                    <Button variant={'disabled'} type="reset" onClick={() => handleTabChange(1)}>
+                        Назад
                     </Button>
-                    <Button variant={'disabled'} type="reset">
-                        Reset
+                    <Button variant={'primary'} type="submit">
+                        Готова
                     </Button>
                 </div>
             </Form>

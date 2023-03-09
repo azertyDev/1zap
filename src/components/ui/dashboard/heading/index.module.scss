@@ -8,6 +8,7 @@
     margin-bottom: 30px;
     border-radius: 16px;
     background-color: $main;
+    align-items: center;
 
     div:has(i) {
         cursor: pointer;
@@ -18,9 +19,11 @@
         display: flex;
         flex-direction: column;
         p {
+            font-size: 20px;
             font-weight: 700;
         }
         span {
+            font-size: 14px;
         }
     }
 }
