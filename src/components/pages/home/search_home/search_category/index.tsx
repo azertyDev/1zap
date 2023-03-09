@@ -4,12 +4,11 @@ import s from './index.module.scss';
 
 import { useTranslation } from 'next-i18next';
 import { useFormik } from 'formik';
-import Image from 'next/image';
 import Link from 'next/link';
-import { usePreviewSearchResult } from 'src/hooks/search_home/usePreviewSearchResult';
-import {Icon} from "components/ui/icon";
 
-export const SearchCategory: FC<{ className: (val: boolean) => string }> = ({
+import { Icon } from 'components/ui/icon';
+
+export const SearchCategory: FC<{ className: string }> = ({
     className,
 }): JSX.Element => {
     const { t } = useTranslation();
@@ -23,11 +22,6 @@ export const SearchCategory: FC<{ className: (val: boolean) => string }> = ({
         },
     });
 
-    const { searchRes } = usePreviewSearchResult(
-        formik.values.searchVal,
-        formik
-    );
-
     return (
         <>
             <div className={s.categ_links_res}>
@@ -35,12 +29,12 @@ export const SearchCategory: FC<{ className: (val: boolean) => string }> = ({
                 <Link href={'#'}>{t('common:oil')}</Link>
                 <Link href={'#'}>{t('common:tires')}</Link>
             </div>
-            <div className={className(searchRes)}>
-                <form className={s.form} onSubmit={formik.handleSubmit}>
+            <div className={className}>
+                <form onSubmit={formik.handleSubmit}>
                     <input
                         {...formik.getFieldProps('searchVal')}
                         type="text"
-                        className={`${s.input} ${s.input_categ}`}
+                        className={`${s.input_categ}`}
                         placeholder={t('home:searchTitle')!}
                     />
                     <div className={s.search_icon_res}>

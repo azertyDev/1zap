@@ -1,8 +1,8 @@
-import {FC} from 'react';
+import { FC } from 'react';
 
-import {useTranslation} from 'next-i18next';
-import {Container} from 'components/ui/container';
-import {FooterItem} from 'components/ui/footer_item';
+import { useTranslation } from 'next-i18next';
+import { Container } from 'components/ui/container';
+import { FooterItem } from 'components/ui/footer_item';
 
 import BottomFooter from './bottom_footer';
 
@@ -14,12 +14,12 @@ import {
     footerLinksThird,
     footerLinksFourth,
 } from 'src/constants/footerLinks';
-import {Language} from 'components/ui/language';
-import {ExchangeRate} from 'components/ui/exchange_rate';
+import { Language } from 'components/ui/language';
+import { ExchangeRate } from 'components/ui/exchange_rate';
 import Link from 'next/link';
 
 export const Footer: FC = (): JSX.Element => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <footer className={s.footer}>
@@ -34,9 +34,7 @@ export const Footer: FC = (): JSX.Element => {
                         <FooterItem
                             title={footerLinksSec.title}
                             links={footerLinksSec.links}
-                        >
-
-                        </FooterItem>
+                        ></FooterItem>
 
                         <FooterItem
                             title={footerLinksThird.title}
@@ -51,15 +49,15 @@ export const Footer: FC = (): JSX.Element => {
             </div>
             <div className={s.controls_wr}>
                 <Container>
-                    <BottomFooter/>
+                    <BottomFooter />
                 </Container>
             </div>
 
             <div className={s.footer_resp}>
                 <Container>
                     <div className={s.footer_resp_settings}>
-                        <ExchangeRate/>
-                        <Language/>
+                        <ExchangeRate />
+                        <Language />
                     </div>
                     <div className={s.footer_resp_link}>
                         <FooterItem
@@ -69,12 +67,7 @@ export const Footer: FC = (): JSX.Element => {
                         <FooterItem
                             title={footerLinksSec.title}
                             links={footerLinksSec.links}
-                        >
-                            <p>{t('common:searchVin')}</p>
-                            <p>
-                                {t('common:sparePartsCat')}
-                            </p>
-                        </FooterItem>
+                        ></FooterItem>
                         <FooterItem
                             title={footerLinksThird.title}
                             links={footerLinksThird.links}

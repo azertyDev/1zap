@@ -2,9 +2,7 @@
 @import "styles/mixins";
 
 .pagination {
-  margin: 50px 0;
-
-
+  margin: 50px 0 auto;
   ul {
     @include flex-items(flex-start, center);
 

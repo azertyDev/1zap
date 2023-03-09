@@ -1,22 +1,36 @@
-import React, {Dispatch, FC, SetStateAction, useCallback} from 'react';
-import {useTranslation} from 'next-i18next';
+import React, { Dispatch, FC, SetStateAction } from 'react';
+import { useTranslation } from 'next-i18next';
 
 import s from './index.module.scss';
-import {FieldProps, Formik} from 'formik';
-import {Field} from 'formik';
-import {FloatingInput} from 'src/components/ui/input/float_input';
+import { Form, FormikProvider, useFormik } from 'formik';
+import { Field } from 'formik';
+import { FloatingInput } from 'src/components/ui/input/float_input';
 
-import {Button} from 'components/ui/button';
-import {InputWrapper} from 'components/ui/input/input_wrapper';
-import {Icon} from "components/ui/icon";
-import {Title} from "components/ui/title";
-import {SelectField} from "components/ui/select";
+import { Button } from 'components/ui/button';
+import { InputWrapper } from 'components/ui/input/input_wrapper';
+import { Icon } from 'components/ui/icon';
+import { Title } from 'components/ui/title';
+import { SelectField } from 'components/ui/select';
+import { formikValues } from 'src/constants/formik_values';
+import { client_validation } from 'src/validation/client_validation';
+import { useRouter } from 'next/router';
 
+export const FirstFormVim: FC = (): JSX.Element => {
+    const { t } = useTranslation();
+    const { push } = useRouter();
 
-export const FirstFormVim: FC<{
-    fun: Dispatch<SetStateAction<boolean>>;
-}> = ({fun}): JSX.Element => {
-    const {t} = useTranslation();
+    const formik = useFormik({
+        initialValues: formikValues.vimRequest[0],
+        validationSchema: client_validation.vimRequest[0].firstForm,
+        onSubmit: async (values) => {
+            try {
+                console.log(values);
+                push('/request_vim/second_step');
+            } catch (err) {
+                console.log(err);
+            }
+        },
+    });
 
     return (
         <div className={s.first_form_wr}>
@@ -24,103 +38,126 @@ export const FirstFormVim: FC<{
                 {t('common:searchDetailVin')}
             </Title>
 
-            <Formik
-                initialValues={{
-                    vinNumber: '',
-                    yearIssue: "",
-                    modification: "",
-                    description: "",
-                    brand: "",
-                    model: "",
-                    image: null
-                }}
-                onSubmit={(values, {setSubmitting}) => {
-                    fun(true);
-                    console.log(values)
-                }}
-            >
-                {({handleSubmit, setFieldValue, values}) => (
-                    <form onSubmit={handleSubmit}>
-                        <div className={s.first_form}>
-                            <div>
+            <FormikProvider value={formik}>
+                <Form>
+                    <div className={s.first_form}>
+                        <div>
+                            <InputWrapper>
+                                <FloatingInput
+                                    {...formik.getFieldProps('vinNumber')}
+                                />
+                            </InputWrapper>
+                            <InputWrapper>
+                                <Field
+                                    component={SelectField}
+                                    name="brand"
+                                    label={t('filter:brand')}
+                                    options={[
+                                        {
+                                            value: 'FERRARY',
+                                            label: 'FERRARY',
+                                        },
+                                        {
+                                            value: 'BMW',
+                                            label: 'BMW',
+                                        },
+                                    ]}
+                                />
+                            </InputWrapper>
+
+                            <InputWrapper>
+                                <Field
+                                    component={SelectField}
+                                    name="model"
+                                    label={t('filter:model')}
+                                    options={[
+                                        {
+                                            value: 'FERRARY',
+                                            label: 'FERRARY',
+                                        },
+                                        {
+                                            value: 'BMW',
+                                            label: 'BMW',
+                                        },
+                                    ]}
+                                />
+                            </InputWrapper>
+
+                            <div className={s.inputs_wr}>
                                 <InputWrapper>
-                                    <FloatingInput name={'vinNumber'}/>
+                                    <FloatingInput
+                                        {...formik.getFieldProps('yearIssue')}
+                                    />
                                 </InputWrapper>
                                 <InputWrapper>
-                                    <Field component={SelectField} name="brand" label={t("filter:brand")}
-                                           options={[{value: "FERRARY", label: "FERRARY"}, {
-                                               value: "BMW",
-                                               label: "BMW"
-                                           }]}/>
+                                    <FloatingInput
+                                        {...formik.getFieldProps(
+                                            'modification'
+                                        )}
+                                    />
                                 </InputWrapper>
-
-                                <InputWrapper>
-                                    <Field component={SelectField} name="model" label={t("filter:model")}
-                                           options={[{value: "FERRARY", label: "FERRARY"}, {
-                                               value: "BMW",
-                                               label: "BMW"
-                                           }]}/>
-                                </InputWrapper>
-
-                                <div className={s.inputs_wr}>
-                                    <InputWrapper>
-                                        <FloatingInput name={'yearIssue'}/>
-                                    </InputWrapper>
-                                    <InputWrapper>
-                                        <FloatingInput name={'modification'}/>
-                                    </InputWrapper>
-                                </div>
-                            </div>
-
-                            <div>
-                                <Field name="description">
-                                    {({
-                                          field,
-                                          meta
-                                      }: FieldProps) => {
-                                        return (
-                                            <textarea
-                                                className={s.textarea}
-                                                placeholder={t("common:describeDetail") as string}
-                                                {...field}
-                                                {...meta}
-                                            ></textarea>
-                                        );
-                                    }}
-                                </Field>
-
-                                {
-                                    !values.image ?
-                                        <>
-                                            <label htmlFor={"file"} className={s.file_label}>
-                                                <Icon size={20} name={"backup"} color={"#fff"}/>
-                                                {t("common:downloadPhoto")}
-                                            </label>
-                                            <input onChange={(ev) => setFieldValue("image", ev.target.files)}
-                                                   id={"file"}
-                                                   accept={"image/*"}
-                                                   type={"file"}
-                                                   className={s.file_input}/>
-                                        </> :
-                                        <Button variant={"primary"} type={"button"} onClick={() =>setFieldValue("image", null)}>
-                                            {t("common:deletePhoto")}
-                                        </Button>
-                                }
-
                             </div>
                         </div>
 
-                        <Button
-                            // isSubmitting={isSubmitting}
-                            variant={"primary"}
-                            type={"submit"}
-                            className={s.submit_btn}
-                        >
-                            {t('common:next')}
-                        </Button>
-                    </form>
-                )}
-            </Formik>
+                        <div>
+                            <textarea
+                                className={s.textarea}
+                                name={'description'}
+                                onChange={formik.handleChange}
+                                placeholder={
+                                    t('common:describeDetail') as string
+                                }
+                            ></textarea>
+
+                            {!formik.values.image ? (
+                                <>
+                                    <label
+                                        htmlFor={'file'}
+                                        className={s.file_label}
+                                    >
+                                        <Icon
+                                            size={20}
+                                            name={'backup'}
+                                            color={'#fff'}
+                                        />
+                                        {t('common:downloadPhoto')}
+                                    </label>
+                                    <input
+                                        onChange={(ev) =>
+                                            formik.setFieldValue(
+                                                'image',
+                                                ev.target.files
+                                            )
+                                        }
+                                        id={'file'}
+                                        accept={'image/*'}
+                                        type={'file'}
+                                        className={s.file_input}
+                                    />
+                                </>
+                            ) : (
+                                <Button
+                                    variant={'primary'}
+                                    type={'button'}
+                                    onClick={() =>
+                                        formik.setFieldValue('image', null)
+                                    }
+                                >
+                                    {t('common:deletePhoto')}
+                                </Button>
+                            )}
+                        </div>
+                    </div>
+
+                    <Button
+                        variant={'primary'}
+                        type={'submit'}
+                        className={s.submit_btn}
+                    >
+                        {t('common:next')}
+                    </Button>
+                </Form>
+            </FormikProvider>
         </div>
     );
 };

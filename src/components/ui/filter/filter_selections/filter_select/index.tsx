@@ -23,17 +23,12 @@ export const FilterSelect: FC<{
                 value={
                     {
                         value: value,
-                        label: t(
-                            `common:${
-                                value
-                                    ? (value as string)?.toLowerCase()
-                                    : labelAlt
-                            }`
-                        ),
+                        label: value
+                            ? t(`filter:${value}`)?.toLowerCase()
+                            : labelAlt,
                     } as any
                 }
                 classNamePrefix={'filter_search'}
-                // placeholder={t('common:allstatus')}
             />
         </div>
     );

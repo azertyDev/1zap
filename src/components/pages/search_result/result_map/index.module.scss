@@ -33,7 +33,7 @@
   width: 100%;
   z-index: 1;
   position: relative;
-  margin-top: 305px;
+  margin: 305px 0 60px;
 
   &.active {
     margin-top: 535px;
@@ -109,5 +109,9 @@
     display: flex;
     align-content: center;
     padding: 8px 13px;
+  }
+
+  .filter_laptop{
+    display: none;
   }
 }

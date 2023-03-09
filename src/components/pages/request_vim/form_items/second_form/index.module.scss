@@ -1,10 +1,16 @@
 @import "styles/variables";
 @import "styles/mixins";
 
+.second_form_wr {
+
+}
 
 .sec_form {
   max-width: 450px;
   margin: 0 auto;
+  min-height: 95vh;
+  padding: 0 16px 30px;
+
 }
 
 
@@ -22,3 +28,24 @@
   @include dg_gc_gr_gg(127px 175px, auto, 20px);
   justify-content: space-between;
 }
+
+.back_btn{
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+@media (max-width: 400px) {
+  .buttons_wr {
+    display: block;
+
+    button:first-child {
+      display: none;
+    }
+  }
+}
+@media (max-width: 375px) {
+  .selects_wr {
+    display: block;
+  }
+}
+

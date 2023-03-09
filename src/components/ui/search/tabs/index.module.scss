@@ -2,9 +2,6 @@
 @import "styles/mixins";
 
 
-.tabs {
-}
-
 .tab {
   background: #979797;
   border-radius: 15px 15px 0 0;
@@ -30,8 +27,8 @@
   .tabs_res {
     display: grid;
     grid-gap: 17px;
-    margin-bottom: 30px;
-    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+    margin-bottom: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
   .tab {
     background: $blockBg;

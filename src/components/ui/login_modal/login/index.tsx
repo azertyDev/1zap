@@ -7,9 +7,9 @@ import { shallow } from 'zustand/shallow';
 import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Button } from 'components/ui/button';
 import { InputWrapper } from 'components/ui/input/input_wrapper';
-import { LoginValidation } from 'src/validation/login';
 
 import s from '../index.module.scss';
+import { client_validation } from 'src/validation/client_validation';
 
 export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.Element => {
     const { t } = useTranslation();
@@ -28,7 +28,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
     const formik = useFormik({
         initialValues,
         onSubmit,
-        validationSchema: LoginValidation,
+        validationSchema: client_validation.login,
     });
 
     return (

@@ -29,6 +29,7 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
                     {...props}
                     onChange={onChange}
                     id={field.name}
+                    instanceId={field.name}
                     isSearchable={false}
                     className="select_container"
                     classNamePrefix="select"
