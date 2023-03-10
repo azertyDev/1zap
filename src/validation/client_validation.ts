@@ -20,7 +20,7 @@ export const client_validation = {
             .required('Обязательное поле'),
     }),
     login: yup.object().shape({
-        email: yup.string().email('').required(''),
+        email: yup.string().email('').required('required'),
     }),
     loginForgot: yup.object().shape({
         email: yup.string().email('').required(''),
