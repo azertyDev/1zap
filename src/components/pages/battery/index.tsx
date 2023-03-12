@@ -42,7 +42,6 @@ export const Battery = (): JSX.Element => {
                         <SearchTabs
                             activeTab={activeTab}
                             handleTab={handleActivetab}
-                            tabsRes={tabsValue.common}
                             tabs={tabsValue.common}
                             className={s.tabs_wr_out}
                         >

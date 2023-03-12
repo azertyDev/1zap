@@ -9,22 +9,15 @@ import { SearchTabs } from 'components/ui/search/tabs';
 
 import s from './index.module.scss';
 import { useHandleActivetTabHome } from 'src/hooks/search_home/useHandleActivetTabHome';
-import { useRouter } from 'next/router';
 import { tabsValue } from 'src/constants/tabsValue';
 
 export const SearchHome: FC = (): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
-    const { push } = useRouter();
 
     const { t } = useTranslation();
 
     return (
-        <SearchTabs
-            activeTab={activeTab}
-            handleTab={handleActivetab}
-            tabsRes={tabsValue.searchHomeTabsRes}
-            tabs={tabsValue.searchHomeTabs}
-        >
+        <SearchTabs activeTab={activeTab} handleTab={handleActivetab} tabs={tabsValue.searchHomeTabs}>
             {activeTab === 1 && <SearchDetails className={s.form_wr} />}
             {activeTab === 3 && <SearchCatalog />}
             {activeTab === 4 && <SearchCategory className={s.form_wr} />}

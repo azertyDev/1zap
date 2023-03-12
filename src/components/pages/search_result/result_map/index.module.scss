@@ -11,9 +11,6 @@
   cursor: grab;
   border: 1px solid red;
 
-  img {
-    filter: grayscale(95%);
-  }
 
   &.active {
     height: 573px;

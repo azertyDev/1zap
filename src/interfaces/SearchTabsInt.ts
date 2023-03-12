@@ -4,7 +4,6 @@ export interface SearchTabsInt {
     activeTab: number;
     handleTab: (val: number) => () => void;
     children: React.ReactNode;
-    tabs: { id: number; text: string; link?: string }[];
-    tabsRes: { id: number; text: string }[];
+    tabs: { id: number; text: string; link?: string; altText?: string }[];
     searchRes?: boolean;
 }

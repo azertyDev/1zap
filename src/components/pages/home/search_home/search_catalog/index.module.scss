@@ -33,6 +33,11 @@
 .catalog_letter {
   @include fs_fw_c(14px, 400, $light);
   margin-right: 18px;
+  width: 11px;
+
+  span {
+    margin-right: 10px;
+  }
 }
 
 .catalog_subitem {
@@ -92,7 +97,7 @@
     background: $blockBg;
     border-radius: 8px;
     padding: 7px 15px;
-    @include fs_fw_c(12px,700, $text);
+    @include fs_fw_c(12px, 700, $text);
 
 
     &.active {
@@ -108,7 +113,7 @@
 
   .catalog_subitem {
     text-transform: none;
-    @include fs_fw_c(16px,700, $secondary);
+    @include fs_fw_c(16px, 700, $secondary);
   }
 
 }

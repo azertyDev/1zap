@@ -8,14 +8,11 @@ import { SearchTabsInt } from 'src/interfaces/SearchTabsInt';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-export const SearchTabs: FC<
-    SearchTabsInt & HtmlHTMLAttributes<HTMLDivElement>
-> = ({
+export const SearchTabs: FC<SearchTabsInt & HtmlHTMLAttributes<HTMLDivElement>> = ({
     tabs,
     children,
     activeTab,
     handleTab,
-    tabsRes,
     className = '',
 }): JSX.Element => {
     const { t } = useTranslation();
@@ -26,53 +23,16 @@ export const SearchTabs: FC<
             <div className={s.tabs}>
                 {tabs.map((item) => {
                     return (
-                        <>
+                        <div key={item.id} className={`${s.tab} ${activeTab === item.id ? s.active : ''}`}>
                             {item.hasOwnProperty('link') ? (
-                                <Link
-                                    className={`${s.tab}`}
-                                    href={'/request_vim'}
-                                >
-                                    {t(item.text)}
-                                </Link>
+                                <Link href={'/request_vim'}>{t(item.text)}</Link>
                             ) : (
-                                <span
-                                    onClick={handleTab(item.id)}
-                                    className={`${s.tab} ${
-                                        activeTab === item.id ? s.active : ''
-                                    }`}
-                                    key={item.id}
-                                >
-                                    {t(item.text)}
-                                </span>
+                                <div onClick={handleTab(item.id)}>
+                                    <span className={`${item.altText ? s.text : ''}`}>{t(item.text)}</span>
+                                    {item.altText && <span className={s.text_alt}>{t(item.altText)}</span>}
+                                </div>
                             )}
-                        </>
-                    );
-                })}
-            </div>
-
-            <div className={s.tabs_res}>
-                {tabsRes.map((item) => {
-                    return (
-                        <>
-                            {item.hasOwnProperty('link') ? (
-                                <Link
-                                    className={`${s.tab}`}
-                                    href={'/request_vim'}
-                                >
-                                    {t(item.text)}
-                                </Link>
-                            ) : (
-                                <span
-                                    onClick={handleTab(item.id)}
-                                    className={`${s.tab} ${
-                                        activeTab === item.id ? s.active : ''
-                                    }`}
-                                    key={item.id}
-                                >
-                                    {t(item.text)}
-                                </span>
-                            )}
-                        </>
+                        </div>
                     );
                 })}
             </div>

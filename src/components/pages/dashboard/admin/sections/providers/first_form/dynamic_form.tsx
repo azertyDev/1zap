@@ -9,7 +9,7 @@ import { Accordion } from 'src/components/ui/accordion';
 import { Checkbox } from 'src/components/ui/dashboard/checkbox';
 import { FileUploader } from 'src/components/ui/fileUploader';
 import { maptiler } from 'pigeon-maps/providers';
-import { ZoomControl } from 'src/components/ui/map_controls/zoom';
+import { ZoomControl } from 'src/components/ui/map/map_controls/zoom';
 
 import s from '../index.module.scss';
 
