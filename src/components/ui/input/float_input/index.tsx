@@ -14,7 +14,7 @@ interface InputProps {
 const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
     const { iconname, iconSize = 18, isPhone } = props;
     const [field, meta] = useField(props);
-    const { t } = useTranslation('');
+    const { t } = useTranslation();
 
     return (
         <div className={s.container}>
@@ -44,7 +44,10 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                 ) : null}
             </div>
             {meta.touched || meta.error ? (
-                <ErrorMessage component="span" name={field.name} className={s.error} />
+                <ErrorMessage
+                    name={field.name}
+                    render={(msg) => <span className={s.error}>{t(`helpers:${msg}`)}</span>}
+                />
             ) : null}
         </div>
     );

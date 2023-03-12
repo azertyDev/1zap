@@ -2,9 +2,9 @@ import * as yup from 'yup';
 
 export const client_validation = {
     becomeProvider: yup.object().shape({
-        username: yup.string().trim().min(2).required(`Обезательное поле`),
-        surname: yup.string().trim().min(2).required(`Обезательное поле`),
-        lastname: yup.string().trim().min(2).required(`Обезательное поле`),
+        username: yup.string().trim().min(2).required(``),
+        surname: yup.string().trim().min(2).required(``),
+        lastname: yup.string().trim().min(2).required(``),
         phone: yup
             .string()
             .trim()
@@ -20,8 +20,7 @@ export const client_validation = {
             .required('Обязательное поле'),
     }),
     login: yup.object().shape({
-        email: yup.string().email('').required('Обезательное поле'),
-        password: yup.string().required('Обезательное поле'),
+        email: yup.string().email('').required('required'),
     }),
     loginForgot: yup.object().shape({
         email: yup.string().email('').required(''),
@@ -29,21 +28,21 @@ export const client_validation = {
     vimRequest: [
         {
             firstForm: yup.object().shape({
-                vinNumber: yup.string().required('Обезательное поле'),
-                yearIssue: yup.string().required('Обезательное поле'),
-                modification: yup.string().required('Обезательное поле'),
-                brand: yup.string().required('Обезательное поле'),
-                model: yup.string().required('Обезательное поле'),
+                vinNumber: yup.string().required(''),
+                yearIssue: yup.string().required(''),
+                modification: yup.string().required(''),
+                brand: yup.string().required(''),
+                model: yup.string().required(''),
             }),
         },
         {
             secondForm: yup.object().shape({
-                username: yup.string().required('Обезательное поле').min(2),
-                surname: yup.string().required('Обезательное поле').min(2),
-                phone: yup.string().required('Обезательное поле'),
-                email: yup.string().email('').required('Обезательное поле'),
-                face: yup.string().required('Обезательное поле').min(1),
-                city: yup.string().required('Обезательное поле').min(1),
+                username: yup.string().required('').min(2),
+                surname: yup.string().required('').min(2),
+                phone: yup.string().required(''),
+                email: yup.string().email('').required(''),
+                face: yup.string().required('').min(1),
+                city: yup.string().required('').min(1),
             }),
         },
     ],
