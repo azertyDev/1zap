@@ -39,7 +39,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
                         <FloatingInput {...formik.getFieldProps('email')} iconname="email" />
                     </InputWrapper>
                     <FloatingInput {...formik.getFieldProps('password')} iconname="key" type={'password'} />
-                    {error && <span className="error">{error.replaceAll(' ', '_')}</span>}
+                    {error && <span className="error">{error}</span>}
 
                     <div className={s.remember_wr}>
                         <div className={s.remember}>

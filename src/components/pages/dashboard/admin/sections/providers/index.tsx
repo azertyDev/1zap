@@ -3,13 +3,12 @@ import { Heading } from 'src/components/ui/dashboard/heading';
 import { FirstForm } from './first_form';
 import { SecondForm } from './second_form';
 import { providerValues } from './first_form/initialValues';
-import { IProviderForm } from './IProviderForm';
 
 import s from './index.module.scss';
 
 export const Providers: FC = (): JSX.Element => {
     const [tab, setTab] = useState(1);
-    const [initialValues, setInitialValues] = useState<IProviderForm>({ ...providerValues });
+    const [initialValues, setInitialValues] = useState<IProviderData>({ ...providerValues });
 
     const handleTabChange = (value: number) => {
         setTab(value);

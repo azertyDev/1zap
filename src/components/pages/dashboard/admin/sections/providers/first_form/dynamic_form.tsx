@@ -1,4 +1,3 @@
-import type { Image, ProviderBranch } from '../IProviderForm';
 import { FC, useState } from 'react';
 import { FieldArrayRenderProps, Field, FieldArray } from 'formik';
 import { StandartInput } from 'src/components/ui/input/standart_input';
@@ -36,7 +35,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
     };
 
     return form?.values.providerBranch && form?.values.providerBranch.length > 0 ? (
-        form?.values.providerBranch.map((branch: ProviderBranch, index: number) => {
+        form?.values.providerBranch.map((branch: IBranchData, index: number) => {
             return (
                 <div className={s.formGroup} key={index}>
                     <div className={s.row}>
@@ -220,7 +219,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                             name={`providerBranch.[${index}].images`}
                             render={(helperProps) => {
                                 return branch.images && branch.images.length ? (
-                                    branch.images?.map((image: Image, i: number) => {
+                                    branch.images?.map((image: IImage, i: number) => {
                                         return (
                                             <div key={index}>
                                                 <FileUploader

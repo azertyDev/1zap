@@ -1,86 +1,61 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import s from './index.module.scss';
 
-interface TableProps {}
+interface TableProps {
+    data: any;
+    columns: any;
+}
 
-import {
-    createColumnHelper,
-    flexRender,
-    getCoreRowModel,
-    useReactTable,
-} from '@tanstack/react-table';
+// const columnHelper = createColumnHelper<IApplication>();
 
-type Person = {
-    firstName: string;
-    lastName: string;
-    age: number;
-    visits: number;
-    status: string;
-    progress: number;
-};
+// const applicationColumns = [
+//     columnHelper.accessor('providerName', {
+//         cell: (info) => info.getValue(),
+//         header: () => <span>ФИО</span>,
+//     }),
+//     columnHelper.accessor((row) => row.providerName, {
+//         id: 'lastName',
+//         cell: (info) => <i>{info.getValue()}</i>,
+//         header: () => <span>Организация</span>,
+//     }),
+//     columnHelper.accessor('phone', {
+//         header: () => 'Контактный телефон',
+//         cell: (info) => info.renderValue(),
+//     }),
+//     columnHelper.accessor('id', {
+//         header: (row) => <span>ID</span>,
+//     }),
+//     columnHelper.accessor('createdAt', {
+//         header: 'Дата',
+//         cell: (info) => <i>{dayjs(info.row.getValue('createdAt')).format('DD/MM/YYYY')}</i>,
+//     }),
+// ];
 
-const defaultData: Person[] = [
-    {
-        firstName: 'tanner',
-        lastName: 'linsley',
-        age: 24,
-        visits: 100,
-        status: 'In Relationship',
-        progress: 50,
-    },
-    {
-        firstName: 'tandy',
-        lastName: 'miller',
-        age: 40,
-        visits: 40,
-        status: 'Single',
-        progress: 80,
-    },
-    {
-        firstName: 'joe',
-        lastName: 'dirte',
-        age: 45,
-        visits: 20,
-        status: 'Complicated',
-        progress: 10,
-    },
-];
+// const applicationColumns = [
+//     columnHelper.accessor('providerName', {
+//         cell: (info) => info.getValue(),
+//         header: () => <span>ФИО</span>,
+//     }),
+//     columnHelper.accessor((row) => row.providerName, {
+//         id: 'lastName',
+//         cell: (info) => <i>{info.getValue()}</i>,
+//         header: () => <span>Организация</span>,
+//     }),
+//     columnHelper.accessor('phone', {
+//         header: () => 'Контактный телефон',
+//         cell: (info) => info.renderValue(),
+//     }),
+//     columnHelper.accessor('id', {
+//         header: (row) => <span>ID</span>,
+//     }),
+//     columnHelper.accessor('createdAt', {
+//         header: 'Дата',
+//         cell: (info) => <i>{dayjs(info.row.getValue('createdAt')).format('DD/MM/YYYY')}</i>,
+//     }),
+// ];
 
-const columnHelper = createColumnHelper<Person>();
-
-const columns = [
-    columnHelper.accessor('firstName', {
-        cell: (info) => info.getValue(),
-        footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor((row) => row.lastName, {
-        id: 'lastName',
-        cell: (info) => <i>{info.getValue()}</i>,
-        header: () => <span>Last Name</span>,
-        footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor('age', {
-        header: () => 'Age',
-        cell: (info) => info.renderValue(),
-        footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor('visits', {
-        header: () => <span>Visits</span>,
-        footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor('status', {
-        header: 'Status',
-        footer: (info) => info.column.id,
-    }),
-    columnHelper.accessor('progress', {
-        header: 'Profile Progress',
-        footer: (info) => info.column.id,
-    }),
-];
-
-export const Table: FC<TableProps> = (props) => {
-    const [data, setData] = useState(() => [...defaultData]);
-
+export const Table: FC<TableProps> = ({ data, columns }) => {
     const table = useReactTable({
         data,
         columns,
@@ -91,50 +66,41 @@ export const Table: FC<TableProps> = (props) => {
         <div className={s.root} data-id="table-root">
             <table>
                 <thead>
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <tr key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => (
-                                <th key={header.id}>
-                                    {header.isPlaceholder
-                                        ? null
-                                        : flexRender(
-                                              header.column.columnDef.header,
-                                              header.getContext()
-                                          )}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
+                    {table.getHeaderGroups().length !== 0 &&
+                        table?.getHeaderGroups().map((headerGroup) => (
+                            <tr key={headerGroup.id}>
+                                {headerGroup.headers.map((header) => (
+                                    <th key={header.id}>
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(header.column.columnDef.header, header.getContext())}
+                                    </th>
+                                ))}
+                            </tr>
+                        ))}
                 </thead>
                 <tbody>
-                    {table.getRowModel().rows.map((row) => (
+                    {table?.getRowModel().rows.map((row) => (
                         <tr key={row.id}>
                             {row.getVisibleCells().map((cell) => (
-                                <td key={cell.id}>
-                                    {flexRender(
-                                        cell.column.columnDef.cell,
-                                        cell.getContext()
-                                    )}
-                                </td>
+                                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
                             ))}
                         </tr>
                     ))}
                 </tbody>
                 <tfoot>
-                    {table.getFooterGroups().map((footerGroup) => (
-                        <tr key={footerGroup.id}>
-                            {footerGroup.headers.map((header) => (
-                                <th key={header.id}>
-                                    {header.isPlaceholder
-                                        ? null
-                                        : flexRender(
-                                              header.column.columnDef.footer,
-                                              header.getContext()
-                                          )}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
+                    {table?.getFooterGroups().length &&
+                        table?.getFooterGroups().map((footerGroup) => (
+                            <tr key={footerGroup.id}>
+                                {footerGroup.headers.map((header) => (
+                                    <th key={header.id}>
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(header.column.columnDef.footer, header.getContext())}
+                                    </th>
+                                ))}
+                            </tr>
+                        ))}
                 </tfoot>
             </table>
         </div>

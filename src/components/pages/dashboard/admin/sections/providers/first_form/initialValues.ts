@@ -1,4 +1,4 @@
-export const providerValues = {
+export const providerValues: IProviderData = {
     legalAddress: '',
     phone: '',
     fullName: '',

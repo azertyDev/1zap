@@ -1,18 +1,16 @@
-import { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import * as Yup from 'yup';
-import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { Button } from 'src/components/ui/button';
+import { Dispatch, FC, SetStateAction, useEffect } from 'react';
+import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { StandartInput } from 'src/components/ui/input/standart_input';
 import { FloatingInput } from 'src/components/ui/input/float_input';
-import { IProviderForm } from '../IProviderForm';
+import { axiosInstance } from 'src/utils/axios';
 
 import s from '../index.module.scss';
-import { axiosInstance } from 'src/utils/axios';
-import { useStore } from 'src/store/useStore';
 
 interface SecondFormProps {
-    initialValues: IProviderForm;
-    setInitialValues: Dispatch<SetStateAction<IProviderForm>>;
+    initialValues: IProviderData;
+    setInitialValues: Dispatch<SetStateAction<IProviderData>>;
     handleTabChange: (value: number) => void;
 }
 

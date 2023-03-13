@@ -3,8 +3,11 @@ import Cookies from 'js-cookie';
 import { baseURL } from './constants';
 
 export const axiosInstance = axios.create({
-    // withCredentials: true,
+    withCredentials: false,
     baseURL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
 });
 
 axiosInstance.interceptors.request.use((config) => {

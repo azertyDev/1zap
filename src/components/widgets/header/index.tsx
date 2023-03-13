@@ -16,11 +16,12 @@ import { useStore } from 'src/store/useStore';
 
 export const Header: FC = (): JSX.Element => {
     const { t } = useTranslation();
-    const { data } = useStore();
+    const { userData } = useStore();
     const token = Cookies.get('token');
     const [signedIn, setSignedIn] = useState<boolean>(false);
+    console.log(userData);
 
-    const isAdmin = data?.user.role === 'admin';
+    const isAdmin = userData?.user.role === 'admin';
 
     useEffect(() => {
         setSignedIn(!!token);
@@ -41,7 +42,7 @@ export const Header: FC = (): JSX.Element => {
                         <Language />
                         {signedIn ? (
                             <Link href={isAdmin ? '/dashboard/main' : '/dashboard/merchant'}>
-                                {data?.user.fullName}
+                                {userData?.user.fullName}
                             </Link>
                         ) : (
                             <div className={s.login} onClick={handleOpenClose(true)}>

@@ -1,9 +1,7 @@
-import type { AxiosResponse } from 'axios';
 import axios from 'axios';
+import type { AxiosResponse } from 'axios';
 import { ChangeEvent, MouseEvent, useState } from 'react';
-import { Image } from 'src/components/pages/dashboard/admin/sections/providers/IProviderForm';
 import { axiosInstance } from 'src/utils/axios';
-import { SERVER_URL } from 'src/utils/constants';
 import { Icon } from '../icon';
 
 import s from './index.module.scss';
@@ -15,19 +13,19 @@ interface FileUploaderProps {
 }
 
 export const FileUploader = (props: FileUploaderProps) => {
-    const [imageData, setImageData] = useState<Image>();
+    const [imageData, setImageData] = useState<IImage>();
 
     const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
         var formData = new FormData();
         formData.append('image', event.target.files![0]);
 
         await axiosInstance
-            .post<Image>('/images', formData, {
+            .post<IImage>('/images', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             })
-            .then((data: AxiosResponse<Image>) => {
+            .then((data: AxiosResponse<IImage>) => {
                 if (data.status === 201) {
                     setImageData(data.data);
                     props.setFieldValue(props.name, data.data.url);

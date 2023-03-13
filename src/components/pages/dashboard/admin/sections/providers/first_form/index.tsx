@@ -3,13 +3,12 @@ import * as Yup from 'yup';
 import { FormikHelpers, FormikProvider, FormikValues, useFormik, FieldArray, Form } from 'formik';
 import { DynamicForm } from './dynamic_form';
 import { Button } from 'src/components/ui/button';
-import { IProviderForm } from '../IProviderForm';
 
 import s from '../index.module.scss';
 
 interface FirstFormProps {
-    initialValues: IProviderForm;
-    setInitialValues: Dispatch<SetStateAction<IProviderForm>>;
+    initialValues: IProviderData;
+    setInitialValues: Dispatch<SetStateAction<IProviderData>>;
     handleTabChange: (value: number) => void;
 }
 
