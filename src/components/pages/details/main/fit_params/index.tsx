@@ -19,13 +19,8 @@ export const FitParams: FC = (): JSX.Element => {
 
     return (
         <div className={s.form_wr}>
-            <form className={s.form} onSubmit={formik.handleSubmit}>
-                <input
-                    {...formik.getFieldProps('searchVal')}
-                    type="text"
-                    className={s.input}
-                    placeholder={t('home:searchOem')!}
-                />
+            <form onSubmit={formik.handleSubmit}>
+                <input {...formik.getFieldProps('searchVal')} type="text" placeholder={t('home:searchOem')!} />
                 <div className={s.search_icon_res}>
                     <Icon size={24} name={'search'} color={'#C6303C'} />
                 </div>

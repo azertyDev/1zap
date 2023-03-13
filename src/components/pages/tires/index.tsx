@@ -1,7 +1,5 @@
 import s from './index.module.scss';
 
-import { detailsTabs } from 'src/constants/detailsTabs';
-
 import { Title } from 'components/ui/title';
 import { SearchTabs } from 'components/ui/search/tabs';
 import { InputSelectWrTabs } from 'components/ui/input/input_filter_wr_tabs';
@@ -17,6 +15,7 @@ import { useFilterTabs } from 'src/hooks/common/useFilterTabs';
 import { useRouter } from 'next/router';
 import { FilterResponsive } from 'components/ui/filter/filter_responsive';
 import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
+import { tabsValue } from 'src/constants/tabsValue';
 
 export const Tires = (): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
@@ -44,8 +43,7 @@ export const Tires = (): JSX.Element => {
                         <SearchTabs
                             activeTab={activeTab}
                             handleTab={handleActivetab}
-                            tabsRes={detailsTabs}
-                            tabs={detailsTabs}
+                            tabs={tabsValue.common}
                             className={s.tabs_wr_out}
                         >
                             <InputSelectWrTabs>
@@ -56,14 +54,9 @@ export const Tires = (): JSX.Element => {
                                                 id={item}
                                                 key={item}
                                                 title={t(`filter:${item}`)}
-                                                value={
-                                                    (query[item] ??
-                                                        '') as string
-                                                }
+                                                value={(query[item] ?? '') as string}
                                                 fun={handleFilter}
-                                                labelAlt={
-                                                    filterData[item][0]?.label
-                                                }
+                                                labelAlt={filterData[item][0]?.label}
                                                 options={filterData[item]}
                                             />
                                         );

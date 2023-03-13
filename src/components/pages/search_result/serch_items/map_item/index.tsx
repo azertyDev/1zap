@@ -1,12 +1,9 @@
 import s from './index.module.scss';
 import Image from 'next/image';
 import React, { FC } from 'react';
-import { MapPoint } from 'components/ui/map_point';
+import { MapPoint } from 'components/ui/map/map_point';
 
-export const MapItem: FC<{ amount: number; price: number }> = ({
-    amount,
-    price,
-}) => {
+export const MapItem: FC<{ amount: number; price: number }> = ({ amount, price }) => {
     return (
         <div className={s.mark} onClick={() => alert(1)}>
             <MapPoint val={amount} />

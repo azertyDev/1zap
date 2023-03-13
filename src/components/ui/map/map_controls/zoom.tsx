@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { PigeonProps } from 'pigeon-maps';
-import { Icon } from '../icon';
+import { Icon } from '../../icon';
 
 interface ZoomProps extends PigeonProps {
     style?: React.CSSProperties;

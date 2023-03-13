@@ -35,10 +35,7 @@ export const BecomeProviderComp: FC = (): JSX.Element => {
                 providerPatronymic: values.lastname,
             };
             try {
-                const { data } = await axiosInstance.post(
-                    '/app',
-                    JSON.stringify(val)
-                );
+                const { data } = await axiosInstance.post('/app', JSON.stringify(val));
                 setCancelBtn(false);
                 setDone(true);
             } catch (err) {
@@ -55,9 +52,7 @@ export const BecomeProviderComp: FC = (): JSX.Element => {
                 </Link>
                 {cancleBtn && (
                     <Link href={'/'}>
-                        <Button variant={'disabled'}>
-                            {t('common:cancel')}
-                        </Button>
+                        <Button variant={'disabled'}>{t('common:cancel')}</Button>
                     </Link>
                 )}
             </header>
@@ -68,25 +63,16 @@ export const BecomeProviderComp: FC = (): JSX.Element => {
                     <FormikProvider value={formik}>
                         <Form className={s.form}>
                             <InputWrapper>
-                                <FloatingInput
-                                    {...formik.getFieldProps('username')}
-                                />
+                                <FloatingInput {...formik.getFieldProps('username')} />
                             </InputWrapper>
                             <InputWrapper>
-                                <FloatingInput
-                                    {...formik.getFieldProps('surname')}
-                                />
+                                <FloatingInput {...formik.getFieldProps('surname')} />
                             </InputWrapper>
                             <InputWrapper>
-                                <FloatingInput
-                                    {...formik.getFieldProps('lastname')}
-                                />
+                                <FloatingInput {...formik.getFieldProps('lastname')} />
                             </InputWrapper>
                             <InputWrapper>
-                                <FloatingInput
-                                    {...formik.getFieldProps('phone')}
-                                    isPhone
-                                />
+                                <FloatingInput {...formik.getFieldProps('phone')} isPhone />
                             </InputWrapper>
 
                             <div className={s.select_wr}>
@@ -148,16 +134,11 @@ export const BecomeProviderComp: FC = (): JSX.Element => {
 
             {done && (
                 <div className={s.second_form_wr}>
-                    <Completed
-                        title={'requestSend'}
-                        img={<Icon size={28} name={'done'} />}
-                    >
+                    <Completed title={'requestSend'} img={<Icon size={28} name={'done'} />}>
                         <p>{t('common:weWillConnect')}</p>
                     </Completed>
                     <Link href={'/'}>
-                        <Button variant={'primary'}>
-                            {t('common:returnHone')}
-                        </Button>
+                        <Button variant={'primary'}>{t('common:returnHone')}</Button>
                     </Link>
                 </div>
             )}

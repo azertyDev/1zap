@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { Map, Overlay } from 'pigeon-maps';
+import { Map, Marker, Overlay } from 'pigeon-maps';
 import s from './index.module.scss';
 
 import { useTranslation } from 'next-i18next';
@@ -25,6 +25,11 @@ import { useFilter } from 'src/hooks/common/useFilter';
 import { filterTitles } from 'src/constants/filterTitles';
 import { useGetFilterValues } from 'src/hooks/useGetFilterValues';
 
+import { ZoomControl } from 'components/ui/map/map_controls/zoom';
+import { maptiler } from 'pigeon-maps/providers';
+import { Icon } from 'components/ui/icon';
+const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
+
 const fakeAnchor = [
     [41.31240320650527, 69.27836058056674],
     [41.312801603213416, 69.28121824199522],
@@ -36,8 +41,7 @@ export const ResultMap: FC = (): JSX.Element => {
     const [mapIsOpen, setIsOpen] = useState(false);
 
     const { openClose, handleOpenClose } = useOpenCloseWithVal();
-    const { openClose: isOpenFilter, handleOpenClose: setIsOpenFilter } =
-        useOpenCloseWithVal();
+    const { openClose: isOpenFilter, handleOpenClose: setIsOpenFilter } = useOpenCloseWithVal();
     const { handleFilter } = useFilter();
     const { searchValue } = useGetFilterValues();
 
@@ -56,20 +60,21 @@ export const ResultMap: FC = (): JSX.Element => {
         <div>
             <div className={`${s.map} ${mapIsOpen ? s.active : ''}`}>
                 <Map
-                    defaultCenter={[41.31300484525912, 69.27182341706133]}
-                    defaultZoom={17}
+                    provider={maptilerProvider}
+                    dprs={[1, 2]}
+                    defaultCenter={[41.31172327941058, 69.2818072781773]}
+                    defaultZoom={15}
+                    // metaWheelZoom
+                    boxClassname={s.map}
                 >
                     {fakeAnchor.map((item, index) => {
                         return (
-                            <Overlay
-                                anchor={item as [number, number]}
-                                offset={[30, 30]}
-                                key={index}
-                            >
+                            <Overlay anchor={item as [number, number]} offset={[30, 30]} key={index}>
                                 <MapItem amount={1} price={2} />
                             </Overlay>
                         );
                     })}
+                    <ZoomControl />
                     <div className={s.shadow}></div>
                 </Map>
             </div>
@@ -79,23 +84,15 @@ export const ResultMap: FC = (): JSX.Element => {
                     <ToggleButton mapIsOpen={mapIsOpen} fun={setIsOpen} />
                     <ToggleResize mapIsOpen={mapIsOpen} fun={setIsOpen} />
 
-                    <div
-                        className={`${s.search} ${
-                            mapIsOpen ? s.notActive : ''
-                        }`}
-                    >
+                    <div className={`${s.search} ${mapIsOpen ? s.notActive : ''}`}>
                         <InputSearch
                             valResert={formik.resetForm}
                             fun={formik.handleSubmit}
                             values={formik.getFieldProps('searchVal')}
                         />
                         <div className={s.filter_for_respon}>
-                            <button className={s.filter_btn}>
-                                {t('filter:price')}
-                            </button>
-                            <button className={s.filter_btn}>
-                                {t('filter:howmany')}
-                            </button>
+                            <button className={s.filter_btn}>{t('filter:price')}</button>
+                            <button className={s.filter_btn}>{t('filter:howmany')}</button>
                             <FilterResponsive
                                 btnText={'anotherFilter'}
                                 isOpen={isOpenFilter}
@@ -111,13 +108,9 @@ export const ResultMap: FC = (): JSX.Element => {
                                             id={item}
                                             key={item}
                                             title={t(`filter:${item}`)}
-                                            value={
-                                                (query[item] ?? '') as string
-                                            }
+                                            value={(query[item] ?? '') as string}
                                             fun={handleFilter}
-                                            labelAlt={
-                                                searchValue[item][0].label
-                                            }
+                                            labelAlt={searchValue[item][0].label}
                                             options={searchValue[item]}
                                         />
                                     );

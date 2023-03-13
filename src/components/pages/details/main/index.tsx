@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { useTranslation } from 'next-i18next';
 
 import { useHandleActivetTabHome } from 'src/hooks/search_home/useHandleActivetTabHome';
-import { detailsTabs } from 'src/constants/detailsTabs';
 
 import s from './index.module.scss';
 
@@ -20,6 +19,8 @@ import { PageWrapper } from 'components/ui/page_wrapper';
 import Link from 'next/link';
 // import { FitParams } from 'components/pages/tires/fit_params';
 import { FitCars } from 'components/pages/details/main/fir_cars';
+import { tabsValue } from 'src/constants/tabsValue';
+import { FitParams } from 'components/pages/details/main/fit_params';
 
 export const Details: FC = (): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
@@ -37,11 +38,11 @@ export const Details: FC = (): JSX.Element => {
                     <SearchTabs
                         activeTab={activeTab}
                         handleTab={handleActivetab}
-                        tabsRes={detailsTabs}
-                        tabs={detailsTabs}
+                        tabsRes={tabsValue.datails}
+                        tabs={tabsValue.datails}
                     >
                         <InputSelectWrTabs>
-                            {/*{activeTab === 1 && <FitParams />}*/}
+                            {activeTab === 1 && <FitParams />}
                             {activeTab === 2 && <FitCars />}
                         </InputSelectWrTabs>
                     </SearchTabs>
@@ -49,18 +50,10 @@ export const Details: FC = (): JSX.Element => {
 
                 <div className={s.table}>
                     <TableRow className={s.table_row}>
-                        <TableElement className={'table_h'}>
-                            {t('filter:brand')}
-                        </TableElement>
-                        <TableElement className={'table_h'}>
-                            {t('filter:modelMeaning')}
-                        </TableElement>
-                        <TableElement className={'table_h'}>
-                            {t('filter:year')}
-                        </TableElement>
-                        <TableElement className={'table_h'}>
-                            {t('filter:region')}
-                        </TableElement>
+                        <TableElement className={'table_h'}>{t('filter:brand')}</TableElement>
+                        <TableElement className={'table_h'}>{t('filter:modelMeaning')}</TableElement>
+                        <TableElement className={'table_h'}>{t('filter:year')}</TableElement>
+                        <TableElement className={'table_h'}>{t('filter:region')}</TableElement>
                         <TableElement className={'table_h'}></TableElement>
                     </TableRow>
                     <TableRow className={s.table_row}>

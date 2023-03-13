@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import { TableRow } from 'components/ui/table/table_row';
 import { TableElement } from 'components/ui/table/table_element';
 import Image from 'next/image';
-import { OilTabs } from 'src/constants/oilTabs';
+
 import { Pagination } from 'components/ui/pagination/Pagination';
 import { useFilter } from 'src/hooks/common/useFilter';
 import { useFilterTabs } from 'src/hooks/common/useFilterTabs';
@@ -20,6 +20,7 @@ import { ResponsTable } from 'components/ui/table/respons_table';
 import { FilterResponsive } from 'components/ui/filter/filter_responsive';
 import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 import { filterTitles } from 'src/constants/filterTitles';
+import { tabsValue } from 'src/constants/tabsValue';
 
 export const Oil = (): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
@@ -47,8 +48,7 @@ export const Oil = (): JSX.Element => {
                         <SearchTabs
                             activeTab={activeTab}
                             handleTab={handleActivetab}
-                            tabsRes={OilTabs}
-                            tabs={OilTabs}
+                            tabs={tabsValue.common}
                             className={s.tabs_wr_out}
                         >
                             <InputSelectWrTabs>
@@ -59,14 +59,9 @@ export const Oil = (): JSX.Element => {
                                                 id={item}
                                                 key={item}
                                                 title={t(`filter:${item}`)}
-                                                value={
-                                                    (query[item] ??
-                                                        '') as string
-                                                }
+                                                value={(query[item] ?? '') as string}
                                                 fun={handleFilter}
-                                                labelAlt={
-                                                    filterData[item][0]?.label
-                                                }
+                                                labelAlt={filterData[item][0]?.label}
                                                 options={filterData[item]}
                                             />
                                         );
@@ -79,27 +74,13 @@ export const Oil = (): JSX.Element => {
             </div>
             <div className={s.table}>
                 <TableRow className={s.table_row}>
-                    <TableElement className={'table_h'}>
-                        {t('filter:producer')}
-                    </TableElement>
-                    <TableElement className={'table_h'}>
-                        {t('filter:number')}
-                    </TableElement>
-                    <TableElement className={'table_h'}>
-                        {t('filter:photo')}
-                    </TableElement>
-                    <TableElement className={'table_h'}>
-                        {t('filter:nameProduct')}
-                    </TableElement>
-                    <TableElement className={'table_h'}>
-                        {t('filter:typeAndStick')}
-                    </TableElement>
-                    <TableElement className={'table_h'}>
-                        {t('filter:middlePrice')}
-                    </TableElement>
-                    <TableElement className={'table_h'}>
-                        {t('filter:offer')}
-                    </TableElement>
+                    <TableElement className={'table_h'}>{t('filter:manufacturers')}</TableElement>
+                    <TableElement className={'table_h'}>{t('filter:number')}</TableElement>
+                    <TableElement className={'table_h'}>{t('filter:photo')}</TableElement>
+                    <TableElement className={'table_h'}>{t('filter:nameProduct')}</TableElement>
+                    <TableElement className={'table_h'}>{t('filter:typeAndStick')}</TableElement>
+                    <TableElement className={'table_h'}>{t('filter:middlePrice')}</TableElement>
+                    <TableElement className={'table_h'}>{t('filter:offer')}</TableElement>
                 </TableRow>
                 <TableRow className={s.table_row}>
                     <TableElement className={'table_b'}>
