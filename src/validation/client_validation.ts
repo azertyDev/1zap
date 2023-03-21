@@ -8,16 +8,16 @@ export const client_validation = {
         phone: yup
             .string()
             .trim()
-            .matches(/\+998 \d\d \d\d\d\d\d\d\d/, 'Неверный формат')
-            .required('Обязательное поле'),
+            .matches(/\+998 \d\d \d\d\d\d\d\d\d/, 'invalid_format')
+            .required('required'),
     }),
     book: yup.object().shape({
         surname: yup.string().trim().min(2).required(``),
         contactNumber: yup
             .string()
             .trim()
-            .matches(/\+998 \d\d \d\d\d\d\d\d\d/, 'Неверный формат')
-            .required('Обязательное поле'),
+            .matches(/\+998 \d\d \d\d\d\d\d\d\d/, 'invalid_format')
+            .required('required'),
     }),
     login: yup.object().shape({
         email: yup.string().email('invalid_format').required('required'),
@@ -25,25 +25,19 @@ export const client_validation = {
     loginForgot: yup.object().shape({
         email: yup.string().email('').required(''),
     }),
-    vimRequest: [
-        {
-            firstForm: yup.object().shape({
-                vinNumber: yup.string().required(''),
-                yearIssue: yup.string().required(''),
-                modification: yup.string().required(''),
-                brand: yup.string().required(''),
-                model: yup.string().required(''),
-            }),
-        },
-        {
-            secondForm: yup.object().shape({
-                username: yup.string().required('').min(2),
-                surname: yup.string().required('').min(2),
-                phone: yup.string().required(''),
-                email: yup.string().email('').required(''),
-                face: yup.string().required('').min(1),
-                city: yup.string().required('').min(1),
-            }),
-        },
-    ],
+    vimRequest: yup.object().shape({
+        vinNumber: yup.string().required('required'),
+        yearIssue: yup.string().required('required'),
+        modification: yup.string().required('required'),
+        brand: yup.string().required('required'),
+        model: yup.string().required('required'),
+        phone: yup
+            .string()
+            .trim()
+            .matches(/\+998 \d\d \d\d\d\d\d\d\d/, 'invalid_format')
+            .required('required'),
+        username: yup.string().required('required'),
+        city: yup.string().required('required'),
+        payment: yup.string().required('required'),
+    }),
 };

@@ -16,34 +16,17 @@ export const RequestVimHeader = (): JSX.Element => {
     const [pathName] = useState(pathname.split('/'));
 
     const pushToPage = useCallback(() => {
-        return pathName.includes('second_step')
-            ? push('/request_vim')
-            : push('/');
+        return pathName.includes('second_step') ? push('/request_vim') : push('/');
     }, []);
 
     return (
         <div>
-            <header
-                className={`${s.header} ${
-                    pathName.includes('final_step') ? s.final : ''
-                }`}
-            >
+            <header className={`${s.header} ${pathName.includes('final_step') ? s.final : ''}`}>
                 <div className={`${s.progress_line} ${s.progress_line_top}`}>
                     <div
-                        className={`${s.progress_line_item}  ${
-                            pathName.includes('second_step') ? s.sec_step : ''
-                        }  ${
-                            pathName.includes('final_step') ? s.final_step : ''
-                        }`}
+                        className={`${s.progress_line_item} ${pathName.includes('final_step') ? s.final_step : ''}`}
                     ></div>
                 </div>
-                {!pathName.includes('final_step') && (
-                    <div onClick={pushToPage} className={s.icon}>
-                        <IconsWrapper>
-                            <Icon size={18} name={'chevron_left'} />
-                        </IconsWrapper>
-                    </div>
-                )}
 
                 <p className={s.header_title}>{t('common:searchVin')}</p>
                 {!pathName.includes('final_step') && (
@@ -60,18 +43,12 @@ export const RequestVimHeader = (): JSX.Element => {
 
                 {!pathName.includes('final_step') && (
                     <Link href={'/'} className={s.link_btn_cancel}>
-                        <Button variant={'disabled'}>
-                            {t('common:cancel')}
-                        </Button>
+                        <Button variant={'disabled'}>{t('common:cancel')}</Button>
                     </Link>
                 )}
             </header>
             <div className={s.progress_line}>
-                <div
-                    className={`${s.progress_line_item}  ${
-                        pathName.includes('second_step') ? s.sec_step : ''
-                    }  ${pathName.includes('final_step') ? s.final_step : ''}`}
-                ></div>
+                <div className={`${s.progress_line_item} ${pathName.includes('final_step') ? s.final_step : ''}`}></div>
             </div>
         </div>
     );

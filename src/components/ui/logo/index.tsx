@@ -9,7 +9,16 @@ export const Logo: FC = (): JSX.Element => {
     return (
         <div className={s.logo}>
             <div className={s.logoOne}>
-                <Image src={'/assets/icons/logoOne.svg'} alt={'logo'} fill />
+                <Image
+                    src={'/assets/icons/logoOne.svg'}
+                    alt={'logo'}
+                    fill
+                    priority
+                    sizes="
+                            55
+                            (max-width: 768px) 33,
+                          "
+                />
             </div>
             <div className={s.right}>
                 <div className={s.logoZap}>
@@ -17,6 +26,10 @@ export const Logo: FC = (): JSX.Element => {
                         src={'/assets/icons/logoZap.svg'}
                         alt={'logo'}
                         fill
+                        sizes="
+                            71
+                            (max-width: 768px) 42,
+                          "
                     />
                 </div>
                 <p className={s.text}>{t('header:comparebuy')}</p>

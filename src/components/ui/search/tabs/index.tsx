@@ -25,7 +25,7 @@ export const SearchTabs: FC<SearchTabsInt & HtmlHTMLAttributes<HTMLDivElement>> 
                     return (
                         <div key={item.id} className={`${s.tab} ${activeTab === item.id ? s.active : ''}`}>
                             {item.hasOwnProperty('link') ? (
-                                <Link href={'/request_vim'}>{t(item.text)}</Link>
+                                <Link href={item.link as string}>{t(item.text)}</Link>
                             ) : (
                                 <div onClick={handleTab(item.id)}>
                                     <span className={`${item.altText ? s.text : ''}`}>{t(item.text)}</span>

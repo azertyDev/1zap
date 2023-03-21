@@ -16,6 +16,8 @@ export const userApi = {
 
 export const applicationApi = {
     fetchApplications: (status: string): Promise<IApplicationData> => requests.get('/applications/all', { status }),
+    addApplication: (body: IApplicationDataProvider): Promise<IApplicationDataProvider> =>
+        requests.post('/app', { body }),
 };
 
 export const providerApi = {

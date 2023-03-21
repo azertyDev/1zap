@@ -4,16 +4,23 @@ import s from './index.module.scss';
 import { Icon } from 'components/ui/icon';
 import { useFormik } from 'formik';
 import { useTranslation } from 'next-i18next';
+import { getLaximoData } from 'src/function/getLaximoData';
+import { useRouter } from 'next/router';
 
 export const FitParams: FC = (): JSX.Element => {
     const { t } = useTranslation();
+    const {
+        push,
+        pathname,
+        query: { FindVehicle },
+    } = useRouter();
 
     const formik = useFormik({
         initialValues: {
-            searchVal: '',
+            searchVal: FindVehicle ?? '',
         },
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: async (values) => {
+            await push(`${pathname}?FindVehicle=${values.searchVal}`);
         },
     });
 

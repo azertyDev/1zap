@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { NextPageWithLayout } from '../../../_app';
+import { NextPageWithLayout } from '../../_app';
 import { RequestVimCompFinal } from 'components/pages/request_vim/final_step';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -9,13 +9,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
         props: {
-            ...(await serverSideTranslations(locale as string, [
-                'header',
-                'common',
-                'footer',
-                'home',
-                'filter',
-            ])),
+            ...(await serverSideTranslations(locale as string, ['header', 'common', 'footer', 'home', 'filter'])),
         },
     };
 };

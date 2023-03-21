@@ -19,8 +19,6 @@ export const Header: FC = (): JSX.Element => {
     const { userData } = useStore();
     const token = Cookies.get('token');
     const [signedIn, setSignedIn] = useState<boolean>(false);
-    console.log(userData);
-
     const isAdmin = userData?.user.role === 'admin';
 
     useEffect(() => {
@@ -30,7 +28,7 @@ export const Header: FC = (): JSX.Element => {
     const { openClose, handleOpenClose } = useOpenCloseWithVal();
 
     return (
-        <header className={s.header}>
+        <header>
             <Container>
                 <div className={s.inner}>
                     <Link href={'/'}>
