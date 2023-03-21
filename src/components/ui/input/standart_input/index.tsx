@@ -10,12 +10,23 @@ interface InputProps {
     iconSize?: number;
     isPhone?: boolean;
     label?: string;
+    setFieldValue?: (field: string, value: any) => void;
 }
 
 const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
-    const { iconname = 'edit', iconSize = 18, isPhone, label = 'Input' } = props;
-    const [field, meta] = useField(props);
+    const { iconname = 'edit', iconSize = 18, isPhone, setFieldValue, label = 'Input' } = props;
+    const [field, meta, form] = useField(props);
     const { t } = useTranslation();
+
+    // const phoneInputChange: OnValueChange = async (value: any) => {
+    //     const phoneValue = value.formattedValue.replaceAll(' ', '');
+    //     console.log(phoneValue);
+
+    //     // await form.setValue(field.name, phoneValue);
+
+    //     await setFieldValue!(field.name, '12121212');
+    //     console.log(field);
+    // };
 
     return (
         <div className={s.container}>

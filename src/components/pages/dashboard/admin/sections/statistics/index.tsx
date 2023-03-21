@@ -9,10 +9,7 @@ interface StatisticsProps {}
 export const Statistics: FC<StatisticsProps> = (props) => {
     return (
         <div className={s.root} data-id="statistics-root">
-            <div>
-                <p className={s.block_title}>Текущие показатели</p>
-                <StatisticsBlock data={statisticsData} />
-            </div>
+            <StatisticsBlock data={statisticsData} title={<h4>Текущие показатели</h4>} />
 
             <div
                 style={{

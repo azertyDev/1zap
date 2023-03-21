@@ -33,13 +33,15 @@ interface IApplication {
 }
 
 interface IProviderData {
-    legalAddress: string;
-    phone: string;
-    fullName: string;
-    email: string;
-    companyName: string;
-    inn: string;
-    coin: string;
+    legalAddress?: string;
+    phone?: string;
+    fullName?: string;
+    email?: string;
+    companyName?: string;
+    // Remove in future
+    password?: string;
+    inn?: string;
+    coin?: number | null;
     applicationId?: number;
     providerBranch: IBranchData[];
 }
@@ -75,6 +77,6 @@ interface IMethod {
 }
 
 interface IImage {
-    id?: number;
+    id?: number | null;
     url: string;
 }

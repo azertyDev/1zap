@@ -2,5 +2,110 @@
 @import 'styles/variables.scss';
 
 .root {
-    margin: 0;
+    width: 100%;
+    margin-bottom: 30px;
+
+    input.filterInput {
+        background: none;
+    }
+
+    h4 {
+        margin-bottom: 25px;
+    }
+
+    table {
+        width: inherit;
+        display: flex;
+        flex-direction: column;
+        background: #ffffff;
+        border: 1px solid #e4e6e8;
+        border-radius: 14px;
+
+        thead {
+            display: flex;
+            padding: 22px;
+            background: $blockBg;
+            border-radius: 14px 14px 0px 0px;
+            user-select: none;
+            tr {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                th {
+                    width: 100%;
+                    font-weight: 700;
+                    font-size: 0.75rem;
+                    color: $text;
+                    display: flex;
+                    flex-direction: column;
+
+                    & > div {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+
+        tbody {
+            padding: 15px 25px 32px 25px;
+
+            tr {
+                display: flex;
+                gap: 10px;
+                width: 100%;
+                padding: 12px 0;
+
+                td {
+                    width: 100%;
+                    font-size: 0.875rem;
+                    font-weight: 400;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}
+
+div.actionButtons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+
+    button,
+    a {
+        padding: 10px;
+        border-radius: 8px;
+        background: $blockBg;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: $text;
+
+        &:hover {
+            cursor: pointer;
+            background: $main;
+            color: #fff;
+        }
+    }
+
+    span {
+        display: flex;
+        padding: 5px;
+        border-radius: 5px;
+        user-select: none;
+
+        &:hover {
+            cursor: pointer;
+            background: $main;
+
+            i {
+                color: #fff;
+            }
+        }
+    }
 }

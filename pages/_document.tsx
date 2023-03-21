@@ -2,9 +2,7 @@ import { Html, Head, Main, NextScript } from 'next/document';
 import Document, { DocumentContext, DocumentInitialProps } from 'next/document';
 
 class MyDocument extends Document {
-    static async getInitialProps(
-        ctx: DocumentContext
-    ): Promise<DocumentInitialProps> {
+    static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
         const initialProps = await Document.getInitialProps(ctx);
         return { ...initialProps };
     }
@@ -14,14 +12,10 @@ class MyDocument extends Document {
             <Html lang="ru">
                 <Head>
                     <meta charSet="utf-8" />
-                    <link
-                        rel="stylesheet"
-                        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-                    />
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
                 </Head>
 
                 <body>
-                    <div id="sidebar_menu"></div>
                     <Main />
                     <NextScript />
                 </body>

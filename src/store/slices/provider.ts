@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import { providerApi } from 'src/utils/api';
 import { StateCreator } from 'zustand';
 
@@ -12,6 +13,7 @@ export interface IProviderSlice {
     fetchProviderBranches: () => void;
     fetchProviderById: (id: number) => void;
     fetchBranchById: (id: number) => void;
+    addProvider: (data: IProviderData) => void;
 }
 
 const initialState = {
@@ -103,6 +105,24 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
             })
             .finally(() => {
                 set({ loading: false });
+            });
+    },
+
+    addProvider: async (data: any) => {
+        await providerApi
+            .addProvider(data)
+            .then((response) => {
+                console.log('@addProvider: ', response);
+
+                toast.success('Provider created', { icon: '👏', duration: 5000 });
+                // set({ branch: response });
+            })
+            .catch(({ response }) => {
+                console.log('@addProvider error:', response);
+
+                toast.success(response.data.error, { icon: '😫', duration: 5000 });
+
+                // set({ branch: null, error: response.data.error, loading: false });
             });
     },
 });

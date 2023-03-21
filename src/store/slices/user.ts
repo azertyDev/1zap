@@ -2,6 +2,7 @@ import Cookies from 'js-cookie';
 import Router from 'next/router';
 import { StateCreator } from 'zustand';
 import { userApi } from 'src/utils/api';
+import { toast } from 'react-hot-toast';
 
 export interface IUserSlice {
     userData?: IUserData;
@@ -37,8 +38,14 @@ export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
             .then((response) => {
                 set({ userData: response, loading: false });
 
-                Cookies.set('userInfo', JSON.stringify(response));
-                Cookies.set('token', JSON.stringify(response.token));
+                toast.success('Welcome to the hell', {
+                    icon: '😈',
+                });
+
+                let oneDay = new Date(new Date().getTime() + 24 * 3600 * 1000);
+                // Expiration day: 1
+                Cookies.set('userInfo', JSON.stringify(response), { expires: oneDay });
+                Cookies.set('token', JSON.stringify(response.token), { expires: oneDay });
 
                 Router.push('/dashboard/main');
             })

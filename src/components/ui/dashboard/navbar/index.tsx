@@ -48,7 +48,7 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                         );
                     })}
                     <p>{t('common:position_work')}</p>
-                    {dashboardMenu.slice(4, 8).map((item) => {
+                    {dashboardMenu.slice(4, 15).map((item) => {
                         return (
                             <Link
                                 key={item.id}

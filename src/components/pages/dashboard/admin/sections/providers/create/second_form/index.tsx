@@ -1,10 +1,11 @@
 import * as Yup from 'yup';
+import { useRouter } from 'next/router';
+import { useStore } from 'src/store/useStore';
 import { Button } from 'src/components/ui/button';
 import { Dispatch, FC, SetStateAction, useEffect } from 'react';
-import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
-import { StandartInput } from 'src/components/ui/input/standart_input';
 import { FloatingInput } from 'src/components/ui/input/float_input';
-import { axiosInstance } from 'src/utils/axios';
+import { StandartInput } from 'src/components/ui/input/standart_input';
+import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 
 import s from '../index.module.scss';
 
@@ -18,27 +19,31 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
     const coinsData = [
         {
             id: Date.now() * 1000,
-            value: '50',
+            value: 50,
         },
         {
             id: Date.now() * 1000,
-            value: '100',
+            value: 100,
         },
         {
             id: Date.now() * 1000,
-            value: '250',
+            value: 250,
         },
         {
             id: Date.now() * 1000,
-            value: '500',
+            value: 500,
         },
         {
             id: Date.now() * 1000,
-            value: '1000',
+            value: 1000,
         },
     ];
+    const {
+        query: { id },
+    } = useRouter();
+    const { addProvider } = useStore((state) => state);
 
-    const selectCoin = (value: string) => {
+    const selectCoin = (value: number) => {
         formik.setFieldValue('coin', value);
     };
 
@@ -57,19 +62,30 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
     });
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
-        console.log(values);
-        await axiosInstance
-            .post('/providers/new', values)
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        const { coin, applicationId, phone, providerBranch, ...rest } = values;
+
+        const branch = providerBranch.map((branch: IBranchData) => {
+            const { phone, ...all } = branch;
+            return { phone: phone.replaceAll(' ', ''), ...all };
+        });
+
+        console.log('@branch: ', branch);
+
+        const data: IProviderData = {
+            coin: Number(coin),
+            applicationId: Number(id),
+            // Пароль временно стоит, надо убрать после настройки апи
+            password: 'qwerty',
+            phone: phone.replaceAll(' ', ''),
+            providerBranch: branch,
+            ...rest,
+        };
+
+        await addProvider(data);
     };
 
     const formik = useFormik({
-        initialValues: initialValues,
+        initialValues,
         onSubmit,
         validationSchema,
     });
@@ -91,7 +107,12 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
                         </div>
                         <div className={s.block}>
                             <StandartInput label="dashboard:companyName" {...formik.getFieldProps('companyName')} />
-                            <StandartInput label="dashboard:phone" {...formik.getFieldProps('phone')} isPhone />
+                            <StandartInput
+                                isPhone
+                                label="dashboard:phone"
+                                {...formik.getFieldProps('phone')}
+                                setFieldValue={formik.setFieldValue}
+                            />
                             <StandartInput label="dashboard:email" {...formik.getFieldProps('email')} />
                         </div>
                     </div>

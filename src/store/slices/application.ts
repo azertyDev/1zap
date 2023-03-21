@@ -1,5 +1,6 @@
 import { applicationApi } from 'src/utils/api';
 import { StateCreator } from 'zustand';
+import toast from 'react-hot-toast';
 
 export interface IApplicationSlice {
     applications: IApplicationData | null;
@@ -41,12 +42,12 @@ export const applicationSlice: StateCreator<IApplicationSlice> = (set, get) => (
         await applicationApi
             .fetchApplications(status)
             .then((response) => {
-                // console.log('fetchApplications', response);
-
                 set({ applications: response, loading: false });
+
+                toast.success('Successfully fetched!', { icon: '👏' });
             })
             .catch(({ response }) => {
-                // console.log('fetchApplications', response);
+                console.log('fetchApplications', response);
 
                 set({ applications: null, error: response.data, loading: false });
             })
