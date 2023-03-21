@@ -10,6 +10,7 @@
   cursor: pointer;
   overflow: hidden;
   position: relative;
+  word-break: break-word;
 
   &:hover {
     box-shadow: 0 20px 24px rgba(153, 155, 168, 0.15);

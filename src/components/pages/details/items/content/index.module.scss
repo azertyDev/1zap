@@ -1,5 +1,8 @@
 @import "styles/variables";
 @import "styles/mixins";
+.content{
+  margin-bottom: 50px;
+}
 
 .content_title {
   @include fs_fw_c(22px, 700, $secondary);

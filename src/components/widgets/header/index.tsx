@@ -29,7 +29,7 @@ export const Header: FC = (): JSX.Element => {
     const { openClose, handleOpenClose } = useOpenCloseWithVal();
 
     return (
-        <header className={s.header}>
+        <header>
             <Container>
                 <div className={s.inner}>
                     <Link href={'/'}>

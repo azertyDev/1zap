@@ -8,8 +8,8 @@
   max-width: 1025px;
   padding: 20px 17px;
 
-  &.final{
-  display: block;
+  &.final {
+    display: block;
   }
 
   button {
@@ -26,10 +26,10 @@
   height: 6px;
   width: 100%;
   display: grid;
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), #C6303C;
 }
 
@@ -48,12 +48,8 @@
   background: $main;
   border-radius: 0 15px 15px 0;
 
-  &.sec_step {
-    grid-column: span 2;
-  }
-
   &.final_step {
-    grid-column: span 3;
+    grid-column: span 2;
     border-radius: 0;
   }
 }
@@ -69,7 +65,7 @@
 .header_title {
   @include fs_fw_c(22px, 700, $secondary);
   display: none;
-text-align: center;
+  text-align: center;
 }
 
 .icon {
@@ -81,6 +77,26 @@ text-align: center;
   }
 }
 
+@media (max-width: 810px) {
+  .progress_line {
+    display: none;
+  }
+
+
+  .progress_line_top {
+    display: grid;
+  }
+}
+
+@media (max-width: 518px) {
+  .header_title{
+    width: 100%;
+  }
+
+
+
+
+}
 
 @media (max-width: 768px) {
   .header {
@@ -107,14 +123,6 @@ text-align: center;
 
   .icon {
     display: block;
-  }
-
-  .progress_line {
-    display: none;
-  }
-
-  .progress_line_top {
-    display: grid;
   }
 
 }

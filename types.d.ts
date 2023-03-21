@@ -19,6 +19,15 @@ interface IApplicationData {
     total: number | null;
 }
 
+interface IApplicationDataProvider {
+    phone: string;
+    service: string;
+    city: string;
+    providerName: string;
+    providerSurname: string;
+    providerPatronymic: string;
+}
+
 interface IApplication {
     id: number | null;
     providerName: string;

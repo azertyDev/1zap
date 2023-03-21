@@ -1,37 +1,85 @@
-import React from "react";
+import { FC } from 'react';
 
+import s from './index.module.scss';
 
-import s from "./index.module.scss";
+import { useTranslation } from 'next-i18next';
 
-import {useTranslation} from "next-i18next";
+import { Container } from 'components/ui/container';
+import { DetailCategoriesWr } from 'components/pages/details/items/wrapper';
+import { AsideDetailsCategories } from 'components/pages/details/items/aside';
+import { ContentDetailsCategories } from 'components/pages/details/items/content';
 
-import {Container} from "components/ui/container";
-import {DetailCategoriesWr} from "components/pages/details/items/wrapper";
-import {AsideDetailsCategories} from "components/pages/details/items/aside";
-import {ContentDetailsCategories} from "components/pages/details/items/content";
-import {DetailCategoryItem} from "components/pages/details/items/content_item";
-import {PageWrapper} from "components/ui/page_wrapper";
+import { PageWrapper } from 'components/ui/page_wrapper';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useDetailChosenCateg } from 'src/hooks/laximoData/useDetailChosenCateg';
 
+export const DetailsChosenCategories: FC<{ dataAuto: string; dataList: string }> = ({ dataList, dataAuto }) => {
+    const { t } = useTranslation('common');
 
-export const DetailsChosenCategories = () => {
+    const {
+        query: { Catalog, Vid },
+    } = useRouter();
 
-    const {t} = useTranslation("common");
+    const { auto, list } = useDetailChosenCateg(dataAuto, dataList);
 
-    return <PageWrapper>
-        <Container>
-            <DetailCategoriesWr title={"GENTRA (T255) (2006 - 2011)"}>
-                <AsideDetailsCategories linkBack={"/details/categories"}>
-                    <li className={s.active_aside}>
-                        Внутреннее оборудование
-                    </li>
-                    <li>
-                        Двигатель
-                    </li>
-                </AsideDetailsCategories>
-                <ContentDetailsCategories title={"Обивка потолка"}>
-                    <DetailCategoryItem title={"Headlining (7310 wq dwq dwq dwq dqwdqw d)"} listOrImg={"image"}/>
-                </ContentDetailsCategories>
-            </DetailCategoriesWr>
-        </Container>
-    </PageWrapper>
-}
+    return (
+        <PageWrapper>
+            <Container>
+                {auto && list && (
+                    <DetailCategoriesWr title={`${auto?.brand} ${auto?.name}`}>
+                        <AsideDetailsCategories>
+                            <ul>
+                                {list.map((item) => {
+                                    return item.Unit.map((subitem) => {
+                                        return (
+                                            <li key={subitem.$.name}>
+                                                <Link
+                                                    href={`/details/categories/chosen_category/chosen_detail?Catalog=${Catalog}&Vid=${Vid}&sd=${subitem.$.ssd}&unit=${subitem.$.unitid}`}
+                                                >
+                                                    {subitem.$.code}
+                                                    {subitem.$.name}
+                                                </Link>
+                                            </li>
+                                        );
+                                    });
+                                })}
+                            </ul>
+                        </AsideDetailsCategories>
+                        <div>
+                            {list.map((item) => {
+                                return (
+                                    <ContentDetailsCategories title={item?.$.name} key={item?.$.name}>
+                                        {item.Unit.map((unit) => {
+                                            return (
+                                                <div key={unit.$.name} className={s.box_item}>
+                                                    <Link
+                                                        className={s.box_item_link}
+                                                        href={`/details/categories/chosen_category/chosen_detail?Catalog=${Catalog}&Vid=${Vid}&sd=${unit.$.ssd}&unit=${unit.$.unitid}`}
+                                                    ></Link>
+                                                    <h5 className={s.box_item_title}>
+                                                        {unit.$.code}
+                                                        {unit.$.name}
+                                                    </h5>
+                                                    <div className={s.box_item_img_wr}>
+                                                        <Image
+                                                            src={unit.$.imageurl?.replace('%size%', 'source')}
+                                                            alt={''}
+                                                            fill
+                                                            quality={100}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </ContentDetailsCategories>
+                                );
+                            })}
+                        </div>
+                    </DetailCategoriesWr>
+                )}
+            </Container>
+        </PageWrapper>
+    );
+};

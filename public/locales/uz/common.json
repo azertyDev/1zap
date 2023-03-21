@@ -11,9 +11,7 @@
   "oilCat": "Neft katalogi",
   "tiresCat": "Shinalar katalogi",
   "batteryCat": "Batareya katalogi",
-  "oil": "Yog'lar",
-  "batteries": "Batareyalar",
-  "tires": "Shinalar",
+
   "catalogs": "Kataloglar",
   "categories": "Kategoriyalar",
   "filter": "Filtrlar",
@@ -96,4 +94,7 @@
   "deletePhoto": "Suratni oʻchirish",
   "modification": "Modifikatsiya",
   "searchRequest": "Yetkazib beruvchilar tez orada sizning so'rovingizni ko'rib chiqishni boshlaydilar, iltimos kuting",
+  "oil": "Yog'lar",
+  "tires": "Shinalar",
+  "batteries": "Batareyalar"
 }
