@@ -88,6 +88,7 @@
   "find": "Toping",
   "show": "Ko'rsatish",
   "vinNumber": "VIN raqami",
+  "byVinNumber": "VIN raqami bo'yicha",
   "yearIssue": "Chiqarilgan yili",
   "describeDetail": "Qaysi qismlarni qidirayotganingizni, har bir ehtiyot qismni yangi qatorda batafsil tasvirlab bering",
   "downloadPhoto": "Tafsilotli fotosuratni yuklang",
@@ -96,5 +97,6 @@
   "searchRequest": "Yetkazib beruvchilar tez orada sizning so'rovingizni ko'rib chiqishni boshlaydilar, iltimos kuting",
   "oil": "Yog'lar",
   "tires": "Shinalar",
-  "batteries": "Batareyalar"
+  "batteries": "Batareyalar",
+  "choose": "Tanlang"
 }

@@ -1,4 +1,6 @@
 {
     "required": "To'ldirilishi shart",
-    "invalid_format": "Format noto'g'ri"
+    "invalid_format": "Noto'gri shakl",
+    "more_then_two_words": "Maydon kamida 2 ta belgidan iborat boʻlishi kerak",
+    "year_length": "4 ta raqam olinishi kerak"
 }

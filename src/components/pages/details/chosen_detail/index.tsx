@@ -46,6 +46,8 @@ export const ChosenDetail: FC<{
                                     fill
                                     alt={'detail'}
                                     quality={100}
+                                    sizes="600"
+                                    priority
                                 />
                             )}
                         </div>
@@ -63,16 +65,16 @@ export const ChosenDetail: FC<{
                             <TableElement className={'table_h'}></TableElement>
                         </TableRow>
                         {detailByUnit &&
-                            detailByUnit.map(({ $ }) => {
+                            detailByUnit.map((item, index) => {
                                 return (
-                                    <div key={$.oem + $.codeonimage + $.name}>
+                                    <div key={item.$.oem + item.$.codeonimage + index}>
                                         <TableRow className={s.table_row}>
                                             <TableElement className={'table_b'}>
-                                                <h5>{$.codeonimage}</h5>
+                                                <h5>{item.$.codeonimage}</h5>
                                             </TableElement>
                                             <TableElement className={'table_b'}>
-                                                <h5>{$.name}</h5>
-                                                <p>{$.oem}</p>
+                                                <h5>{item.$.name}</h5>
+                                                <p>{item.$.oem}</p>
                                             </TableElement>
                                             <TableElement className={'table_b'}>
                                                 <button>{t('common:find')}</button>

@@ -4,9 +4,9 @@ import { Layout } from 'components/layout/client';
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { NextPageWithLayout } from '../../../../_app';
 import { ChosenDetail } from 'components/pages/details/chosen_detail';
 import { getLaximoData } from 'src/function/getLaximoData';
+import { NextPageWithLayout } from '../../_app';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {

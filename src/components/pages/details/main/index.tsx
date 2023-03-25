@@ -22,14 +22,25 @@ import { FitCars } from 'components/pages/details/main/fir_cars';
 import { tabsValue } from 'src/constants/tabsValue';
 import { FitParams } from 'components/pages/details/main/fit_params';
 import { useFindVin } from 'src/hooks/laximoData/useFindVin';
+import { useRouter } from 'next/router';
+import { useFindVehicleByWizard } from 'src/hooks/laximoData/useFindVehicleByWizard';
+import { NoResult } from 'components/ui/no_result';
 
-export const Details: FC<{ dataFind: string; dataCatalog: string; dataWizard: string }> = ({
-    dataFind,
-    dataCatalog,
-    dataWizard,
-}): JSX.Element => {
-    const { activeTab, handleActivetab } = useHandleActivetTabHome();
+export const Details: FC<{
+    dataFind: string;
+    dataCatalog: string;
+    dataFilterFirstLevel: string;
+    dataYear: string;
+    dataResultVehicle: string;
+}> = ({ dataFind, dataCatalog, dataFilterFirstLevel, dataYear, dataResultVehicle }): JSX.Element => {
+    const { handleActivetab } = useHandleActivetTabHome();
+
+    const {
+        query: { tab },
+    } = useRouter();
+
     const { dataFindV } = useFindVin(dataFind);
+    const { dataVehicle } = useFindVehicleByWizard(dataResultVehicle);
 
     const { t } = useTranslation();
 
@@ -41,26 +52,37 @@ export const Details: FC<{ dataFind: string; dataCatalog: string; dataWizard: st
                 </Title>
 
                 <div className={s.tabs_wr}>
-                    <SearchTabs activeTab={activeTab} handleTab={handleActivetab} tabs={tabsValue.datails}>
+                    <SearchTabs activeTab={+tab!} handleTab={handleActivetab} tabs={tabsValue.datails}>
                         <InputSelectWrTabs>
-                            {activeTab === 1 && <FitParams />}
-                            {activeTab === 2 && <FitCars dataCatalog={dataCatalog} dataWizard={dataWizard} />}
+                            {+tab! === 1 && <FitParams />}
+                            {+tab! === 2 && (
+                                <FitCars
+                                    dataCatalog={dataCatalog}
+                                    dataFilterFirstLevel={dataFilterFirstLevel}
+                                    dataYear={dataYear}
+                                />
+                            )}
                         </InputSelectWrTabs>
                     </SearchTabs>
                 </div>
 
                 <div className={s.table}>
-                    {dataFindV &&
-                        dataFindV.map(({ $, attribute }) => {
+                    {((dataFindV && dataFindV.length > 0) || dataVehicle) && (
+                        <>
+                            <TableRow className={s.table_row}>
+                                <TableElement className={'table_h'}>{t('filter:brand')}</TableElement>
+                                <TableElement className={'table_h'}>{t('filter:modelMeaning')}</TableElement>
+                                <TableElement className={'table_h'}>{t('filter:year')}</TableElement>
+                                <TableElement className={'table_h'}>{t('filter:region')}</TableElement>
+                                <TableElement className={'table_h'}></TableElement>
+                            </TableRow>
+                        </>
+                    )}
+                    {dataFindV && dataFindV.length === 0 && <NoResult />}
+                    {(dataFindV || dataVehicle) &&
+                        (dataFindV! || dataVehicle!).map(({ $, attribute }) => {
                             return (
-                                <div key={$.name}>
-                                    <TableRow className={s.table_row}>
-                                        <TableElement className={'table_h'}>{t('filter:brand')}</TableElement>
-                                        <TableElement className={'table_h'}>{t('filter:modelMeaning')}</TableElement>
-                                        <TableElement className={'table_h'}>{t('filter:year')}</TableElement>
-                                        <TableElement className={'table_h'}>{t('filter:region')}</TableElement>
-                                        <TableElement className={'table_h'}></TableElement>
-                                    </TableRow>
+                                <div key={$.name + $.ssd}>
                                     <TableRow className={s.table_row}>
                                         <TableElement className={'table_b'}>
                                             <h5>{$.brand}</h5>
@@ -70,13 +92,19 @@ export const Details: FC<{ dataFind: string; dataCatalog: string; dataWizard: st
                                         </TableElement>
                                         <TableElement className={'table_b'}>
                                             {attribute.map(({ $ }) => {
-                                                return $.key === 'date' || $.key === 'production_date' ? (
+                                                return $.key === 'date' ||
+                                                    $.key === 'production_date' ||
+                                                    $.key === 'model_year' ? (
                                                     <h5 key={$.key}>{$.value}</h5>
                                                 ) : null;
                                             })}
                                         </TableElement>
                                         <TableElement className={'table_b'}>
-                                            <h5>Прочий регион</h5>
+                                            {attribute.map(({ $ }) => {
+                                                return $.key === 'market' || $.key === 'region' ? (
+                                                    <h5 key={$.key}>{$.value}</h5>
+                                                ) : null;
+                                            })}
                                         </TableElement>
                                         <TableElement className={'table_b'}>
                                             <Link

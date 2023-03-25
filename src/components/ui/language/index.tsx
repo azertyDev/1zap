@@ -16,7 +16,7 @@ export const Language: FC = (): JSX.Element => {
     return (
         <div className={s.lang_wr}>
             <div className={s.img}>
-                <Icon size={'18'} name={'public'} />
+                <Icon size={18} name={'public'} />
             </div>
 
             {locale === 'ru' ? (
