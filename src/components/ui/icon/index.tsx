@@ -1,14 +1,14 @@
 import { FC } from 'react';
 
 interface IconProps {
-    size: number;
+    size?: number;
     name: string;
     style?: string;
     color?: string;
 }
 
 export const Icon: FC<IconProps> = ({
-    size,
+    size = 18,
     name,
     style = '',
     color,

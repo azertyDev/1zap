@@ -1,6 +1,7 @@
 {
     "main": "Панель управления",
     "providers": "Поставщики",
+    "promo": "Промо материалы",
     "profile_work": "Работа с профилем",
     "profile": "Настройки профиля",
     "balance": "Баланс",
@@ -10,6 +11,7 @@
     "upload_products": "Загрузка товаров",
     "incoming_requests": "Входящие запросы",
     "support": "Поддержка",
+    "price-list": "Прайс листы",
 
     "legalAddress": "Юридический адрес",
     "companyName": "Наименование фирмы",
@@ -19,6 +21,10 @@
     "email": "Email",
     "balanceFilling": "Пополнение баланса",
     "enterCoins": "Введите нужное количество монет",
+    "branch": "Филиал",
+    "currency": "Валюта",
+    "productType": "Тип товаров",
+    "availability": "Наличие",
 
     "providerBranch": {
         "branchName": "Наименование филиала",

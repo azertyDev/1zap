@@ -4,8 +4,9 @@ import { Main } from './admin/sections/main';
 import { Profile } from './admin/sections/profile';
 import { Balance } from './admin/sections/balance';
 import { Statistics } from './admin/sections/statistics';
-import { Products } from './admin/sections/products';
 import { Providers } from './admin/sections/providers';
+import { PromoPage } from './admin/sections/promo';
+import { PriceList } from './admin/sections/price_list';
 import Header from 'src/components/ui/dashboard/header';
 import BottomFooter from 'src/components/widgets/footer/bottom_footer';
 import s from './index.module.scss';
@@ -25,10 +26,12 @@ export default (props: PropsType): JSX.Element => {
                 return <Balance />;
             case `/dashboard/statistics`:
                 return <Statistics />;
-            case `/dashboard/products`:
-                return <Products />;
+            case `/dashboard/price-list`:
+                return <PriceList />;
             case `/dashboard/providers`:
                 return <Providers />;
+            case `/dashboard/promo`:
+                return <PromoPage />;
             default:
                 return 'Page not found';
         }

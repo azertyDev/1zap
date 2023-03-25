@@ -1,107 +1,71 @@
-import { FC } from 'react';
-import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { FC, ReactNode, useMemo } from 'react';
+import { useTable, useSortBy, useFilters } from 'react-table';
+import { Icon } from 'components/ui/icon';
+import { ColumnFilter } from './columnFilter';
 import s from './index.module.scss';
 
 interface TableProps {
     data: any;
     columns: any;
+    title?: ReactNode;
 }
 
-// const columnHelper = createColumnHelper<IApplication>();
+export const Table: FC<TableProps> = ({ data, columns, title }) => {
+    const defaultColumn = useMemo(
+        () => ({
+            Filter: ColumnFilter,
+        }),
+        []
+    );
 
-// const applicationColumns = [
-//     columnHelper.accessor('providerName', {
-//         cell: (info) => info.getValue(),
-//         header: () => <span>ФИО</span>,
-//     }),
-//     columnHelper.accessor((row) => row.providerName, {
-//         id: 'lastName',
-//         cell: (info) => <i>{info.getValue()}</i>,
-//         header: () => <span>Организация</span>,
-//     }),
-//     columnHelper.accessor('phone', {
-//         header: () => 'Контактный телефон',
-//         cell: (info) => info.renderValue(),
-//     }),
-//     columnHelper.accessor('id', {
-//         header: (row) => <span>ID</span>,
-//     }),
-//     columnHelper.accessor('createdAt', {
-//         header: 'Дата',
-//         cell: (info) => <i>{dayjs(info.row.getValue('createdAt')).format('DD/MM/YYYY')}</i>,
-//     }),
-// ];
-
-// const applicationColumns = [
-//     columnHelper.accessor('providerName', {
-//         cell: (info) => info.getValue(),
-//         header: () => <span>ФИО</span>,
-//     }),
-//     columnHelper.accessor((row) => row.providerName, {
-//         id: 'lastName',
-//         cell: (info) => <i>{info.getValue()}</i>,
-//         header: () => <span>Организация</span>,
-//     }),
-//     columnHelper.accessor('phone', {
-//         header: () => 'Контактный телефон',
-//         cell: (info) => info.renderValue(),
-//     }),
-//     columnHelper.accessor('id', {
-//         header: (row) => <span>ID</span>,
-//     }),
-//     columnHelper.accessor('createdAt', {
-//         header: 'Дата',
-//         cell: (info) => <i>{dayjs(info.row.getValue('createdAt')).format('DD/MM/YYYY')}</i>,
-//     }),
-// ];
-
-export const Table: FC<TableProps> = ({ data, columns }) => {
-    const table = useReactTable({
-        data,
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-    });
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+        {
+            data: useMemo(() => data, [data]),
+            columns: useMemo(() => columns, [columns]),
+            defaultColumn,
+        },
+        useFilters,
+        useSortBy
+    );
 
     return (
         <div className={s.root} data-id="table-root">
-            <table>
+            {title && title}
+            <table {...getTableProps()}>
                 <thead>
-                    {table.getHeaderGroups().length !== 0 &&
-                        table?.getHeaderGroups().map((headerGroup) => (
-                            <tr key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => (
-                                    <th key={header.id}>
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(header.column.columnDef.header, header.getContext())}
+                    {headerGroups.map((headerGroup, index) => (
+                        <tr {...headerGroup.getHeaderGroupProps()} key={index}>
+                            {headerGroup.headers.map((column, index) => {
+                                return (
+                                    <th {...column.getHeaderProps(column.getSortByToggleProps())} key={index}>
+                                        <div>
+                                            {column.canSort ? <Icon name="unfold_more" size={16} /> : null}
+                                            {column.render('Header')}
+                                            <div>{column.canFilter ? column?.render('Filter') : null}</div>
+                                        </div>
                                     </th>
-                                ))}
-                            </tr>
-                        ))}
-                </thead>
-                <tbody>
-                    {table?.getRowModel().rows.map((row) => (
-                        <tr key={row.id}>
-                            {row.getVisibleCells().map((cell) => (
-                                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
-                            ))}
+                                );
+                            })}
                         </tr>
                     ))}
-                </tbody>
-                <tfoot>
-                    {table?.getFooterGroups().length &&
-                        table?.getFooterGroups().map((footerGroup) => (
-                            <tr key={footerGroup.id}>
-                                {footerGroup.headers.map((header) => (
-                                    <th key={header.id}>
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(header.column.columnDef.footer, header.getContext())}
-                                    </th>
-                                ))}
+                </thead>
+
+                <tbody {...getTableBodyProps()}>
+                    {rows.map((row, index) => {
+                        prepareRow(row);
+                        return (
+                            <tr {...row.getRowProps()} key={index}>
+                                {row.cells.map((cell, index) => {
+                                    return (
+                                        <td {...cell.getCellProps()} key={index}>
+                                            {cell.render('Cell')}
+                                        </td>
+                                    );
+                                })}
                             </tr>
-                        ))}
-                </tfoot>
+                        );
+                    })}
+                </tbody>
             </table>
         </div>
     );

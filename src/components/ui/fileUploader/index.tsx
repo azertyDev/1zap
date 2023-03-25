@@ -1,8 +1,7 @@
-import axios from 'axios';
-import type { AxiosResponse } from 'axios';
 import { ChangeEvent, MouseEvent, useState } from 'react';
-import { axiosInstance } from 'src/utils/axios';
-import { Icon } from '../icon';
+import { toast } from 'react-hot-toast';
+import { imageApi } from 'src/utils/api';
+import { Icon } from 'components/ui/icon';
 
 import s from './index.module.scss';
 
@@ -13,54 +12,62 @@ interface FileUploaderProps {
 }
 
 export const FileUploader = (props: FileUploaderProps) => {
-    const [imageData, setImageData] = useState<IImage>();
+    const [imageData, setImageData] = useState<IImage>({ id: null, url: '' });
 
     const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
         var formData = new FormData();
         formData.append('image', event.target.files![0]);
 
-        await axiosInstance
-            .post<IImage>('/images', formData, {
+        await imageApi
+            .upload(formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             })
-            .then((data: AxiosResponse<IImage>) => {
-                if (data.status === 201) {
-                    setImageData(data.data);
-                    props.setFieldValue(props.name, data.data.url);
-                }
+            .then((data: IImage) => {
+                setImageData(data);
+                props.setFieldValue(props.name, data);
+                toast.success('Image uploaded successfully', {
+                    duration: 5000,
+                });
             })
             .catch(({ response }: any) => {
                 if (response) {
-                    console.log('response: ', response.data.error);
+                    toast.error(response.data.error, {
+                        duration: 5000,
+                    });
                 }
             });
     };
 
     const deleteCurrentImage = async (event: MouseEvent<HTMLElement>) => {
-        await axios
-            .delete(`https://1zap.uz/api/images/${imageData?.id}`)
+        await imageApi
+            .delete(imageData.id!)
             .then((data) => {
-                if (data) {
-                    console.log(data);
-                }
-                if (data.status === 200) {
-                    props.setFieldValue(props.name, '');
-                }
+                toast.success('Image deleted', {
+                    duration: 5000,
+                });
+
+                setImageData({
+                    id: null,
+                    url: '',
+                });
+                props.setFieldValue(props.name, '');
             })
             .catch(({ response }) => {
                 if (response) {
-                    console.log(response);
+                    toast.error(response.data.error, {
+                        duration: 5000,
+                    });
                 }
             });
     };
 
     return (
         <div className={s.wrapper}>
-            {!!props.preview ? (
+            {!!imageData.url ? (
                 <div className={s.preview_block}>
-                    <img width={170} height={170} alt="preview" src={props.preview.replace('onezap', '1zap')} />
+                    <img width={170} height={170} alt="preview" src={imageData.url.replace('onezap', '1zap')} />
 
                     <span onClick={deleteCurrentImage}>
                         <Icon name="delete" size={18} color="#C6303C" />

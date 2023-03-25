@@ -7,17 +7,15 @@ export const Balance = () => {
     return (
         <div className={s.wrapper}>
             <div>
-                <p className={s.block_title}>Текущий баланс</p>
-                <StatisticsBlock data={balanceStatistics} />
+                <StatisticsBlock data={balanceStatistics} title={<h4>Текущий баланс</h4>} />
             </div>
             <div className={s.overview}>
-                <p className={s.block_title}>Пополнение баланса</p>
-                <OverviewBlock data={balanceCardsData} />
+                <OverviewBlock data={balanceCardsData} title={<h4>Пополнение баланса</h4>} />
             </div>
 
-            <div>
+            {/* <div>
                 <p className={s.block_title}> История пополнений и списаний</p>
-            </div>
+            </div> */}
         </div>
     );
 };

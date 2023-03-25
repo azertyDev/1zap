@@ -6,13 +6,18 @@ export interface ButtonPropsType extends HTMLAttributes<HTMLButtonElement> {
     variant: 'primary' | 'disabled';
     isSubmitting?: boolean;
     type?: 'button' | 'submit' | 'reset';
+    fullWidth?: boolean;
 }
 
 export const Button: FC<ButtonPropsType> = (props) => {
-    const { className, children, variant, type = 'button', ...rest } = props;
+    const { className, children, variant, type = 'button', fullWidth, ...rest } = props;
 
     return (
-        <button className={`${s.btn} ${className ?? ''} ${s[variant]}`} type={type} {...rest}>
+        <button
+            {...rest}
+            type={type}
+            className={`${s.btn} ${className ?? ''} ${s[variant]} ${fullWidth && s.fullWidth}`}
+        >
             {children}
         </button>
     );

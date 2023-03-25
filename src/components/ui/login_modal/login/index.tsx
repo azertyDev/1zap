@@ -57,6 +57,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
 
                     <Button
                         // isSubmitting={isSubmitting}
+                        fullWidth
                         variant={'primary'}
                         type={'submit'}
                     >

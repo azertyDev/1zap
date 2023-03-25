@@ -56,6 +56,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                 isPhone
                                 label="dashboard:providerBranch.phone"
                                 {...form.getFieldProps(`providerBranch[${index}].phone`)}
+                                setFieldValue={form.setFieldValue}
                             />
                         </div>
 
@@ -92,8 +93,10 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                 name={`providerBranch[${index}].branchType`}
                                 label="dashboard:providerBranch.branchType"
                                 options={[
-                                    { value: '0', label: 'Автодилер' },
-                                    { value: '1', label: 'Перекупщик' },
+                                    {
+                                        value: 'shop',
+                                        label: 'shop',
+                                    },
                                 ]}
                             />
                             <Field
@@ -101,8 +104,26 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                 name={`providerBranch[${index}].city`}
                                 label="dashboard:providerBranch.city"
                                 options={[
-                                    { value: '0', label: 'Автодилер' },
-                                    { value: '1', label: 'Перекупщик' },
+                                    {
+                                        value: 'tashkent',
+                                        label: 'tashkent',
+                                    },
+                                    {
+                                        value: 'bukhara',
+                                        label: 'bukhara',
+                                    },
+                                    {
+                                        value: 'samarkand',
+                                        label: 'samarkand',
+                                    },
+                                    {
+                                        value: 'andijan',
+                                        label: 'andijan',
+                                    },
+                                    {
+                                        value: 'namangan',
+                                        label: 'namangan',
+                                    },
                                 ]}
                             />
                         </div>
@@ -114,19 +135,13 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                         component={SelectField}
                                         name={`providerBranch[${index}].workingSchedule`}
                                         label="dashboard:providerBranch.workingSchedule"
-                                        options={[
-                                            { value: '0', label: 'Автодилер' },
-                                            { value: '1', label: 'Перекупщик' },
-                                        ]}
+                                        options={[{ value: 'seven-day', label: 'seven-day' }]}
                                     />
                                     <Field
                                         component={SelectField}
                                         name={`providerBranch[${index}].weekendSchedule`}
                                         label="dashboard:providerBranch.weekendSchedule"
-                                        options={[
-                                            { value: '0', label: 'Автодилер' },
-                                            { value: '1', label: 'Перекупщик' },
-                                        ]}
+                                        options={[{ value: 'seven-day', label: 'seven-day' }]}
                                     />
                                 </div>
                                 <div className={`${s.row} ${s.gap_30}`}>
@@ -134,19 +149,13 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                         component={SelectField}
                                         name={`providerBranch[${index}].weekend`}
                                         label="dashboard:providerBranch.weekend"
-                                        options={[
-                                            { value: '0', label: 'Автодилер' },
-                                            { value: '1', label: 'Перекупщик' },
-                                        ]}
+                                        options={[{ value: 'sunday', label: 'sunday' }]}
                                     />
                                     <Field
                                         component={SelectField}
                                         name={`providerBranch[${index}].breakTime`}
                                         label="dashboard:providerBranch.breakTime"
-                                        options={[
-                                            { value: '0', label: 'Автодилер' },
-                                            { value: '1', label: 'Перекупщик' },
-                                        ]}
+                                        options={[{ value: '12.00-13.00', label: '12.00-13.00' }]}
                                     />
                                 </div>
                             </div>
@@ -225,7 +234,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                                 <FileUploader
                                                     preview={`${image.url}`}
                                                     setFieldValue={form.setFieldValue}
-                                                    name={`providerBranch.[${index}].images[${i}].url`}
+                                                    name={`providerBranch.[${index}].images[${i}]`}
                                                 />
                                                 {branch.images.length > 0 && branch.images.length !== 5 && (
                                                     <div className={s.actionButtons}>

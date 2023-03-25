@@ -19,6 +19,7 @@ export const Header: FC = (): JSX.Element => {
     const { userData } = useStore();
     const token = Cookies.get('token');
     const [signedIn, setSignedIn] = useState<boolean>(false);
+
     const isAdmin = userData?.user.role === 'admin';
 
     useEffect(() => {
