@@ -1,3 +1,4 @@
+import { MenuItem } from '@szhsin/react-menu';
 import { Field, Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Button } from 'src/components/ui/button';
@@ -6,45 +7,37 @@ import { BaseModal } from 'src/components/ui/dashboard/modal/base_modal';
 import { StatisticsBlock } from 'src/components/ui/dashboard/statistics_block';
 import { Icon } from 'src/components/ui/icon';
 import { FloatingInput } from 'src/components/ui/input/float_input';
+import { Menu } from 'src/components/ui/menu';
 import { SelectField } from 'src/components/ui/select';
+import { FileUpload } from 'src/components/ui/upload/file';
 import { useModal } from 'src/hooks/common/useModal';
 import { useStore } from 'src/store/useStore';
-
+import { productsApi } from 'src/utils/api';
 import s from './index.module.scss';
+
+interface IOptions {
+    value: number | undefined;
+    label: string;
+}
 
 export const PriceList = () => {
     const { providerBranches, fetchProviderBranches } = useStore();
-    const [options, setOptions] = useState<[{ value: number | undefined; label: string }]>([
-        { value: undefined, label: '' },
-    ]);
-
     const { open, handleModalOpen, handleModalClose } = useModal();
+
+    const branchesOptions: IOptions[] = [];
+    const [options, setOptions] = useState<IOptions[]>(branchesOptions);
 
     useEffect(() => {
         providerBranches?.map((branch: IBranchData) => {
-            setOptions([{ value: branch.id, label: branch.branchName }]);
+            branchesOptions.push({ value: branch.id, label: branch.branchName });
         });
+        setOptions([...branchesOptions]);
     }, [providerBranches]);
 
     const openModal = () => {
         handleModalOpen();
         fetchProviderBranches();
     };
-
-    const selectOptions = [
-        {
-            value: 'hyundai',
-            label: 'HYUNDAI',
-        },
-        {
-            value: 'kia',
-            label: 'KIA',
-        },
-        {
-            value: 'toyota',
-            label: 'TOYOTA',
-        },
-    ];
 
     const statisticsData = [
         {
@@ -61,13 +54,35 @@ export const PriceList = () => {
         },
     ];
 
+    // const initialValues = {
+    //     title: '',
+    //     branchId: null,
+    //     currencyType: '',
+    //     clientType: '',
+    //     type: '',
+    //     availability: '',
+    //     payment: [
+    //         {
+    //             method: 'cash',
+    //             isActive: false,
+    //         },
+    //         {
+    //             method: 'card',
+    //             isActive: false,
+    //         },
+    //         {
+    //             method: 'transfer',
+    //             isActive: false,
+    //         },
+    //     ],
+    // };
     const initialValues = {
-        title: '',
+        title: 'Test prices',
         branchId: null,
-        currencyType: '',
-        clientType: '',
-        productType: '',
-        availability: '',
+        currencyType: 'sum',
+        clientType: 'individual',
+        type: 'part',
+        availability: 'from_seven',
         payment: [
             {
                 method: 'cash',
@@ -85,7 +100,17 @@ export const PriceList = () => {
     };
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
+        const { payment, ...rest } = values;
         console.log('First form values:', values);
+
+        const data = {
+            payment: JSON.stringify(payment),
+            ...rest,
+        };
+
+        productsApi.upload(data, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
     };
 
     const formik = useFormik({
@@ -94,15 +119,37 @@ export const PriceList = () => {
         // validationSchema,
     });
 
+    const menuData = [
+        { id: 1, name: 'Запчасти', file: '/assets/files/parts.xlsx' },
+        { id: 2, name: 'Масла', file: '/assets/files/oils.xlsx' },
+        { id: 3, name: 'Аккумуляторы', file: '/assets/files/battery.xlsx' },
+        { id: 4, name: 'Шины', file: '/assets/files/tires.xlsx' },
+    ];
+
     return (
         <div className={s.wrapper}>
             <StatisticsBlock data={statisticsData} title={<h4>Текущие показатели</h4>} />
 
             <div className={s.actionBtns}>
-                <Button variant="primary">
-                    <Icon name="cloud_download" color="white" />
-                    Скачать шаблон
-                </Button>
+                <Menu
+                    button={
+                        <Button variant="primary">
+                            <Icon name="cloud_download" color="white" />
+                            Скачать шаблон
+                        </Button>
+                    }
+                >
+                    <>
+                        {menuData.map((menu) => {
+                            return (
+                                <MenuItem key={menu.id} href={menu.file}>
+                                    <Icon name="cloud_download" color="black" />
+                                    {menu.name}
+                                </MenuItem>
+                            );
+                        })}
+                    </>
+                </Menu>
                 <Button variant="primary" onClick={openModal}>
                     <Icon name="table_chart" color="white" />
                     Новый прайс лист
@@ -163,20 +210,24 @@ export const PriceList = () => {
                                 />
                                 <Field
                                     component={SelectField}
-                                    name="productType"
+                                    name="type"
                                     label="dashboard:productType"
                                     options={[
                                         {
-                                            value: 'parts',
+                                            value: 'part',
                                             label: 'Запчасти',
                                         },
                                         {
-                                            value: 'tires',
+                                            value: 'tire',
                                             label: 'Шины',
                                         },
                                         {
-                                            value: 'oils',
+                                            value: 'oil',
                                             label: 'Масло',
+                                        },
+                                        {
+                                            value: 'battery',
+                                            label: 'Аккумулятор',
                                         },
                                     ]}
                                 />
@@ -186,7 +237,11 @@ export const PriceList = () => {
                                     label="dashboard:availability"
                                     options={[
                                         {
-                                            value: '14-day',
+                                            value: 'from_seven',
+                                            label: 'Поставка от 7 дней',
+                                        },
+                                        {
+                                            value: 'from_fourteen',
                                             label: 'Поставка от 14 дней',
                                         },
                                     ]}
@@ -212,10 +267,8 @@ export const PriceList = () => {
                             </div>
 
                             <div className={s.modalButtons}>
-                                <Button variant="primary" fullWidth>
-                                    <Icon name="cloud_upload" color="white" />
-                                    Загрузить прайс
-                                </Button>
+                                <FileUpload name="file" title="Загрузить прайс" setFieldValue={formik.setFieldValue} />
+
                                 <Button variant="disabled" type="submit" onClick={() => {}} fullWidth>
                                     Сохранить
                                 </Button>

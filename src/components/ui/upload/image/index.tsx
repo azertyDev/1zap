@@ -11,7 +11,7 @@ interface FileUploaderProps {
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
-export const FileUploader = (props: FileUploaderProps) => {
+export const ImageUpload = (props: FileUploaderProps) => {
     const [imageData, setImageData] = useState<IImage>({ id: null, url: '' });
 
     const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {

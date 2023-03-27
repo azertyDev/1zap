@@ -1,0 +1,10 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.wrapper {
+    position: relative;
+    display: grid;
+    place-items: center;
+    user-select: none;
+    width: 100%;
+}

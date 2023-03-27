@@ -6,7 +6,7 @@ import { Map, Marker } from 'pigeon-maps';
 import { SelectField } from 'src/components/ui/select';
 import { Accordion } from 'src/components/ui/accordion';
 import { Checkbox } from 'src/components/ui/dashboard/checkbox';
-import { FileUploader } from 'src/components/ui/fileUploader';
+import { ImageUpload } from 'src/components/ui/upload/image';
 import { maptiler } from 'pigeon-maps/providers';
 import { ZoomControl } from 'src/components/ui/map/map_controls/zoom';
 
@@ -230,8 +230,8 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                 return branch.images && branch.images.length ? (
                                     branch.images?.map((image: IImage, i: number) => {
                                         return (
-                                            <div key={index}>
-                                                <FileUploader
+                                            <div key={i}>
+                                                <ImageUpload
                                                     preview={`${image.url}`}
                                                     setFieldValue={form.setFieldValue}
                                                     name={`providerBranch.[${index}].images[${i}]`}
