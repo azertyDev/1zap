@@ -27,7 +27,7 @@ import { useGetFilterValues } from 'src/hooks/useGetFilterValues';
 
 import { ZoomControl } from 'components/ui/map/map_controls/zoom';
 import { maptiler } from 'pigeon-maps/providers';
-import { Icon } from 'components/ui/icon';
+
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
 const fakeAnchor = [

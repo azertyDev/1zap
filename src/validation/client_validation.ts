@@ -2,9 +2,9 @@ import * as yup from 'yup';
 
 export const client_validation = {
     becomeProvider: yup.object().shape({
-        username: yup.string().trim().min(2).required(``),
-        surname: yup.string().trim().min(2).required(``),
-        lastname: yup.string().trim().min(2).required(``),
+        username: yup.string().trim().required(`required`),
+        surname: yup.string().trim().required(`required`),
+        companyName: yup.string().trim().required(`required`),
         phone: yup
             .string()
             .trim()
@@ -27,7 +27,11 @@ export const client_validation = {
     }),
     vimRequest: yup.object().shape({
         vinNumber: yup.string().required('required'),
-        yearIssue: yup.string().required('required'),
+        yearIssue: yup
+            .string()
+            .max(4, 'year_length')
+            .matches(/\d\d\d\d/, 'invalid_format')
+            .required('required'),
         modification: yup.string().required('required'),
         brand: yup.string().required('required'),
         model: yup.string().required('required'),

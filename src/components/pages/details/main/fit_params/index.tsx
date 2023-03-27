@@ -20,14 +20,14 @@ export const FitParams: FC = (): JSX.Element => {
             searchVal: FindVehicle ?? '',
         },
         onSubmit: async (values) => {
-            await push(`${pathname}?FindVehicle=${values.searchVal}`);
+            if (values.searchVal.length > 0) await push(`${pathname}?tab=1&FindVehicle=${values.searchVal}`);
         },
     });
 
     return (
         <div className={s.form_wr}>
             <form onSubmit={formik.handleSubmit}>
-                <input {...formik.getFieldProps('searchVal')} type="text" placeholder={t('home:searchOem')!} />
+                <input {...formik.getFieldProps('searchVal')} type="text" placeholder={t('common:findModelVim')!} />
                 <div className={s.search_icon_res}>
                     <Icon size={24} name={'search'} color={'#C6303C'} />
                 </div>

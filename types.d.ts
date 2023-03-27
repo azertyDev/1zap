@@ -25,7 +25,8 @@ interface IApplicationDataProvider {
     city: string;
     providerName: string;
     providerSurname: string;
-    providerPatronymic: string;
+    providerPatronymic?: string;
+    companyName?: string;
 }
 
 interface IApplication {

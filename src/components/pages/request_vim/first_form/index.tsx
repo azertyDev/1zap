@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
 import s from './index.module.scss';
@@ -15,24 +15,83 @@ import { formikValues } from 'src/constants/formik_values';
 import { client_validation } from 'src/validation/client_validation';
 import { useRouter } from 'next/router';
 import { useGetSelectValues } from 'src/hooks/common/useGetSelectValues';
+import { useGetFitCatalog } from 'src/hooks/laximoData/useGetFitCar';
+import { useFilterSelectFitByCar } from 'src/hooks/laximoData/useFilterSelectFitByCar';
 
-export const FirstFormVim: FC = (): JSX.Element => {
+export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string }> = ({
+    dataCatalog,
+    dataModel,
+}): JSX.Element => {
     const { t } = useTranslation();
     const selectValues = useGetSelectValues();
-    const { push } = useRouter();
+    const {
+        push,
+        pathname,
+        query: { brand },
+    } = useRouter();
+    const { catalog } = useGetFitCatalog(dataCatalog);
+    const [modelSel, setModelSel] = useState(null);
+
+    useFilterSelectFitByCar(
+        dataModel,
+        setModelSel,
+        (val: any) => {
+            switch (val.$.name) {
+                case 'Модель':
+                    return val;
+                case 'Серия':
+                    return val;
+                case 'Vehicle family':
+                    return val;
+                case 'Семейство':
+                    return val;
+                case 'Торговое обозначение':
+                    return val;
+                case 'Vehicle name':
+                    return val;
+                case 'Model':
+                    return val;
+            }
+        },
+        [brand] as string[]
+    );
 
     const formik = useFormik({
         initialValues: formikValues.vimRequest,
         validationSchema: client_validation.vimRequest,
         onSubmit: async (values) => {
             try {
-                console.log(values);
+                if (catalog) {
+                    for (const obj of catalog) {
+                        if (obj.value === brand) {
+                            values.brand = obj.label;
+                            break;
+                        }
+                    }
+                }
+                if (modelSel) {
+                    for (const obj of modelSel as any) {
+                        if (obj.value === values.model) {
+                            values.model = obj.label;
+                            break;
+                        }
+                    }
+                }
+                console.log({ ...values, phone: values.phone.replaceAll(' ', '') });
                 push('/request_vim/final_step');
             } catch (err) {
                 console.log(err);
             }
         },
     });
+    useEffect(() => {
+        push({
+            pathname: pathname,
+            query: {
+                brand: formik.values.brand,
+            },
+        });
+    }, [formik.values.brand]);
 
     return (
         <div className={s.first_form_wr}>
@@ -52,16 +111,7 @@ export const FirstFormVim: FC = (): JSX.Element => {
                                     component={SelectField}
                                     name="brand"
                                     label={t('filter:brand')}
-                                    options={[
-                                        {
-                                            value: 'FERRARY',
-                                            label: 'FERRARY',
-                                        },
-                                        {
-                                            value: 'BMW',
-                                            label: 'BMW',
-                                        },
-                                    ]}
+                                    options={catalog ? catalog : [{ value: '', label: '' }]}
                                 />
 
                                 <InputWrapper>
@@ -69,16 +119,7 @@ export const FirstFormVim: FC = (): JSX.Element => {
                                         component={SelectField}
                                         name="model"
                                         label={t('filter:model')}
-                                        options={[
-                                            {
-                                                value: 'FERRARY',
-                                                label: 'FERRARY',
-                                            },
-                                            {
-                                                value: 'BMW',
-                                                label: 'BMW',
-                                            },
-                                        ]}
+                                        options={modelSel ? modelSel : [{ value: ' ', label: ' ' }]}
                                     />
                                 </InputWrapper>
 

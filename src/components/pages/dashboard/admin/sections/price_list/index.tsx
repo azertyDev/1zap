@@ -7,7 +7,7 @@ import { BaseModal } from 'src/components/ui/dashboard/modal/base_modal';
 import { StatisticsBlock } from 'src/components/ui/dashboard/statistics_block';
 import { Icon } from 'src/components/ui/icon';
 import { FloatingInput } from 'src/components/ui/input/float_input';
-import { Menu } from 'src/components/ui/menu';
+import { Menu } from 'src/components/ui/modal/menu';
 import { SelectField } from 'src/components/ui/select';
 import { FileUpload } from 'src/components/ui/upload/file';
 import { useModal } from 'src/hooks/common/useModal';

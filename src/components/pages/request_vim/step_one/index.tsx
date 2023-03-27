@@ -3,11 +3,14 @@ import { FC } from 'react';
 import { FirstFormVim } from 'components/pages/request_vim/first_form';
 import { RequestVimHeader } from 'components/pages/request_vim/header';
 
-export const RequestVimComp: FC = (): JSX.Element => {
+export const RequestVimComp: FC<{ dataCatalog: string; dataModel: string }> = ({
+    dataCatalog,
+    dataModel,
+}): JSX.Element => {
     return (
         <div style={{ position: 'relative' }}>
             <RequestVimHeader />
-            <FirstFormVim />
+            <FirstFormVim dataCatalog={dataCatalog} dataModel={dataModel} />
         </div>
     );
 };

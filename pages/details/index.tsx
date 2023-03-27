@@ -6,46 +6,51 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextPageWithLayout } from '../_app';
 import { Details } from 'components/pages/details/main';
 import { getLaximoData } from 'src/function/getLaximoData';
-import { useEffect, useState } from 'react';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {
         locale,
-        query: { FindVehicle, getCatalog, brand, ssd },
+        query: { FindVehicle, brand, model, region, year },
     } = context;
 
-    const propsObj = {
+    return {
         props: {
+            dataResultVehicle:
+                year || model || region
+                    ? await getLaximoData(
+                          ` FindVehicleByWizard2:Locale=ru_RU|Catalog=${brand}|ssd=${
+                              year || model || region
+                          }|Localized=true`
+                      )
+                    : null,
+            dataYear:
+                model || region
+                    ? await getLaximoData(`GetWizard2:Locale=ru_RU|Catalog=${brand}|ssd=${model ? model : region}`)
+                    : null,
+            dataFilterFirstLevel: brand ? await getLaximoData(`GetWizard2:Locale=ru_RU|Catalog=${brand}|ssd=`) : null,
+            dataFind: FindVehicle ? await getLaximoData(`FindVehicle:Locale=ru_RU|IdentString=${FindVehicle}`) : null,
             dataCatalog: await getLaximoData(`ListCatalogs:Locale=en_US|ssd=`),
             ...(await serverSideTranslations(locale as string, ['header', 'common', 'footer', 'home', 'filter'])),
         },
     };
-
-    if (brand) {
-        // @ts-ignore
-        propsObj.props.dataWizard = await getLaximoData(
-            `GetWizard2:Locale=ru_RU|Catalog=${brand}|ssd=$*KwFJdWVqOig5OjQoMCljYGU-KU88IAFfEUNBVVlAXzE0PjgzAAASDRsRCR5YR11jYGAzPzIyWQcgAAAAAFGB5-Y=$`
-        );
-    } else {
-        // @ts-ignore
-        propsObj.props.dataWizard = null;
-    }
-    return propsObj;
-
-    // {
-    //     props: {
-    //         getWizard:getWizard? await getLaximoData(`GetWizard2:Locale=ru_RU|Catalog=${'GM_C201809'}|ssd=`):null,
-    //             dataFind: FindVehicle ? await getLaximoData(`FindVehicle:Locale=ru_RU|IdentString=${FindVehicle}`) : null,
-    //     },
-    // };
 };
 
-const DetailsPage: NextPageWithLayout<{ dataFind: string; dataCatalog: string; dataWizard: string }> = ({
-    dataFind,
-    dataCatalog,
-    dataWizard,
-}) => {
-    return <Details dataFind={dataFind} dataCatalog={dataCatalog} dataWizard={dataWizard} />;
+const DetailsPage: NextPageWithLayout<{
+    dataFind: string;
+    dataCatalog: string;
+    dataFilterFirstLevel: string;
+    dataYear: string;
+    dataResultVehicle: string;
+}> = ({ dataFind, dataCatalog, dataFilterFirstLevel, dataYear, dataResultVehicle }) => {
+    return (
+        <Details
+            dataFind={dataFind}
+            dataCatalog={dataCatalog}
+            dataFilterFirstLevel={dataFilterFirstLevel}
+            dataYear={dataYear}
+            dataResultVehicle={dataResultVehicle}
+        />
+    );
 };
 
 DetailsPage.getLayout = function getLayout(page) {

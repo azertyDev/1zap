@@ -8,7 +8,7 @@ export const NoResult: FC = (): JSX.Element => {
     const { t } = useTranslation();
     return (
         <div className={s.no_result}>
-            <div className={s.no_result_img}>
+            <div>
                 <Image
                     src={'/assets/images/search/no_found_result.svg'}
                     alt={'no result'}

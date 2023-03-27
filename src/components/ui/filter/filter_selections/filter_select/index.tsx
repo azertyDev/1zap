@@ -8,9 +8,10 @@ export const FilterSelect: FC<{
     title: string;
     value: string;
     labelAlt: string;
+    isTranslated?: boolean;
     fun: (val: string) => (ev: any) => void;
     options: { value: string; label: string }[];
-}> = ({ id, title, value, labelAlt, options, fun }): JSX.Element => {
+}> = ({ id, title, value, labelAlt, options, fun, isTranslated }): JSX.Element => {
     const { t } = useTranslation();
     return (
         <div className={s.select_wr}>
@@ -23,9 +24,7 @@ export const FilterSelect: FC<{
                 value={
                     {
                         value: value,
-                        label: value
-                            ? t(`filter:${value}`)?.toLowerCase()
-                            : labelAlt,
+                        label: value ? (isTranslated ? value : t(`filter:${value}`)) : labelAlt,
                     } as any
                 }
                 classNamePrefix={'filter_search'}

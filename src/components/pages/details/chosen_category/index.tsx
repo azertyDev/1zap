@@ -36,7 +36,7 @@ export const DetailsChosenCategories: FC<{ dataAuto: string; dataList: string }>
                                         return (
                                             <li key={subitem.$.name}>
                                                 <Link
-                                                    href={`/details/categories/chosen_category/chosen_detail?Catalog=${Catalog}&Vid=${Vid}&sd=${subitem.$.ssd}&unit=${subitem.$.unitid}`}
+                                                    href={`/details/chosen_detail?Catalog=${Catalog}&Vid=${Vid}&sd=${subitem.$.ssd}&unit=${subitem.$.unitid}`}
                                                 >
                                                     {subitem.$.code}
                                                     {subitem.$.name}
@@ -56,7 +56,7 @@ export const DetailsChosenCategories: FC<{ dataAuto: string; dataList: string }>
                                                 <div key={unit.$.name} className={s.box_item}>
                                                     <Link
                                                         className={s.box_item_link}
-                                                        href={`/details/categories/chosen_category/chosen_detail?Catalog=${Catalog}&Vid=${Vid}&sd=${unit.$.ssd}&unit=${unit.$.unitid}`}
+                                                        href={`/details/chosen_detail?Catalog=${Catalog}&Vid=${Vid}&sd=${unit.$.ssd}&unit=${unit.$.unitid}`}
                                                     ></Link>
                                                     <h5 className={s.box_item_title}>
                                                         {unit.$.code}
@@ -67,7 +67,9 @@ export const DetailsChosenCategories: FC<{ dataAuto: string; dataList: string }>
                                                             src={unit.$.imageurl?.replace('%size%', 'source')}
                                                             alt={''}
                                                             fill
-                                                            quality={100}
+                                                            quality={70}
+                                                            sizes="214"
+                                                            priority
                                                         />
                                                     </div>
                                                 </div>

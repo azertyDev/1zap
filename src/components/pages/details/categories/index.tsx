@@ -59,7 +59,7 @@ export const DetailsCategories: FC<{ dataAuto: string; dataList: string }> = ({ 
                                                                     ? s.content_item_title_small
                                                                     : s.content_item_link
                                                             }
-                                                            href={`/details/categories/chosen_category?id=${subitem.quickgroupid}&Catalog=${Catalog}&Vid=${Vid}&sd=${sd}`}
+                                                            href={`/details/chosen_category?id=${subitem.quickgroupid}&Catalog=${Catalog}&Vid=${Vid}&sd=${sd}`}
                                                         >
                                                             {subitem.name}
                                                         </Link>
