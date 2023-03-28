@@ -10,13 +10,20 @@
   margin: 0 auto;
 
   p {
-    @include fs_fw_c(14px,600, $light);
+    @include fs_fw_c(14px, 600, $light);
     margin-left: 5px;
   }
-
 }
+
+
+.btn_controls_inner {
+  display: flex;
+  margin-bottom: 100px;
+}
+
+
 @media (max-width: 768px) {
-  .btn_map {
+  .btn_map, .btn_controls_inner {
     display: none;
   }
 

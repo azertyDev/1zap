@@ -28,6 +28,7 @@
     border: 1px solid #E4E6E8;
     border-radius: 6px;
     transition: .5s;
+    margin-left: 5px;
 
     &:hover {
       box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.07);
@@ -58,6 +59,9 @@
   .previous {
     display: none;
   }
-
-
+  &.hidenext{
+    .next{
+      display: none;
+    }
+  }
 }

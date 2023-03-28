@@ -11,19 +11,22 @@
   cursor: grab;
   border: 1px solid red;
 
-
   &.active {
     height: 573px;
   }
 }
 
 
-.shadow {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.0001) 28.82%, #FFFFFF 100%);
-  @include w_h(100%, 50%);
-  position: absolute;
-  bottom: 0;
-  left: 0;
+.map_control_items_wr{
+  background: red;
+  z-index: 12;
+
+
+}
+
+.a{
+  background: red;
+
 }
 
 .search_wr {
@@ -59,11 +62,11 @@
   display: none;
 }
 
-.filter_btn{
+.filter_btn {
   padding: 7px 15px;
   background: $blockBg;
   border-radius: 8px;
-  @include fs_fw_c(12px,700, $text);
+  @include fs_fw_c(12px, 700, $text);
   margin-right: 5px;
 }
 
@@ -108,7 +111,7 @@
     padding: 8px 13px;
   }
 
-  .filter_laptop{
+  .filter_laptop {
     display: none;
   }
 }

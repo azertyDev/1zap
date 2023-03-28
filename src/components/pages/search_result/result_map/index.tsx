@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 
 import { Map, Marker, Overlay } from 'pigeon-maps';
 import s from './index.module.scss';
@@ -27,6 +27,7 @@ import { useGetFilterValues } from 'src/hooks/useGetFilterValues';
 
 import { ZoomControl } from 'components/ui/map/map_controls/zoom';
 import { maptiler } from 'pigeon-maps/providers';
+import { NoResult } from 'components/ui/no_result';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
@@ -38,10 +39,17 @@ const fakeAnchor = [
 
 export const ResultMap: FC = (): JSX.Element => {
     const { t } = useTranslation();
-    const [mapIsOpen, setIsOpen] = useState(false);
 
-    const { openClose, handleOpenClose } = useOpenCloseWithVal();
+    const {
+        pathname,
+        push,
+        query: { page },
+    } = useRouter();
+
+    const { openClose: mapIsOpen, handleOpenClose: setToggleMap } = useOpenCloseWithVal();
+    const { openClose: OrderDetail, handleOpenClose: setOrderDetail } = useOpenCloseWithVal();
     const { openClose: isOpenFilter, handleOpenClose: setIsOpenFilter } = useOpenCloseWithVal();
+
     const { handleFilter } = useFilter();
     const { searchValue } = useGetFilterValues();
 
@@ -56,6 +64,21 @@ export const ResultMap: FC = (): JSX.Element => {
         },
     });
 
+    const handlePage = useCallback(
+        (sign: string, limit: number) => async () => {
+            let a = (page ?? 1) as number;
+
+            if (sign === '+') a >= limit ? (a = limit) : a++;
+            if (sign === '-') a <= 1 ? (a = 1) : a--;
+
+            await push({
+                pathname: pathname,
+                query: { ...query, page: a },
+            });
+        },
+        [query]
+    );
+
     return (
         <div>
             <div className={`${s.map} ${mapIsOpen ? s.active : ''}`}>
@@ -64,7 +87,6 @@ export const ResultMap: FC = (): JSX.Element => {
                     dprs={[1, 2]}
                     defaultCenter={[41.31172327941058, 69.2818072781773]}
                     defaultZoom={15}
-                    // metaWheelZoom
                     boxClassname={s.map}
                 >
                     {fakeAnchor.map((item, index) => {
@@ -74,15 +96,30 @@ export const ResultMap: FC = (): JSX.Element => {
                             </Overlay>
                         );
                     })}
-                    <ZoomControl />
-                    <div className={s.shadow}></div>
+
+                    <ZoomControl
+                        isClient
+                        closeMap={setToggleMap}
+                        pagination={handlePage}
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '499px',
+                            left: '0',
+                            width: '100%',
+                            zIndex: 2,
+                        }}
+                    />
                 </Map>
             </div>
 
             <Container>
                 <div className={`${s.search_wr} ${mapIsOpen ? s.active : ''}`}>
-                    <ToggleButton mapIsOpen={mapIsOpen} fun={setIsOpen} />
-                    <ToggleResize mapIsOpen={mapIsOpen} fun={setIsOpen} />
+                    <ToggleButton mapIsOpen={mapIsOpen} fun={setToggleMap} />
+                    <ToggleResize
+                        mapIsOpen={mapIsOpen}
+                        fun={setToggleMap as (val: boolean | ((prev: boolean) => boolean)) => () => void}
+                    />
 
                     <div className={`${s.search} ${mapIsOpen ? s.notActive : ''}`}>
                         <InputSearch
@@ -118,14 +155,14 @@ export const ResultMap: FC = (): JSX.Element => {
                             </FilterSelections>
                         </div>
                     </div>
-                    <ResultTableForm toggleBookDetail={handleOpenClose} />
-                    <ResultTableFormResp toggleBookDetail={handleOpenClose} />
+                    <ResultTableForm toggleBookDetail={setOrderDetail} />
+                    <ResultTableFormResp toggleBookDetail={setOrderDetail} />
                     <Pagination pageCount={5} />
                     {/*<NoResult />*/}
                 </div>
             </Container>
 
-            {openClose && <BookDetail toggleBookDetail={handleOpenClose} />}
+            {OrderDetail && <BookDetail toggleBookDetail={setOrderDetail} />}
         </div>
     );
 };
