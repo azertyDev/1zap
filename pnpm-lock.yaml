@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@szhsin/react-menu': ^3.5.2
   '@tanstack/react-table': ^8.7.6
   '@types/js-cookie': ^3.0.3
   '@types/node': 18.11.13
@@ -39,6 +40,7 @@ specifiers:
   zustand: ^4.3.3
 
 dependencies:
+  '@szhsin/react-menu': 3.5.2_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-table': 8.7.6_biqbaboplfbrettd7655fr4n2y
   axios: 1.2.3
   dayjs: 1.11.7
@@ -481,6 +483,18 @@ packages:
     resolution: {integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==}
     dependencies:
       tslib: 2.4.1
+    dev: false
+
+  /@szhsin/react-menu/3.5.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-eR7dzDBrwlt9RSgGmLXjfA1Rd5tYqD5mnqjQgZJysf3Jt3vBPkrbDT1oW21nLpfUCkyUQOuZ38n2IdhWl9KkzQ==}
+    peerDependencies:
+      react: '>=16.14.0'
+      react-dom: '>=16.14.0'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-transition-state: 1.1.5_biqbaboplfbrettd7655fr4n2y
     dev: false
 
   /@tanstack/react-table/8.7.6_biqbaboplfbrettd7655fr4n2y:
@@ -2649,6 +2663,16 @@ packages:
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /react-transition-state/1.1.5_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-ITY2mZqc2dWG2eitJkYNdcSFW8aKeOlkL2A/vowRrLL8GH3J6Re/SpD/BLvQzrVOTqjsP0b5S9N10vgNNzwMUQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false

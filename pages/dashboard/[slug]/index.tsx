@@ -3,7 +3,6 @@ import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Layout } from 'src/components/layout/admin';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
 
 const DynamicDashboardContent = dynamic(() => import('src/components/pages/dashboard'), {
     ssr: false,

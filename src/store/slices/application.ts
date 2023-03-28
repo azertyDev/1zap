@@ -7,7 +7,6 @@ export interface IApplicationSlice {
     loading: boolean;
     error: null;
     fetchApplications: (status?: string) => void;
-    addApplication: (body?: any) => void;
 }
 
 const initialState = {
@@ -51,22 +50,6 @@ export const applicationSlice: StateCreator<IApplicationSlice> = (set, get) => (
                 console.log('fetchApplications', response);
 
                 set({ applications: null, error: response.data, loading: false });
-            })
-            .finally(() => {
-                set({ loading: false });
-            });
-    },
-
-    addApplication: async (data) => {
-        set({ loading: true });
-
-        await applicationApi
-            .addApplication(data)
-            .then((response) => {
-                set({ loading: false });
-            })
-            .catch(({ response }) => {
-                set({ error: response.data, loading: false });
             })
             .finally(() => {
                 set({ loading: false });

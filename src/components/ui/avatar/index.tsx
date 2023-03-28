@@ -7,5 +7,14 @@ interface PropsType {
 }
 
 export const Avatar = ({ src, alt, size = 44 }: PropsType): JSX.Element => {
-    return <Image src={src} alt={alt} width={size} height={size} style={{ objectFit: 'cover', borderRadius: '50%' }} />;
+    return (
+        <Image
+            priority
+            src={src}
+            alt={alt}
+            width={size}
+            height={size}
+            style={{ objectFit: 'cover', borderRadius: '50%' }}
+        />
+    );
 };

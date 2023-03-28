@@ -11,6 +11,8 @@ import '../styles/libraries/react_select.scss';
 import '../styles/libraries/home_partners_swiper.scss';
 import 'react-responsive-modal/styles.css';
 import 'swiper/css';
+import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/transitions/slide.css';
 import '../styles/globals.scss';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

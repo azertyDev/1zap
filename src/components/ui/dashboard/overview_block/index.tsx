@@ -3,7 +3,7 @@ import { Icon } from 'src/components/ui/icon';
 import { IconsWrapper } from 'src/components/ui/icons_wrapper';
 import s from './index.module.scss';
 
-export const OverviewBlock = ({ data, title }: { data: any; title: ReactNode }) => {
+export const OverviewBlock = ({ data, title }: { data: any; title?: ReactNode }) => {
     return (
         <div className={s.wrapper}>
             {title && <div className={s.title}>{title}</div>}

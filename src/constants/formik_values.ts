@@ -1,9 +1,9 @@
 export const formikValues = {
     becomeProvider: {
-        username: '',
-        surname: '',
-        companyName: '',
-        phone: '',
+        username: 'TRest',
+        surname: 'zxczx',
+        companyName: 'GM musor',
+        phone: '+998909999999',
         service: '',
         city: '',
     },

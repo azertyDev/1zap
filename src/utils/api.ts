@@ -32,3 +32,7 @@ export const imageApi = {
     upload: (data: any, config: {}): Promise<any> => requests.post(`/images`, data, config),
     delete: (id: number): Promise<any> => requests.delete(`/images/${id}`),
 };
+
+export const productsApi = {
+    upload: (data: any, config: {}): Promise<any> => requests.post('/products/new', data, config),
+};

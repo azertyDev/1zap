@@ -23,9 +23,6 @@ const routes = {
 };
 
 const Index: NextPageWithLayout = ({ query }: any) => {
-    const { push, ...rest } = useRouter();
-    console.log(rest);
-
     switch (`/${query.slug}/${query.params}`) {
         case routes.create_provider:
             return <CreateProvider query={query} />;
@@ -34,7 +31,7 @@ const Index: NextPageWithLayout = ({ query }: any) => {
             break;
     }
 
-    return <div>{rest.query.id}</div>;
+    return <div>{query.id}</div>;
 };
 
 Index.getLayout = function getLayout(page) {

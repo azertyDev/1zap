@@ -1,11 +1,7 @@
-import s from './index.module.scss';
-
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import Link from 'next/link';
-
 import { useTranslation } from 'next-i18next';
 import { Field, Form, FormikProvider, useFormik } from 'formik';
-
 import { Logo } from 'components/ui/logo';
 import { Button } from 'components/ui/button';
 import { InputWrapper } from 'components/ui/input/input_wrapper';
@@ -15,15 +11,15 @@ import { Completed } from 'components/ui/completed';
 import { Icon } from 'components/ui/icon';
 import { formikValues } from 'src/constants/formik_values';
 import { client_validation } from 'src/validation/client_validation';
-
-import { useStore } from 'src/store/useStore';
 import { useGetSelectValues } from 'src/hooks/common/useGetSelectValues';
+import { toast } from 'react-hot-toast';
+import { applicationApi } from 'src/utils/api';
+import s from './index.module.scss';
 
 export const BecomeProviderComp: FC = (): JSX.Element => {
     const { t } = useTranslation();
     const [cancleBtn, setCancelBtn] = useState(true);
     const [done, setDone] = useState(false);
-    const { addApplication } = useStore();
 
     const selectValues = useGetSelectValues();
 
@@ -40,9 +36,20 @@ export const BecomeProviderComp: FC = (): JSX.Element => {
                 companyName: values.companyName,
             };
 
-            await addApplication(JSON.stringify(val));
-            setCancelBtn(false);
-            setDone(true);
+            // Поставить проверку на ошибку с бэка
+            // Сделать кнопку disabled (disabled={formik.error})
+            // Убрать со стора метод addApplication()
+            await applicationApi
+                .addApplication(val)
+                .then((response) => {
+                    console.log(response);
+                    setCancelBtn(false);
+                    setDone(true);
+                })
+                .catch(({ response }) => {
+                    toast.error(`${response.data.error}`);
+                    console.log(response);
+                });
         },
     });
 

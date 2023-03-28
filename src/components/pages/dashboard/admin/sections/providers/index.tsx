@@ -8,36 +8,18 @@ import { shallow } from 'zustand/shallow';
 import { ColumnFilter } from 'src/components/ui/dashboard/table/columnFilter';
 import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
 import { StatisticsBlock } from 'src/components/ui/dashboard/statistics_block';
-
 import s from './index.module.scss';
 
 export const Providers: FC = (): JSX.Element => {
-    const {
-        applications,
-        providers,
-        loading,
-        error,
-        fetchApplications,
-        fetchProviders,
-        fetchBranchById,
-        fetchProviderBranches,
-        fetchProviderById,
-    } = useStore((state) => state, shallow);
-    console.log(providers);
+    const { applications, providers, loading, error, fetchApplications, fetchProviders } = useStore(
+        (state) => state,
+        shallow
+    );
 
     useEffect(() => {
         fetchApplications();
         fetchProviders();
-        // fetchProviderById(1);
-        // fetchProviderBranches();
-        // fetchBranchById(1);
-    }, [
-        fetchApplications,
-        fetchProviders,
-        // fetchProviderById,
-        // fetchProviderBranches,
-        // fetchBranchById
-    ]);
+    }, [fetchApplications, fetchProviders]);
 
     const applicationCols = [
         {
@@ -48,7 +30,7 @@ export const Providers: FC = (): JSX.Element => {
         },
         {
             Header: 'Организация',
-            accessor: 'providerSurname',
+            accessor: 'companyName',
             disableSortBy: true,
             disableFilters: true,
         },
@@ -91,11 +73,6 @@ export const Providers: FC = (): JSX.Element => {
         },
     ];
 
-    // createdAt: '10/03/2023';
-    // fullName: 'Patrick Beahan DVM';
-    // id: 1;
-    // phone: '998901231222';
-
     const providerCols: Column<any>[] = [
         {
             Header: '',
@@ -109,12 +86,12 @@ export const Providers: FC = (): JSX.Element => {
             //     return `${providerName} ${providerSurname}`;
             // },
         },
-        // {
-        //     Header: 'Организация',
-        //     // accessor: 'providerSurname',
-        //     disableSortBy: true,
-        //     disableFilters: true,
-        // },
+        {
+            Header: 'Организация',
+            accessor: 'companyName',
+            disableSortBy: true,
+            disableFilters: true,
+        },
         {
             Header: 'Контактный телефон',
             accessor: 'phone',
@@ -183,12 +160,14 @@ export const Providers: FC = (): JSX.Element => {
         <div>
             <StatisticsBlock data={data} title={<h4>Текущие показатели</h4>} />
 
-            <Table
-                columns={applicationCols}
-                data={applications?.data}
-                title={<h4 className={s.title}>Новые заявки</h4>}
-            />
-            {providers?.data && (
+            {applications?.data.length !== 0 && (
+                <Table
+                    columns={applicationCols}
+                    data={applications?.data}
+                    title={<h4 className={s.title}>Новые заявки</h4>}
+                />
+            )}
+            {providers?.data.length > 0 && (
                 <Table
                     columns={providerCols}
                     data={providers?.data}

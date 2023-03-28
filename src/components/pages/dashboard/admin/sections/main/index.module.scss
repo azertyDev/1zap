@@ -2,6 +2,41 @@
 @import 'styles/mixins';
 
 .wrapper {
+    div.info {
+        width: 100%;
+        padding: 30px;
+        margin-bottom: 30px;
+        background: #c6303c;
+        border-radius: 16px;
+        display: grid;
+        gap: 40px;
+        grid-template-columns: 0fr 2fr;
+
+        &__block {
+            color: $light;
+
+            .info {
+                &_username {
+                    font-size: 1.125rem;
+                    margin-bottom: 10px;
+                    span {
+                        margin-left: 15px;
+                        font-weight: 400;
+                        // font-size: 1rem;
+                    }
+                }
+                &_company {
+                    font-size: 24px;
+                    margin-bottom: 10px;
+                }
+                &_phone {
+                    font-size: 1.125rem;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+
     h1 {
         font-size: 2.6rem;
         font-weight: 500;
@@ -23,115 +58,5 @@
         height: 1px;
         background-color: #e4e6e8;
         margin: 30px 0;
-    }
-
-    div.overview {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
-
-        .overview_item {
-            height: 187px;
-            padding: 32px;
-            font-weight: 500;
-            background-color: $blockBg;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%);
-
-            &:hover {
-                color: $light;
-                cursor: pointer;
-                background-color: $main;
-                box-shadow: 0px 9.7963px 29.3889px rgba(198, 48, 60, 0.2);
-
-                .icon_wrapper {
-                    background-color: $light;
-
-                    i {
-                        color: $main;
-                    }
-                }
-            }
-
-            .icon_wrapper {
-                width: 42px;
-                height: 42px;
-                border-radius: 50%;
-                margin-right: 10px;
-                background-color: $main;
-                @include flex-items(center, center);
-                i {
-                    color: $light;
-                }
-            }
-
-            .header {
-                display: flex;
-                align-items: center;
-                margin-bottom: 16px;
-            }
-
-            .description {
-                font-size: 25px;
-                margin-bottom: 10px;
-                line-height: 37.5px;
-            }
-
-            .footer {
-                opacity: 0.5;
-                font-size: 0.75rem;
-                line-height: 21px;
-                font-weight: 400;
-            }
-        }
-    }
-
-    div.links {
-        gap: 32px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-
-        a {
-            gap: 20px;
-            display: flex;
-            align-items: center;
-            padding: 25px 16px;
-            border-radius: 6px;
-            box-shadow: 0px 3px 4px rgba(153, 155, 168, 0.15);
-            transition: all;
-
-            .icon_wrapper {
-                padding: 13px;
-                border-radius: 8px;
-                background: $blockBg;
-                @include flex-items(center, center);
-            }
-
-            &:hover {
-                box-shadow: 0px 20px 24px rgba(153, 155, 168, 0.15);
-
-                .icon_wrapper {
-                    background: linear-gradient(
-                            0deg,
-                            rgba(255, 255, 255, 0.85),
-                            rgba(255, 255, 255, 0.85)
-                        ),
-                        #c6303c;
-                    i {
-                        color: $main;
-                    }
-                }
-            }
-
-            & > div {
-                p {
-                    font-weight: 700;
-                    color: $secondary;
-                }
-                span {
-                    font-size: 0.875rem;
-                    color: $text;
-                }
-            }
-        }
     }
 }
