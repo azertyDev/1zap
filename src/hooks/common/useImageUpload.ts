@@ -1,9 +1,7 @@
 import { ChangeEvent, MouseEvent, useState } from 'react';
-import { toast } from 'react-hot-toast';
 import { imageApi } from 'src/utils/api';
-import { Icon } from 'components/ui/icon';
-
-import s from './index.module.scss';
+import { toast } from 'react-hot-toast';
+import { useTranslation } from 'next-i18next';
 
 interface FileUploaderProps {
     name: string;
@@ -11,8 +9,9 @@ interface FileUploaderProps {
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
-export const ImageUpload = (props: FileUploaderProps) => {
+export const useImageUpload = (props: FileUploaderProps) => {
     const [imageData, setImageData] = useState<IImage>({ id: null, url: '' });
+    const { t } = useTranslation('helpers');
 
     const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
         let formData = new FormData();
@@ -27,13 +26,13 @@ export const ImageUpload = (props: FileUploaderProps) => {
             .then((data: IImage) => {
                 setImageData(data);
                 props.setFieldValue(props.name, data);
-                toast.success('Image uploaded successfully', {
+                toast.success(t('image_add'), {
                     duration: 5000,
                 });
             })
             .catch(({ response }: any) => {
                 if (response) {
-                    toast.error(response.data.error, {
+                    toast.error(t('image_err_add'), {
                         duration: 5000,
                     });
                 }
@@ -44,7 +43,7 @@ export const ImageUpload = (props: FileUploaderProps) => {
         await imageApi
             .delete(imageData.id!)
             .then((data) => {
-                toast.success('Image deleted', {
+                toast.success(t('image_del'), {
                     duration: 5000,
                 });
 
@@ -56,38 +55,12 @@ export const ImageUpload = (props: FileUploaderProps) => {
             })
             .catch(({ response }) => {
                 if (response) {
-                    toast.error(response.data.error, {
+                    toast.error(t('image_err_del'), {
                         duration: 5000,
                     });
                 }
             });
     };
 
-    return (
-        <div className={s.wrapper}>
-            {!!imageData.url ? (
-                <div className={s.preview_block}>
-                    <img width={170} height={170} alt="preview" src={imageData.url.replace('onezap', '1zap')} />
-
-                    <span onClick={deleteCurrentImage}>
-                        <Icon name="delete" size={18} color="#C6303C" />
-                    </span>
-                </div>
-            ) : (
-                <div className={s.imageUpload}>
-                    <label htmlFor="file">
-                        <Icon name="backup" size={32} color="#C6303C" />
-                        <input
-                            name={props.name}
-                            id="file"
-                            type="file"
-                            onChange={handleChange}
-                            style={{ display: 'none' }}
-                            accept="image/*"
-                        />
-                    </label>
-                </div>
-            )}
-        </div>
-    );
+    return { handleChange, deleteCurrentImage, imageData };
 };

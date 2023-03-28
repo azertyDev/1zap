@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
 import s from './index.module.scss';
@@ -14,16 +14,23 @@ import { SelectField } from 'components/ui/select';
 import { formikValues } from 'src/constants/formik_values';
 import { client_validation } from 'src/validation/client_validation';
 import { useRouter } from 'next/router';
-import { useGetSelectValues } from 'src/hooks/common/useGetSelectValues';
+
 import { useGetFitCatalog } from 'src/hooks/laximoData/useGetFitCar';
 import { useFilterSelectFitByCar } from 'src/hooks/laximoData/useFilterSelectFitByCar';
 
-export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string }> = ({
+import { vinOrderApi } from 'src/utils/api';
+import { toast } from 'react-hot-toast';
+import { formatValuesToSend } from 'src/function/formatValuesToSend';
+import { ImageIploadVin } from 'components/pages/request_vim/image_upload';
+import { getModelSwitchCondition } from 'src/function/getModelSwitchCondition';
+
+export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPar: IStaticParams }> = ({
     dataCatalog,
     dataModel,
+    staticPar,
 }): JSX.Element => {
     const { t } = useTranslation();
-    const selectValues = useGetSelectValues();
+
     const {
         push,
         pathname,
@@ -32,58 +39,41 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string }> = ({
     const { catalog } = useGetFitCatalog(dataCatalog);
     const [modelSel, setModelSel] = useState(null);
 
-    useFilterSelectFitByCar(
-        dataModel,
-        setModelSel,
-        (val: any) => {
-            switch (val.$.name) {
-                case 'Модель':
-                    return val;
-                case 'Серия':
-                    return val;
-                case 'Vehicle family':
-                    return val;
-                case 'Семейство':
-                    return val;
-                case 'Торговое обозначение':
-                    return val;
-                case 'Vehicle name':
-                    return val;
-                case 'Model':
-                    return val;
-            }
-        },
-        [brand] as string[]
-    );
+    useFilterSelectFitByCar(dataModel, setModelSel, getModelSwitchCondition, [brand] as string[]);
 
     const formik = useFormik({
         initialValues: formikValues.vimRequest,
         validationSchema: client_validation.vimRequest,
         onSubmit: async (values) => {
-            try {
-                if (catalog) {
-                    for (const obj of catalog) {
-                        if (obj.value === brand) {
-                            values.brand = obj.label;
-                            break;
-                        }
+            if (catalog) {
+                for (const obj of catalog) {
+                    if (obj.value === brand) {
+                        values.brand = obj.label;
+                        break;
                     }
                 }
-                if (modelSel) {
-                    for (const obj of modelSel as any) {
-                        if (obj.value === values.model) {
-                            values.model = obj.label;
-                            break;
-                        }
-                    }
-                }
-                console.log({ ...values, phone: values.phone.replaceAll(' ', '') });
-                push('/request_vim/final_step');
-            } catch (err) {
-                console.log(err);
             }
+            if (modelSel) {
+                for (const obj of modelSel as any) {
+                    if (obj.value === values.model) {
+                        values.model = obj.label;
+                        break;
+                    }
+                }
+            }
+            const { dataSend } = formatValuesToSend.createVin(values);
+
+            await vinOrderApi
+                .createOrder(dataSend)
+                .then((response) => {
+                    push('/request_vim/final_step');
+                })
+                .catch(({ response }) => {
+                    toast.error(t('helpers:error_sending'));
+                });
         },
     });
+
     useEffect(() => {
         push({
             pathname: pathname,
@@ -142,7 +132,7 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string }> = ({
                                         component={SelectField}
                                         name="payment"
                                         label={t('filter:payment')}
-                                        options={selectValues.payment}
+                                        options={staticPar ? staticPar.payment : [{ value: '', label: '' }]}
                                     />
                                 </InputWrapper>
 
@@ -151,48 +141,43 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string }> = ({
                                         component={SelectField}
                                         name="city"
                                         label={t('filter:city')}
-                                        options={selectValues.city}
+                                        options={staticPar ? staticPar.city : [{ value: '', label: '' }]}
                                     />
                                 </InputWrapper>
                             </div>
                         </div>
 
                         <div>
-                            <textarea
-                                className={s.textarea}
+                            <Field
+                                as={'textarea'}
                                 name={'description'}
-                                onChange={formik.handleChange}
                                 placeholder={t('common:describeDetail') as string}
-                            ></textarea>
+                                className={`${s.textarea} ${
+                                    formik.errors.description && formik.touched.description ? s.error : ''
+                                }`}
+                            />
 
-                            {!formik.values.image ? (
-                                <>
-                                    <label htmlFor={'file'} className={s.file_label}>
-                                        <Icon size={20} name={'backup'} color={'#fff'} />
-                                        {t('common:downloadPhoto')}
-                                    </label>
-                                    <input
-                                        onChange={(ev) => formik.setFieldValue('image', ev.target.files)}
-                                        id={'file'}
-                                        accept={'image/*'}
-                                        type={'file'}
-                                        className={s.file_input}
-                                    />
-                                </>
-                            ) : (
-                                <Button
-                                    variant={'primary'}
-                                    type={'button'}
-                                    onClick={() => formik.setFieldValue('image', null)}
-                                >
-                                    {t('common:deletePhoto')}
-                                </Button>
-                            )}
+                            <ImageIploadVin
+                                imgLength={formik.values.image?.length}
+                                setVal={
+                                    formik.setFieldValue as (
+                                        field: string,
+                                        value: any,
+                                        shouldValidate?: boolean | undefined
+                                    ) => Promise<void>
+                                }
+                            />
                         </div>
                     </div>
 
-                    <Button variant={'primary'} type={'submit'} className={s.submit_btn}>
-                        <Icon size={15} name={'send'} color={'#fff'} />
+                    <Button
+                        fullWidth
+                        type={'submit'}
+                        className={s.submit_btn}
+                        disabled={!formik.dirty || !formik.isValid}
+                        variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                    >
+                        <Icon size={15} name={'send'} color={!formik.dirty || !formik.isValid ? '#9A9EA7' : '#fff'} />
                         {t('common:sendRequest')}
                     </Button>
                 </Form>

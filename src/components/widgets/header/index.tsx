@@ -40,7 +40,7 @@ export const Header: FC = (): JSX.Element => {
                         <ExchangeRate />
                         <Language />
                         {signedIn ? (
-                            <Link href={isAdmin ? '/dashboard/main' : '/dashboard/merchant'}>
+                            <Link href={isAdmin ? '/dashboard/main' : '/dashboard/merchant'} className={s.text}>
                                 {userData?.user.fullName}
                             </Link>
                         ) : (

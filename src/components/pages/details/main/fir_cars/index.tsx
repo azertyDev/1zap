@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useGetFitCatalog } from 'src/hooks/laximoData/useGetFitCar';
 import { useFilterDetails } from 'src/hooks/common/useFilterDetails';
 import { useFilterSelectFitByCar } from 'src/hooks/laximoData/useFilterSelectFitByCar';
+import { getModelSwitchCondition } from 'src/function/getModelSwitchCondition';
 
 export const FitCars: FC<{ dataCatalog: string; dataFilterFirstLevel: string; dataYear: string }> = ({
     dataCatalog,
@@ -26,29 +27,8 @@ export const FitCars: FC<{ dataCatalog: string; dataFilterFirstLevel: string; da
     const [yearSel, setYearSel] = useState(null);
     const [regionSel, setRegionSel] = useState(null);
 
-    useFilterSelectFitByCar(
-        dataFilterFirstLevel,
-        setModelSel,
-        (val: any) => {
-            switch (val.$.name) {
-                case 'Модель':
-                    return val;
-                case 'Серия':
-                    return val;
-                case 'Vehicle family':
-                    return val;
-                case 'Семейство':
-                    return val;
-                case 'Торговое обозначение':
-                    return val;
-                case 'Vehicle name':
-                    return val;
-                case 'Model':
-                    return val;
-            }
-        },
-        [brandLabel] as string[]
-    );
+    useFilterSelectFitByCar(dataFilterFirstLevel, setModelSel, getModelSwitchCondition, [brandLabel] as string[]);
+
     useFilterSelectFitByCar(
         dataFilterFirstLevel,
         setRegionSel,

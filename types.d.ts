@@ -90,3 +90,65 @@ interface IImage {
     id?: number | null;
     url: string;
 }
+
+interface ICreateVinOrder {
+    vinNumber: string;
+    yearIssue: string;
+    modification: string;
+    description: string;
+    brand: string;
+    model: string;
+    payment: string;
+    image?: {
+        id: number;
+        url: string;
+    };
+    customer: {
+        username: string;
+        phone: string;
+        city: string;
+    };
+}
+
+interface IStaticParams {
+    branchType: {
+        label: string;
+        value: string;
+    }[];
+    breakTime: {
+        label: string;
+        value: string;
+    }[];
+    city: {
+        label: string;
+        value: string;
+    }[];
+    client: {
+        label: string;
+        value: string;
+    }[];
+    delivery: {
+        label: string;
+        value: string;
+    }[];
+    payment: {
+        label: string;
+        value: string;
+    }[];
+    service: {
+        label: string;
+        value: string;
+    }[];
+    weekend: {
+        label: string;
+        value: string;
+    }[];
+    weekendSchedule: {
+        label: string;
+        value: string;
+    }[];
+    workingSchedule: {
+        label: string;
+        value: string;
+    }[];
+}

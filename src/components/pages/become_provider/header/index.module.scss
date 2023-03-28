@@ -1,0 +1,30 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+
+.header {
+  @include flex-items(space-between, center);
+  margin: 0 auto 25px;
+  max-width: 1025px;
+  padding: 20px 0 ;
+
+
+  button {
+    padding: 12px 20px;
+  }
+}
+
+.final{
+  display: none;
+}
+
+
+@media (max-width: 768px) {
+  .header{
+    button{
+      padding: 10px;
+    }
+  }
+}
+
+

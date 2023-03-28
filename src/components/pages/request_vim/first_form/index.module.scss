@@ -30,6 +30,10 @@
   @include fs_fw_c(14px, 600, $text);
   margin-bottom: 20px;
 
+  &.error{
+    box-shadow: 0 0 7px 0 $main;
+  }
+
   &:focus {
     outline: 0;
   }
