@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     } = context;
 
     const staticPar = await staticParamsApi
-        .getStatic()
+        .getParams()
         .then((res) => res)
         .catch((err) => null);
 

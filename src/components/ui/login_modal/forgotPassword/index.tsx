@@ -10,6 +10,8 @@ import { Completed } from 'components/ui/completed';
 import Image from 'next/image';
 import { LoginEnd } from 'components/ui/login_modal/login_end';
 import { client_validation } from 'src/validation/client_validation';
+import { userApi } from 'src/utils/api';
+import { toast } from 'react-hot-toast';
 
 export const ForgotPassword: FC = (): JSX.Element => {
     const { t } = useTranslation();
@@ -23,8 +25,13 @@ export const ForgotPassword: FC = (): JSX.Element => {
         },
         validationSchema: client_validation.loginForgot,
         onSubmit: async (values) => {
-            setDone(true);
-            setEmailVal(values.email);
+            await userApi
+                .recover(values)
+                .then((res) => {
+                    setDone(true);
+                    setEmailVal(values.email);
+                })
+                .catch((err) => toast.error(t('helpers:data_err')));
         },
     });
 

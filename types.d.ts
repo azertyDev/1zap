@@ -110,45 +110,20 @@ interface ICreateVinOrder {
     };
 }
 
+type params = {
+    label: string;
+    value: string;
+};
+
 interface IStaticParams {
-    branchType: {
-        label: string;
-        value: string;
-    }[];
-    breakTime: {
-        label: string;
-        value: string;
-    }[];
-    city: {
-        label: string;
-        value: string;
-    }[];
-    client: {
-        label: string;
-        value: string;
-    }[];
-    delivery: {
-        label: string;
-        value: string;
-    }[];
-    payment: {
-        label: string;
-        value: string;
-    }[];
-    service: {
-        label: string;
-        value: string;
-    }[];
-    weekend: {
-        label: string;
-        value: string;
-    }[];
-    weekendSchedule: {
-        label: string;
-        value: string;
-    }[];
-    workingSchedule: {
-        label: string;
-        value: string;
-    }[];
+    branchType: params[];
+    breakTime: params[];
+    city: params[];
+    client: params[];
+    delivery: params[];
+    payment: params[];
+    service: params[];
+    weekend: params[];
+    weekendSchedule: params[];
+    workingSchedule: params[];
 }

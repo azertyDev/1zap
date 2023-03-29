@@ -9,7 +9,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale } = context;
 
     const staticPar = await staticParamsApi
-        .getStatic()
+        .getParams()
         .then((res) => res)
         .catch((err) => null);
 

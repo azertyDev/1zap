@@ -12,6 +12,7 @@ const requests = {
 
 export const userApi = {
     login: (params: string): Promise<IUserData> => requests.post('/login', params),
+    recover: (params: { email: string }) => requests.post('/recover', params),
 };
 
 export const applicationApi = {
@@ -42,5 +43,6 @@ export const vinOrderApi = {
 };
 
 export const staticParamsApi = {
-    getStatic: (): Promise<IStaticParams> => requests.get('/static/params'),
+    getParams: (): Promise<IStaticParams> => requests.get('/static/params'),
+    getFiles: (fileName: string): Promise<any> => requests.get(`/static/${fileName}`),
 };

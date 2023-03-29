@@ -4,6 +4,7 @@ import { imageApi } from 'src/utils/api';
 import { Icon } from 'components/ui/icon';
 
 import s from './index.module.scss';
+import { useImageUpload } from 'src/hooks/common/useImageUpload';
 
 interface FileUploaderProps {
     name: string;
@@ -12,56 +13,7 @@ interface FileUploaderProps {
 }
 
 export const ImageUpload = (props: FileUploaderProps) => {
-    const [imageData, setImageData] = useState<IImage>({ id: null, url: '' });
-
-    const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
-        let formData = new FormData();
-        formData.append('image', event.target.files![0]);
-
-        await imageApi
-            .upload(formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            })
-            .then((data: IImage) => {
-                setImageData(data);
-                props.setFieldValue(props.name, data);
-                toast.success('Image uploaded successfully', {
-                    duration: 5000,
-                });
-            })
-            .catch(({ response }: any) => {
-                if (response) {
-                    toast.error(response.data.error, {
-                        duration: 5000,
-                    });
-                }
-            });
-    };
-
-    const deleteCurrentImage = async (event: MouseEvent<HTMLElement>) => {
-        await imageApi
-            .delete(imageData.id!)
-            .then((data) => {
-                toast.success('Image deleted', {
-                    duration: 5000,
-                });
-
-                setImageData({
-                    id: null,
-                    url: '',
-                });
-                props.setFieldValue(props.name, '');
-            })
-            .catch(({ response }) => {
-                if (response) {
-                    toast.error(response.data.error, {
-                        duration: 5000,
-                    });
-                }
-            });
-    };
+    const { imageData, deleteCurrentImage, handleChange } = useImageUpload(props);
 
     return (
         <div className={s.wrapper}>
