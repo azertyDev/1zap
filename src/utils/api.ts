@@ -17,7 +17,7 @@ export const userApi = {
 export const applicationApi = {
     fetchApplications: (status: string): Promise<IApplicationData> => requests.get('/applications/all', { status }),
     addApplication: (body: IApplicationDataProvider): Promise<IApplicationDataProvider> =>
-        requests.post('/app', { body }),
+        requests.post('/app', { ...body }),
 };
 
 export const providerApi = {
@@ -35,4 +35,12 @@ export const imageApi = {
 
 export const productsApi = {
     upload: (data: any, config: {}): Promise<any> => requests.post('/products/new', data, config),
+};
+
+export const priceListApi = {
+    fetchPriceList: (): Promise<any> => requests.get('/pricelist/all'),
+};
+
+export const vinRequetsApi = {
+    fetchVinRequests: (status?: any): Promise<any> => requests.get('/vinOrder/all', { status }),
 };

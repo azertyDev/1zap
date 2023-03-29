@@ -7,6 +7,7 @@ import { Statistics } from './admin/sections/statistics';
 import { Providers } from './admin/sections/providers';
 import { PromoPage } from './admin/sections/promo';
 import { PriceList } from './admin/sections/price_list';
+import { VinRequests } from './admin/sections/vin_request';
 import Header from 'src/components/ui/dashboard/header';
 import BottomFooter from 'src/components/widgets/footer/bottom_footer';
 import s from './index.module.scss';
@@ -32,6 +33,8 @@ export default (props: PropsType): JSX.Element => {
                 return <Providers />;
             case `/dashboard/promo`:
                 return <PromoPage />;
+            case `/dashboard/vin-requests`:
+                return <VinRequests />;
             default:
                 return 'Page not found';
         }

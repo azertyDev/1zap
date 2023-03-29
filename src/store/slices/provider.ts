@@ -3,7 +3,7 @@ import { providerApi } from 'src/utils/api';
 import { StateCreator } from 'zustand';
 
 export interface IProviderSlice {
-    providers: null; // Fix type in future
+    providers: IProviders;
     provider: IProviderData | null;
     providerBranches: IBranchData[] | null;
     branch: IBranchData[] | null;
@@ -17,7 +17,21 @@ export interface IProviderSlice {
 }
 
 const initialState = {
-    providers: null,
+    providers: {
+        data: [
+            {
+                id: null,
+                fullName: '',
+                phone: '',
+                companyName: '',
+                email: '',
+                createdAt: '',
+            },
+        ],
+        page: null,
+        lastPage: null,
+        total: null,
+    },
     provider: null,
     providerBranches: null,
     branch: null,
@@ -41,7 +55,7 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
             .catch(({ response }) => {
                 // console.log('Error', response);
 
-                set({ providers: null, error: response.data, loading: false });
+                set({ providers: undefined, error: response.data, loading: false });
             })
             .finally(() => {
                 set({ loading: false });

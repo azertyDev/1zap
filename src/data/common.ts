@@ -1,14 +1,15 @@
 export const dashboardMenu = [
     { id: 0, name: 'main', icon: 'timelapse' },
     { id: 2, name: 'providers', icon: 'person' },
-    { id: 3, name: 'promo', icon: 'label' },
-    { id: 4, name: 'profile', icon: 'person' },
-    { id: 5, name: 'balance', icon: 'payments' },
-    { id: 6, name: 'statistics', icon: 'bar_chart' },
+    // { id: 3, name: 'promo', icon: 'label' },
+    // { id: 4, name: 'profile', icon: 'person' },
+    // { id: 5, name: 'balance', icon: 'payments' },
+    // { id: 6, name: 'statistics', icon: 'bar_chart' },
     { id: 7, name: 'price-list', icon: 'inventory_2' },
     // { id: 8, name: 'upload_products', icon: 'save_alt' },
-    { id: 9, name: 'incoming_requests', icon: 'inbox' },
-    { id: 10, name: 'support', icon: 'headset_mic' },
+    // { id: 9, name: 'incoming_requests', icon: 'inbox' },
+    // { id: 10, name: 'support', icon: 'headset_mic' },
+    { id: 11, name: 'vin-requests', icon: 'inbox' },
 ];
 
 export const overviewData = [
