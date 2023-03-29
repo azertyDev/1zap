@@ -12,6 +12,8 @@ import { LoginEnd } from 'components/ui/login_modal/login_end';
 import { client_validation } from 'src/validation/client_validation';
 import { userApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
+import { Simulate } from 'react-dom/test-utils';
+import timeUpdate = Simulate.timeUpdate;
 
 export const ForgotPassword: FC = (): JSX.Element => {
     const { t } = useTranslation();
@@ -31,7 +33,10 @@ export const ForgotPassword: FC = (): JSX.Element => {
                     setDone(true);
                     setEmailVal(values.email);
                 })
-                .catch((err) => toast.error(t('helpers:data_err')));
+                .catch((err) => {
+                    toast.error(t('helpers:data_err'));
+                    formik.setErrors({ email: 'data_err' });
+                });
         },
     });
 

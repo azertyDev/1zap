@@ -3,6 +3,7 @@ import Router from 'next/router';
 import { StateCreator } from 'zustand';
 import { userApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
+import { i18n } from 'next-i18next';
 
 export interface IUserSlice {
     userData?: IUserData;
@@ -51,9 +52,7 @@ export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
             })
             .catch(({ response }) => {
                 set(() => ({ error: response?.data.error.replaceAll(' ', '_'), loading: false }));
-                toast.success('Welcome to the hell', {
-                    icon: '😈',
-                });
+                toast.error(i18n!.t('helpers:data_err'));
             })
             .finally(() => {
                 set({ loading: false });

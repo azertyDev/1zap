@@ -16,12 +16,16 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
 
     const { error, login } = useStore((state) => state, shallow);
 
+    console.log('err', error);
     const initialValues = {
         email: '',
         password: '',
     };
 
     const onSubmit = async (values: FormikValues, { setStatus }: FormikHelpers<typeof initialValues>) => {
+        if (error) {
+            formik.setErrors({ password: 'data_err', email: 'data_err' });
+        }
         login(values.email, values.password);
     };
 
@@ -30,7 +34,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
         onSubmit,
         validationSchema: client_validation.login,
     });
-
+    console.log(formik.errors);
     return (
         <div className={s.login}>
             <FormikProvider value={formik}>
@@ -39,7 +43,6 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
                         <FloatingInput {...formik.getFieldProps('email')} iconname="email" />
                     </InputWrapper>
                     <FloatingInput {...formik.getFieldProps('password')} iconname="key" type={'password'} />
-                    {error && <span className="error">{t('helpers:data_err')}</span>}
 
                     <div className={s.remember_wr}>
                         <div className={s.remember}>
