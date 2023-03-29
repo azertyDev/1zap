@@ -21,11 +21,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
     };
 
     const onSubmit = async (values: FormikValues, { setStatus, setErrors }: FormikHelpers<typeof initialValues>) => {
-        if (error !== '') {
-            setErrors({ password: 'data_err', email: 'data_err' });
-        }
-
-        login(values.email, values.password);
+        login(values.email, values.password, setErrors);
     };
 
     const formik = useFormik({
