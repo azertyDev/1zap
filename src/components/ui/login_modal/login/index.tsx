@@ -13,7 +13,6 @@ import s from '../index.module.scss';
 
 export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.Element => {
     const { t } = useTranslation();
-
     const { error, login } = useStore((state) => state, shallow);
 
     const initialValues = {
@@ -21,11 +20,8 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
         password: '',
     };
 
-    const onSubmit = async (values: FormikValues, { setStatus }: FormikHelpers<typeof initialValues>) => {
-        if (error) {
-            formik.setErrors({ password: 'data_err', email: 'data_err' });
-        }
-        login(values.email, values.password);
+    const onSubmit = async (values: FormikValues, { setStatus, setErrors }: FormikHelpers<typeof initialValues>) => {
+        login(values.email, values.password, setErrors);
     };
 
     const formik = useFormik({

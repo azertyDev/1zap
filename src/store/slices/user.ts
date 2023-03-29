@@ -9,7 +9,7 @@ export interface IUserSlice {
     userData?: IUserData;
     loading?: boolean;
     error?: null;
-    login: (email: string, password: string) => void;
+    login: (email: string, password: string, setErrors: any) => void;
     logout: () => void;
 }
 
@@ -26,7 +26,7 @@ const initialState = {
 export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
     ...initialState,
 
-    login: async (email, password) => {
+    login: async (email, password, setErrors) => {
         const json = JSON.stringify({
             email,
             password,
@@ -53,6 +53,7 @@ export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
             .catch(({ response }) => {
                 set(() => ({ error: response?.data.error.replaceAll(' ', '_'), loading: false }));
                 toast.error(i18n!.t('helpers:data_err'));
+                setErrors({ password: 'data_err', email: 'data_err' });
             })
             .finally(() => {
                 set({ loading: false });
