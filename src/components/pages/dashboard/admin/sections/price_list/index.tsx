@@ -1,10 +1,16 @@
+import Link from 'next/link';
+import dayjs from 'dayjs';
+import { Column } from 'react-table';
+import { toast } from 'react-hot-toast';
+import { useEffect, useMemo, useState } from 'react';
 import { MenuItem } from '@szhsin/react-menu';
 import { Field, Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
-import { useEffect, useState } from 'react';
 import { Button } from 'src/components/ui/button';
 import { Checkbox } from 'src/components/ui/dashboard/checkbox';
 import { BaseModal } from 'src/components/ui/dashboard/modal/base_modal';
 import { StatisticsBlock } from 'src/components/ui/dashboard/statistics_block';
+import { Table } from 'src/components/ui/dashboard/table';
+import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
 import { Icon } from 'src/components/ui/icon';
 import { FloatingInput } from 'src/components/ui/input/float_input';
 import { Menu } from 'src/components/ui/modal/menu';
@@ -12,7 +18,7 @@ import { SelectField } from 'src/components/ui/select';
 import { FileUpload } from 'src/components/ui/upload/file';
 import { useModal } from 'src/hooks/common/useModal';
 import { useStore } from 'src/store/useStore';
-import { productsApi } from 'src/utils/api';
+import { priceListApi, productsApi } from 'src/utils/api';
 import s from './index.module.scss';
 
 interface IOptions {
@@ -23,21 +29,82 @@ interface IOptions {
 export const PriceList = () => {
     const { providerBranches, fetchProviderBranches } = useStore();
     const { open, handleModalOpen, handleModalClose } = useModal();
+    const [priceList, setPriceList] = useState<any>();
 
-    const branchesOptions: IOptions[] = [];
+    const branchesOptions: IOptions[] = useMemo(() => [], []);
     const [options, setOptions] = useState<IOptions[]>(branchesOptions);
+
+    useEffect(() => {
+        priceListApi.fetchPriceList().then((response) => {
+            setPriceList(response);
+        });
+    }, []);
 
     useEffect(() => {
         providerBranches?.map((branch: IBranchData) => {
             branchesOptions.push({ value: branch.id, label: branch.branchName });
         });
         setOptions([...branchesOptions]);
-    }, [providerBranches]);
+    }, [branchesOptions, providerBranches]);
 
     const openModal = () => {
         handleModalOpen();
         fetchProviderBranches();
     };
+
+    const priceListCols: Column<any>[] = [
+        {
+            Header: 'Название прайса',
+            accessor: 'title',
+            disableSortBy: true,
+            disableFilters: true,
+        },
+        {
+            Header: 'Тип прайса',
+            accessor: 'type',
+            disableSortBy: true,
+            disableFilters: true,
+        },
+        {
+            Header: 'Филиал',
+            accessor: 'branchName',
+            disableFilters: true,
+            disableSortBy: true,
+        },
+        {
+            Header: 'ID',
+            accessor: 'id',
+            disableSortBy: true,
+            disableFilters: true,
+            width: 90,
+            maxWidth: 100,
+            minWidth: 80,
+        },
+        {
+            Header: 'Дата',
+            accessor: 'createdAt',
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
+            disableFilters: true,
+        },
+        {
+            Header: 'Действия',
+            disableFilters: true,
+            disableSortBy: true,
+            accessor: (cell: any) => {
+                return (
+                    <ActionsBlock cell={cell}>
+                        <Link
+                            href={{
+                                pathname: '#',
+                            }}
+                        >
+                            Открыть
+                        </Link>
+                    </ActionsBlock>
+                );
+            },
+        },
+    ];
 
     const statisticsData = [
         {
@@ -54,35 +121,13 @@ export const PriceList = () => {
         },
     ];
 
-    // const initialValues = {
-    //     title: '',
-    //     branchId: null,
-    //     currencyType: '',
-    //     clientType: '',
-    //     type: '',
-    //     availability: '',
-    //     payment: [
-    //         {
-    //             method: 'cash',
-    //             isActive: false,
-    //         },
-    //         {
-    //             method: 'card',
-    //             isActive: false,
-    //         },
-    //         {
-    //             method: 'transfer',
-    //             isActive: false,
-    //         },
-    //     ],
-    // };
     const initialValues = {
-        title: 'Test prices',
+        title: '',
         branchId: null,
-        currencyType: 'sum',
-        clientType: 'individual',
-        type: 'part',
-        availability: 'from_seven',
+        currencyType: '',
+        clientType: '',
+        type: '',
+        availability: '',
         payment: [
             {
                 method: 'cash',
@@ -101,16 +146,22 @@ export const PriceList = () => {
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
         const { payment, ...rest } = values;
-        console.log('First form values:', values);
 
         const data = {
             payment: JSON.stringify(payment),
             ...rest,
         };
 
-        productsApi.upload(data, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        });
+        productsApi
+            .upload(data, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            })
+            .then((response) => {
+                toast.success('Successfully uploaded');
+            })
+            .catch((error) => {
+                toast.error('Error while uploading');
+            });
     };
 
     const formik = useFormik({
@@ -119,7 +170,7 @@ export const PriceList = () => {
         // validationSchema,
     });
 
-    const menuData = [
+    const filesMenu = [
         { id: 1, name: 'Запчасти', file: '/assets/files/parts.xlsx' },
         { id: 2, name: 'Масла', file: '/assets/files/oils.xlsx' },
         { id: 3, name: 'Аккумуляторы', file: '/assets/files/battery.xlsx' },
@@ -140,7 +191,7 @@ export const PriceList = () => {
                     }
                 >
                     <>
-                        {menuData.map((menu) => {
+                        {filesMenu.map((menu) => {
                             return (
                                 <MenuItem key={menu.id} href={menu.file}>
                                     <Icon name="cloud_download" color="black" />
@@ -160,6 +211,8 @@ export const PriceList = () => {
                 </Button>
             </div>
 
+            {!!priceList?.data && <Table columns={priceListCols} data={priceList?.data} />}
+
             <BaseModal
                 center
                 open={open}
@@ -175,7 +228,7 @@ export const PriceList = () => {
                                 <Field
                                     component={SelectField}
                                     name="branchId"
-                                    label="dashboard:branchId"
+                                    label="dashboard:branch"
                                     options={options}
                                 />
                                 <Field

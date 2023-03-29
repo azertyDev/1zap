@@ -7,7 +7,7 @@ interface StatisticsBlockProps {
         id: number;
         title: string;
         date: string;
-        count: string;
+        count: number | string;
     }[];
 }
 
@@ -15,7 +15,7 @@ export const StatisticsBlock: FC<StatisticsBlockProps> = ({ title, data }) => {
     return (
         <div className={s.root}>
             {title && <div className={s.block_title}>{title}</div>}
-            <div className={s.counter_wrapper}> 
+            <div className={s.counter_wrapper}>
                 {data.map(({ id, count, date, title }) => {
                     return (
                         <div className={s.counter} key={id}>

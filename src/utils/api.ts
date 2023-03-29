@@ -40,9 +40,14 @@ export const productsApi = {
 
 export const vinOrderApi = {
     createOrder: (data: ICreateVinOrder) => requests.post('/vin', data),
+    fetchVinRequests: (status?: any): Promise<any> => requests.get('/vinOrder/all', { status }),
 };
 
 export const staticParamsApi = {
     getParams: (): Promise<IStaticParams> => requests.get('/static/params'),
     getFiles: (fileName: string): Promise<any> => requests.get(`/static/${fileName}`),
+};
+
+export const priceListApi = {
+    fetchPriceList: (): Promise<any> => requests.get('/pricelist/all'),
 };

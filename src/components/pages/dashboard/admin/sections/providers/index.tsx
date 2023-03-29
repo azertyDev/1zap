@@ -146,13 +146,13 @@ export const Providers: FC = (): JSX.Element => {
             id: 1,
             title: 'Новые заявки',
             date: 'Необходима обработка',
-            count: applications?.data.length,
+            count: applications?.data.length!,
         },
         {
             id: 2,
             title: 'Всего поставщиков',
             date: 'За весь период',
-            count: providers?.data.length,
+            count: providers?.data.length!,
         },
     ];
 

@@ -17,4 +17,3 @@ export const ActionsBlock: FC<ActionsBlockProps> = ({ cell, children }) => {
         </div>
     );
 };
-

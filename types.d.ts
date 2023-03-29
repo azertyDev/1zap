@@ -42,6 +42,22 @@ interface IApplication {
     updatedAt: string;
 }
 
+interface IProviders {
+    data: IProvidersData[];
+    page: number | null;
+    lastPage: number | null;
+    total: number | null;
+}
+
+interface IProvidersData {
+    id: number | null;
+    fullName: string;
+    phone: string;
+    companyName: string;
+    email: string;
+    createdAt: string;
+}
+
 interface IProviderData {
     legalAddress?: string;
     phone?: string;
