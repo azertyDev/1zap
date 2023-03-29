@@ -51,6 +51,9 @@ export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
             })
             .catch(({ response }) => {
                 set(() => ({ error: response?.data.error.replaceAll(' ', '_'), loading: false }));
+                toast.success('Welcome to the hell', {
+                    icon: '😈',
+                });
             })
             .finally(() => {
                 set({ loading: false });

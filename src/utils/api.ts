@@ -12,11 +12,13 @@ const requests = {
 
 export const userApi = {
     login: (params: string): Promise<IUserData> => requests.post('/login', params),
+    recover: (params: { email: string }) => requests.post('/recover', params),
 };
 
 export const applicationApi = {
     fetchApplications: (status: string): Promise<IApplicationData> => requests.get('/applications/all', { status }),
     addApplication: (body: IApplicationDataProvider): Promise<IApplicationDataProvider> =>
+        requests.post('/app', { ...body }),
         requests.post('/app', { ...body }),
 };
 
@@ -35,6 +37,15 @@ export const imageApi = {
 
 export const productsApi = {
     upload: (data: any, config: {}): Promise<any> => requests.post('/products/new', data, config),
+};
+
+export const vinOrderApi = {
+    createOrder: (data: ICreateVinOrder) => requests.post('/vin', data),
+};
+
+export const staticParamsApi = {
+    getParams: (): Promise<IStaticParams> => requests.get('/static/params'),
+    getFiles: (fileName: string): Promise<any> => requests.get(`/static/${fileName}`),
 };
 
 export const priceListApi = {

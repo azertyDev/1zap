@@ -29,19 +29,28 @@
     transition: .5s;
     cursor: pointer;
 
-    &:hover {
-      background: $main;
-      color: #fff;
-    }
 
     span {
       display: block;
       @include fs_fw_c(12px, 600, $main);
+
+      &:hover {
+        color: #fff;
+      }
     }
 
     span:first-child {
       @include fs_fw_c(14px, 600, $main);
       margin-bottom: 5px;
+    }
+
+    &:hover {
+      background: $main;
+      color: #fff;
+
+      span {
+        color: #fff;
+      }
     }
   }
 }

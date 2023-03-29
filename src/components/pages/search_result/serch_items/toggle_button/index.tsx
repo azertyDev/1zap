@@ -1,37 +1,26 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import { FC } from 'react';
 import s from './index.module.scss';
-import Image from 'next/image';
+
 import { useTranslation } from 'next-i18next';
+import { Icon } from 'components/ui/icon';
 
 export const ToggleButton: FC<{
     mapIsOpen: boolean;
-    fun: Dispatch<SetStateAction<boolean>>;
+    fun: (val: boolean) => () => void;
 }> = ({ mapIsOpen, fun }): JSX.Element => {
     const { t } = useTranslation();
 
-    const handleOpen = () => {
-        return fun((prev) => !prev);
-    };
-
     return (
-        <button className={s.btn_map} onClick={handleOpen}>
-            {mapIsOpen ? (
-                <Image
-                    src={'/assets/icons/search.svg'}
-                    alt={'map'}
-                    width={15}
-                    height={15}
-                />
-            ) : (
-                <Image
-                    src={'/assets/images/search/mini_map.svg'}
-                    alt={'map'}
-                    width={18}
-                    height={21}
-                />
-            )}
+        <div>
+            {!mapIsOpen ? (
+                <button className={s.btn_map} onClick={fun(true)}>
+                    <Icon name={'map'} size={20} color={'#fff'} />
 
-            <p>{mapIsOpen ? t('common:openSearch') : t('common:openMap')}</p>
-        </button>
+                    <p> {t('common:openMap')}</p>
+                </button>
+            ) : (
+                <div className={s.btn_controls_inner}></div>
+            )}
+        </div>
     );
 };

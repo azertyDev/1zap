@@ -1,0 +1,11 @@
+.wr {
+  max-width: 420px;
+  margin: 100px auto 10px ;
+  padding:0 16px 30px;
+}
+
+@media (max-width: 768px) {
+  .wr {
+    margin: 50px auto 10px ;
+  }
+}

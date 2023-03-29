@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { useStore } from 'src/store/useStore';
@@ -39,7 +39,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
                         <FloatingInput {...formik.getFieldProps('email')} iconname="email" />
                     </InputWrapper>
                     <FloatingInput {...formik.getFieldProps('password')} iconname="key" type={'password'} />
-                    {error && <span className="error">{error}</span>}
+                    {error && <span className="error">{t('helpers:data_err')}</span>}
 
                     <div className={s.remember_wr}>
                         <div className={s.remember}>

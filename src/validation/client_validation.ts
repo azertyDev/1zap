@@ -5,6 +5,8 @@ export const client_validation = {
         username: yup.string().trim().required(`required`),
         surname: yup.string().trim().required(`required`),
         companyName: yup.string().trim().required(`required`),
+        city: yup.string().trim().required(`required`),
+        service: yup.string().trim().required(`required`),
         phone: yup
             .string()
             .trim()
@@ -21,9 +23,10 @@ export const client_validation = {
     }),
     login: yup.object().shape({
         email: yup.string().email('invalid_format').required('required'),
+        password: yup.string().required('required'),
     }),
     loginForgot: yup.object().shape({
-        email: yup.string().email('').required(''),
+        email: yup.string().email('invalid_format').required('required'),
     }),
     vimRequest: yup.object().shape({
         vinNumber: yup.string().required('required'),
@@ -43,5 +46,6 @@ export const client_validation = {
         username: yup.string().required('required'),
         city: yup.string().required('required'),
         payment: yup.string().required('required'),
+        description: yup.string().required('required'),
     }),
 };

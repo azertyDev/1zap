@@ -106,3 +106,40 @@ interface IImage {
     id?: number | null;
     url: string;
 }
+
+interface ICreateVinOrder {
+    vinNumber: string;
+    yearIssue: string;
+    modification: string;
+    description: string;
+    brand: string;
+    model: string;
+    payment: string;
+    image?: {
+        id: number;
+        url: string;
+    };
+    customer: {
+        username: string;
+        phone: string;
+        city: string;
+    };
+}
+
+type params = {
+    label: string;
+    value: string;
+};
+
+interface IStaticParams {
+    branchType: params[];
+    breakTime: params[];
+    city: params[];
+    client: params[];
+    delivery: params[];
+    payment: params[];
+    service: params[];
+    weekend: params[];
+    weekendSchedule: params[];
+    workingSchedule: params[];
+}

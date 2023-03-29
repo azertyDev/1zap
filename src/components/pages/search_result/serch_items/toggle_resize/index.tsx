@@ -5,14 +5,10 @@ import { Icon } from 'components/ui/icon';
 
 export const ToggleResize: FC<{
     mapIsOpen: boolean;
-    fun: Dispatch<SetStateAction<boolean>>;
+    fun: (val: boolean | ((prev: boolean) => boolean)) => () => void;
 }> = ({ mapIsOpen, fun }): JSX.Element => {
-    const handleOpen = () => {
-        return fun((prev) => !prev);
-    };
-
     return (
-        <div className={s.toggle_size} onClick={handleOpen}>
+        <div className={s.toggle_size} onClick={fun((prev: boolean) => !prev)}>
             {mapIsOpen ? (
                 <Icon size={17} name={'zoom_out_map'} style={s.resize} />
             ) : (

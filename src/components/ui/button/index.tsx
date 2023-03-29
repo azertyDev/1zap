@@ -8,16 +8,18 @@ export interface ButtonPropsType extends HTMLAttributes<HTMLButtonElement> {
     type?: 'button' | 'submit' | 'reset';
     fullWidth?: boolean;
     ref?: React.Ref<HTMLButtonElement>;
+    disabled?: boolean;
 }
 
 export const Button: FC<ButtonPropsType> = forwardRef((props, ref) => {
-    const { className, children, variant, type = 'button', fullWidth, ...rest } = props;
+    const { className, children, variant, type = 'button', fullWidth, disabled = false, ...rest } = props;
 
     return (
         <button
             ref={ref}
             type={type}
             {...rest}
+            disabled={disabled}
             className={`${s.btn} ${className ?? ''} ${s[variant]} ${fullWidth && s.fullWidth}`}
         >
             {children}
