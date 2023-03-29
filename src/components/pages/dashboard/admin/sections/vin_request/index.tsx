@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { vinRequetsApi } from 'src/utils/api';
+import { vinOrderApi } from 'src/utils/api';
 import s from './index.module.scss';
 
 export const VinRequests = () => {
@@ -7,7 +7,7 @@ export const VinRequests = () => {
     console.log(data);
 
     useEffect(() => {
-        vinRequetsApi
+        vinOrderApi
             .fetchVinRequests()
             .then((response) => {
                 setData(response);
