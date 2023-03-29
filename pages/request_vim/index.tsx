@@ -3,7 +3,7 @@ import type { NextPageWithLayout } from '../_app';
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { RequestVimComp } from 'components/pages/request_vim/step_one';
-import { getLaximoData } from 'src/function/getLaximoData';
+import { getLaximoData } from 'src/helpers/getLaximoData';
 import { staticParamsApi } from 'src/utils/api';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

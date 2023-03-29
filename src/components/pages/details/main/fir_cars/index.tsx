@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { useGetFitCatalog } from 'src/hooks/laximoData/useGetFitCar';
 import { useFilterDetails } from 'src/hooks/common/useFilterDetails';
 import { useFilterSelectFitByCar } from 'src/hooks/laximoData/useFilterSelectFitByCar';
-import { getModelSwitchCondition } from 'src/function/getModelSwitchCondition';
+import { getModelSwitchCondition } from 'src/helpers/getModelSwitchCondition';
 
 export const FitCars: FC<{ dataCatalog: string; dataFilterFirstLevel: string; dataYear: string }> = ({
     dataCatalog,

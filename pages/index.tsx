@@ -6,7 +6,7 @@ import { Container } from 'components/ui/container';
 import { Home } from 'src/components/pages/home';
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { getLaximoData } from 'src/function/getLaximoData';
+import { getLaximoData } from 'src/helpers/getLaximoData';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale } = context;
