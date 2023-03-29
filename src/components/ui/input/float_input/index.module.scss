@@ -32,6 +32,10 @@
             font-size: 14px;
             left: 16px;
             font-weight: 600;
+
+            &.err{
+             color: $main;
+            }
         }
 
         & input {
@@ -44,6 +48,10 @@
             outline: none;
             box-shadow: none;
             transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+
+            &.err{
+                border: 1px solid $main;
+            }
         }
 
         i {

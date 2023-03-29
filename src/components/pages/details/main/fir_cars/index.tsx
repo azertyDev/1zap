@@ -52,7 +52,7 @@ export const FitCars: FC<{ dataCatalog: string; dataFilterFirstLevel: string; da
             {catalog && (
                 <FilterSelect
                     id={'brand'}
-                    title={t('filter:brand')}
+                    title={t('common:selects.brand')}
                     value={(brandLabel ?? '') as string}
                     fun={handleFilterBrand}
                     labelAlt={t('common:choose')}
@@ -63,7 +63,7 @@ export const FitCars: FC<{ dataCatalog: string; dataFilterFirstLevel: string; da
 
             <FilterSelect
                 id={'model'}
-                title={t('filter:model')}
+                title={t('common:selects.model')}
                 value={(modelLabel ?? '') as string}
                 fun={handleFilterFirstLevel('model', 'modelLabel')}
                 labelAlt={t('common:choose')}
@@ -73,7 +73,7 @@ export const FitCars: FC<{ dataCatalog: string; dataFilterFirstLevel: string; da
 
             <FilterSelect
                 id={'year'}
-                title={t('filter:year')}
+                title={t('common:selects.year')}
                 value={(yearLabel ?? '') as string}
                 fun={handleFilterYear}
                 labelAlt={t('common:choose')}
@@ -82,7 +82,7 @@ export const FitCars: FC<{ dataCatalog: string; dataFilterFirstLevel: string; da
 
             <FilterSelect
                 id={'region'}
-                title={t('filter:region')}
+                title={t('common:selects.region')}
                 value={(regionLabel ?? '') as string}
                 fun={handleFilterFirstLevel('region', 'regionLabel')}
                 labelAlt={t('common:choose')}

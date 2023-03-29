@@ -70,10 +70,10 @@ export const Details: FC<{
                     {((dataFindV && dataFindV.length > 0) || dataVehicle) && (
                         <>
                             <TableRow className={s.table_row}>
-                                <TableElement className={'table_h'}>{t('filter:brand')}</TableElement>
-                                <TableElement className={'table_h'}>{t('filter:modelMeaning')}</TableElement>
-                                <TableElement className={'table_h'}>{t('filter:year')}</TableElement>
-                                <TableElement className={'table_h'}>{t('filter:region')}</TableElement>
+                                <TableElement className={'table_h'}>{t('common:selects.brand')}</TableElement>
+                                <TableElement className={'table_h'}>{t('common:selects.modelMeaning')}</TableElement>
+                                <TableElement className={'table_h'}>{t('common:selects.year')}</TableElement>
+                                <TableElement className={'table_h'}>{t('common:selects.region')}</TableElement>
                                 <TableElement className={'table_h'}></TableElement>
                             </TableRow>
                         </>

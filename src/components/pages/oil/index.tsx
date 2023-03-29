@@ -58,7 +58,7 @@ export const Oil = (): JSX.Element => {
                                             <FilterSelect
                                                 id={item}
                                                 key={item}
-                                                title={t(`filter:${item}`)}
+                                                title={t(`common:selects.${item}`)}
                                                 value={(query[item] ?? '') as string}
                                                 fun={handleFilter}
                                                 labelAlt={filterData[item][0]?.label}
@@ -74,13 +74,13 @@ export const Oil = (): JSX.Element => {
             </div>
             <div className={s.table}>
                 <TableRow className={s.table_row}>
-                    <TableElement className={'table_h'}>{t('filter:manufacturers')}</TableElement>
-                    <TableElement className={'table_h'}>{t('filter:number')}</TableElement>
-                    <TableElement className={'table_h'}>{t('filter:photo')}</TableElement>
-                    <TableElement className={'table_h'}>{t('filter:nameProduct')}</TableElement>
-                    <TableElement className={'table_h'}>{t('filter:typeAndStick')}</TableElement>
-                    <TableElement className={'table_h'}>{t('filter:middlePrice')}</TableElement>
-                    <TableElement className={'table_h'}>{t('filter:offer')}</TableElement>
+                    <TableElement className={'table_h'}>{t('common:selects.manufacturers')}</TableElement>
+                    <TableElement className={'table_h'}>{t('common:selects.number')}</TableElement>
+                    <TableElement className={'table_h'}>{t('common:selects.photo')}</TableElement>
+                    <TableElement className={'table_h'}>{t('common:selects.nameProduct')}</TableElement>
+                    <TableElement className={'table_h'}>{t('common:selects.typeAndStick')}</TableElement>
+                    <TableElement className={'table_h'}>{t('common:selects.middlePrice')}</TableElement>
+                    <TableElement className={'table_h'}>{t('common:selects.offer')}</TableElement>
                 </TableRow>
                 <TableRow className={s.table_row}>
                     <TableElement className={'table_b'}>

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'next-i18next';
 import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { useStore } from 'src/store/useStore';
@@ -16,7 +16,6 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
 
     const { error, login } = useStore((state) => state, shallow);
 
-    console.log('err', error);
     const initialValues = {
         email: '',
         password: '',
@@ -34,7 +33,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
         onSubmit,
         validationSchema: client_validation.login,
     });
-    console.log(formik.errors);
+
     return (
         <div className={s.login}>
             <FormikProvider value={formik}>
@@ -45,25 +44,12 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
                     <FloatingInput {...formik.getFieldProps('password')} iconname="key" type={'password'} />
 
                     <div className={s.remember_wr}>
-                        <div className={s.remember}>
-                            <input type={'checkbox'} className={s.remember_checkbox} />
-                            <div className={s.remember_checkbox_img}>
-                                <div></div>
-                            </div>
-
-                            <p>{t('common:rememberme')}</p>
-                        </div>
                         <p className={s.fix_password} onClick={fun(2)}>
                             {t('common:tofixPassword')}
                         </p>
                     </div>
 
-                    <Button
-                        // isSubmitting={isSubmitting}
-                        fullWidth
-                        variant={'primary'}
-                        type={'submit'}
-                    >
+                    <Button fullWidth variant={'primary'} type={'submit'}>
                         {t('header:login')}
                     </Button>
                 </Form>

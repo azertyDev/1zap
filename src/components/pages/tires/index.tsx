@@ -53,7 +53,7 @@ export const Tires = (): JSX.Element => {
                                             <FilterSelect
                                                 id={item}
                                                 key={item}
-                                                title={t(`filter:${item}`)}
+                                                title={t(`common:selects.${item}`)}
                                                 value={(query[item] ?? '') as string}
                                                 fun={handleFilter}
                                                 labelAlt={filterData[item][0]?.label}

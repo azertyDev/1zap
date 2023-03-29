@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             dataFilterFirstLevel: brand ? await getLaximoData(`GetWizard2:Locale=ru_RU|Catalog=${brand}|ssd=`) : null,
             dataFind: FindVehicle ? await getLaximoData(`FindVehicle:Locale=ru_RU|IdentString=${FindVehicle}`) : null,
             dataCatalog: await getLaximoData(`ListCatalogs:Locale=en_US|ssd=`),
-            ...(await serverSideTranslations(locale as string, ['header', 'common', 'footer', 'home', 'filter'])),
+            ...(await serverSideTranslations(locale as string, ['header', 'common', 'footer', 'home'])),
         },
     };
 };

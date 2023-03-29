@@ -19,7 +19,10 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
     return (
         <div className={s.container}>
             <div>
-                <label htmlFor={field.name} className={field.value && s.filled}>
+                <label
+                    htmlFor={field.name}
+                    className={`${field.value && s.filled} ${meta.error && meta.touched ? s.err : ''}`}
+                >
                     {t(`common:${field.name}`)}
                 </label>
 
@@ -30,7 +33,7 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                         }}
                     </Field>
                 ) : (
-                    <Field {...field} {...props} />
+                    <Field {...field} {...props} className={meta.error && meta.touched ? s.err : ''} />
                 )}
 
                 {iconname && field.value.length === 0 && !meta.error ? (
