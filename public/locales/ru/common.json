@@ -74,7 +74,7 @@
   "services": "Услуги",
   "pickup": "Самовывоз",
   "сourier": "Доставка",
-  "tirefitting": "Шиномонтаж",
+  "tireFitting": "Шиномонтаж",
   "SelectionParts": "Подбор деталей",
   "monfri": "Пн - пт с {{from}} до {{to}}",
   "sunsut": "Сб - вс с {{from}} до {{to}}",
@@ -109,6 +109,9 @@
   "tires": "Шины",
   "choose": "Выбрать",
   "selects": {
+    "tireFitting": "Шиномонтаж",
+    "autoService": "Авто-сервис",
+    "partSelection": "Запчасти",
     "payment": "Способ оплаты",
     "delivery": "Способ доставки",
     "service": "Услуги",

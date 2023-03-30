@@ -4,7 +4,7 @@ import s from './index.module.scss';
 import { Icon } from 'components/ui/icon';
 import { useFormik } from 'formik';
 import { useTranslation } from 'next-i18next';
-import { getLaximoData } from 'src/function/getLaximoData';
+import { getLaximoData } from 'src/helpers/getLaximoData';
 import { useRouter } from 'next/router';
 
 export const FitParams: FC = (): JSX.Element => {

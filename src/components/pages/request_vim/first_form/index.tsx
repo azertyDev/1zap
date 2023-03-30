@@ -20,8 +20,9 @@ import { useFilterSelectFitByCar } from 'src/hooks/laximoData/useFilterSelectFit
 
 import { vinOrderApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
-import { formatValuesToSend } from 'src/function/formatValuesToSend';
-import { getModelSwitchCondition } from 'src/function/getModelSwitchCondition';
+import { formatValuesToSend } from 'src/helpers/formatValuesToSend';
+
+import { getModelSwitchCondition } from 'src/helpers/getModelSwitchCondition';
 
 export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPar: IStaticParams }> = ({
     dataCatalog,

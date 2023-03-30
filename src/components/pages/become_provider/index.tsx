@@ -1,20 +1,21 @@
 import { FC } from 'react';
-
+import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { Field, Form, FormikProvider, useFormik } from 'formik';
-
+import { applicationApi } from 'src/utils/api';
 import { Button } from 'components/ui/button';
-import { InputWrapper } from 'components/ui/input/input_wrapper';
-import { FloatingInput } from 'components/ui/input/float_input';
+
 import { SelectField } from 'components/ui/select';
 
 import { formikValues } from 'src/constants/formik_values';
+import { Field, Form, FormikProvider, useFormik } from 'formik';
+import { FloatingInput } from 'components/ui/input/float_input';
+import { InputWrapper } from 'components/ui/input/input_wrapper';
 import { client_validation } from 'src/validation/client_validation';
-import { toast } from 'react-hot-toast';
-import { applicationApi } from 'src/utils/api';
-import s from './index.module.scss';
 import { BecomeProviderHeader } from 'components/pages/become_provider/header';
-import { useRouter } from 'next/router';
+import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
+
+import s from './index.module.scss';
 
 export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
     const { t } = useTranslation();
@@ -70,14 +71,18 @@ export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar
                                 component={SelectField}
                                 name="service"
                                 label={t('common:autoService')}
-                                options={staticPar ? staticPar.service : [{ value: '', label: '' }]}
+                                options={
+                                    staticPar ? transformSelectOptions(staticPar.service) : [{ value: '', label: '' }]
+                                }
                             />
 
                             <Field
                                 component={SelectField}
                                 name="city"
                                 label={t('common:city')}
-                                options={staticPar ? staticPar.city : [{ value: '', label: '' }]}
+                                options={
+                                    staticPar ? transformSelectOptions(staticPar.city) : [{ value: '', label: '' }]
+                                }
                             />
                         </div>
                         <Button
