@@ -1,6 +1,6 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback } from 'react';
 
-import { Map, Marker, Overlay } from 'pigeon-maps';
+import { Map, Overlay } from 'pigeon-maps';
 import s from './index.module.scss';
 
 import { useTranslation } from 'next-i18next';
@@ -144,7 +144,7 @@ export const ResultMap: FC = (): JSX.Element => {
                                         <FilterSelect
                                             id={item}
                                             key={item}
-                                            title={t(`filter:${item}`)}
+                                            title={t(`common:selects.${item}`)}
                                             value={(query[item] ?? '') as string}
                                             fun={handleFilter}
                                             labelAlt={searchValue[item][0].label}

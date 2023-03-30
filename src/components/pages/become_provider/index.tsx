@@ -44,7 +44,6 @@ export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar
         },
     });
 
-    console.log(staticPar);
     return (
         <div className={s.wrapper}>
             <BecomeProviderHeader />

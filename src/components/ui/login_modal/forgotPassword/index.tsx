@@ -55,8 +55,13 @@ export const ForgotPassword: FC = (): JSX.Element => {
                         <FormikProvider value={formik}>
                             <Form>
                                 <FloatingInput {...formik.getFieldProps('email')} />
-                                <Button fullWidth variant={'primary'} type={'submit'}>
-                                    {t('header:login')}
+                                <Button
+                                    fullWidth
+                                    disabled={!formik.dirty || !formik.isValid}
+                                    variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                                    type={'submit'}
+                                >
+                                    {t('common:tofixPassword')}
                                 </Button>
                             </Form>
                         </FormikProvider>

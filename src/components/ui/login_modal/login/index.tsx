@@ -45,7 +45,12 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
                         </p>
                     </div>
 
-                    <Button fullWidth variant={'primary'} type={'submit'}>
+                    <Button
+                        fullWidth
+                        type={'submit'}
+                        disabled={!formik.dirty || !formik.isValid}
+                        variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                    >
                         {t('header:login')}
                     </Button>
                 </Form>

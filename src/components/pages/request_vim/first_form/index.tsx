@@ -21,7 +21,6 @@ import { useFilterSelectFitByCar } from 'src/hooks/laximoData/useFilterSelectFit
 import { vinOrderApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { formatValuesToSend } from 'src/function/formatValuesToSend';
-import { ImageIploadVin } from 'components/pages/request_vim/image_upload';
 import { getModelSwitchCondition } from 'src/function/getModelSwitchCondition';
 
 export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPar: IStaticParams }> = ({
@@ -155,17 +154,6 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
                                 className={`${s.textarea} ${
                                     formik.errors.description && formik.touched.description ? s.error : ''
                                 }`}
-                            />
-
-                            <ImageIploadVin
-                                imgLength={formik.values.image?.length}
-                                setVal={
-                                    formik.setFieldValue as (
-                                        field: string,
-                                        value: any,
-                                        shouldValidate?: boolean | undefined
-                                    ) => Promise<void>
-                                }
                             />
                         </div>
                     </div>

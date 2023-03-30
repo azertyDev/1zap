@@ -5,11 +5,11 @@ import { Icon } from 'components/ui/icon';
 import { useTranslation } from 'next-i18next';
 import { Completed } from 'components/ui/completed';
 
-import { Formik } from 'formik';
 import { FloatingInput } from 'components/ui/input/float_input';
 import { Button } from 'components/ui/button';
 import { IconsWrapper } from 'components/ui/icons_wrapper';
 import { client_validation } from 'src/validation/client_validation';
+import { Form, FormikProvider, useFormik } from 'formik';
 
 export const BookDetailStepTwo: FC<{
     handleOrder: (val: number) => () => void;
@@ -19,6 +19,20 @@ export const BookDetailStepTwo: FC<{
 
     const [done, setDone] = useState(false);
     const [phoneVal, setPhoneVal] = useState('');
+
+    const formik = useFormik({
+        initialValues: {
+            phone: '',
+            surname: '',
+            providerId: 2,
+            productId: 1,
+        },
+        validationSchema: client_validation.book,
+        onSubmit: async (values) => {
+            setDone(true);
+            setPhoneVal(values.phone);
+        },
+    });
 
     return (
         <div className={s.inner}>
@@ -47,59 +61,33 @@ export const BookDetailStepTwo: FC<{
                 <Completed
                     smallTitle
                     title={done ? 'thanks' : 'orderDetail'}
-                    img={
-                        <Icon
-                            size={done ? 20 : 40}
-                            name={done ? 'done' : 'email'}
-                        />
-                    }
+                    img={<Icon size={done ? 20 : 40} name={done ? 'done' : 'email'} />}
                 >
-                    <p>
-                        {done
-                            ? t('common:phoneSms', { phone: phoneVal })
-                            : t('common:smsSend')}
-                    </p>
+                    <p>{done ? t('common:phoneSms', { phone: phoneVal }) : t('common:smsSend')}</p>
                 </Completed>
                 {!done && (
                     <div className={s.book_form}>
-                        <Formik
-                            initialValues={{
-                                contactNumber: '',
-                                surname: '',
-                            }}
-                            validationSchema={client_validation.book}
-                            onSubmit={(values, { setSubmitting }) => {
-                                setDone(true);
-                                setPhoneVal(values.contactNumber);
-                                alert(JSON.stringify(values));
-                            }}
-                        >
-                            {({ handleSubmit, isSubmitting }) => (
-                                <form onSubmit={handleSubmit}>
-                                    <div className={s.inputs_wr}>
-                                        <FloatingInput name={'surname'} />
-                                        <FloatingInput
-                                            name={'contactNumber'}
-                                            isPhone
-                                        />
-                                    </div>
+                        <FormikProvider value={formik}>
+                            <Form>
+                                <div className={s.inputs_wr}>
+                                    <FloatingInput {...formik.getFieldProps('surname')} />
+                                    <FloatingInput {...formik.getFieldProps('phone')} isPhone />
+                                </div>
 
-                                    <Button
-                                        // isSubmitting={isSubmitting}
-                                        variant={'primary'}
-                                    >
-                                        {t('header:login')}
-                                    </Button>
-                                </form>
-                            )}
-                        </Formik>
+                                <Button
+                                    fullWidth
+                                    type={'submit'}
+                                    disabled={!formik.dirty || !formik.isValid}
+                                    variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                                >
+                                    {t('common:toOrder')}
+                                </Button>
+                            </Form>
+                        </FormikProvider>
                     </div>
                 )}
                 {done && (
-                    <Button
-                        onClick={toggleBookDetail(false)}
-                        variant={'primary'}
-                    >
+                    <Button onClick={toggleBookDetail(false)} fullWidth variant={'primary'}>
                         {t('common:continueSearch')}
                     </Button>
                 )}

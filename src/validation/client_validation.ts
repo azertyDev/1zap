@@ -14,8 +14,8 @@ export const client_validation = {
             .required('required'),
     }),
     book: yup.object().shape({
-        surname: yup.string().trim().min(2).required(``),
-        contactNumber: yup
+        surname: yup.string().trim().required(`required`),
+        phone: yup
             .string()
             .trim()
             .matches(/\+998 \d\d \d\d\d\d\d\d\d/, 'invalid_format')

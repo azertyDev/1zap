@@ -2,11 +2,15 @@ import React, { FC } from 'react';
 import s from './index.module.scss';
 import { Icon } from 'components/ui/icon';
 import Image from 'next/image';
-import { Map, Overlay } from 'pigeon-maps';
+
 import { MapPoint } from 'components/ui/map/map_point';
 import { Button } from 'components/ui/button';
 import { useTranslation } from 'next-i18next';
 import { IconsWrapper } from 'components/ui/icons_wrapper';
+
+import { Map, Overlay } from 'pigeon-maps';
+import { maptiler } from 'pigeon-maps/providers';
+const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
 export const BookDetailStepOne: FC<{
     handleOrder: (val: number) => () => void;
@@ -22,11 +26,15 @@ export const BookDetailStepOne: FC<{
             </div>
 
             <div className={s.map_wr_res}>
-                <Map defaultCenter={[41.31300484525912, 69.27182341706133]} defaultZoom={17}>
+                <Map
+                    provider={maptilerProvider}
+                    dprs={[1, 2]}
+                    defaultCenter={[41.31172327941058, 69.2818072781773]}
+                    defaultZoom={15}
+                >
                     <Overlay anchor={[41.31300484525912, 69.27182341706133] as [number, number]} offset={[30, 30]}>
                         <MapPoint val={1} />
                     </Overlay>
-                    <div className={s.shadow}></div>
                 </Map>
             </div>
             <div className={s.book_inner_top}>
@@ -36,7 +44,7 @@ export const BookDetailStepOne: FC<{
                     <div className={s.detail}>
                         <div className={s.detail_header}>
                             <Icon size={18} name={'call'} />
-                            <p className={s.de}>{t('contacts')}</p>
+                            <p>{t('contacts')}</p>
                         </div>
                         <div className={s.detail_content}>
                             <p>8(495)320-52-36</p>
@@ -46,7 +54,7 @@ export const BookDetailStepOne: FC<{
                     <div className={s.detail}>
                         <div className={s.detail_header}>
                             <Icon size={18} name={'local_shipping'} />
-                            <p className={s.de}>{t('delivery')}</p>
+                            <p>{t('delivery')}</p>
                         </div>
                         <div className={s.detail_content}>
                             <p>8(495)320-52-36</p>
@@ -55,7 +63,7 @@ export const BookDetailStepOne: FC<{
                     <div className={s.detail}>
                         <div className={s.detail_header}>
                             <Icon size={18} name={'watch_later'} />
-                            <p className={s.de}>{t('workTime')}</p>
+                            <p>{t('workTime')}</p>
                         </div>
                         <div className={s.detail_content}>
                             <p> {t('monfri', { from: '1', to: '2' })}</p>
@@ -71,7 +79,7 @@ export const BookDetailStepOne: FC<{
                     <div className={s.detail}>
                         <div className={s.detail_header}>
                             <Icon size={18} name={'payments'} />
-                            <p className={s.de}>{t('payment')}</p>
+                            <p>{t('payment')}</p>
                         </div>
                         <div className={s.detail_content}>
                             <p>8(495)320-52-36</p>
@@ -80,7 +88,7 @@ export const BookDetailStepOne: FC<{
                     <div className={s.detail}>
                         <div className={s.detail_header}>
                             <Icon size={18} name={'home_repair_service'} />
-                            <p className={s.de}>{t('services')}</p>
+                            <p>{t('services')}</p>
                         </div>
                         <div className={s.detail_content}>
                             <p>8(495)320-52-36</p>
@@ -92,14 +100,18 @@ export const BookDetailStepOne: FC<{
                         <Image src={'/assets/images/shop.jpg'} alt={'shop'} fill={true} />
                     </div>
                     <div className={s.map_wr}>
-                        <Map defaultCenter={[41.31300484525912, 69.27182341706133]} defaultZoom={17}>
+                        <Map
+                            provider={maptilerProvider}
+                            dprs={[1, 2]}
+                            defaultCenter={[41.31172327941058, 69.2818072781773]}
+                            defaultZoom={15}
+                        >
                             <Overlay
                                 anchor={[41.31300484525912, 69.27182341706133] as [number, number]}
                                 offset={[30, 30]}
                             >
                                 <MapPoint val={1} />
                             </Overlay>
-                            <div className={s.shadow}></div>
                         </Map>
                     </div>
                 </div>
@@ -123,7 +135,7 @@ export const BookDetailStepOne: FC<{
                     </div>
                     <p className={s.final_step_text}>PARTS-MALL</p>
                 </div>
-                <Button onClick={handleOrder(2)} variant={'primary'}>
+                <Button onClick={handleOrder(2)} variant={'primary'} fullWidth>
                     {t('toOrder')}
                 </Button>
             </div>
