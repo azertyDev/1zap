@@ -14,14 +14,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
             data: await getLaximoData('ListCatalogs:Locale=en_US|ssd='),
-            ...(await serverSideTranslations(locale as string, [
-                'header',
-                'common',
-                'footer',
-                'home',
-                'filter',
-                'helpers',
-            ])),
+            ...(await serverSideTranslations(locale as string, ['header', 'common', 'footer', 'home', 'helpers'])),
         },
     };
 };

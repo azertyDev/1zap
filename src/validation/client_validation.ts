@@ -14,8 +14,8 @@ export const client_validation = {
             .required('required'),
     }),
     book: yup.object().shape({
-        surname: yup.string().trim().min(2).required(``),
-        contactNumber: yup
+        surname: yup.string().trim().required(`required`),
+        phone: yup
             .string()
             .trim()
             .matches(/\+998 \d\d \d\d\d\d\d\d\d/, 'invalid_format')
@@ -27,6 +27,9 @@ export const client_validation = {
     }),
     loginForgot: yup.object().shape({
         email: yup.string().email('invalid_format').required('required'),
+    }),
+    search: yup.object().shape({
+        searchVal: yup.string().trim().min(4, '').required(''),
     }),
     vimRequest: yup.object().shape({
         vinNumber: yup.string().required('required'),

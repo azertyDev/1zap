@@ -4,7 +4,9 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { applicationApi } from 'src/utils/api';
 import { Button } from 'components/ui/button';
+
 import { SelectField } from 'components/ui/select';
+
 import { formikValues } from 'src/constants/formik_values';
 import { Field, Form, FormikProvider, useFormik } from 'formik';
 import { FloatingInput } from 'components/ui/input/float_input';
@@ -43,8 +45,6 @@ export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar
         },
     });
 
-    console.log(staticPar);
-
     return (
         <div className={s.wrapper}>
             <BecomeProviderHeader />
@@ -70,7 +70,7 @@ export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar
                             <Field
                                 component={SelectField}
                                 name="service"
-                                label={t('common:autoService')}
+                                label={t('common:selects.autoService')}
                                 options={
                                     staticPar ? transformSelectOptions(staticPar.service) : [{ value: '', label: '' }]
                                 }
@@ -79,7 +79,7 @@ export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar
                             <Field
                                 component={SelectField}
                                 name="city"
-                                label={t('common:city')}
+                                label={t('common:selects.city')}
                                 options={
                                     staticPar ? transformSelectOptions(staticPar.city) : [{ value: '', label: '' }]
                                 }

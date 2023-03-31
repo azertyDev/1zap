@@ -2,10 +2,10 @@ import { FC } from 'react';
 
 import s from './index.module.scss';
 import { Icon } from 'components/ui/icon';
-import { useFormik } from 'formik';
+import { useFormik, FormikProvider, Form } from 'formik';
 import { useTranslation } from 'next-i18next';
-import { getLaximoData } from 'src/helpers/getLaximoData';
 import { useRouter } from 'next/router';
+import { client_validation } from 'src/validation/client_validation';
 
 export const FitParams: FC = (): JSX.Element => {
     const { t } = useTranslation();
@@ -19,24 +19,27 @@ export const FitParams: FC = (): JSX.Element => {
         initialValues: {
             searchVal: FindVehicle ?? '',
         },
+        validationSchema: client_validation.search,
         onSubmit: async (values) => {
-            if (values.searchVal.length > 0) await push(`${pathname}?tab=1&FindVehicle=${values.searchVal}`);
+            await push(`${pathname}?tab=1&FindVehicle=${values.searchVal}`);
         },
     });
 
     return (
         <div className={s.form_wr}>
-            <form onSubmit={formik.handleSubmit}>
-                <input {...formik.getFieldProps('searchVal')} type="text" placeholder={t('common:findModelVim')!} />
-                <div className={s.search_icon_res}>
-                    <Icon size={24} name={'search'} color={'#C6303C'} />
-                </div>
+            <FormikProvider value={formik}>
+                <Form>
+                    <input {...formik.getFieldProps('searchVal')} type="text" placeholder={t('common:findModelVim')!} />
+                    <div className={s.search_icon_res}>
+                        <Icon size={24} name={'search'} color={'#C6303C'} />
+                    </div>
 
-                <button type="submit" className={s.btn}>
-                    <Icon size={18} name={'search'} color={'#323232'} />
-                    <span>{t('common:search')}</span>
-                </button>
-            </form>
+                    <button type="submit" className={s.btn}>
+                        <Icon size={18} name={'search'} color={'#323232'} />
+                        <span>{t('common:search')}</span>
+                    </button>
+                </Form>
+            </FormikProvider>
         </div>
     );
 };

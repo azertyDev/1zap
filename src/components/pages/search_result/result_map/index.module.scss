@@ -9,24 +9,29 @@
   top: 20px;
   @include w_h(100%, 425px);
   cursor: grab;
-  border: 1px solid red;
+
 
   &.active {
     height: 573px;
   }
 }
-
-
-.map_control_items_wr{
-  background: red;
-  z-index: 12;
-
-
+.shadow {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.0001) 28.82%, #FFFFFF 100%);
+  @include w_h(100%, 50%);
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
-.a{
-  background: red;
+.search_wr {
+  width: 100%;
+  z-index: 1;
+  position: relative;
+  margin-top: 305px;
 
+  &.active {
+    margin-top: 535px;
+  }
 }
 
 .search_wr {

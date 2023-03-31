@@ -2,29 +2,37 @@ import { GetServerSideProps } from 'next';
 import type { NextPageWithLayout } from './_app';
 
 import { Layout } from 'components/layout/client';
-import { Container } from 'components/ui/container';
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { SearchResult } from 'components/pages/search_result';
+import { staticParamsApi } from 'src/utils/api';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale } = context;
+    const staticPar = await staticParamsApi
+        .getParams()
+        .then((res) => res)
+        .catch((err) => null);
+
+    const filteredParam = staticPar
+        ? {
+              payment: staticPar.payment,
+              delivery: staticPar.delivery,
+              service: staticPar.service,
+              client: staticPar.client,
+          }
+        : null;
 
     return {
         props: {
-            ...(await serverSideTranslations(locale as string, [
-                'header',
-                'common',
-                'footer',
-                'home',
-                'filter',
-            ])),
+            staticPar: filteredParam,
+            ...(await serverSideTranslations(locale as string, ['header', 'common', 'footer', 'home', 'helpers'])),
         },
     };
 };
 
-const SearchResultPage: NextPageWithLayout = () => {
-    return <SearchResult />;
+const SearchResultPage: NextPageWithLayout<{ staticPar: IStaticParams }> = ({ staticPar }) => {
+    return <SearchResult staticPar={staticPar} />;
 };
 
 SearchResultPage.getLayout = function getLayout(page) {

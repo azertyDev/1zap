@@ -16,15 +16,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
             staticPar: staticPar,
-            ...(await serverSideTranslations(locale as string, [
-                'header',
-                'common',
-                'footer',
-                'home',
-                'filter',
-                'select',
-                'helpers',
-            ])),
+            ...(await serverSideTranslations(locale as string, ['header', 'common', 'footer', 'home', 'helpers'])),
         },
     };
 };

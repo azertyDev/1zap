@@ -1,12 +1,11 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
-import { Map, Marker, Overlay } from 'pigeon-maps';
+import { Map, Overlay } from 'pigeon-maps';
 import s from './index.module.scss';
 
 import { useTranslation } from 'next-i18next';
 
 import { useRouter } from 'next/router';
-import { useFormik } from 'formik';
 
 import { FilterSelections } from 'components/ui/filter/filter_selections';
 import { FilterSelect } from 'components/ui/filter/filter_selections/filter_select';
@@ -23,11 +22,14 @@ import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 import { Pagination } from 'components/ui/pagination/Pagination';
 import { useFilter } from 'src/hooks/common/useFilter';
 import { filterTitles } from 'src/constants/filterTitles';
-import { useGetFilterValues } from 'src/hooks/useGetFilterValues';
 
 import { ZoomControl } from 'components/ui/map/map_controls/zoom';
 import { maptiler } from 'pigeon-maps/providers';
 import { NoResult } from 'components/ui/no_result';
+import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
+import { selectDefaultVal } from 'src/constants/ selectDefaultVal';
+import { productsApi } from 'src/utils/api';
+import { toast } from 'react-hot-toast';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
@@ -37,47 +39,54 @@ const fakeAnchor = [
     [41.31578747810986, 69.2709021702546],
 ];
 
-export const ResultMap: FC = (): JSX.Element => {
+export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
     const { t } = useTranslation();
 
     const {
         pathname,
         push,
         query: { page },
+        query,
     } = useRouter();
 
     const { openClose: mapIsOpen, handleOpenClose: setToggleMap } = useOpenCloseWithVal();
     const { openClose: OrderDetail, handleOpenClose: setOrderDetail } = useOpenCloseWithVal();
     const { openClose: isOpenFilter, handleOpenClose: setIsOpenFilter } = useOpenCloseWithVal();
-
     const { handleFilter } = useFilter();
-    const { searchValue } = useGetFilterValues();
 
-    const { query } = useRouter();
-
-    const formik = useFormik({
-        initialValues: {
-            searchVal: '',
-        },
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
-        },
-    });
+    const handleBranchId = () => {};
 
     const handlePage = useCallback(
         (sign: string, limit: number) => async () => {
-            let a = (page ?? 1) as number;
+            let pageLoc = (page ?? 1) as number;
 
-            if (sign === '+') a >= limit ? (a = limit) : a++;
-            if (sign === '-') a <= 1 ? (a = 1) : a--;
+            if (sign === '+') pageLoc >= limit ? (pageLoc = limit) : pageLoc++;
+            if (sign === '-') pageLoc <= 1 ? (pageLoc = 1) : pageLoc;
 
             await push({
                 pathname: pathname,
-                query: { ...query, page: a },
+                query: { ...query, page: pageLoc },
             });
         },
         [query]
     );
+
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+            await productsApi
+                .getPartsNoGroup()
+                .then((res) => {
+                    setData(res);
+                })
+                .catch((err) => {
+                    toast.error('Ошибка');
+                });
+        })();
+    }, [query]);
+
+    console.log(data);
 
     return (
         <div>
@@ -92,7 +101,7 @@ export const ResultMap: FC = (): JSX.Element => {
                     {fakeAnchor.map((item, index) => {
                         return (
                             <Overlay anchor={item as [number, number]} offset={[30, 30]} key={index}>
-                                <MapItem amount={1} price={2} />
+                                <MapItem toggleBookDetail={setOrderDetail} amount={1} price={2} />
                             </Overlay>
                         );
                     })}
@@ -110,6 +119,7 @@ export const ResultMap: FC = (): JSX.Element => {
                             zIndex: 2,
                         }}
                     />
+                    <div className={s.shadow}></div>
                 </Map>
             </div>
 
@@ -122,11 +132,7 @@ export const ResultMap: FC = (): JSX.Element => {
                     />
 
                     <div className={`${s.search} ${mapIsOpen ? s.notActive : ''}`}>
-                        <InputSearch
-                            valResert={formik.resetForm}
-                            fun={formik.handleSubmit}
-                            values={formik.getFieldProps('searchVal')}
-                        />
+                        <InputSearch />
                         <div className={s.filter_for_respon}>
                             <button className={s.filter_btn}>{t('filter:price')}</button>
                             <button className={s.filter_btn}>{t('filter:howmany')}</button>
@@ -134,7 +140,7 @@ export const ResultMap: FC = (): JSX.Element => {
                                 btnText={'anotherFilter'}
                                 isOpen={isOpenFilter}
                                 toggleFilter={setIsOpenFilter}
-                                data={searchValue}
+                                data={staticPar as any}
                             />
                         </div>
                         <div className={s.filter_laptop}>
@@ -144,19 +150,23 @@ export const ResultMap: FC = (): JSX.Element => {
                                         <FilterSelect
                                             id={item}
                                             key={item}
-                                            title={t(`filter:${item}`)}
+                                            title={t(`common:selects.${item}`)}
                                             value={(query[item] ?? '') as string}
                                             fun={handleFilter}
-                                            labelAlt={searchValue[item][0].label}
-                                            options={searchValue[item]}
+                                            labelAlt={t('common:choose')}
+                                            options={
+                                                /*@ts-ignore*/
+                                                staticPar ? transformSelectOptions(staticPar[item]) : selectDefaultVal
+                                            }
                                         />
                                     );
                                 })}
                             </FilterSelections>
                         </div>
                     </div>
-                    <ResultTableForm toggleBookDetail={setOrderDetail} />
-                    <ResultTableFormResp toggleBookDetail={setOrderDetail} />
+                    {data && <ResultTableForm toggleBookDetail={setOrderDetail} data={data.data} />}
+
+                    {/*<ResultTableFormResp toggleBookDetail={setOrderDetail} />*/}
                     <Pagination pageCount={5} />
                     {/*<NoResult />*/}
                 </div>

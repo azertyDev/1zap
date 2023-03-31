@@ -15,10 +15,6 @@ export const formatValuesToSend = {
             },
         };
 
-        if (typeof values.image !== 'string') {
-            dataSend.image = values.image;
-        }
-
         return { dataSend };
     },
 };

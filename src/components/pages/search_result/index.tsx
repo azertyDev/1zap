@@ -3,10 +3,10 @@ import { ResultMap } from 'components/pages/search_result/result_map';
 
 import s from './index.module.scss';
 
-export const SearchResult: FC = (): JSX.Element => {
+export const SearchResult: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
     return (
         <main className={s.main}>
-            <ResultMap />
+            <ResultMap staticPar={staticPar} />
         </main>
     );
 };
