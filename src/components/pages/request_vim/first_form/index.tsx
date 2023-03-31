@@ -23,6 +23,7 @@ import { toast } from 'react-hot-toast';
 import { formatValuesToSend } from 'src/helpers/formatValuesToSend';
 
 import { getModelSwitchCondition } from 'src/helpers/getModelSwitchCondition';
+import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
 
 export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPar: IStaticParams }> = ({
     dataCatalog,
@@ -52,25 +53,27 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
                         break;
                     }
                 }
-            }
-            if (modelSel) {
-                for (const obj of modelSel as any) {
-                    if (obj.value === values.model) {
-                        values.model = obj.label;
-                        break;
+
+                if (modelSel) {
+                    for (const obj of modelSel as any) {
+                        if (obj.value === values.model) {
+                            values.model = obj.label;
+                            break;
+                        }
                     }
                 }
-            }
-            const { dataSend } = formatValuesToSend.createVin(values);
 
-            await vinOrderApi
-                .createOrder(dataSend)
-                .then((response) => {
-                    push('/request_vim/final_step');
-                })
-                .catch(({ response }) => {
-                    toast.error(t('helpers:error_sending'));
-                });
+                const { dataSend } = formatValuesToSend.createVin(values);
+
+                await vinOrderApi
+                    .createOrder(dataSend)
+                    .then(() => {
+                        push('/request_vim/final_step');
+                    })
+                    .catch(() => {
+                        toast.error(t('helpers:error_sending'));
+                    });
+            }
         },
     });
 
@@ -100,15 +103,15 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
                                 <Field
                                     component={SelectField}
                                     name="brand"
-                                    label={t('filter:brand')}
-                                    options={catalog ? catalog : [{ value: '', label: '' }]}
+                                    label={t('common:selects.brand')}
+                                    options={catalog ? catalog : [{ value: ' ', label: ' ' }]}
                                 />
 
                                 <InputWrapper>
                                     <Field
                                         component={SelectField}
                                         name="model"
-                                        label={t('filter:model')}
+                                        label={t('common:selects.model')}
                                         options={modelSel ? modelSel : [{ value: ' ', label: ' ' }]}
                                     />
                                 </InputWrapper>
@@ -131,8 +134,17 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
                                     <Field
                                         component={SelectField}
                                         name="payment"
-                                        label={t('filter:payment')}
-                                        options={staticPar ? staticPar.payment : [{ value: '', label: '' }]}
+                                        label={t('common:selects.payment')}
+                                        options={
+                                            staticPar
+                                                ? transformSelectOptions(staticPar.payment)
+                                                : [
+                                                      {
+                                                          value: '',
+                                                          label: '',
+                                                      },
+                                                  ]
+                                        }
                                     />
                                 </InputWrapper>
 
@@ -140,8 +152,17 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
                                     <Field
                                         component={SelectField}
                                         name="city"
-                                        label={t('filter:city')}
-                                        options={staticPar ? staticPar.city : [{ value: '', label: '' }]}
+                                        label={t('common:selects.city')}
+                                        options={
+                                            staticPar
+                                                ? transformSelectOptions(staticPar.city)
+                                                : [
+                                                      {
+                                                          value: '',
+                                                          label: '',
+                                                      },
+                                                  ]
+                                        }
                                     />
                                 </InputWrapper>
                             </div>

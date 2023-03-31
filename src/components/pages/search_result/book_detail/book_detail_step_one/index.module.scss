@@ -13,6 +13,9 @@
 .book_inner_top {
   padding: 0;
 }
+.book_inner_top_titles{
+  @include flex-items(space-between,flex-start);
+}
 
 .title {
   @include fs_fw_c(14px,700, $darkGrey);
@@ -221,11 +224,15 @@
   .final_Step_details_res {
     display: block;
   }
+
+
 }
 
 
 @media (max-width: 425px) {
-
+  .book_inner_top_titles{
+    display: none;
+  }
   .close_res {
     display: block;
   }

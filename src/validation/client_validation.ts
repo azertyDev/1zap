@@ -28,6 +28,9 @@ export const client_validation = {
     loginForgot: yup.object().shape({
         email: yup.string().email('invalid_format').required('required'),
     }),
+    search: yup.object().shape({
+        searchVal: yup.string().trim().min(4, '').required(''),
+    }),
     vimRequest: yup.object().shape({
         vinNumber: yup.string().required('required'),
         yearIssue: yup

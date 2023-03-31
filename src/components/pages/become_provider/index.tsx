@@ -70,7 +70,7 @@ export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar
                             <Field
                                 component={SelectField}
                                 name="service"
-                                label={t('common:autoService')}
+                                label={t('common:selects.autoService')}
                                 options={
                                     staticPar ? transformSelectOptions(staticPar.service) : [{ value: '', label: '' }]
                                 }
@@ -79,7 +79,7 @@ export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar
                             <Field
                                 component={SelectField}
                                 name="city"
-                                label={t('common:city')}
+                                label={t('common:selects.city')}
                                 options={
                                     staticPar ? transformSelectOptions(staticPar.city) : [{ value: '', label: '' }]
                                 }

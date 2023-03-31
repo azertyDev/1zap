@@ -26,14 +26,14 @@
     padding: 10px;
     width: 100%;
     @include fs_fw_c(14px, 600, $main);
-    transition: .5s;
+    transition: .8s;
     cursor: pointer;
 
 
     span {
       display: block;
       @include fs_fw_c(12px, 600, $main);
-
+      transition: .8s;
       &:hover {
         color: #fff;
       }

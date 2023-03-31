@@ -1,4 +1,4 @@
-import { AxiosHeaders, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { axiosInstance } from './axios';
 
 const responseBody = (response: AxiosResponse) => response.data;
@@ -36,6 +36,7 @@ export const imageApi = {
 
 export const productsApi = {
     upload: (data: any, config: {}): Promise<any> => requests.post('/products/new', data, config),
+    getPartsNoGroup: () => requests.get('/parts'),
 };
 
 export const vinOrderApi = {

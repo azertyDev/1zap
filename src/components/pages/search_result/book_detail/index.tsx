@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 
 import s from './index.module.scss';
 
@@ -11,28 +11,20 @@ export const BookDetail: FC<{
 }> = ({ toggleBookDetail }): JSX.Element => {
     const { order, handleOrder } = useStepOrder();
 
-    const handleLoginClose = () => {
+    const [data, setData] = useState(null);
+
+    const handleLoginClose = useCallback(() => {
         document.addEventListener('click', (ev: any) => {
             if (ev?.target?.id === 'book_wr') {
                 toggleBookDetail(false)();
             }
         });
-    };
+    }, []);
 
     return (
         <div className={s.book_wr} id={'book_wr'} onClick={handleLoginClose}>
-            {order === 1 && (
-                <BookDetailStepOne
-                    handleOrder={handleOrder}
-                    handleOpen={toggleBookDetail}
-                />
-            )}
-            {order === 2 && (
-                <BookDetailStepTwo
-                    handleOrder={handleOrder}
-                    toggleBookDetail={toggleBookDetail}
-                />
-            )}
+            {order === 1 && <BookDetailStepOne handleOrder={handleOrder} toggleBookDetail={toggleBookDetail} />}
+            {order === 2 && <BookDetailStepTwo handleOrder={handleOrder} toggleBookDetail={toggleBookDetail} />}
         </div>
     );
 };

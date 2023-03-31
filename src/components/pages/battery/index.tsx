@@ -57,6 +57,7 @@ export const Battery = (): JSX.Element => {
                                                 fun={handleFilter}
                                                 labelAlt={filterData[item][0]?.label}
                                                 options={filterData[item]}
+                                                isTranslated
                                             />
                                         );
                                     })}

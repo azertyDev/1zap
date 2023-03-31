@@ -10,17 +10,18 @@ import { IconsWrapper } from 'components/ui/icons_wrapper';
 
 import { Map, Overlay } from 'pigeon-maps';
 import { maptiler } from 'pigeon-maps/providers';
+
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
 export const BookDetailStepOne: FC<{
     handleOrder: (val: number) => () => void;
-    handleOpen: (val: boolean) => () => void;
-}> = ({ handleOrder, handleOpen }): JSX.Element => {
+    toggleBookDetail: (val: boolean) => () => void;
+}> = ({ handleOrder, toggleBookDetail }): JSX.Element => {
     const { t } = useTranslation();
     return (
         <div className={s.book_inner}>
             <div className={s.close_res}>
-                <IconsWrapper size={'medium'} onClick={handleOpen(false)}>
+                <IconsWrapper size={'medium'} onClick={toggleBookDetail(false)}>
                     <Icon size={18} name={'chevron_left'} />
                 </IconsWrapper>
             </div>
@@ -38,8 +39,16 @@ export const BookDetailStepOne: FC<{
                 </Map>
             </div>
             <div className={s.book_inner_top}>
-                <h4 className={s.title}>Auto Zona Group</h4>
-                <h5 className={s.subtitle}>117405, Россия, Москва, ш. Варшавское 170-Б</h5>
+                <div className={s.book_inner_top_titles}>
+                    <div>
+                        <h4 className={s.title}>Auto Zona Group</h4>
+                        <h5 className={s.subtitle}>117405, Россия, Москва, ш. Варшавское 170-Б</h5>
+                    </div>
+                    <div onClick={toggleBookDetail(false)}>
+                        <Icon size={20} name={'close'} />
+                    </div>
+                </div>
+
                 <div className={s.details_wr}>
                     <div className={s.detail}>
                         <div className={s.detail_header}>

@@ -15,16 +15,11 @@ export const FilterResponsive: FC<{
     data: { [val: string]: { value: string; label: string }[] };
 }> = ({ btnText, isOpen, toggleFilter, data }): JSX.Element => {
     const { t } = useTranslation();
-    const { handleSubmitFilter, handleFilter, filterVal } =
-        useFilterRespons(toggleFilter);
+    const { handleSubmitFilter, handleFilter, filterVal } = useFilterRespons(toggleFilter);
 
     return (
         <div className={s.filter_wr}>
-            <button
-                className={s.btn_title}
-                type={'button'}
-                onClick={toggleFilter(true)}
-            >
+            <button className={s.btn_title} type={'button'} onClick={toggleFilter(true)}>
                 {t(`common:${btnText}`)}
             </button>
 
@@ -35,11 +30,7 @@ export const FilterResponsive: FC<{
                         <p>{t('common:filter')}</p>
                     </div>
 
-                    <button
-                        type={'button'}
-                        className={s.cancel}
-                        onClick={toggleFilter(false)}
-                    >
+                    <button type={'button'} className={s.cancel} onClick={toggleFilter(false)}>
                         {t('common:cancel')}
                     </button>
                 </div>
@@ -48,7 +39,7 @@ export const FilterResponsive: FC<{
                         Object.entries(data).map((item) => {
                             return (
                                 <li className={s.filter_item} key={item[0]}>
-                                    <span>{t(`filter:${item[0]}`)}</span>
+                                    <span>{t(`common:selects.${item[0]}`)}</span>
                                     <Image
                                         src={'/assets/icons/arrow_filter.svg'}
                                         alt={'arrow'}
@@ -56,22 +47,11 @@ export const FilterResponsive: FC<{
                                         height={12}
                                     />
 
-                                    <input
-                                        type={'checkbox'}
-                                        id={item[0]}
-                                        className={s.subitem_input}
-                                    />
+                                    <input type={'checkbox'} id={item[0]} className={s.subitem_input} />
 
-                                    <ul
-                                        className={s.item_subitems}
-                                        id={'subitem'}
-                                    >
+                                    <ul className={s.item_subitems} id={'subitem'}>
                                         <li className={s.item_subitem_header}>
-                                            <div
-                                                className={
-                                                    s.item_subitem_header_arr
-                                                }
-                                            >
+                                            <div className={s.item_subitem_header_arr}>
                                                 <svg
                                                     width="7"
                                                     height="10"
@@ -84,51 +64,29 @@ export const FilterResponsive: FC<{
                                                         fill="#0D0A19"
                                                     />
                                                 </svg>
-                                                <label htmlFor={item[0]}>
-                                                    {t(`filter:${item[0]}`)}
-                                                </label>
+                                                <label htmlFor={item[0]}>{t(`common:selects.${item[0]}`)}</label>
                                             </div>
 
-                                            <button
-                                                type={'button'}
-                                                className={s.cancel}
-                                                onClick={toggleFilter(false)}
-                                            >
+                                            <button type={'button'} className={s.cancel} onClick={toggleFilter(false)}>
                                                 {t('common:cancel')}
                                             </button>
                                         </li>
 
                                         {item[1].map((subitem) => {
                                             return (
-                                                <li
-                                                    className={s.item_subitem}
-                                                    key={subitem.value}
-                                                >
+                                                <li className={s.item_subitem} key={subitem.value}>
                                                     <input
                                                         type={'radio'}
                                                         onChange={handleFilter({
-                                                            [item[0]]:
-                                                                subitem.value,
+                                                            [item[0]]: subitem.value,
                                                         })}
-                                                        checked={
-                                                            filterVal[
-                                                                item[0]
-                                                            ] === subitem.value
-                                                        }
+                                                        checked={filterVal[item[0]] === subitem.value}
                                                         name={item[0]}
                                                     />
-                                                    <div
-                                                        className={
-                                                            s.item_subitem_img
-                                                        }
-                                                    >
-                                                        <Icon
-                                                            size={13}
-                                                            name={'done'}
-                                                            style={s.icon}
-                                                        />
+                                                    <div className={s.item_subitem_img}>
+                                                        <Icon size={13} name={'done'} style={s.icon} />
                                                     </div>
-                                                    <span>{subitem.label}</span>
+                                                    <span>{t(`common:selects.${subitem.label}`)}</span>
                                                 </li>
                                             );
                                         })}
@@ -138,11 +96,7 @@ export const FilterResponsive: FC<{
                         })}
                 </ul>
                 <div className={s.submit_btn}>
-                    <Button
-                        variant={'primary'}
-                        type={'button'}
-                        onClick={handleSubmitFilter}
-                    >
+                    <Button variant={'primary'} type={'button'} onClick={handleSubmitFilter} fullWidth>
                         Применить
                     </Button>
                 </div>
