@@ -4,6 +4,8 @@ interface IUser {
     email?: string;
     role?: string;
     isActive?: boolean;
+    phone?: string | null;
+    companyName?: string | null;
 }
 
 interface IUserData {

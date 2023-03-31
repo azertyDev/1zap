@@ -20,7 +20,7 @@ export const Header: FC = (): JSX.Element => {
     const token = Cookies.get('token');
     const [signedIn, setSignedIn] = useState<boolean>(false);
 
-    const isAdmin = userData?.user.role === 'admin';
+    const isAdmin = userData?.user.role === 'admin' || userData?.user.role === 'moderator';
 
     useEffect(() => {
         setSignedIn(!!token);
@@ -40,7 +40,7 @@ export const Header: FC = (): JSX.Element => {
                         <ExchangeRate />
                         <Language />
                         {signedIn ? (
-                            <Link href={isAdmin ? '/dashboard/main' : '/dashboard/merchant'} className={s.text}>
+                            <Link href={isAdmin ? '/dashboard/main' : '/cabinet/main'} className={s.text}>
                                 {userData?.user.fullName}
                             </Link>
                         ) : (

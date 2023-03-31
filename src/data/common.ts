@@ -1,93 +1,42 @@
 export const dashboardMenu = [
-    { id: 0, name: 'main', icon: 'timelapse' },
-    { id: 2, name: 'providers', icon: 'person' },
-    // { id: 3, name: 'promo', icon: 'label' },
+    { id: Math.random(), name: 'providers', icon: 'person' },
+    { id: Math.random(), name: 'income', icon: 'inbox' },
+    { id: Math.random(), name: 'promo', icon: 'label' },
+    { id: Math.random(), name: 'vin-requests', icon: 'inbox' },
+    { id: Math.random(), name: 'operations', icon: 'view_day' },
+    // { id: 0, name: 'main', icon: 'timelapse' },
     // { id: 4, name: 'profile', icon: 'person' },
     // { id: 5, name: 'balance', icon: 'payments' },
     // { id: 6, name: 'statistics', icon: 'bar_chart' },
-    { id: 7, name: 'price-list', icon: 'inventory_2' },
+    // { id: 7, name: 'price-list', icon: 'inventory_2' },
     // { id: 8, name: 'upload_products', icon: 'save_alt' },
-    // { id: 9, name: 'incoming_requests', icon: 'inbox' },
     // { id: 10, name: 'support', icon: 'headset_mic' },
-    { id: 11, name: 'vin-requests', icon: 'inbox' },
 ];
 
-export const overviewData = [
-    {
-        id: 1,
-        heading: 'Баланс',
-        body: '1,000 монет',
-        footer: 'До 01.01.23',
-        icon: 'payments',
-    },
-    {
-        id: 2,
-        heading: 'Переходов',
-        body: '2,354',
-        footer: '+123 Сегодня',
-        icon: 'ads_click',
-    },
-    {
-        id: 3,
-        heading: 'Товаров',
-        body: '13,213',
-        footer: 'Обновление 3 дня назад',
-        icon: 'inventory_2',
-    },
-    {
-        id: 4,
-        heading: 'Запросов',
-        body: '503',
-        footer: '+13 Сегодня',
-        icon: 'inbox',
-    },
-];
-
-export const balanceCardsData = [
-    {
-        id: 1,
-        heading: '160.000 сум',
-        body: '100 Монет',
-        footer: '1400 сум за просмотр',
-        icon: 'payments',
-    },
-    {
-        id: 2,
-        heading: '350.000 сум',
-        body: '250 Монет',
-        footer: '1400 сум за просмотр',
-        icon: 'payments',
-    },
-    {
-        id: 3,
-        heading: '350.000 сум',
-        body: '250 Монет',
-        footer: '1400 сум за просмотр',
-        icon: 'payments',
-    },
-    {
-        id: 4,
-        heading: '350.000 сум',
-        body: '250 Монет',
-        footer: '1400 сум за просмотр',
-        icon: 'payments',
-    },
+export const cabinetMenu = [
+    { id: Math.random(), name: 'main', icon: 'timelapse' },
+    { id: Math.random(), name: 'balance', icon: 'payments' },
+    { id: Math.random(), name: 'promo', icon: 'label' },
+    { id: Math.random(), name: 'statistics', icon: 'bar_chart' },
+    { id: Math.random(), name: 'price-list', icon: 'inventory_2' },
+    { id: Math.random(), name: 'incoming_requests', icon: 'inbox' },
+    { id: Math.random(), name: 'support', icon: 'headset_mic' },
 ];
 
 export const linksData = [
-    {
-        id: 1,
-        link: '#',
-        icon: 'person',
-        title: 'Общая информация',
-        desc: 'Контактные данные, адреса',
-    },
     {
         id: 2,
         link: '#',
         icon: 'account_balance',
         title: 'Реквизиты',
         desc: 'Обновление реквизитов',
+    },
+    {
+        id: 1,
+        link: '#',
+        icon: 'person',
+        title: 'Общая информация',
+        desc: 'Контактные данные, адреса',
     },
     {
         id: 3,

@@ -9,5 +9,6 @@
     "image_err_add": "Ошибка при отправки фотографии!",
     "image_err_del": "Ошибка при удалении фотографии!",
     "data_err": "Неверные данные!",
-    "data_err_empty": ""
+    "empty_excel_file": "Пустой файл",
+    "type_and_file_mismatches": "Тип товара не соответствует типу файла"
 }

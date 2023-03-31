@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
-import { Main } from './admin/sections/main';
-import { Profile } from './admin/sections/profile';
-import { Balance } from './admin/sections/balance';
-import { Statistics } from './admin/sections/statistics';
-import { Providers } from './admin/sections/providers';
-import { PromoPage } from './admin/sections/promo';
-import { PriceList } from './admin/sections/price_list';
-import { VinRequests } from './admin/sections/vin_request';
+import { Main } from './sections/main';
+import { Profile } from './sections/profile';
+import { Balance } from './sections/balance';
+import { Statistics } from './sections/statistics';
+import { Providers } from './sections/providers';
+import { PromoPage } from './sections/promo';
+import { PriceList } from './sections/price_list';
+import { VinRequests } from './sections/vin_request';
 import Header from 'src/components/ui/dashboard/header';
 import BottomFooter from 'src/components/widgets/footer/bottom_footer';
 import s from './index.module.scss';
@@ -19,16 +19,6 @@ export default (props: PropsType): JSX.Element => {
 
     const page = () => {
         switch (asPath) {
-            case '/dashboard/main':
-                return <Main />;
-            case `/dashboard/profile`:
-                return <Profile />;
-            case `/dashboard/balance`:
-                return <Balance />;
-            case `/dashboard/statistics`:
-                return <Statistics />;
-            case `/dashboard/price-list`:
-                return <PriceList />;
             case `/dashboard/providers`:
                 return <Providers />;
             case `/dashboard/promo`:
@@ -36,7 +26,7 @@ export default (props: PropsType): JSX.Element => {
             case `/dashboard/vin-requests`:
                 return <VinRequests />;
             default:
-                return 'Page not found';
+                return 'Страница не найдена';
         }
     };
 

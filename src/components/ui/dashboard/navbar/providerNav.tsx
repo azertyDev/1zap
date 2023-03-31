@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { Icon } from 'src/components/ui/icon';
 import { Logo } from 'src/components/ui/logo';
-import { dashboardMenu } from 'src/data/common';
+import { cabinetMenu } from 'src/data/common';
 import { useStore } from 'src/store/useStore';
 import s from './index.module.scss';
 
@@ -15,7 +15,6 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
     const {
         query: { slug },
     } = useRouter();
-
     const { logout } = useStore();
 
     return (
@@ -25,7 +24,7 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
             </Link>
             <div className={s.menu}>
                 <ul>
-                    <Link href="/dashboard/main" className={slug === dashboardMenu[0].name ? s.active : ''}>
+                    <Link href="/cabinet/main" className={slug === cabinetMenu[0].name ? s.active : ''}>
                         <li>
                             <Icon name="timelapse" size={22} />
                             {t('dashboard:main')}
@@ -33,11 +32,11 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                     </Link>
 
                     <p>{t('dashboard:profile_work')}</p>
-                    {dashboardMenu.slice(1, 4).map((item) => {
+                    {cabinetMenu.slice(1, 4).map((item) => {
                         return (
                             <Link
                                 key={item.id}
-                                href={`/dashboard/${item.name}`}
+                                href={`/cabinet/${item.name}`}
                                 className={slug === item.name ? s.active : ''}
                             >
                                 <li>
@@ -48,11 +47,11 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                         );
                     })}
                     <p>{t('common:position_work')}</p>
-                    {dashboardMenu.slice(4, 15).map((item) => {
+                    {cabinetMenu.slice(4, 15).map((item) => {
                         return (
                             <Link
                                 key={item.id}
-                                href={`/dashboard/${item.name}`}
+                                href={`/cabinet/${item.name}`}
                                 className={slug === item.name ? s.active : ''}
                                 shallow
                             >

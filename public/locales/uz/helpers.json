@@ -8,5 +8,7 @@
     "image_del": "Surat olib tashlandi!",
     "image_err_add": "Surat yuborishda xatolik yuz berdi!",
     "image_err_del": "Suratni oʻchirishda xatolik yuz berdi!",
-    "data_err": "Noto'g'ri ma'lumotlar!"
+    "data_err": "Noto'g'ri ma'lumotlar!",
+    "empty_excel_file": "Пустой файл",
+    "type_and_file_mismatches": "Тип товара не соответствует типу файла"
 }

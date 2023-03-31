@@ -1,0 +1,35 @@
+@import 'styles/mixins';
+@import 'styles/variables.scss';
+
+.wrapper {
+    height: 100%;
+
+    div.counters {
+        gap: 40px;
+        display: flex;
+        margin-bottom: 40px;
+
+        div.counter {
+            width: 285px;
+            display: flex;
+            padding: 8px 22px;
+            font-size: 0.875rem;
+            border-radius: 10px;
+            justify-content: space-between;
+            box-shadow: 0px 8px 12px 0px #999ba826;
+
+            p {
+                font-weight: 700;
+            }
+
+            & > div {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+
+    div.overview {
+        margin-bottom: 60px;
+    }
+}

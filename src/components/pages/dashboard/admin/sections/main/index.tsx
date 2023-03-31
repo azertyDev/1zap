@@ -1,9 +1,8 @@
 import { useStore } from 'src/store/useStore';
-import { linksData, overviewData } from 'src/data/common';
+import { linksData } from 'src/data/common';
 import { InfoLinks } from 'src/components/ui/dashboard/info_links';
-import { OverviewBlock } from 'src/components/ui/dashboard/overview_block';
-import s from './index.module.scss';
 import { Avatar } from 'src/components/ui/avatar';
+import s from './index.module.scss';
 
 export const Main = () => {
     const { userData } = useStore();
@@ -22,8 +21,6 @@ export const Main = () => {
                     <h3 className={s.info_phone}>+998332255195</h3>
                 </div>
             </div>
-
-            <OverviewBlock data={overviewData} />
 
             <hr />
 

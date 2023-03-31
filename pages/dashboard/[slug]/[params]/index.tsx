@@ -2,8 +2,8 @@ import type { NextPageWithLayout } from 'pages/_app';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Layout } from 'src/components/layout/admin';
-import { CreateProvider } from 'src/components/pages/dashboard/admin/sections/providers/create';
+import { Layout } from 'src/components/layout/dashboard';
+import { CreateProvider } from 'src/components/pages/dashboard/cabinet/sections/providers/create';
 import Header from 'src/components/ui/dashboard/header';
 import Bottom_footer from 'src/components/widgets/footer/bottom_footer';
 

@@ -1,0 +1,44 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.wrapper {
+    margin: 0;
+
+    div.actionBtns {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+}
+
+.modalHeader {
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.modalContent {
+    form {
+        & > div.form__group {
+            gap: 30px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(200px, 1fr));
+            grid-template-rows: repeat(3, 1fr);
+            margin-bottom: 20px;
+        }
+
+        & .payment_type {
+            & > p {
+                margin-bottom: 15px;
+            }
+            & .checkbox__group {
+                display: flex;
+                gap: 20px;
+                margin-bottom: 30px;
+            }
+        }
+    }
+    .modalButtons {
+        display: flex;
+        gap: 30px;
+    }
+}

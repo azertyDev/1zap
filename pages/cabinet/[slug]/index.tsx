@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Layout } from 'src/components/layout/dashboard';
 import dynamic from 'next/dynamic';
 
-const DynamicDashboardContent = dynamic(() => import('src/components/pages/dashboard/admin'), {
+const ClientContent = dynamic(() => import('src/components/pages/dashboard/cabinet'), {
     ssr: false,
 });
 
@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const Dashboard: NextPageWithLayout = (props: any) => {
-    return <DynamicDashboardContent {...props} />;
+    return <ClientContent {...props} />;
 };
 
 Dashboard.getLayout = function getLayout(page) {

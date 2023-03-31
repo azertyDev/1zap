@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Column } from 'react-table';
 import { Button } from 'src/components/ui/button';
@@ -10,7 +9,7 @@ import { useModal } from 'src/hooks/common/useModal';
 import { vinOrderApi } from 'src/utils/api';
 import s from './index.module.scss';
 
-export const VinRequests = () => {
+export const IncominRequests = () => {
     const [data, setData] = useState<any>();
     const { open, handleModalClose, handleModalOpen } = useModal(false);
 
@@ -18,7 +17,7 @@ export const VinRequests = () => {
 
     useEffect(() => {
         vinOrderApi
-            .fetchVinRequests('moderation')
+            .fetchVinRequests()
             .then((response) => {
                 setData(response);
             })

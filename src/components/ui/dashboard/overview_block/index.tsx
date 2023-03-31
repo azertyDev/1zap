@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { ReactNode } from 'react';
 import { Icon } from 'src/components/ui/icon';
 import { IconsWrapper } from 'src/components/ui/icons_wrapper';
@@ -10,7 +11,7 @@ export const OverviewBlock = ({ data, title }: { data: any; title?: ReactNode })
             <div className={s.overviews}>
                 {data.map((overview: any) => {
                     return (
-                        <div className={s.item} key={overview.id}>
+                        <Link href={overview.link} className={s.item} key={overview.id}>
                             <div className={s.header}>
                                 <IconsWrapper size="big" variant="rounded" aria-label="icon">
                                     <Icon name={overview.icon} size={22} />
@@ -19,7 +20,7 @@ export const OverviewBlock = ({ data, title }: { data: any; title?: ReactNode })
                             </div>
                             <div className={s.description}>{overview.body}</div>
                             <div className={s.footer}>{overview.footer}</div>
-                        </div>
+                        </Link>
                     );
                 })}
             </div>
