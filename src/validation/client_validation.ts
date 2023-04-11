@@ -14,7 +14,7 @@ export const client_validation = {
             .required('required'),
     }),
     book: yup.object().shape({
-        surname: yup.string().trim().required(`required`),
+        name: yup.string().trim().required(`required`),
         phone: yup
             .string()
             .trim()
@@ -29,7 +29,7 @@ export const client_validation = {
         email: yup.string().email('invalid_format').required('required'),
     }),
     search: yup.object().shape({
-        searchVal: yup.string().trim().min(4, '').required(''),
+        searchVal: yup.string().trim().min(1, '').required(''),
     }),
     vimRequest: yup.object().shape({
         vinNumber: yup.string().required('required'),

@@ -80,3 +80,13 @@ input {
   color: $main;
   font-size: 0.875rem;
 }
+
+.swiper-pagination-bullet-active{
+  background: $main;
+}
+
+@media (max-width:768px) {
+  .pigeon-zoom-buttons{
+    display: none!important;
+  }
+}

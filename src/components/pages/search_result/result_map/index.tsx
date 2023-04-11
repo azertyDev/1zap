@@ -33,50 +33,29 @@ import { toast } from 'react-hot-toast';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
-const fakeAnchor = [
-    [41.31240320650527, 69.27836058056674],
-    [41.312801603213416, 69.28121824199522],
-    [41.31578747810986, 69.2709021702546],
-];
-
 export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
     const { t } = useTranslation();
-
     const {
         pathname,
         push,
-        query: { page },
+        locale,
+        query: { page, id, payment, delivery, service, client },
         query,
     } = useRouter();
 
     const { openClose: mapIsOpen, handleOpenClose: setToggleMap } = useOpenCloseWithVal();
-    const { openClose: OrderDetail, handleOpenClose: setOrderDetail } = useOpenCloseWithVal();
     const { openClose: isOpenFilter, handleOpenClose: setIsOpenFilter } = useOpenCloseWithVal();
     const { handleFilter } = useFilter();
 
-    const handleBranchId = () => {};
-
-    const handlePage = useCallback(
-        (sign: string, limit: number) => async () => {
-            let pageLoc = (page ?? 1) as number;
-
-            if (sign === '+') pageLoc >= limit ? (pageLoc = limit) : pageLoc++;
-            if (sign === '-') pageLoc <= 1 ? (pageLoc = 1) : pageLoc;
-
-            await push({
-                pathname: pathname,
-                query: { ...query, page: pageLoc },
-            });
-        },
-        [query]
-    );
-
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<{ data: IProduct[]; totalPages: number } | null>(null);
 
     useEffect(() => {
         (async () => {
             await productsApi
-                .getPartsNoGroup()
+                // @ts-ignore
+                .getProductsNoGroup(
+                    `page=${page ?? 1}&lang=${locale}&filter=${id}${payment ? `&payment=${payment}` : ''}`
+                )
                 .then((res) => {
                     setData(res);
                 })
@@ -86,7 +65,22 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
         })();
     }, [query]);
 
-    console.log(data);
+    const handlePage = useCallback(
+        (sign: string) => async () => {
+            let pageLoc = (page ?? 1) as number;
+
+            if (data) {
+                if (sign === '+') pageLoc >= data.totalPages ? (pageLoc = data.totalPages) : pageLoc++;
+                if (sign === '-') pageLoc <= 1 ? (pageLoc = 1) : pageLoc--;
+            }
+
+            await push({
+                pathname: pathname,
+                query: { ...query, page: pageLoc },
+            });
+        },
+        [query]
+    );
 
     return (
         <div>
@@ -98,13 +92,25 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                     defaultZoom={15}
                     boxClassname={s.map}
                 >
-                    {fakeAnchor.map((item, index) => {
-                        return (
-                            <Overlay anchor={item as [number, number]} offset={[30, 30]} key={index}>
-                                <MapItem toggleBookDetail={setOrderDetail} amount={1} price={2} />
-                            </Overlay>
-                        );
-                    })}
+                    {data &&
+                        data.data
+                            .map((item) => item.location)
+                            .map((item, index) => {
+                                return (
+                                    <Overlay anchor={JSON.parse(item.coordination)} offset={[30, 30]} key={index}>
+                                        <MapItem
+                                            amount={item.availability}
+                                            price={{
+                                                sum: item.sum,
+                                                usd: item.usd,
+                                            }}
+                                            branchId={item.branchId}
+                                            productId={item.productId}
+                                            providerId={item.providerId}
+                                        />
+                                    </Overlay>
+                                );
+                            })}
 
                     <ZoomControl
                         isClient
@@ -164,15 +170,15 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                             </FilterSelections>
                         </div>
                     </div>
-                    {data && <ResultTableForm toggleBookDetail={setOrderDetail} data={data.data} />}
+                    {data && <ResultTableForm data={data.data} />}
+                    {data && <ResultTableFormResp data={data.data} />}
 
-                    {/*<ResultTableFormResp toggleBookDetail={setOrderDetail} />*/}
-                    <Pagination pageCount={5} />
-                    {/*<NoResult />*/}
+                    {data && data.data.length > 0 && <Pagination pageCount={data.totalPages} />}
+                    {data && data.data.length === 0 && <NoResult />}
                 </div>
             </Container>
 
-            {OrderDetail && <BookDetail toggleBookDetail={setOrderDetail} />}
+            <BookDetail />
         </div>
     );
 };

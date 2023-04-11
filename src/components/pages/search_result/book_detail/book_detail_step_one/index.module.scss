@@ -13,16 +13,17 @@
 .book_inner_top {
   padding: 0;
 }
-.book_inner_top_titles{
-  @include flex-items(space-between,flex-start);
+
+.book_inner_top_titles {
+  @include flex-items(space-between, flex-start);
 }
 
 .title {
-  @include fs_fw_c(14px,700, $darkGrey);
+  @include fs_fw_c(14px, 700, $darkGrey);
 }
 
 .subtitle {
-  @include fs_fw_c(12px,700, $darkGrey);
+  @include fs_fw_c(12px, 700, $darkGrey);
 }
 
 .details_wr {
@@ -48,7 +49,7 @@
   @include flex-items(stretch, center);
 
   p {
-    @include fs_fw_c(14px,500, $darkGrey);
+    @include fs_fw_c(14px, 500, $darkGrey);
     margin-left: 5px;
   }
 
@@ -59,7 +60,7 @@
 
 .detail_content {
   p {
-    @include fs_fw_c(12px,400, $secondary);
+    @include fs_fw_c(12px, 400, $secondary);
   }
 }
 
@@ -76,11 +77,16 @@
 }
 
 .photo_wr {
-  position: relative;
   @include w_mw__h(185px, 185px, 150px);
   border-radius: 8px;
   overflow: hidden;
   margin-right: 17px;
+  cursor: pointer;
+}
+
+.photo_wr_imgs {
+  @include w_mw__h(185px, 185px, 150px);
+  position: relative;
 }
 
 .map_wr {
@@ -132,12 +138,12 @@
 }
 
 .final_step_title {
-  @include fs_fw_c(14px,700, $secondary);
+  @include fs_fw_c(14px, 700, $secondary);
   margin-bottom: 3px;
 }
 
 .final_step_text {
-  @include fs_fw_c(12px,400, $text);
+  @include fs_fw_c(12px, 400, $text);
 }
 
 .final_Step_details_res {
@@ -230,7 +236,7 @@
 
 
 @media (max-width: 425px) {
-  .book_inner_top_titles{
+  .book_inner_top_titles {
     display: none;
   }
   .close_res {

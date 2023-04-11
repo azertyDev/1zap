@@ -4,39 +4,54 @@ import s from './index.module.scss';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { Icon } from 'components/ui/icon';
+import { useStore } from 'src/store/useStore';
+import { formatPrice } from 'src/helpers/formatPrice';
 
-export const ResultTableFormResp: FC<{
-    toggleBookDetail: (val: boolean) => () => void;
-}> = ({ toggleBookDetail }): JSX.Element => {
+export const ResultTableFormResp: FC<{ data: IProduct[] }> = ({ data }): JSX.Element => {
     const { t } = useTranslation();
-
+    const { toggleBookDetail, currency } = useStore((state) => state);
     return (
-        <div className={s.table_wr}>
-            <div className={s.table}>
-                <div className={s.titles_big_wr}>
-                    <p className={s.titles_big}>PARTS-MALL</p>
-                    <p className={s.titles_big}>PBA-001</p>
-                </div>
-                <div className={s.info_wr}>
-                    <p className={s.titles_small}>1 млн</p>
-                    <p className={s.titles_small}>177 {t('common:howmany')}</p>
-                    <p className={s.titles_small}>{t('common:wehave')}</p>
-                    <p className={`${s.titles_small} ${s.info_img}`}>
-                        <Icon size={14} name={'autorenew'} color={'#0D0A19'} />
-                        <span>24{t('common:hourago')}</span>
-                    </p>
-                </div>
-                <p className={s.text}>{t('common:onezapmust')}</p>
-                <p className={s.titles_small}>PBA001PMC_фильтр масляный!\ Mazda 323/3/626, Nissan Primera 1.3-2.2 89</p>
+        <>
+            {data.map((item) => {
+                return (
+                    <div className={s.table_wr} key={item.id}>
+                        <div className={s.table}>
+                            <div className={s.titles_big_wr}>
+                                <p className={s.titles_big}>{item.manufacturer}L</p>
+                                <p className={s.titles_big}>{item.uniqNumber}</p>
+                            </div>
+                            <div className={s.info_wr}>
+                                <p className={s.titles_small}>
+                                    {currency === 'usd' ? `$${item.usd}` : `${formatPrice(String(item.sum))} сум`}
+                                </p>
+                                <p className={s.titles_small}>
+                                    {item.availability} {t('common:howmany')}
+                                </p>
+                                <p className={s.titles_small}>
+                                    {item.availability > 0 ? t('common:wehave') : t('common:wedonthave')}
+                                </p>
+                                <p className={`${s.titles_small} ${s.info_img}`}>
+                                    <Icon size={14} name={'autorenew'} color={'#0D0A19'} />
+                                    <span>24{t('common:hourago')}</span>
+                                </p>
+                            </div>
+                            <p className={s.text}>{item.ltext}</p>
+                            <p className={s.titles_small}>{item.description}</p>
 
-                <p className={s.text}>{t('common:onezapmust')}</p>
-                <div className={s.order_wr}>
-                    <p className={s.titles_big}>Ифтихор, 77</p>
-                    <button type={'button'} onClick={toggleBookDetail(true)}>
-                        {t('common:opencontact')}
-                    </button>
-                </div>
-            </div>
-        </div>
+                            <p className={s.text}>{item.rtext}</p>
+                            <div className={s.order_wr}>
+                                <p className={s.titles_big}>{item.landmark}</p>
+                                <button
+                                    type={'button'}
+                                    onClick={toggleBookDetail(true, item.branchId, item.id, item.providerId)}
+                                >
+                                    {t('common:opencontact')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            })}
+        </>
     );
 };

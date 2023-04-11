@@ -29,6 +29,10 @@ export const providerApi = {
     fetchBranchById: (id: number): Promise<any> => requests.get(`/provider/branch/${id}`),
 };
 
+export const branchApi = {
+    getBranchById: (id: number) => requests.get(`/branch/${id}`),
+};
+
 export const imageApi = {
     upload: (data: any, config: {}): Promise<any> => requests.post(`/images`, data, config),
     delete: (id: number): Promise<any> => requests.delete(`/images/${id}`),
@@ -36,7 +40,8 @@ export const imageApi = {
 
 export const productsApi = {
     upload: (data: any, config: {}): Promise<any> => requests.post('/products/new', data, config),
-    getPartsNoGroup: () => requests.get('/parts'),
+    getProductsNoGroup: (params: any) => requests.get(`/branchs?${params}`),
+    getPieceProduct: (id: number) => requests.get(`/piece/${id}`),
 };
 
 export const vinOrderApi = {
@@ -51,4 +56,8 @@ export const staticParamsApi = {
 
 export const priceListApi = {
     fetchPriceList: (): Promise<any> => requests.get('/pricelist/all'),
+};
+
+export const orderDetails = {
+    order: (body: IOrderDetail) => requests.post('/orders', body),
 };
