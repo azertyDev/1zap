@@ -17,7 +17,7 @@ module.exports = {
     deploy: {
         production: {
             user: 'root',
-            host: ['185.217.131.180:22'],
+            host: ['185.217.131.180'],
             ref: 'origin/main',
             repo: 'git@github.com:azertyDev/1zap.git',
             path: '/opt/1zap_front',
