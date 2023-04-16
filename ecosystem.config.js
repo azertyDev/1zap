@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: '1zap',
+            name: '1zap_front',
             exec_mode: 'cluster',
             instances: '1',
             script: 'npm',
