@@ -125,7 +125,7 @@ export const Providers: FC = (): JSX.Element => {
                                 pathname: '#',
                             }}
                         >
-                            Добавить
+                            Изменить
                         </Link>
                     </ActionsBlock>
                 );

@@ -9,7 +9,7 @@ interface ZoomProps extends PigeonProps {
     buttonStyle?: React.CSSProperties;
     isClient?: boolean;
     closeMap?: (val: boolean) => () => void;
-    pagination: (sign: string, limit: number) => () => Promise<void>;
+    pagination?: (sign: string, limit: number) => () => Promise<void>;
 }
 
 const commonStyle: React.CSSProperties = {

@@ -4,7 +4,6 @@ import { Main } from './sections/main';
 import { Profile } from './sections/profile';
 import { Balance } from './sections/balance';
 import { Statistics } from './sections/statistics';
-import { Providers } from './sections/providers';
 import { PromoPage } from './sections/promo';
 import { PriceList } from './sections/price_list';
 import { VinRequests } from './sections/vin_request';
@@ -30,8 +29,6 @@ export default (props: PropsType): JSX.Element => {
                 return <Statistics />;
             case `/cabinet/price-list`:
                 return <PriceList />;
-            case `/cabinet/providers`:
-                return <Providers />;
             case `/cabinet/promo`:
                 return <PromoPage />;
             case `/cabinet/vin-requests`:

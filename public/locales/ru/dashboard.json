@@ -56,8 +56,8 @@
         "service": {
             "title": "Услуги",
             "tireFitting": "Шиномонтаж",
-            "autoService": "С физ лицами",
-            "partSelection": "Авто-сервис"
+            "autoService": "Авто-сервис",
+            "partSelection": "Подбор деталей"
         },
         "clientType": {
             "title": "Условия работы",

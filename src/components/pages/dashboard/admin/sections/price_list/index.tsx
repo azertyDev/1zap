@@ -20,6 +20,7 @@ import { useModal } from 'src/hooks/common/useModal';
 import { useStore } from 'src/store/useStore';
 import { priceListApi, productsApi } from 'src/utils/api';
 import s from './index.module.scss';
+import { baseURL } from 'src/utils/constants';
 
 interface IOptions {
     value: number | undefined;
@@ -171,10 +172,10 @@ export const PriceList = () => {
     });
 
     const filesMenu = [
-        { id: 1, name: 'Запчасти', file: '/assets/files/parts.xlsx' },
-        { id: 2, name: 'Масла', file: '/assets/files/oils.xlsx' },
-        { id: 3, name: 'Аккумуляторы', file: '/assets/files/battery.xlsx' },
-        { id: 4, name: 'Шины', file: '/assets/files/tires.xlsx' },
+        { id: 1, name: 'Запчасти', file: `${baseURL}/static/parts.xlsx` },
+        { id: 2, name: 'Масла', file: `${baseURL}/static/oils.xlsx` },
+        { id: 3, name: 'Аккумуляторы', file: `${baseURL}/static/battery.xlsx` },
+        { id: 4, name: 'Шины', file: `${baseURL}/static/tires.xlsx` },
     ];
 
     return (
