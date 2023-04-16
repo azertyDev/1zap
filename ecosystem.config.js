@@ -26,7 +26,7 @@ module.exports = {
             // 'pre-deploy-local': '',
             // 'post-deploy': 'sh nextjs-pm2-deploy.sh',
             'post-deploy':
-                'npm i && npm run build && pm2 startOrRestart ecosystem.config.js --env production && pm2 save',
+                'npm run build && pm2 startOrRestart ecosystem.config.js --env production && pm2 save',
             // 'pre-setup': '',
         },
     },
