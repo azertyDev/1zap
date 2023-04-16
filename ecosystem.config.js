@@ -22,7 +22,7 @@ module.exports = {
             host: ['185.217.131.180'],
             ref: 'origin/main',
             repo: 'git@github.com:azertyDev/1zap.git',
-            path: '/var/www/gtbay_front_deploy',
+            path: '/var/www/1zap_front_deploy',
             'pre-deploy-local': '',
             // 'post-deploy': 'sh nextjs-pm2-deploy.sh',
             'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production',
