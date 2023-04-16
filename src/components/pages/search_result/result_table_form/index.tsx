@@ -24,7 +24,7 @@ export const ResultTableForm: FC<{
                     <TableElement className={'table_h'}>{t('common:selects.seller')}</TableElement>
                 </TableRow>
 
-                {data.map((item) => {
+                {data.map((item:any) => {
                     return (
                         <TableRow key={item.id} className={s.table_row}>
                             <TableElement className={'table_b'}>

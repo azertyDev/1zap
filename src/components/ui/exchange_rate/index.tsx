@@ -16,7 +16,7 @@ export const ExchangeRate: FC = (): JSX.Element => {
     return (
         <div className={s.rate_wr}>
             <div className={s.img}>
-                <Icon size={'19'} name={'more_horiz'} />
+                <Icon size={19} name={'more_horiz'} />
             </div>
 
             {rate === 'usd' ? (

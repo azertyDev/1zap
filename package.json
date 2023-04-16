@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "pm2 deploy production setup"
+    "deploy": "pm2 deploy production"
   },
   "dependencies": {
     "@szhsin/react-menu": "^3.5.2",

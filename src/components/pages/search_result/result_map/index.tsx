@@ -71,7 +71,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
         [query]
     );
 
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<any>(null);
 
     useEffect(() => {
         (async () => {

@@ -6,12 +6,12 @@ module.exports = {
             instances: '1',
             script: 'npm',
             args: 'start',
-            env_dev: {
-                NODE_ENV: 'development',
-            },
-            env_prod: {
-                NODE_ENV: 'production',
-            },
+            // env_dev: {
+            //     NODE_ENV: 'development',
+            // },
+            // env_prod: {
+            //     NODE_ENV: 'production',
+            // },
         },
     ],
 
@@ -23,10 +23,11 @@ module.exports = {
             ref: 'origin/main',
             repo: 'git@github.com:azertyDev/1zap.git',
             path: '/opt/1zap',
-            'pre-deploy-local': '',
+            // 'pre-deploy-local': '',
             // 'post-deploy': 'sh nextjs-pm2-deploy.sh',
-            'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production',
-            'pre-setup': '',
+            'post-deploy':
+                'npm i && npm run build && pm2 startOrRestart ecosystem.config.js --env production && pm2 save',
+            // 'pre-setup': '',
         },
     },
 };
