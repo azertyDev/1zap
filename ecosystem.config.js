@@ -2,6 +2,8 @@ module.exports = {
     apps: [
         {
             name: '1zap_front',
+            exec_mode: 'cluster',
+            instances: '1',
             script: 'npm',
             args: 'start',
             env_dev: {
