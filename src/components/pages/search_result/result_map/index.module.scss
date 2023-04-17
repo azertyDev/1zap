@@ -15,6 +15,7 @@
     height: 573px;
   }
 }
+
 .shadow {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.0001) 28.82%, #FFFFFF 100%);
   @include w_h(100%, 50%);
@@ -22,6 +23,7 @@
   bottom: 0;
   left: 0;
 }
+
 
 .search_wr {
   width: 100%;
@@ -33,6 +35,7 @@
     margin-top: 535px;
   }
 }
+
 
 .search_wr {
   width: 100%;
@@ -90,7 +93,16 @@
     &.active {
       height: 523px;
     }
+
+
+
+
   }
+
+  .pigeon-zoom-buttons {
+    display: none;
+  }
+
 
   .search_wr {
     margin-top: 260px;

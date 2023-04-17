@@ -9,6 +9,9 @@ import '../styles/libraries/map.scss';
 import '../styles/libraries/pagination.scss';
 import '../styles/libraries/react_select.scss';
 import '../styles/libraries/home_partners_swiper.scss';
+
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import 'react-responsive-modal/styles.css';
 import 'swiper/css';
 import '@szhsin/react-menu/dist/index.css';

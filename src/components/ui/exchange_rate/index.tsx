@@ -1,17 +1,23 @@
-import { FC, useEffect, useState } from 'react';
 import s from './index.module.scss';
-import Image from 'next/image';
-import { useHandleRate } from 'src/hooks/header/useHandleRate';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+
 import { Icon } from 'components/ui/icon';
+import { useStore } from 'src/store/useStore';
+import { useCallback, useEffect } from 'react';
 
-export const ExchangeRate: FC = (): JSX.Element => {
-    const {
-        query: { rate },
-    } = useRouter();
+export const ExchangeRate = (): JSX.Element => {
+    const { currency, setCurrency } = useStore((state) => state);
 
-    const { handleRate } = useHandleRate();
+    useEffect(() => {
+        const stored = localStorage.getItem('currency');
+        setCurrency(stored ? stored : 'uzs');
+    }, []);
+
+    const handleCurrency = useCallback((val: string) => {
+        return () => {
+            localStorage.setItem('currency', val);
+            setCurrency(val);
+        };
+    }, []);
 
     return (
         <div className={s.rate_wr}>
@@ -19,12 +25,13 @@ export const ExchangeRate: FC = (): JSX.Element => {
                 <Icon size={19} name={'more_horiz'} />
             </div>
 
-            {rate === 'usd' ? (
-                <span className={s.rate} onClick={handleRate('uzs')}>
+            {currency === 'usd' && (
+                <span className={s.rate} onClick={handleCurrency('uzs')}>
                     USD
                 </span>
-            ) : (
-                <span className={s.rate} onClick={handleRate('usd')}>
+            )}
+            {currency === 'uzs' && (
+                <span className={s.rate} onClick={handleCurrency('usd')}>
                     UZS
                 </span>
             )}

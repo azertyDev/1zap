@@ -29,6 +29,7 @@
   "opencontact": "Открыть контакт",
   "onezapmust": "Обязательно получите подтверждение резерва на 1zap или по звонку",
   "wehave": "В наличии",
+  "wedonthave": "Нет в наличии",
   "hourago": "ч назад",
   "minutesago": "мин назад",
   "secondago": "сек назад",
@@ -74,9 +75,7 @@
   "сourier": "Доставка",
   "tireFitting": "Шиномонтаж",
   "SelectionParts": "Подбор деталей",
-  "monfri": "Пн - пт с {{from}} до {{to}}",
-  "sunsut": "Сб - вс с {{from}} до {{to}}",
-  "break": "Перерыв {{from}} до {{to}}",
+  "break": "Перерыв",
   "sevendays": "Без выходных",
   "infoonezap": "Cообщите продавцу, что вы нашли информацию на сайте 1zap.uz",
   "toOrder": "Забронировать",
@@ -106,6 +105,21 @@
   "batteries": "Аккумуляторы",
   "tires": "Шины",
   "choose": "Выбрать",
+  "weekend": {
+    "sat-sun": "Сб-Вс",
+    "without_weekend": "Без выходных",
+    "sunday": "Воскресенье"
+  },
+  "workingSchedule": {
+    "seven-day": "Пн-Вс",
+    "mon-fri": "Пн-Пт",
+    "mon-sat": "Пн-Сб",
+    "tue-sat": "Вт-Сб",
+    "tue-san": "Вт-Вс"
+  },
+  "sum": "сум",
+  "weekendSchedule": "Выходные дни",
+  "workingScheduleText": "Рабочие дни",
   "selects": {
     "tireFitting": "Шиномонтаж",
     "autoService": "Авто-сервис",

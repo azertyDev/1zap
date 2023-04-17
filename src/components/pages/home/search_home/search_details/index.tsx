@@ -18,7 +18,7 @@ export const SearchDetails: FC<{ className: string }> = ({ className }): JSX.Ele
         },
         validationSchema: client_validation.search,
         onSubmit: (values) => {
-            push(`/search_result/?type=detail&id=${values.searchVal}`);
+            push(`/search_result?id=${values.searchVal}`);
         },
     });
 

@@ -13,6 +13,7 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
 import { useChosenDetail } from 'src/hooks/laximoData/useChosenDetail';
+import Link from 'next/link';
 
 export const ChosenDetail: FC<{
     dataAuto: string;
@@ -77,7 +78,12 @@ export const ChosenDetail: FC<{
                                                 <p>{item.$.oem}</p>
                                             </TableElement>
                                             <TableElement className={'table_b'}>
-                                                <button>{t('common:find')}</button>
+                                                <Link
+                                                    href={`/search_result?id=${item.$.oem}`}
+                                                    className={item.$.oem.length === 0 ? s.disable : ''}
+                                                >
+                                                    <button>{t('common:find')}</button>
+                                                </Link>
                                             </TableElement>
                                         </TableRow>
                                     </div>

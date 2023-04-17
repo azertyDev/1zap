@@ -97,6 +97,44 @@ interface IBranchData {
     images: IImage[];
 }
 
+interface IProduct {
+    id: number;
+    pricelistId: number;
+    providerId: number;
+    uniqNumber: string;
+    manufacturer: string;
+    description: string;
+    availability: number;
+    average: number;
+    sum: number;
+    usd: number;
+    currency: string;
+    type: string;
+    branchId: number;
+    landmark: string;
+    ltext: string;
+    rtext: string;
+    location: {
+        availability: number;
+        branchId: number;
+        coordination: string;
+        productId: number;
+        providerId: number;
+        sum: number;
+        usd: number;
+    };
+}
+
+interface IPieceProduct {
+    id: number;
+    manufacturer: string;
+    uniqNumber: number;
+    availability: number;
+    sum: number;
+    usd: number;
+    currency: string;
+}
+
 interface IMethod {
     name?: string;
     type?: string;
@@ -144,4 +182,11 @@ interface IStaticParams {
     weekend: params[];
     weekendSchedule: params[];
     workingSchedule: params[];
+}
+
+interface IOrderDetail {
+    providerId: number;
+    productId: number;
+    name: string;
+    phone: string;
 }

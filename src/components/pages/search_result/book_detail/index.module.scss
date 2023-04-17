@@ -11,9 +11,13 @@
   z-index: 5;
   background: rgba(0, 0, 0, 0.13);
   @include flex-items(center, center);
+  display: none;
+
+  &.active{
+    display: flex;
+  }
+
 }
-
-
 
 @media (max-width: 425px) {
   .book_wr{

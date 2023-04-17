@@ -9,11 +9,16 @@ import { useRouter } from 'next/router';
 export const InputSearch: FC = (): JSX.Element => {
     const { t } = useTranslation();
 
-    const { pathname, query, push } = useRouter();
+    const {
+        pathname,
+        query,
+        push,
+        query: { id },
+    } = useRouter();
 
     const formik = useFormik({
         initialValues: {
-            searchVal: '',
+            searchVal: id ?? '',
         },
         validationSchema: client_validation.search,
         onSubmit: (values) => {
@@ -22,6 +27,7 @@ export const InputSearch: FC = (): JSX.Element => {
                 query: {
                     ...query,
                     id: values.searchVal,
+                    page: 1,
                 },
             });
         },

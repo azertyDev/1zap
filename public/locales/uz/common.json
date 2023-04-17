@@ -11,7 +11,6 @@
   "oilCat": "Neft katalogi",
   "tiresCat": "Shinalar katalogi",
   "batteryCat": "Batareya katalogi",
-
   "catalogs": "Kataloglar",
   "categories": "Kategoriyalar",
   "filter": "Filtrlar",
@@ -20,6 +19,7 @@
   "opencontact": "Kontaktni oching",
   "onezapmust": "1zap yoki qo'ng'iroq orqali bandlovni tasdiqlashni unutmang",
   "wehave": "Sotuvda mavjud",
+  "wedonthave": "Mavjud emas",
   "hourago": "soat oldin",
   "minutesago": "daqiqa oldin",
   "secondago": "soniya oldin",
@@ -66,9 +66,7 @@
   "сourier": "Kuryer",
   "tirefitting": "Shina o'rnatuvchi",
   "SelectionParts": "Qismlarni tanlash",
-  "monfri": "Dushanba - Juma {{from}} dan {{to}} gacha",
-  "sunsut": "Shanba - Yakshanba {{from}} dan {{to}} gacha",
-  "break": "{{dan}} {{to}}gacha tanaffus",
+  "break": "Tanaffus",
   "sevendays": "Haftada etti kun",
   "infoonezap": "Sotuvchiga ma'lumotni 1zap.uz saytidan topganingizni ayting",
   "toOrder": "Kitob",
@@ -98,6 +96,21 @@
   "tires": "Shinalar",
   "batteries": "Batareyalar",
   "choose": "Tanlang",
+  "weekend": {
+    "sat-sun": "Shanba-Yakshanba",
+    "without_weekend": "Haftada etti kun",
+    "sunday": "Yakshanba"
+  },
+  "workingSchedule": {
+    "seven-day": "Dushanba-Yakshanba",
+    "mon-fri": "Dushanba-Jum",
+    "mon-sat": "Dushanba-Shanba",
+    "tue-sat": "Seshanba-Shanba",
+    "tue-san": "Seshanba-Yakshanba"
+  },
+  "sum": "sum",
+  "weekendSchedule": "Dam olish kunlari",
+  "workingScheduleText": "Ish kuni",
   "selects": {
     "tireFitting": "Shinalarni o'rnatish",
     "autoService": "Аvtomobil xizmati",

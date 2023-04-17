@@ -34,3 +34,11 @@
 
 }
 
+
+.disable{
+  pointer-events: none;
+
+  button{
+    background: $blockBg;
+  }
+}

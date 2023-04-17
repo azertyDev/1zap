@@ -10,27 +10,35 @@ import { Button } from 'components/ui/button';
 import { IconsWrapper } from 'components/ui/icons_wrapper';
 import { client_validation } from 'src/validation/client_validation';
 import { Form, FormikProvider, useFormik } from 'formik';
+import { useStore } from 'src/store/useStore';
+import { orderDetails } from 'src/utils/api';
+import { toast } from 'react-hot-toast';
 
 export const BookDetailStepTwo: FC<{
     handleOrder: (val: number) => () => void;
     toggleBookDetail: (val: boolean) => () => void;
 }> = ({ toggleBookDetail, handleOrder }): JSX.Element => {
     const { t } = useTranslation();
-
+    const { productId, providerId } = useStore((state) => state);
     const [done, setDone] = useState(false);
     const [phoneVal, setPhoneVal] = useState('');
 
     const formik = useFormik({
         initialValues: {
+            name: '',
             phone: '',
-            surname: '',
-            providerId: 2,
-            productId: 1,
+            providerId: providerId,
+            productId: productId,
         },
         validationSchema: client_validation.book,
         onSubmit: async (values) => {
-            setDone(true);
-            setPhoneVal(values.phone);
+            await orderDetails
+                .order({ ...values, phone: values.phone.replaceAll(' ', '') })
+                .then((res) => {
+                    setDone(true);
+                    setPhoneVal(values.phone);
+                })
+                .catch((err) => toast.error(t('helpers:error_sending')));
         },
     });
 
@@ -70,7 +78,7 @@ export const BookDetailStepTwo: FC<{
                         <FormikProvider value={formik}>
                             <Form>
                                 <div className={s.inputs_wr}>
-                                    <FloatingInput {...formik.getFieldProps('surname')} />
+                                    <FloatingInput {...formik.getFieldProps('name')} />
                                     <FloatingInput {...formik.getFieldProps('phone')} isPhone />
                                 </div>
 

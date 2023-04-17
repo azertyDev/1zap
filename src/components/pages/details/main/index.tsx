@@ -44,6 +44,7 @@ export const Details: FC<{
 
     const { t } = useTranslation();
 
+    console.log(dataFindV);
     return (
         <PageWrapper>
             <Container>
@@ -84,7 +85,7 @@ export const Details: FC<{
                             return (
                                 <div key={$.name + $.ssd}>
                                     <TableRow className={s.table_row}>
-                                        <TableElement className={'table_b'}>
+                                        <TableElement className={`table_b`}>
                                             <h5>{$.brand}</h5>
                                         </TableElement>
                                         <TableElement className={'table_b'}>

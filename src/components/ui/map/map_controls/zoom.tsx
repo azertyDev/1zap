@@ -49,7 +49,7 @@ export function ZoomControl({
             style={style ? { ...commonStyle, ...style } : commonStyle}
         >
             {isClient && (
-                <div style={{ ...commonButtonStyle, marginRight: '30px' }} onClick={pagination('-', 5)}>
+                <div style={{ ...commonButtonStyle, marginRight: '30px' }} onClick={pagination('-')}>
                     <Icon name={'arrow_back'} color={'#9A9EA7'} size={18} />
                 </div>
             )}
@@ -78,7 +78,7 @@ export function ZoomControl({
             </button>
 
             {isClient && (
-                <div style={{ ...commonButtonStyle, marginLeft: '22px' }} onClick={pagination('+', 5)}>
+                <div style={{ ...commonButtonStyle, marginLeft: '22px' }} onClick={pagination('+')}>
                     <Icon name={'arrow_forward'} color={'#9A9EA7'} size={18} />
                 </div>
             )}
