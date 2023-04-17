@@ -7,8 +7,8 @@ import s from './index.module.scss';
 
 export const CreateProvider: FC<any> = () => {
     const [tab, setTab] = useState(1);
-    const [initialValues, setInitialValues] = useState<IProviderData>({ ...providerValuesTest });
-    // const [initialValues, setInitialValues] = useState<IProviderData>({ ...providerValues });
+    // const [initialValues, setInitialValues] = useState<IProviderData>({ ...providerValuesTest });
+    const [initialValues, setInitialValues] = useState<IProviderData>({ ...providerValues });
 
     const handleTabChange = (value: number) => {
         setTab(value);

@@ -29,7 +29,7 @@ export const ResultTableForm: FC<{ data: IProduct[] }> = ({ data }): JSX.Element
                     </>
                 )}
 
-                {data.map((item) => {
+                {data.map((item:any) => {
                     return (
                         <TableRow key={item.id} className={s.table_row}>
                             <TableElement className={'table_b'}>

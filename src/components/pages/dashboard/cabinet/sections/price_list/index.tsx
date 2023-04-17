@@ -19,8 +19,10 @@ import { FileUpload } from 'src/components/ui/upload/file';
 import { useModal } from 'src/hooks/common/useModal';
 import { useStore } from 'src/store/useStore';
 import { priceListApi, productsApi } from 'src/utils/api';
-import s from './index.module.scss';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { baseURL } from 'src/utils/constants';
+import s from './index.module.scss';
 
 interface IOptions {
     value: number | undefined;
@@ -28,6 +30,8 @@ interface IOptions {
 }
 
 export const PriceList = () => {
+    const { t } = useTranslation();
+    const { push } = useRouter();
     const { providerBranches, fetchProviderBranches } = useStore();
     const { open, handleModalOpen, handleModalClose } = useModal();
     const [priceList, setPriceList] = useState<any>();
@@ -160,8 +164,12 @@ export const PriceList = () => {
             .then((response) => {
                 toast.success('Successfully uploaded');
             })
-            .catch((error) => {
-                toast.error('Error while uploading');
+            .catch(({ response }) => {
+                toast.error(
+                    response.data.error
+                        ? t(`helpers:${response.data.error.replaceAll(' ', '_')}`)
+                        : 'Error while uploading'
+                );
             });
     };
 
@@ -206,7 +214,7 @@ export const PriceList = () => {
                     <Icon name="table_chart" color="white" />
                     Новый прайс лист
                 </Button>
-                <Button variant="primary">
+                <Button variant="primary" onClick={() => push('/cabinet/promo')}>
                     <Icon name="label" color="white" />
                     Разместить рекламу
                 </Button>
@@ -323,7 +331,12 @@ export const PriceList = () => {
                             <div className={s.modalButtons}>
                                 <FileUpload name="file" title="Загрузить прайс" setFieldValue={formik.setFieldValue} />
 
-                                <Button variant="disabled" type="submit" onClick={() => {}} fullWidth>
+                                <Button
+                                    fullWidth
+                                    type="submit"
+                                    disabled={!formik.dirty || !formik.isValid}
+                                    variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                                >
                                     Сохранить
                                 </Button>
                             </div>

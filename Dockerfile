@@ -1,14 +1,17 @@
 FROM node:16-alpine AS dependencies
-WORKDIR /1zap
+
+WORKDIR /1zap_front
+
 COPY package*.json ./
+COPY package-lock.json ./
 
 RUN npm install
+# RUN npm build
 
 COPY . .
 
-RUN npm run dev
+EXPOSE 3000
+ENV PORT 3000
 
-ENV PORT=3003
-EXPOSE 3003
-
-CMD [ "npm", "dev" ]
+# CMD ["yarn", "start"]
+CMD npm run dev

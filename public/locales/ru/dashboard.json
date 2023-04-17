@@ -1,5 +1,5 @@
 {
-    "main": "Панель управления",
+    "main": "Основные",
     "providers": "Поставщики",
     "promo": "Промо материалы",
     "profile_work": "Работа с профилем",
@@ -10,9 +10,11 @@
     "products": "Товары",
     "upload_products": "Загрузка товаров",
     "incoming_requests": "Входящие запросы",
+    "income": "Поступления",
+    "operations": "Операции",
     "support": "Поддержка",
     "price-list": "Прайс листы",
-    "vin-requests": "VIN-so'rovlar",
+    "vin-requests": "VIN запросы",
 
     "legalAddress": "Юридический адрес",
     "companyName": "Наименование фирмы",
@@ -54,8 +56,8 @@
         "service": {
             "title": "Услуги",
             "tireFitting": "Шиномонтаж",
-            "autoService": "С физ лицами",
-            "partSelection": "Авто-сервис"
+            "autoService": "Авто-сервис",
+            "partSelection": "Подбор деталей"
         },
         "clientType": {
             "title": "Условия работы",

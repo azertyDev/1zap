@@ -1,5 +1,5 @@
 {
-    "main": "Панель управления",
+    "main": "Asosiy",
     "providers": "Yetkazib beruvchilar",
     "promo": "Promo materiallar",
     "profile_work": "Работа с профилем",
@@ -10,6 +10,8 @@
     "products": "Товары",
     "upload_products": "Загрузка товаров",
     "incoming_requests": "Входящие запросы",
+    "income": "Поступления",
+    "operations": "Операции",
     "support": "Поддержка",
     "price-list": "Prays listlar",
     "vin-requests": "VIN-so'rovlar",

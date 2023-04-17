@@ -6,7 +6,7 @@ const UploadFiles = () => {
     const [currentFile, setCurrentFile] = useState(undefined);
     const [progress, setProgress] = useState(0);
     const [message, setMessage] = useState('');
-    const [fileInfos, setFileInfos] = useState([]);
+    const [fileInfos, setFileInfos] = useState<any>([]);
 
     // useEffect(() => {
     //     UploadService.getFiles().then((response) => {
@@ -14,12 +14,12 @@ const UploadFiles = () => {
     //     });
     // }, []);
 
-    const selectFile = (event) => {
+    const selectFile = (event: any) => {
         setSelectedFiles(event.target.files);
     };
 
     const upload = () => {
-        let currentFile = selectedFiles[0];
+        let currentFile = selectedFiles![0];
         console.log(currentFile);
 
         setProgress(0);
@@ -77,7 +77,7 @@ const UploadFiles = () => {
                 <div className="card-header">List of Files</div>
                 <ul className="list-group list-group-flush">
                     {fileInfos &&
-                        fileInfos.map((file, index) => (
+                        fileInfos.map((file: any, index: number) => (
                             <li className="list-group-item" key={index}>
                                 <a href={file.url}>{file.name}</a>
                             </li>

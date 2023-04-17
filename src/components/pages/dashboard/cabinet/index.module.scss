@@ -1,0 +1,19 @@
+@import 'styles/mixins';
+@import 'styles/variables.scss';
+
+.wrapper {
+    height: 100%;
+    // padding: 0px 55px;
+    display: flex;
+    flex-direction: column;
+
+    .footer {
+        @include flex-items(stretch, center);
+        padding: 25px 0;
+    }
+
+    main {
+        flex: 1;
+        margin-bottom: 50px;
+    }
+}

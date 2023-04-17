@@ -2,9 +2,8 @@
 @import 'styles/variables.scss';
 
 .root {
-    margin: 0;
-
-    div.modalContent {
-        padding: 25px 30px;
+    p.block_title {
+        font-weight: 700;
+        margin-bottom: 25px;
     }
 }
