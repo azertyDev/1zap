@@ -133,6 +133,17 @@ interface IPieceProduct {
     currency: string;
 }
 
+interface IProductGroup {
+    id: number;
+    manufacturer: string;
+    uniqNumber: string;
+    availability: number;
+    average: number;
+    priceTo: number;
+    priceFrom: number;
+    property: string;
+}
+
 interface IMethod {
     name?: string;
     type?: string;

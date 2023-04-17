@@ -43,16 +43,6 @@
   position: relative;
   padding-right: 14px;
 
-  &:after {
-    content: "";
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 100px;
-    @include w_mw__h(4px, 4px, 4px);
-    background: $text;
-  }
 }
 
 .title_item {

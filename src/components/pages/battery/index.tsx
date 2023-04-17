@@ -15,8 +15,15 @@ import { useFilter } from 'src/hooks/common/useFilter';
 import { useFilterTabs } from 'src/hooks/common/useFilterTabs';
 import { useRouter } from 'next/router';
 import { tabsValue } from 'src/constants/tabsValue';
+import { FC } from 'react';
+import { TableRow } from 'components/ui/table/table_row';
+import { TableElement } from 'components/ui/table/table_element';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ResponsTable } from 'components/ui/table/respons_table';
+import { Pagination } from 'components/ui/pagination/Pagination';
 
-export const Battery = (): JSX.Element => {
+export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
     const { handleOpenClose, openClose } = useOpenCloseWithVal();
     const { handleFilter } = useFilter();
@@ -67,6 +74,56 @@ export const Battery = (): JSX.Element => {
                     </>
                 )}
             </div>
+            {data && data.totalPages !== 0 && (
+                <>
+                    <div className={s.table}>
+                        <TableRow className={s.table_row}>
+                            <TableElement className={'table_h'}>{t('common:selects.manufacturers')}</TableElement>
+                            <TableElement className={'table_h'}>{t('common:selects.number')}</TableElement>
+                            <TableElement className={'table_h'}>{t('common:selects.size')}</TableElement>
+                            <TableElement className={'table_h'}>{t('common:selects.middlePrice')}</TableElement>
+                            <TableElement className={'table_h'}>{t('common:selects.offer')}</TableElement>
+                        </TableRow>
+                        {data.data.map((item) => {
+                            return (
+                                <TableRow className={s.table_row} key={item.id}>
+                                    <TableElement className={'table_b'}>
+                                        <h5>{item.manufacturer}</h5>
+                                    </TableElement>
+                                    <TableElement className={'table_b'}>
+                                        <h5>{item.uniqNumber}</h5>
+                                    </TableElement>
+                                    <TableElement className={'table_b'}>
+                                        <Image src={'/assets/images/battery.png'} alt={'oil'} width={52} height={70} />
+                                    </TableElement>
+
+                                    <TableElement className={'table_b'}>
+                                        <h5>{item.property}</h5>
+                                    </TableElement>
+                                    <TableElement className={'table_b'}>
+                                        <h5>$19</h5>
+                                        <p>от 15$ до 23$</p>
+                                    </TableElement>
+                                    <TableElement className={'table_b'}>
+                                        <Link href={`/search_result?id=${item.uniqNumber}`}>
+                                            <button>
+                                                {t('common:show')} - {item.availability}
+                                            </button>
+                                        </Link>
+                                    </TableElement>
+                                </TableRow>
+                            );
+                        })}
+                    </div>
+                </>
+            )}
+            {data &&
+                data.totalPages !== 0 &&
+                data.data.map((item) => {
+                    return <ResponsTable item={item} key={item.id} />;
+                })}
+
+            {data && data.totalPages !== 0 && <Pagination pageCount={data.totalPages} />}
         </>
     );
 };

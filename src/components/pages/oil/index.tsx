@@ -21,8 +21,10 @@ import { FilterResponsive } from 'components/ui/filter/filter_responsive';
 import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 import { filterTitles } from 'src/constants/filterTitles';
 import { tabsValue } from 'src/constants/tabsValue';
+import { FC } from 'react';
+import Link from 'next/link';
 
-export const Oil = (): JSX.Element => {
+export const Oil: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
     const { handleOpenClose, openClose } = useOpenCloseWithVal();
     const { handleFilter } = useFilter();
@@ -73,54 +75,56 @@ export const Oil = (): JSX.Element => {
                     </>
                 )}
             </div>
-            <div className={s.table}>
-                <TableRow className={s.table_row}>
-                    <TableElement className={'table_h'}>{t('common:selects.manufacturers')}</TableElement>
-                    <TableElement className={'table_h'}>{t('common:selects.number')}</TableElement>
-                    <TableElement className={'table_h'}>{t('common:selects.photo')}</TableElement>
-                    <TableElement className={'table_h'}>{t('common:selects.nameProduct')}</TableElement>
-                    <TableElement className={'table_h'}>{t('common:selects.typeAndStick')}</TableElement>
-                    <TableElement className={'table_h'}>{t('common:selects.middlePrice')}</TableElement>
-                    <TableElement className={'table_h'}>{t('common:selects.offer')}</TableElement>
-                </TableRow>
-                <TableRow className={s.table_row}>
-                    <TableElement className={'table_b'}>
-                        <h5>GM</h5>
-                    </TableElement>
-                    <TableElement className={'table_b'}>
-                        <h5>31232131</h5>
-                    </TableElement>
-                    <TableElement className={'table_b'}>
-                        <Image
-                            src={
-                                'https://images.unsplash.com/photo-1676296825236-8c06ac83938b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=385&q=80'
-                            }
-                            alt={'oil'}
-                            width={52}
-                            height={70}
-                        />
-                    </TableElement>
-                    <TableElement className={'table_b'}>
-                        <h5>POLYMERIUM XPRO1 5W30 C3 DEXOS2 4L</h5>
-                    </TableElement>
-                    <TableElement className={'table_b'}>
-                        <h5>5W-30</h5>
-                        <p>Синтетическое 5л</p>
-                    </TableElement>
-                    <TableElement className={'table_b'}>
-                        <h5>$19</h5>
-                        <p>от 15$ до 23$</p>
-                    </TableElement>
-                    <TableElement className={'table_b'}>
-                        <button>{t('common:show')} - 44</button>
-                    </TableElement>
-                </TableRow>
-            </div>
+            {data && data.totalPages !== 0 && (
+                <>
+                    <div className={s.table}>
+                        <TableRow className={s.table_row}>
+                            <TableElement className={'table_h'}>{t('common:selects.manufacturers')}</TableElement>
+                            <TableElement className={'table_h'}>{t('common:selects.number')}</TableElement>
+                            <TableElement className={'table_h'}>{t('common:selects.size')}</TableElement>
+                            <TableElement className={'table_h'}>{t('common:selects.middlePrice')}</TableElement>
+                            <TableElement className={'table_h'}>{t('common:selects.offer')}</TableElement>
+                        </TableRow>
+                        {data.data.map((item) => {
+                            return (
+                                <TableRow className={s.table_row} key={item.id}>
+                                    <TableElement className={'table_b'}>
+                                        <h5>{item.manufacturer}</h5>
+                                    </TableElement>
+                                    <TableElement className={'table_b'}>
+                                        <h5>{item.uniqNumber}</h5>
+                                    </TableElement>
+                                    <TableElement className={'table_b'}>
+                                        <Image src={'/assets/images/oil.png'} alt={'oil'} width={52} height={70} />
+                                    </TableElement>
 
-            <ResponsTable />
-            <ResponsTable />
-            <ResponsTable />
-            <Pagination pageCount={12} />
+                                    <TableElement className={'table_b'}>
+                                        <h5>{item.property}</h5>
+                                    </TableElement>
+                                    <TableElement className={'table_b'}>
+                                        <h5>$19</h5>
+                                        <p>от 15$ до 23$</p>
+                                    </TableElement>
+                                    <TableElement className={'table_b'}>
+                                        <Link href={`/search_result?id=${item.uniqNumber}`}>
+                                            <button>
+                                                {t('common:show')} - {item.availability}
+                                            </button>
+                                        </Link>
+                                    </TableElement>
+                                </TableRow>
+                            );
+                        })}
+                    </div>
+                </>
+            )}
+            {data &&
+                data.totalPages !== 0 &&
+                data.data.map((item) => {
+                    return <ResponsTable item={item} key={item.id} />;
+                })}
+
+            {data && <Pagination pageCount={data.totalPages} />}
         </>
     );
 };

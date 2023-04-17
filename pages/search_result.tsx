@@ -16,10 +16,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const filteredParam = staticPar
         ? {
-              payment: staticPar.payment,
-              delivery: staticPar.delivery,
-              service: staticPar.service,
-              client: staticPar.client,
+              payment: [{ value: null, label: 'all' }, ...staticPar.payment],
+              delivery: [{ value: null, label: 'all' }, ...staticPar.delivery],
+              service: [{ value: null, label: 'all' }, ...staticPar.service],
+              client: [{ value: null, label: 'all' }, ...staticPar.client],
           }
         : null;
 

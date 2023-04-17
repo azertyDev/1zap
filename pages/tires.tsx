@@ -8,19 +8,29 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { PageWrapper } from 'components/ui/page_wrapper';
 
 import { Tires } from 'components/pages/tires';
+import { productsApi } from 'src/utils/api';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { locale } = context;
+    const {
+        locale,
+        query: { page },
+    } = context;
+
+    let data = await productsApi
+        .getProductsWithGroup('tires', `?page=${page ?? 1}`)
+        .then((res) => res)
+        .catch((err) => null);
 
     return {
         props: {
+            data: data,
             ...(await serverSideTranslations(locale as string, ['header', 'common', 'footer', 'home'])),
         },
     };
 };
 
-const TirePage: NextPageWithLayout = () => {
-    return <Tires />;
+const TirePage: NextPageWithLayout<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }) => {
+    return <Tires data={data} />;
 };
 
 TirePage.getLayout = function getLayout(page) {

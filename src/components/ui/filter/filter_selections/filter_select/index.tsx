@@ -24,7 +24,7 @@ export const FilterSelect: FC<{
                 value={
                     {
                         value: value,
-                        label: value ? (isTranslated ? value : t(`common:selects.${value}`)) : labelAlt,
+                        label: (value ? (isTranslated ? value : t(`common:selects.${value}`)) : labelAlt).toUpperCase(),
                     } as any
                 }
                 classNamePrefix={'filter_search'}

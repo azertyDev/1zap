@@ -26,6 +26,7 @@
   "howmany": "dona",
   "requiredNumber": "So'ralgan raqam",
   "username": "Sizning ismingiz",
+  "name": "Sizning ismingiz",
   "surname": "Familiya",
   "lastname": "Otasining ismi",
   "phone": "Aloqa raqami",
@@ -111,7 +112,9 @@
   "sum": "sum",
   "weekendSchedule": "Dam olish kunlari",
   "workingScheduleText": "Ish kuni",
+  "offers": "takliflar",
   "selects": {
+    "all": "Hammasi",
     "tireFitting": "Shinalarni o'rnatish",
     "autoService": "Аvtomobil xizmati",
     "partSelection": "Аvtomobil qismlari",

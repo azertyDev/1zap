@@ -10,7 +10,6 @@ export const formikValues = {
     vimRequest: {
         vinNumber: '',
         yearIssue: '',
-        modification: '',
         description: '',
         brand: '',
         model: '',

@@ -36,6 +36,7 @@
   "howmany": "шт.",
   "requiredNumber": "Запрошенный номер",
   "username": "Ваше имя",
+  "name": "Ваше имя",
   "surname": "Фамилия",
   "lastname": "Отчество",
   "phone": "Контактный номер",
@@ -120,7 +121,9 @@
   "sum": "сум",
   "weekendSchedule": "Выходные дни",
   "workingScheduleText": "Рабочие дни",
+  "offers": "предложения",
   "selects": {
+    "all": "Все",
     "tireFitting": "Шиномонтаж",
     "autoService": "Авто-сервис",
     "partSelection": "Запчасти",

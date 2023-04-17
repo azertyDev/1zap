@@ -1,9 +1,10 @@
 import s from './index.module.scss';
-import { createContext, FC, useEffect, useState } from 'react';
+import { createContext, FC } from 'react';
 import { useTranslation } from 'next-i18next';
 import { SearchHome } from 'components/pages/home/search_home';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { homeSwiperBreakpoints } from 'src/constants/home_swiper_breakpoints';
+import { Autoplay } from 'swiper';
 
 const fakePartners = [
     {
@@ -42,12 +43,19 @@ export const Home: FC<{ data: { dataRes: string } }> = ({ data }): JSX.Element =
             </catalogContext.Provider>
 
             <div className={'home_page_partners'}>
-                <Swiper breakpoints={homeSwiperBreakpoints}>
+                <Swiper
+                    breakpoints={homeSwiperBreakpoints}
+                    modules={[Autoplay]}
+                    autoplay={{
+                        delay: 2000,
+                        disableOnInteraction: true,
+                    }}
+                >
                     {fakePartners.map((item) => {
                         return (
                             <SwiperSlide className={'home_page_partners_slide'} key={item.id}>
                                 <div className={'home_page_partners_slide_img'}>
-                                    <img src={item.img} alt={'q'} />
+                                    <img src={item.img} alt={'partners'} />
                                 </div>
                             </SwiperSlide>
                         );

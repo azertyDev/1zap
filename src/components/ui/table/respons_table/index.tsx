@@ -1,45 +1,41 @@
 import s from './index.module.scss';
 import Image from 'next/image';
-import React from 'react';
+import React, { FC } from 'react';
 import { useTranslation } from 'next-i18next';
 import { Icon } from 'components/ui/icon';
 import { IconsWrapper } from 'components/ui/icons_wrapper';
 import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
+import Link from 'next/link';
 
-export const ResponsTable = (): JSX.Element => {
+export const ResponsTable: FC<{ item: IProductGroup }> = ({ item }): JSX.Element => {
     const { t } = useTranslation();
     const { handleOpenClose, openClose } = useOpenCloseWithVal();
 
     return (
-        <div className={s.table}>
+        <div className={s.table} key={item.id}>
             <div className={s.item}>
-                <h5 className={s.title_item}>GM</h5>
-                <h5>31232131</h5>
+                <h5 className={s.title_item}>{item.manufacturer}</h5>
+                <h5>{item.uniqNumber}</h5>
             </div>
             <div className={s.item}>
-                <p className={s.item_text}>5W-30</p>
-                <p className={s.item_text}>Синтетическое </p>
-                <p>5л</p>
-            </div>
-            <div className={s.item}>
-                <p>POLYMERIUM XPRO1 5W30 C3 DEXOS2 4L</p>
+                <p className={s.item_text}>{item.property}</p>
             </div>
             <div className={`${s.item} ${s.last_item}`}>
                 <div>
                     <p className={s.item_text}>От $19</p>
-                    <p>44 предложения</p>
+                    <p>
+                        {item.availability} {t('common:offers')}
+                    </p>
                 </div>
 
-                <button type={'button'} className={s.show_btn}>
-                    {t('common:show')}
-                </button>
+                <Link href={`/search_result?id=${item.uniqNumber}`}>
+                    <button type={'button'} className={s.show_btn}>
+                        {t('common:show')}
+                    </button>
+                </Link>
             </div>
 
-            <button
-                type={'button'}
-                className={s.img_toggle}
-                onClick={handleOpenClose(true)}
-            >
+            <button type={'button'} className={s.img_toggle} onClick={handleOpenClose(true)}>
                 <Icon size={16} name={'image'} color={'#fff'} />
             </button>
 
@@ -49,14 +45,7 @@ export const ResponsTable = (): JSX.Element => {
                         <Icon size={14} name={'close'} />
                     </IconsWrapper>
                 </div>
-                <Image
-                    src={
-                        'https://images.unsplash.com/photo-1676296825236-8c06ac83938b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=385&q=80'
-                    }
-                    alt={'oil'}
-                    width={125}
-                    height={125}
-                />
+                <Image src={'/assets/images/tire.png'} alt={'image'} width={100} height={100} quality={100} />
             </div>
         </div>
     );

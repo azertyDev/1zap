@@ -42,6 +42,7 @@ export const productsApi = {
     upload: (data: any, config: {}): Promise<any> => requests.post('/products/new', data, config),
     getProductsNoGroup: (params: any) => requests.get(`/branchs?${params}`),
     getPieceProduct: (id: number) => requests.get(`/piece/${id}`),
+    getProductsWithGroup: (type: string, params: any) => requests.get(`/group/${type}${params}`),
 };
 
 export const vinOrderApi = {

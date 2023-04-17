@@ -38,7 +38,6 @@ export const client_validation = {
             .max(4, 'year_length')
             .matches(/\d\d\d\d/, 'invalid_format')
             .required('required'),
-        modification: yup.string().required('required'),
         brand: yup.string().required('required'),
         model: yup.string().required('required'),
         phone: yup

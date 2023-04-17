@@ -19,7 +19,6 @@ export const Pagination: FC<paginationInt> = ({ pageCount }): JSX.Element => {
 
     const handlePage = useCallback(
         (ev: any) => {
-            console.log(ev);
             push({
                 pathname: pathname,
                 query: { ...query, page: ev.nextSelectedPage + 1 },
@@ -29,13 +28,13 @@ export const Pagination: FC<paginationInt> = ({ pageCount }): JSX.Element => {
     );
 
     return (
-        <div className={`pagination ${+page! + 1 > pageCount ? 'hidenext' : ''}`}>
+        <div className={`pagination ${+page! + 1 > pageCount ? 'hidenext' : ''} ${pageCount === 0 ? 'hideNext' : ''}`}>
             <ReactPaginate
                 onClick={handlePage}
                 pageCount={pageCount ? +pageCount : 0}
                 pageRangeDisplayed={2}
                 marginPagesDisplayed={1}
-                activeLinkClassName="active_box"
+                activeLinkClassName={'active_box'}
                 nextLabel={`${t('common:next')}`}
                 forcePage={page ? +page - 1 : 0}
                 breakLabel=".."

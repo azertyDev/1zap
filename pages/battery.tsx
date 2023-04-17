@@ -8,19 +8,29 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { PageWrapper } from 'components/ui/page_wrapper';
 
 import { Battery } from 'components/pages/battery';
+import { productsApi } from 'src/utils/api';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { locale } = context;
+    const {
+        locale,
+        query: { page },
+    } = context;
+
+    let data = await productsApi
+        .getProductsWithGroup('batteries', `?page=${page ?? 1}`)
+        .then((res) => res)
+        .catch((err) => null);
 
     return {
         props: {
-            ...(await serverSideTranslations(locale as string, ['header', 'common', 'footer', 'home'])),
+            data: data,
+            ...(await serverSideTranslations(locale as string, ['header', 'footer', 'home', 'common', 'helpers'])),
         },
     };
 };
 
-const BatteryPage: NextPageWithLayout = () => {
-    return <Battery />;
+const BatteryPage: NextPageWithLayout<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }) => {
+    return <Battery data={data} />;
 };
 
 BatteryPage.getLayout = function getLayout(page) {

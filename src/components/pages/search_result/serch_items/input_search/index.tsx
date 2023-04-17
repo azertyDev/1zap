@@ -25,7 +25,6 @@ export const InputSearch: FC = (): JSX.Element => {
             push({
                 pathname,
                 query: {
-                    ...query,
                     id: values.searchVal,
                     page: 1,
                 },

@@ -13,7 +13,8 @@ export const FilterResponsive: FC<{
     isOpen: boolean;
     toggleFilter: (val: boolean) => () => void;
     data: { [val: string]: { value: string; label: string }[] };
-}> = ({ btnText, isOpen, toggleFilter, data }): JSX.Element => {
+    isTranslated?: boolean;
+}> = ({ btnText, isOpen, toggleFilter, data, isTranslated }): JSX.Element => {
     const { t } = useTranslation();
     const { handleSubmitFilter, handleFilter, filterVal } = useFilterRespons(toggleFilter);
 
@@ -86,7 +87,11 @@ export const FilterResponsive: FC<{
                                                     <div className={s.item_subitem_img}>
                                                         <Icon size={13} name={'done'} style={s.icon} />
                                                     </div>
-                                                    <span>{t(`common:selects.${subitem.label}`)}</span>
+                                                    <span>
+                                                        {isTranslated
+                                                            ? t(`common:selects.${subitem.label}`)
+                                                            : subitem.label}
+                                                    </span>
                                                 </li>
                                             );
                                         })}

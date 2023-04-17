@@ -7,19 +7,29 @@ import { Container } from 'components/ui/container';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { PageWrapper } from 'components/ui/page_wrapper';
 import { Oil } from 'components/pages/oil';
+import { productsApi } from 'src/utils/api';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { locale } = context;
+    const {
+        locale,
+        query: { page },
+    } = context;
+
+    let data = await productsApi
+        .getProductsWithGroup('oils', `?page=${page ?? 1}`)
+        .then((res) => res)
+        .catch((err) => null);
 
     return {
         props: {
-            ...(await serverSideTranslations(locale as string, ['header', 'footer', 'home', 'common'])),
+            data: data,
+            ...(await serverSideTranslations(locale as string, ['header', 'footer', 'home', 'common', 'helpers'])),
         },
     };
 };
 
-const OilPage: NextPageWithLayout = () => {
-    return <Oil />;
+const OilPage: NextPageWithLayout<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }) => {
+    return <Oil data={data} />;
 };
 
 OilPage.getLayout = function getLayout(page) {

@@ -13,7 +13,7 @@
 
 .table_row{
   display: grid;
-  grid-template-columns: 102px 120px 70px minmax(170px,207px) minmax(130px,160px)  minmax(130px,150px) 124px;
+  grid-template-columns: 102px 120px 70px minmax(130px,160px)  minmax(130px,150px) 124px;
 }
 
 @media (max-width: 768px) {

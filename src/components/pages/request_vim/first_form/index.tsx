@@ -39,6 +39,7 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
     } = useRouter();
     const { catalog } = useGetFitCatalog(dataCatalog);
     const [modelSel, setModelSel] = useState(null);
+    const [switchBrand, setSwitchBrand] = useState(true);
 
     useFilterSelectFitByCar(dataModel, setModelSel, getModelSwitchCondition, [brand] as string[]);
 
@@ -46,6 +47,7 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
         initialValues: formikValues.vimRequest,
         validationSchema: client_validation.vimRequest,
         onSubmit: async (values) => {
+            setSwitchBrand(false);
             if (catalog) {
                 for (const obj of catalog) {
                     if (obj.value === brand) {
@@ -78,12 +80,14 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
     });
 
     useEffect(() => {
-        push({
-            pathname: pathname,
-            query: {
-                brand: formik.values.brand,
-            },
-        });
+        if (formik.values.brand.length > 0 && switchBrand) {
+            push({
+                pathname: pathname,
+                query: {
+                    brand: formik.values.brand,
+                },
+            });
+        }
     }, [formik.values.brand]);
 
     return (
@@ -99,6 +103,7 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
                             <InputWrapper>
                                 <FloatingInput {...formik.getFieldProps('vinNumber')} />
                             </InputWrapper>
+
                             <div className={s.inputs_wr}>
                                 <Field
                                     component={SelectField}
@@ -115,14 +120,10 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
                                         options={modelSel ? modelSel : [{ value: ' ', label: ' ' }]}
                                     />
                                 </InputWrapper>
-
-                                <InputWrapper>
-                                    <FloatingInput {...formik.getFieldProps('yearIssue')} />
-                                </InputWrapper>
-                                <InputWrapper>
-                                    <FloatingInput {...formik.getFieldProps('modification')} />
-                                </InputWrapper>
                             </div>
+                            <InputWrapper>
+                                <FloatingInput {...formik.getFieldProps('yearIssue')} />
+                            </InputWrapper>
                             <div className={s.inputs_wr}>
                                 <InputWrapper>
                                     <FloatingInput {...formik.getFieldProps('username')} />

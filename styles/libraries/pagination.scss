@@ -64,4 +64,11 @@
       display: none;
     }
   }
+
+  &.hideNext{
+    .next{
+      display: none;
+    }
+  }
+
 }

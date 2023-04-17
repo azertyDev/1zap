@@ -34,7 +34,7 @@ export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar
                 companyName: values.companyName,
             };
 
-            await applicationApi
+            applicationApi
                 .addApplication(val)
                 .then((response) => {
                     push('/become_provider/final_step');

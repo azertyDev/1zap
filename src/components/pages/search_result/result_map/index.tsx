@@ -33,6 +33,17 @@ import { toast } from 'react-hot-toast';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
+const getFilterParamsResultPage = (payment: string, delivery: string, service: string, client: string) => {
+    const formatQuery = (param: string, val: string) => {
+        return val ? `&${param}=${val}` : '';
+    };
+
+    return `${formatQuery('payment', payment)}${formatQuery('delivery', delivery)}${formatQuery(
+        'service',
+        service
+    )}${formatQuery('client', client)}`;
+};
+
 export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
     const { t } = useTranslation();
     const {
@@ -54,7 +65,12 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
             await productsApi
                 // @ts-ignore
                 .getProductsNoGroup(
-                    `page=${page ?? 1}&lang=${locale}&filter=${id}${payment ? `&payment=${payment}` : ''}`
+                    `page=${page ?? 1}&lang=${locale}&filter=${id}${getFilterParamsResultPage(
+                        payment as string,
+                        delivery as string,
+                        service as string,
+                        client as string
+                    )}`
                 )
                 .then((res) => {
                     setData(res);
@@ -140,13 +156,14 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                     <div className={`${s.search} ${mapIsOpen ? s.notActive : ''}`}>
                         <InputSearch />
                         <div className={s.filter_for_respon}>
-                            <button className={s.filter_btn}>{t('filter:price')}</button>
-                            <button className={s.filter_btn}>{t('filter:howmany')}</button>
+                            <button className={s.filter_btn}>{t('common:selects:price')}</button>
+                            <button className={s.filter_btn}>{t('common:selects:howmany')}</button>
                             <FilterResponsive
                                 btnText={'anotherFilter'}
                                 isOpen={isOpenFilter}
                                 toggleFilter={setIsOpenFilter}
                                 data={staticPar as any}
+                                isTranslated
                             />
                         </div>
                         <div className={s.filter_laptop}>
