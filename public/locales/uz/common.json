@@ -113,10 +113,11 @@
   "weekendSchedule": "Dam olish kunlari",
   "workingScheduleText": "Ish kuni",
   "offers": "takliflar",
+  "fromTo": "{{from}} dan {{to}} gacha",
   "selects": {
     "all": "Hammasi",
     "tireFitting": "Shinalarni o'rnatish",
-    "autoService": "Аvtomobil xizmati",
+    "autoService": "Аvtovobil xizmati",
     "partSelection": "Аvtomobil qismlari",
     "tashkent": "Toshkent",
     "bukhara": "Buxoro",

@@ -22,13 +22,9 @@
   margin-right: 9px;
 }
 
-.text{
-  @include  fs_fw_c(14px,600,$text);
-}
 
 
-
-@media (max-width: 768px) {
+@media (max-width: 868px) {
   .login{
     display: none;
   }

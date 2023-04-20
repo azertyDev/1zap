@@ -21,7 +21,7 @@ export const ChosenDetail: FC<{
     dataGetUnitInfo: string;
 }> = ({ dataAuto, dataDetailByUnit, dataGetUnitInfo }): JSX.Element => {
     const { t } = useTranslation();
-    const { back } = useRouter();
+    const { back, pathname } = useRouter();
 
     const { auto, detailByUnit, unitInfo } = useChosenDetail(dataAuto, dataDetailByUnit, dataGetUnitInfo);
 
@@ -78,12 +78,14 @@ export const ChosenDetail: FC<{
                                                 <p>{item.$.oem}</p>
                                             </TableElement>
                                             <TableElement className={'table_b'}>
-                                                <Link
+                                                <a
                                                     href={`/search_result?id=${item.$.oem}`}
+                                                    target={'_blank'}
                                                     className={item.$.oem.length === 0 ? s.disable : ''}
+                                                    rel="noreferrer"
                                                 >
                                                     <button>{t('common:find')}</button>
-                                                </Link>
+                                                </a>
                                             </TableElement>
                                         </TableRow>
                                     </div>

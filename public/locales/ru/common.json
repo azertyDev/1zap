@@ -122,6 +122,7 @@
   "weekendSchedule": "Выходные дни",
   "workingScheduleText": "Рабочие дни",
   "offers": "предложения",
+  "fromTo": "от {{from}} до {{to}}",
   "selects": {
     "all": "Все",
     "tireFitting": "Шиномонтаж",
@@ -166,7 +167,7 @@
     "cash": "Наличные",
     "card": "Карта",
     "transfer": "Перевод",
-    "pickup": "Самовывоз ",
+    "pickup": "Самовывоз",
     "courier": "Доставка",
     "legal": "Юр-лицо",
     "individual": "Физ-лицо",

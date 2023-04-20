@@ -23,10 +23,6 @@ const fakePartners = [
         id: 4,
         img: '/assets/images/home/hyundai.svg',
     },
-    {
-        id: 5,
-        img: '/assets/images/home/hyundai.svg',
-    },
 ];
 
 export const catalogContext = createContext({ dataRes: '' });

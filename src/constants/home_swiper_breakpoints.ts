@@ -22,14 +22,14 @@ export const homeSwiperBreakpoints = {
         slidesPerView: 2.7,
         slidesPerGroup: 1,
     },
-    830: {
+    900: {
         spaceBetween: 15,
-        slidesPerView: 3.4,
+        slidesPerView: 4,
         slidesPerGroup: 1,
     },
     1411: {
         spaceBetween: 15,
-        slidesPerView: 4.3,
+        slidesPerView: 4,
         slidesPerGroup: 1,
     },
 };

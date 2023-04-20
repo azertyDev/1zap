@@ -28,7 +28,11 @@ export const Pagination: FC<paginationInt> = ({ pageCount }): JSX.Element => {
     );
 
     return (
-        <div className={`pagination ${+page! + 1 > pageCount ? 'hidenext' : ''} ${pageCount === 0 ? 'hideNext' : ''}`}>
+        <div
+            className={`pagination ${+page! + 1 > pageCount ? 'hidenext' : ''} ${
+                pageCount === 0 || pageCount === 1 ? 'hideNext' : ''
+            }`}
+        >
             <ReactPaginate
                 onClick={handlePage}
                 pageCount={pageCount ? +pageCount : 0}

@@ -11,7 +11,6 @@ export const InputSearch: FC = (): JSX.Element => {
 
     const {
         pathname,
-        query,
         push,
         query: { id },
     } = useRouter();

@@ -23,13 +23,25 @@ export const ResultTableForm: FC<{ data: IProduct[] }> = ({ data }): JSX.Element
                             <TableElement className={'table_h'}>{t('common:selects.number')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.nameProduct')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.howmany')}</TableElement>
-                            <TableElement className={'table_h'}>{t('common:selects.price')}</TableElement>
+                            <TableElement className={'table_h'}>
+                                <div className={s.filter_price_wr}>
+                                    <div className={s.filter_price_buttons}>
+                                        <div onClick={() => alert(1)}>
+                                            <Icon name={'expand_less'} size={18} color={'#9A9EA7'} />
+                                        </div>
+                                        <div onClick={() => alert(2)}>
+                                            <Icon name={'expand_more'} size={18} color={'#9A9EA7'} />
+                                        </div>
+                                    </div>
+                                    <p> {t('common:selects.price')}</p>
+                                </div>
+                            </TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.seller')}</TableElement>
                         </TableRow>
                     </>
                 )}
 
-                {data.map((item:any) => {
+                {data.map((item: any) => {
                     return (
                         <TableRow key={item.id} className={s.table_row}>
                             <TableElement className={'table_b'}>
@@ -48,11 +60,11 @@ export const ResultTableForm: FC<{ data: IProduct[] }> = ({ data }): JSX.Element
                                     {item.availability} {t('common:howmany')}
                                 </h5>
                                 <p>
-                                    <span className={s.howmany_wr}>
-                                        <Icon size={14} name={'autorenew'} color={'#0D0A19'} />
-                                        <span>24</span>
-                                        {t('common:hourago')}
-                                    </span>
+                                    {/*<span className={s.howmany_wr}>*/}
+                                    {/*    <Icon size={14} name={'autorenew'} color={'#0D0A19'} />*/}
+                                    {/*    <span>24</span>*/}
+                                    {/*    {t('common:hourago')}*/}
+                                    {/*</span>*/}
 
                                     <span> {item.availability > 0 ? t('common:wehave') : t('common:wedonthave')}</span>
                                 </p>

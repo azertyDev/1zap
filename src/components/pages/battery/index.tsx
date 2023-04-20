@@ -22,6 +22,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ResponsTable } from 'components/ui/table/respons_table';
 import { Pagination } from 'components/ui/pagination/Pagination';
+import { Icon } from 'components/ui/icon';
 
 export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
@@ -81,7 +82,19 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
                             <TableElement className={'table_h'}>{t('common:selects.manufacturers')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.number')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.size')}</TableElement>
-                            <TableElement className={'table_h'}>{t('common:selects.middlePrice')}</TableElement>
+                            <TableElement className={'table_h'}>
+                                <div className={s.filter_price_wr}>
+                                    <div className={s.filter_price_buttons}>
+                                        <div onClick={() => alert(1)}>
+                                            <Icon name={'expand_less'} size={18} color={'#9A9EA7'} />
+                                        </div>
+                                        <div onClick={() => alert(2)}>
+                                            <Icon name={'expand_more'} size={18} color={'#9A9EA7'} />
+                                        </div>
+                                    </div>
+                                    <p> {t('common:selects.middlePrice')}</p>
+                                </div>
+                            </TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.offer')}</TableElement>
                         </TableRow>
                         {data.data.map((item) => {

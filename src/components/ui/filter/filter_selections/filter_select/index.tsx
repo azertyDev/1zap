@@ -20,7 +20,10 @@ export const FilterSelect: FC<{
                 instanceId={id}
                 isSearchable={false}
                 onChange={fun(id)}
-                options={options}
+                options={options.map((item) => ({
+                    value: value,
+                    label: item.label?.toUpperCase(),
+                }))}
                 value={
                     {
                         value: value,

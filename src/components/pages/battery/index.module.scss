@@ -15,6 +15,37 @@
   display: grid;
   grid-template-columns: 102px 120px 70px minmax(170px,207px) minmax(130px,160px)  minmax(130px,150px) 124px;
 }
+
+
+.filter_price_wr {
+  display: flex;
+  align-items: center;
+}
+.filter_price_buttons {
+  position: relative;
+  margin-right: 25px;
+
+  div {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:first-child {
+      left: 0;
+      top: -12px;
+      z-index: 1;
+    }
+
+    &:last-child {
+      top: -2px;
+      left: 0;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .tabs_wr_out {
     display: none;

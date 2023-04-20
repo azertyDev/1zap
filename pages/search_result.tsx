@@ -32,6 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const SearchResultPage: NextPageWithLayout<{ staticPar: IStaticParams }> = ({ staticPar }) => {
+    console.log(staticPar);
     return <SearchResult staticPar={staticPar} />;
 };
 

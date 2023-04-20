@@ -30,6 +30,7 @@ import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
 import { selectDefaultVal } from 'src/constants/ selectDefaultVal';
 import { productsApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
+import { Icon } from 'components/ui/icon';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
@@ -76,7 +77,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                     setData(res);
                 })
                 .catch((err) => {
-                    toast.error('Ошибка');
+                    toast.error(t('helpers:error_getting'));
                 });
         })();
     }, [query]);
@@ -156,8 +157,28 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                     <div className={`${s.search} ${mapIsOpen ? s.notActive : ''}`}>
                         <InputSearch />
                         <div className={s.filter_for_respon}>
-                            <button className={s.filter_btn}>{t('common:selects:price')}</button>
-                            <button className={s.filter_btn}>{t('common:selects:howmany')}</button>
+                            <button className={s.filter_btn}>
+                                <p> {t('common:selects:price')}</p>
+                                <span className={s.filter_price_buttons}>
+                                    <span onClick={() => alert(1)}>
+                                        <Icon name={'expand_less'} size={16} color={'#9A9EA7'} />
+                                    </span>
+                                    <span onClick={() => alert(2)}>
+                                        <Icon name={'expand_more'} size={16} color={'#9A9EA7'} />
+                                    </span>
+                                </span>
+                            </button>
+                            <button className={s.filter_btn}>
+                                <p>{t('common:selects:howmany')}</p>
+                                <span className={s.filter_price_buttons}>
+                                    <span onClick={() => alert(1)}>
+                                        <Icon name={'expand_less'} size={16} color={'#9A9EA7'} />
+                                    </span>
+                                    <span onClick={() => alert(2)}>
+                                        <Icon name={'expand_more'} size={16} color={'#9A9EA7'} />
+                                    </span>
+                                </span>
+                            </button>
                             <FilterResponsive
                                 btnText={'anotherFilter'}
                                 isOpen={isOpenFilter}

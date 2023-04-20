@@ -30,10 +30,10 @@ export const ResultTableFormResp: FC<{ data: IProduct[] }> = ({ data }): JSX.Ele
                                 <p className={s.titles_small}>
                                     {item.availability > 0 ? t('common:wehave') : t('common:wedonthave')}
                                 </p>
-                                <p className={`${s.titles_small} ${s.info_img}`}>
-                                    <Icon size={14} name={'autorenew'} color={'#0D0A19'} />
-                                    <span>24{t('common:hourago')}</span>
-                                </p>
+                                {/*<p className={`${s.titles_small} ${s.info_img}`}>*/}
+                                {/*    <Icon size={14} name={'autorenew'} color={'#0D0A19'} />*/}
+                                {/*    <span>24{t('common:hourago')}</span>*/}
+                                {/*</p>*/}
                             </div>
                             <p className={s.text}>{item.ltext}</p>
                             <p className={s.titles_small}>{item.description}</p>
