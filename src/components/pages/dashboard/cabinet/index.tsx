@@ -7,10 +7,10 @@ import { Statistics } from './sections/statistics';
 import { PromoPage } from './sections/promo';
 import { PriceList } from './sections/price_list';
 import { VinRequests } from './sections/vin_request';
+import { IncominRequests } from './sections/incoming_requests/vin_request';
 import Header from 'src/components/ui/dashboard/header';
 import BottomFooter from 'src/components/widgets/footer/bottom_footer';
 import s from './index.module.scss';
-import { IncominRequests } from './sections/incoming_requests/vin_request';
 
 interface PropsType extends FC {}
 

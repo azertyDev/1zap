@@ -16,7 +16,7 @@ const BottomFooter = (props: any) => {
                 </Link>
                 <Link href={'#!'}>{t('footer:offer')}</Link>
             </div>
-            <p className={s.copy}>&copy; 2022 All rights reserved</p>
+            <p className={s.copy}>&copy; 2023 All rights reserved</p>
             <div className={s.controls}>
                 <Language />
                 <ExchangeRate />

@@ -17,6 +17,14 @@
             margin-bottom: 7px;
         }
     }
+
+    &.disabled {
+        background: inherit;
+
+        .label {
+            color: cornflowerblue;
+        }
+    }
 }
 
 .select_wr {

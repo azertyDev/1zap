@@ -18,16 +18,6 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
     const [field, meta, form] = useField(props);
     const { t } = useTranslation();
 
-    // const phoneInputChange: OnValueChange = async (value: any) => {
-    //     const phoneValue = value.formattedValue.replaceAll(' ', '');
-    //     console.log(phoneValue);
-
-    //     // await form.setValue(field.name, phoneValue);
-
-    //     await setFieldValue!(field.name, '12121212');
-    //     console.log(field);
-    // };
-
     return (
         <div className={s.container}>
             <div>
@@ -54,7 +44,12 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                 ) : null}
             </div>
             {meta.touched || meta.error ? (
-                <ErrorMessage component="span" name={field.name} className={s.error} />
+                <ErrorMessage
+                    component="span"
+                    name={field.name}
+                    className={s.error}
+                    render={(msg) => <span className={s.error}>{t(`helpers:${msg}`)}</span>}
+                />
             ) : null}
         </div>
     );

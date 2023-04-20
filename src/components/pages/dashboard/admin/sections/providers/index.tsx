@@ -10,7 +10,7 @@ import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
 import { StatisticsBlock } from 'src/components/ui/dashboard/statistics_block';
 import s from './index.module.scss';
 
-export const Providers: FC = (): JSX.Element => {
+export const Providers: FC = (props): JSX.Element => {
     const { applications, providers, loading, error, fetchApplications, fetchProviders } = useStore(
         (state) => state,
         shallow
@@ -122,7 +122,8 @@ export const Providers: FC = (): JSX.Element => {
                     <ActionsBlock cell={cell}>
                         <Link
                             href={{
-                                pathname: '#',
+                                pathname: '/dashboard/[slug]/[params]',
+                                query: { id: cell.id, slug: 'providers', params: 'create' },
                             }}
                         >
                             Изменить

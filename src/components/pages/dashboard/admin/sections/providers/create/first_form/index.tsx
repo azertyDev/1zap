@@ -17,11 +17,13 @@ export const FirstForm: FC<FirstFormProps> = ({ initialValues, setInitialValues,
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
         console.log('First form values:', values);
+        return values;
     };
 
     const formik = useFormik({
-        initialValues: initialValues,
         onSubmit,
+        initialValues: initialValues,
+        enableReinitialize: true,
         // validationSchema,
     });
 

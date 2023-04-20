@@ -1,11 +1,11 @@
 import type { NextPageWithLayout } from 'pages/_app';
-import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Layout } from 'src/components/layout/dashboard';
-import { CreateProvider } from 'src/components/pages/dashboard/admin/sections/providers/create';
 import Header from 'src/components/ui/dashboard/header';
 import Bottom_footer from 'src/components/widgets/footer/bottom_footer';
+import { BranchForm } from 'src/components/pages/dashboard/cabinet/sections/promo/forms/branch_form';
+import { AdvForm } from 'src/components/pages/dashboard/cabinet/sections/promo/forms/adv_form';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale, query } = context;
@@ -26,13 +26,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const routes = {
-    create_provider: '/providers/create',
+    promo_branches: '/promo/branches',
+    promo_adv: '/promo/adverts',
 };
 
 const Index: NextPageWithLayout = ({ query }: any) => {
     switch (`/${query.slug}/${query.params}`) {
-        case routes.create_provider:
-            return <CreateProvider query={query} />;
+        case routes.promo_branches:
+            return <BranchForm />;
+        case routes.promo_adv:
+            return <AdvForm />;
 
         default:
             break;

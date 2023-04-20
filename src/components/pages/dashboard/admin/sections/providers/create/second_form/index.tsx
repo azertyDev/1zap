@@ -39,6 +39,7 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
         },
     ];
     const {
+        push,
         query: { id },
     } = useRouter();
     const { addProvider } = useStore((state) => state);
@@ -48,17 +49,16 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
     };
 
     const validationSchema = Yup.object().shape({
-        legalAddress: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-        phone: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-        fullName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-        email: Yup.string().email('Invalid email').required('Required'),
-        companyName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-        inn: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+        legalAddress: Yup.string().min(2, 'more_then_two_words').max(50, 'Too Long!').required('required'),
+        phone: Yup.string().required('required'),
+        fullName: Yup.string().min(2, 'more_then_two_words').max(50, 'Too Long!').required('required'),
+        email: Yup.string().email('Invalid email').required('required'),
+        companyName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('required'),
+        inn: Yup.string().max(12, 'Too Long!').required('required'),
         coin: Yup.number()
-            .positive('Must be a positive value')
             .label('Coin')
             .typeError(({ label, type }) => `${label} must be a ${type}`)
-            .required('Required'),
+            .required('required'),
     });
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
@@ -69,13 +69,9 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
             return { phone: phone.replaceAll(' ', ''), ...all };
         });
 
-        console.log('@branch: ', branch);
-
         const data: IProviderData = {
             coin: Number(coin),
             applicationId: Number(id),
-            // Пароль временно стоит, надо убрать после настройки апи
-            password: 'qwerty',
             phone: phone.replaceAll(' ', ''),
             providerBranch: branch,
             ...rest,
@@ -93,6 +89,12 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
     useEffect(() => {
         setInitialValues(formik.values);
     }, [formik.values, setInitialValues]);
+
+    const handleSubmit = () => {
+        if (formik.dirty || formik.isValid) {
+            push('/dashboard/providers');
+        }
+    };
 
     return (
         <FormikProvider value={formik}>
@@ -139,11 +141,16 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
                 </div>
 
                 <div className={s.actionButtons}>
-                    <Button variant={'disabled'} type="reset" onClick={() => handleTabChange(1)}>
+                    <Button variant="disabled" type="reset" onClick={() => handleTabChange(1)}>
                         Назад
                     </Button>
-                    <Button variant={'primary'} type="submit">
-                        Готова
+                    <Button
+                        type="submit"
+                        onClick={() => handleSubmit}
+                        disabled={!(formik.dirty || formik.isValid || formik.isSubmitting)}
+                        variant={!(formik.dirty || formik.isValid) ? 'disabled' : 'primary'}
+                    >
+                        Готово
                     </Button>
                 </div>
             </Form>

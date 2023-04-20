@@ -39,10 +39,6 @@ export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
             .then((response) => {
                 set({ userData: response, loading: false });
 
-                toast.success('Welcome to the hell', {
-                    icon: '😈',
-                });
-
                 let oneDay = new Date(new Date().getTime() + 24 * 3600 * 1000);
                 // Expiration day: 1
                 Cookies.set('userInfo', JSON.stringify(response), { expires: oneDay });

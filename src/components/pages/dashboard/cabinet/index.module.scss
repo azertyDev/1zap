@@ -3,13 +3,12 @@
 
 .wrapper {
     height: 100%;
-    // padding: 0px 55px;
     display: flex;
     flex-direction: column;
 
     .footer {
         @include flex-items(stretch, center);
-        padding: 25px 0;
+        padding: 25px 0 !important;
     }
 
     main {

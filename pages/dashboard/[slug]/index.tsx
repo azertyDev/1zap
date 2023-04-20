@@ -1,8 +1,8 @@
 import type { NextPageWithLayout } from 'pages/_app';
-import { GetServerSideProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Layout } from 'src/components/layout/dashboard';
 import dynamic from 'next/dynamic';
+import { GetServerSideProps } from 'next';
+import { Layout } from 'src/components/layout/dashboard';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const DynamicDashboardContent = dynamic(() => import('src/components/pages/dashboard/admin'), {
     ssr: false,

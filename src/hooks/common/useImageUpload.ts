@@ -51,7 +51,7 @@ export const useImageUpload = (props: FileUploaderProps) => {
                     id: null,
                     url: '',
                 });
-                props.setFieldValue(props.name, '');
+                props.setFieldValue(props.name, { id: null, url: '' });
             })
             .catch(({ response }) => {
                 if (response) {

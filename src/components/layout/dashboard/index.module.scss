@@ -11,5 +11,7 @@
     & div.content {
         width: 100%;
         padding: 0 55px;
+        display: flex;
+        flex-direction: column;
     }
 }

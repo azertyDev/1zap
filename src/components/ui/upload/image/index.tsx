@@ -1,10 +1,7 @@
-import { ChangeEvent, MouseEvent, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { imageApi } from 'src/utils/api';
 import { Icon } from 'components/ui/icon';
+import { useImageUpload } from 'src/hooks/common/useImageUpload';
 
 import s from './index.module.scss';
-import { useImageUpload } from 'src/hooks/common/useImageUpload';
 
 interface FileUploaderProps {
     name: string;
@@ -13,13 +10,13 @@ interface FileUploaderProps {
 }
 
 export const ImageUpload = (props: FileUploaderProps) => {
-    const { imageData, deleteCurrentImage, handleChange } = useImageUpload(props);
+    const { deleteCurrentImage, handleChange, imageData } = useImageUpload(props);
 
     return (
         <div className={s.wrapper}>
-            {!!imageData.url ? (
+            {!!props.preview ? (
                 <div className={s.preview_block}>
-                    <img width={170} height={170} alt="preview" src={imageData.url.replace('onezap', '1zap')} />
+                    <img width={170} height={170} alt="preview" src={props.preview} />
 
                     <span onClick={deleteCurrentImage}>
                         <Icon name="delete" size={18} color="#C6303C" />
