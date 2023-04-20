@@ -9,11 +9,11 @@ export const Layout: FC<PropsWithChildren> = ({ children }): JSX.Element => {
     const { t } = useTranslation();
     const { userData } = useStore();
 
-    const isAdmin = userData?.user.role === 'admin' ? <DashboardNav t={t} /> : <ProviderNav t={t} />;
+    const navbar = userData?.user.role === 'admin' ? <DashboardNav t={t} /> : <ProviderNav t={t} />;
 
     return (
         <div className={s.layout}>
-            {isAdmin}
+            {navbar}
             <div className={s.content}>{children}</div>
         </div>
     );

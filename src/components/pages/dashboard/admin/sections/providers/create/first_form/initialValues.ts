@@ -5,7 +5,7 @@ export const providerValues: IProviderData = {
     email: '',
     companyName: '',
     inn: '',
-    coin: 100,
+    coin: 0,
     providerBranch: [
         {
             branchName: '',
@@ -23,11 +23,11 @@ export const providerValues: IProviderData = {
             payment: [
                 {
                     method: 'cash',
-                    isActive: true,
+                    isActive: false,
                 },
                 {
                     method: 'card',
-                    isActive: true,
+                    isActive: false,
                 },
                 {
                     method: 'transfer',
@@ -37,7 +37,7 @@ export const providerValues: IProviderData = {
             delivery: [
                 {
                     method: 'pickup',
-                    isActive: true,
+                    isActive: false,
                 },
                 {
                     method: 'courier',
@@ -47,7 +47,7 @@ export const providerValues: IProviderData = {
             service: [
                 {
                     name: 'tireFitting',
-                    isActive: true,
+                    isActive: false,
                 },
                 {
                     name: 'autoService',
@@ -65,7 +65,7 @@ export const providerValues: IProviderData = {
                 },
                 {
                     type: 'individual',
-                    isActive: true,
+                    isActive: false,
                 },
             ],
             images: [

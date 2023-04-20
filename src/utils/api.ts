@@ -62,3 +62,7 @@ export const priceListApi = {
 export const orderDetails = {
     order: (body: IOrderDetail) => requests.post('/orders', body),
 };
+
+export const promoApi = {
+    branch: (body: any) => requests.post('/products/marketing/branch', body),
+};

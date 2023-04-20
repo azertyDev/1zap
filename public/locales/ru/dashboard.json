@@ -56,13 +56,13 @@
         "service": {
             "title": "Услуги",
             "tireFitting": "Шиномонтаж",
-            "autoService": "Авто-сервис",
+            "autoService": "Автосервис",
             "partSelection": "Подбор деталей"
         },
         "clientType": {
             "title": "Условия работы",
-            "legal": "С юр.лицами",
-            "individual": "Подбор деталей"
+            "legal": "С Юр-лицами",
+            "individual": "С Физ-лицами"
         }
     }
 }

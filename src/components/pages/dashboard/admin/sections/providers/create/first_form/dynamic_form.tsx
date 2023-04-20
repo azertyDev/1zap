@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { FieldArrayRenderProps, Field, FieldArray } from 'formik';
 import { StandartInput } from 'src/components/ui/input/standart_input';
 import { Icon } from 'src/components/ui/icon';
@@ -9,33 +9,52 @@ import { Checkbox } from 'src/components/ui/dashboard/checkbox';
 import { ImageUpload } from 'src/components/ui/upload/image';
 import { maptiler } from 'pigeon-maps/providers';
 import { ZoomControl } from 'src/components/ui/map/map_controls/zoom';
-
+import { staticParamsApi } from 'src/utils/api';
+import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
 import s from '../index.module.scss';
+import { providerValues } from './initialValues';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
 export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
     const { form, ...rest } = props;
-    const [coordinates, setCoordinates] = useState<[number, number]>();
+    const [params, setParams] = useState<any>();
+    const defaultOptions = [
+        {
+            value: '',
+            label: '',
+        },
+    ];
+
+    const staticParams = async () => {
+        await staticParamsApi
+            .getParams()
+            .then((res) => {
+                setParams(res);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    useEffect(() => {
+        staticParams();
+    }, []);
 
     const handleMap = (
-        {
-            event,
-            latLng,
-            pixel,
-        }: {
-            event: MouseEvent;
-            latLng: [number, number];
-            pixel: [number, number];
-        },
+        { event, latLng, pixel }: { event: MouseEvent; latLng: [number, number]; pixel: [number, number] },
         field: string
     ) => {
-        setCoordinates(latLng);
         form.setFieldValue(field, JSON.stringify(latLng));
     };
 
     return form?.values.providerBranch && form?.values.providerBranch.length > 0 ? (
         form?.values.providerBranch.map((branch: IBranchData, index: number) => {
+            const coords = branch.location
+                .replace(/\[|\]/g, '')
+                .split(',')
+                .map(function (el) {
+                    return +el;
+                });
+
             return (
                 <div className={s.formGroup} key={index}>
                     <div className={s.row}>
@@ -62,16 +81,16 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
 
                         <div className={s.block}>
                             <Map
+                                // boxClassname={s.map}
                                 provider={maptilerProvider}
                                 dprs={[1, 2]}
                                 defaultCenter={[41.31172327941058, 69.2818072781773]}
                                 defaultZoom={15}
                                 // metaWheelZoom
-                                boxClassname={s.map}
                                 onClick={(event) => handleMap(event, `providerBranch[${index}].location`)}
                             >
-                                {coordinates ? (
-                                    <Marker anchor={coordinates}>
+                                {branch.location ? (
+                                    <Marker anchor={coords as [number, number]}>
                                         <Icon name="location_on" size={30} color="#C6303C" />
                                     </Marker>
                                 ) : null}
@@ -92,39 +111,13 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                 component={SelectField}
                                 name={`providerBranch[${index}].branchType`}
                                 label="dashboard:providerBranch.branchType"
-                                options={[
-                                    {
-                                        value: 'shop',
-                                        label: 'shop',
-                                    },
-                                ]}
+                                options={params ? transformSelectOptions(params.branchType) : defaultOptions}
                             />
                             <Field
                                 component={SelectField}
                                 name={`providerBranch[${index}].city`}
                                 label="dashboard:providerBranch.city"
-                                options={[
-                                    {
-                                        value: 'tashkent',
-                                        label: 'tashkent',
-                                    },
-                                    {
-                                        value: 'bukhara',
-                                        label: 'bukhara',
-                                    },
-                                    {
-                                        value: 'samarkand',
-                                        label: 'samarkand',
-                                    },
-                                    {
-                                        value: 'andijan',
-                                        label: 'andijan',
-                                    },
-                                    {
-                                        value: 'namangan',
-                                        label: 'namangan',
-                                    },
-                                ]}
+                                options={params ? transformSelectOptions(params.city) : defaultOptions}
                             />
                         </div>
 
@@ -135,13 +128,15 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                         component={SelectField}
                                         name={`providerBranch[${index}].workingSchedule`}
                                         label="dashboard:providerBranch.workingSchedule"
-                                        options={[{ value: 'seven-day', label: 'seven-day' }]}
+                                        options={
+                                            params ? transformSelectOptions(params.workingSchedule) : defaultOptions
+                                        }
                                     />
                                     <Field
                                         component={SelectField}
                                         name={`providerBranch[${index}].weekendSchedule`}
                                         label="dashboard:providerBranch.weekendSchedule"
-                                        options={[{ value: 'seven-day', label: 'seven-day' }]}
+                                        options={params ? params.weekendSchedule : defaultOptions}
                                     />
                                 </div>
                                 <div className={`${s.row} ${s.gap_30}`}>
@@ -149,13 +144,13 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                         component={SelectField}
                                         name={`providerBranch[${index}].weekend`}
                                         label="dashboard:providerBranch.weekend"
-                                        options={[{ value: 'sunday', label: 'sunday' }]}
+                                        options={params ? transformSelectOptions(params.weekend) : defaultOptions}
                                     />
                                     <Field
                                         component={SelectField}
                                         name={`providerBranch[${index}].breakTime`}
                                         label="dashboard:providerBranch.breakTime"
-                                        options={[{ value: '12.00-13.00', label: '12.00-13.00' }]}
+                                        options={params ? params.breakTime : defaultOptions}
                                     />
                                 </div>
                             </div>
@@ -267,77 +262,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                     </div>
 
                     <div className={s.actionButtons}>
-                        <span
-                            onClick={() =>
-                                rest.push({
-                                    branchName: '',
-                                    phisicalAddress: '',
-                                    phone: '',
-                                    managerName: '',
-                                    landmark: '',
-                                    location: '',
-                                    branchType: '',
-                                    city: '',
-                                    workingSchedule: '',
-                                    weekendSchedule: '',
-                                    weekend: '',
-                                    breakTime: '',
-                                    payment: [
-                                        {
-                                            method: 'cash',
-                                            isActive: false,
-                                        },
-                                        {
-                                            method: 'card',
-                                            isActive: false,
-                                        },
-                                        {
-                                            method: 'transfer',
-                                            isActive: false,
-                                        },
-                                    ],
-                                    delivery: [
-                                        {
-                                            method: 'pickup',
-                                            isActive: false,
-                                        },
-                                        {
-                                            method: 'courier',
-                                            isActive: false,
-                                        },
-                                    ],
-                                    service: [
-                                        {
-                                            name: 'tireFitting',
-                                            isActive: false,
-                                        },
-                                        {
-                                            name: 'autoService',
-                                            isActive: false,
-                                        },
-                                        {
-                                            name: 'partSelection',
-                                            isActive: false,
-                                        },
-                                    ],
-                                    clientType: [
-                                        {
-                                            type: 'legal',
-                                            isActive: false,
-                                        },
-                                        {
-                                            type: 'individual',
-                                            isActive: false,
-                                        },
-                                    ],
-                                    images: [
-                                        {
-                                            url: '',
-                                        },
-                                    ],
-                                })
-                            }
-                        >
+                        <span onClick={() => rest.push({ ...providerValues.providerBranch[0] })}>
                             <Icon name="add_circle" size={18} />
                             Дополнительный филиал
                         </span>
@@ -353,77 +278,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
     ) : (
         <div className={s.formGroup}>
             <div className={s.actionButtons}>
-                <span
-                    onClick={() =>
-                        rest.push({
-                            branchName: '',
-                            phisicalAddress: '',
-                            phone: '',
-                            managerName: '',
-                            landmark: '',
-                            location: '',
-                            branchType: '',
-                            city: '',
-                            workingSchedule: '',
-                            weekendSchedule: '',
-                            weekend: '',
-                            breakTime: '',
-                            payment: [
-                                {
-                                    method: 'cash',
-                                    isActive: false,
-                                },
-                                {
-                                    method: 'card',
-                                    isActive: false,
-                                },
-                                {
-                                    method: 'transfer',
-                                    isActive: false,
-                                },
-                            ],
-                            delivery: [
-                                {
-                                    method: 'pickup',
-                                    isActive: false,
-                                },
-                                {
-                                    method: 'courier',
-                                    isActive: false,
-                                },
-                            ],
-                            service: [
-                                {
-                                    name: 'tireFitting',
-                                    isActive: false,
-                                },
-                                {
-                                    name: 'autoService',
-                                    isActive: false,
-                                },
-                                {
-                                    name: 'partSelection',
-                                    isActive: false,
-                                },
-                            ],
-                            clientType: [
-                                {
-                                    type: 'legal',
-                                    isActive: false,
-                                },
-                                {
-                                    type: 'individual',
-                                    isActive: false,
-                                },
-                            ],
-                            images: [
-                                {
-                                    url: '',
-                                },
-                            ],
-                        })
-                    }
-                >
+                <span onClick={() => rest.push({ ...providerValues.providerBranch[0] })}>
                     <Icon name="add_circle" size={18} />
                     Добавить филиал
                 </span>

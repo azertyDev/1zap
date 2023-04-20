@@ -18,7 +18,7 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
     };
 
     return (
-        <div className={`${s.root} ${props.field.value ? s.active : ''}`}>
+        <div className={`${s.root} ${props.field.value ? s.active : ''} ${props.isDisabled ? s.disabled : ''}`}>
             {field.value && (
                 <label htmlFor={field.name} className={s.label}>
                     {t(label)}
@@ -41,7 +41,7 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
                         container: (base) => ({
                             ...base,
                         }),
-                        placeholder: (base) => ({
+                        placeholder: (base, state) => ({
                             ...base,
                             color: '#9A9EA7',
                             fontWeight: '600',
@@ -52,6 +52,7 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
                         control: (base, state) => ({
                             ...base,
                             border: 'none',
+                            backgroundColor: state.isDisabled ? 'inherit' : '',
                             boxShadow: state.isFocused ? 'none' : 'none',
                             padding: '0 5px',
                         }),
