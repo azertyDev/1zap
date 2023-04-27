@@ -6,7 +6,7 @@ import { TableRow } from 'components/ui/table/table_row';
 import { TableElement } from 'components/ui/table/table_element';
 import { Icon } from 'components/ui/icon';
 import { useStore } from 'src/store/useStore';
-import { formatPrice } from 'src/helpers/formatPrice';
+import { formatNumber } from 'src/helpers/formatNumber';
 
 export const ResultTableForm: FC<{ data: IProduct[] }> = ({ data }): JSX.Element => {
     const { t } = useTranslation();
@@ -57,7 +57,7 @@ export const ResultTableForm: FC<{ data: IProduct[] }> = ({ data }): JSX.Element
                             </TableElement>
                             <TableElement className={'table_b'}>
                                 <h5>
-                                    {item.availability} {t('common:howmany')}
+                                    {formatNumber(item.availability)} {t('common:howmany')}
                                 </h5>
                                 <p>
                                     {/*<span className={s.howmany_wr}>*/}
@@ -69,8 +69,9 @@ export const ResultTableForm: FC<{ data: IProduct[] }> = ({ data }): JSX.Element
                                     <span> {item.availability > 0 ? t('common:wehave') : t('common:wedonthave')}</span>
                                 </p>
                             </TableElement>
+
                             <TableElement className={'table_b'}>
-                                <h5>{currency === 'usd' ? `$${item.usd}` : `${formatPrice(String(item.sum))} сум`}</h5>
+                                <h5>{currency === 'usd' ? `$${item.usd}` : `${formatNumber(item.sum)} сум`}</h5>
                                 <p>{item.rtext}</p>
                             </TableElement>
                             <TableElement className={'table_b'}>

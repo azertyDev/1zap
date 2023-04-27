@@ -1,0 +1,15 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.wr{
+margin-bottom: 30px;
+}
+
+.title {
+  @include fs_fw_c(22px, 700, $secondary);
+  margin-bottom: 30px;
+}
+
+.content {
+  @include dg_gc_gr_gg(repeat(3, 1fr), auto, 42px);
+}

@@ -20,9 +20,9 @@ export const DetailsCategories: FC<{ dataAuto: string; dataList: string }> = ({ 
     } = useRouter();
 
     const { list, auto } = useDetailCategories(dataAuto, dataList);
-    const [listId, setListId] = useState(0);
+    const [listId, setListId] = useState<number | null>(null);
 
-    const handleListId = useCallback((val: number) => {
+    const handleListId = useCallback((val: number | null) => {
         return () => setListId(val);
     }, []);
 
@@ -31,56 +31,64 @@ export const DetailsCategories: FC<{ dataAuto: string; dataList: string }> = ({ 
             <Container>
                 {auto && list && (
                     <DetailCategoriesWr title={`${auto?.brand} ${auto?.name}`}>
-                        <AsideDetailsCategories>
-                            {list.titles.map((item, index) => {
-                                return (
-                                    <li
-                                        className={listId === index ? s.active_aside : ''}
-                                        key={item}
-                                        onClick={handleListId(index)}
-                                    >
-                                        {item}
-                                    </li>
-                                );
-                            })}
-                        </AsideDetailsCategories>
+                        <div className={listId !== null ? s.hide_sidebar_res : ''}>
+                            <div className={s.line}></div>
+                            <AsideDetailsCategories>
+                                {list.titles.map((item, index) => {
+                                    return (
+                                        <li
+                                            className={listId === index ? s.active_aside : ''}
+                                            key={item}
+                                            onClick={handleListId(index)}
+                                        >
+                                            {item}
+                                        </li>
+                                    );
+                                })}
+                            </AsideDetailsCategories>
+                        </div>
 
-                        <ContentDetailsCategories title={list.titles[listId]}>
-                            {list?.filteredRows[listId].map((item, index) => {
-                                return (
-                                    <div className={s.content_item} key={index}>
-                                        {item.map((subitem, index) => {
-                                            return (
-                                                <div key={subitem.name + subitem.quickgroupid}>
-                                                    {subitem.link === 'true' ? (
-                                                        <Link
-                                                            className={
-                                                                index === 0
-                                                                    ? s.content_item_title_small
-                                                                    : s.content_item_link
-                                                            }
-                                                            href={`/details/chosen_category?id=${subitem.quickgroupid}&Catalog=${Catalog}&Vid=${Vid}&sd=${sd}`}
-                                                        >
-                                                            {subitem.name}
-                                                        </Link>
-                                                    ) : (
-                                                        <div
-                                                            className={
-                                                                index === 0
-                                                                    ? s.content_item_title_small
-                                                                    : s.content_item_link
-                                                            }
-                                                        >
-                                                            {subitem.name}
+                        {listId !== null && (
+                            <>
+                                <ContentDetailsCategories title={list.titles[listId]} handleBack={handleListId}>
+                                    <div className={s.line}></div>
+                                    {list?.filteredRows[listId].map((item, index) => {
+                                        return (
+                                            <div className={s.content_item} key={index}>
+                                                {item.map((subitem, index) => {
+                                                    return (
+                                                        <div key={subitem.name + subitem.quickgroupid}>
+                                                            {subitem.link === 'true' ? (
+                                                                <Link
+                                                                    className={
+                                                                        index === 0
+                                                                            ? s.content_item_title_small
+                                                                            : s.content_item_link
+                                                                    }
+                                                                    href={`/details/chosen_category?id=${subitem.quickgroupid}&Catalog=${Catalog}&Vid=${Vid}&sd=${sd}`}
+                                                                >
+                                                                    {subitem.name}
+                                                                </Link>
+                                                            ) : (
+                                                                <div
+                                                                    className={
+                                                                        index === 0
+                                                                            ? s.content_item_title_small
+                                                                            : s.content_item_link
+                                                                    }
+                                                                >
+                                                                    {subitem.name}
+                                                                </div>
+                                                            )}
                                                         </div>
-                                                    )}
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                );
-                            })}
-                        </ContentDetailsCategories>
+                                                    );
+                                                })}
+                                            </div>
+                                        );
+                                    })}
+                                </ContentDetailsCategories>
+                            </>
+                        )}
                     </DetailCategoriesWr>
                 )}
             </Container>

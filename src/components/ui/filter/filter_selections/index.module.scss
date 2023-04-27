@@ -42,3 +42,24 @@
 .select_title {
   @include fs_fw_c(12px, 400, $text);
 }
+
+@media (max-width: 768px) {
+  .filter {
+    display: block;
+    padding: 0;
+    box-shadow: none;
+    margin: 0;
+  }
+
+  .select_wr {
+    box-shadow: none;
+    background: #fff;
+    margin-bottom: 8px;
+    border: 1px solid #E4E6E8;
+    border-radius: 8px;
+
+    &:after {
+      display: none;
+    }
+  }
+}

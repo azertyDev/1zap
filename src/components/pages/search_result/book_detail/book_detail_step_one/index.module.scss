@@ -201,7 +201,10 @@
   }
 
   .detail_border_wr {
-    display: none;
+
+    border: none;
+    margin:0;
+    padding: 0;
 
     & + p {
       display: none;

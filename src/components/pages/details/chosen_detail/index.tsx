@@ -5,7 +5,7 @@ import { IconsWrapper } from 'components/ui/icons_wrapper';
 import { PageWrapper } from 'components/ui/page_wrapper';
 import { Icon } from 'components/ui/icon';
 
-import { FC } from 'react';
+import React, { FC } from 'react';
 import Image from 'next/image';
 import { TableRow } from 'components/ui/table/table_row';
 import { TableElement } from 'components/ui/table/table_element';
@@ -13,7 +13,6 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
 import { useChosenDetail } from 'src/hooks/laximoData/useChosenDetail';
-import Link from 'next/link';
 
 export const ChosenDetail: FC<{
     dataAuto: string;
@@ -28,11 +27,18 @@ export const ChosenDetail: FC<{
     return (
         <PageWrapper>
             <Container>
+                <p className={s.sub_title}>{t('common:sparePartsCat')}</p>
                 {auto && (
-                    <Title main className={s.title}>
+                    <h1 className={s.title}>
                         {auto.brand} {auto.name}
-                    </Title>
+                    </h1>
                 )}
+                {unitInfo && (
+                    <h5 className={s.table_title_res}>
+                        {unitInfo.code} {unitInfo.name}
+                    </h5>
+                )}
+                <div className={s.line}></div>
                 <div className={s.inner}>
                     <div>
                         <div className={s.link} onClick={back}>
@@ -52,8 +58,9 @@ export const ChosenDetail: FC<{
                                 />
                             )}
                         </div>
+                        <div className={s.line}></div>
                     </div>
-                    <div>
+                    <div className={s.table_des}>
                         {unitInfo && (
                             <h5 className={s.table_title}>
                                 {unitInfo.code} {unitInfo.name}
@@ -88,6 +95,32 @@ export const ChosenDetail: FC<{
                                                 </a>
                                             </TableElement>
                                         </TableRow>
+                                    </div>
+                                );
+                            })}
+                    </div>
+                    <div className={s.table_res_wr}>
+                        {detailByUnit &&
+                            detailByUnit.map((item, index) => {
+                                return (
+                                    <div className={s.table_res} key={item.$.oem + item.$.codeonimage + index}>
+                                        <p className={s.table_res_title}>{item.$.name}</p>
+                                        <div className={s.table_res_content}>
+                                            <div className={s.table_res_content_oem}>
+                                                <p className={s.table_res_code}>{item.$.codeonimage}</p>
+                                                {item.$.oem.length > 0 && <div className={s.circle}></div>}
+                                                <p className={s.table_res_oem}>{item.$.oem}</p>
+                                            </div>
+
+                                            <a
+                                                href={`/search_result?id=${item.$.oem}`}
+                                                target={'_blank'}
+                                                className={item.$.oem.length === 0 ? s.disable : ''}
+                                                rel="noreferrer"
+                                            >
+                                                {t('common:find')}
+                                            </a>
+                                        </div>
                                     </div>
                                 );
                             })}

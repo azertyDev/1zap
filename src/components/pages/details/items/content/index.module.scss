@@ -1,6 +1,7 @@
 @import "styles/variables";
 @import "styles/mixins";
-.content{
+
+.content {
   margin-bottom: 50px;
 }
 
@@ -13,4 +14,39 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 50px 21px;
+}
+
+.title_btn_wr{
+  @include flex-items(space-between,center)
+}
+.icon{
+  display: none;
+}
+
+@media (max-width: 1030px) {
+  .content_inner {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 30px 21px;
+  }
+}
+
+@media (max-width: 800px) {
+  .content_inner {
+    grid-template-columns: 1fr;
+    grid-gap: 30px 21px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content_inner {
+    display: block;
+
+  }
+.icon{
+  display: block;
+}
+  .content_title {
+    @include fs_fw_c(16px, 700, $secondary);
+    margin-bottom: 0;
+  }
 }

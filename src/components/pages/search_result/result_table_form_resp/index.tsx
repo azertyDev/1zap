@@ -1,11 +1,10 @@
 import { FC } from 'react';
 
 import s from './index.module.scss';
-import Image from 'next/image';
+
 import { useTranslation } from 'next-i18next';
-import { Icon } from 'components/ui/icon';
 import { useStore } from 'src/store/useStore';
-import { formatPrice } from 'src/helpers/formatPrice';
+import { formatNumber } from 'src/helpers/formatNumber';
 
 export const ResultTableFormResp: FC<{ data: IProduct[] }> = ({ data }): JSX.Element => {
     const { t } = useTranslation();
@@ -22,10 +21,10 @@ export const ResultTableFormResp: FC<{ data: IProduct[] }> = ({ data }): JSX.Ele
                             </div>
                             <div className={s.info_wr}>
                                 <p className={s.titles_small}>
-                                    {currency === 'usd' ? `$${item.usd}` : `${formatPrice(String(item.sum))} сум`}
+                                    {currency === 'usd' ? `$${item.usd}` : `${formatNumber(item.sum)} сум`}
                                 </p>
                                 <p className={s.titles_small}>
-                                    {item.availability} {t('common:howmany')}
+                                    {formatNumber(item.availability)} {t('common:howmany')}
                                 </p>
                                 <p className={s.titles_small}>
                                     {item.availability > 0 ? t('common:wehave') : t('common:wedonthave')}

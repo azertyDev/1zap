@@ -1,10 +1,8 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
-
 import s from './index.module.scss';
-import Image from 'next/image';
 
 import { useHandleLang } from 'src/hooks/header/useHandleLang';
 import { Icon } from 'components/ui/icon';

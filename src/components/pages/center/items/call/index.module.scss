@@ -1,0 +1,22 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.wr {
+  @include flex-items(center, center);
+  max-width: 751px;
+  margin: 40px auto 0;
+  button{
+    width: 160px;
+  }
+}
+
+.content{
+  margin-right: 74px;
+}
+.title{
+  @include fs_fw_c(16px,700,$secondary)
+}
+
+.text{
+  @include fs_fw_c(14px,400,$text)
+}

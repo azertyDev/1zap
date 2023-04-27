@@ -1,5 +1,5 @@
-@import "../../../../../styles/variables";
-@import "../../../../../styles/mixins";
+@import "styles/variables";
+@import "styles/mixins";
 
 .point_wr {
   position: relative;
@@ -15,4 +15,10 @@
   @include pa_t_l(40%, 50%);
   @include fs_fw_c(15px, 600, $light);
   transform: translate(-50%, -50%);
+}
+
+@media (max-width: 768px) {
+  .point_wr.hide{
+    display: none;
+  }
 }

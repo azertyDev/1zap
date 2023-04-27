@@ -36,17 +36,24 @@
     margin-left: 6px;
   }
 }
+.clean{
+  position: absolute;
+  top: 13.7px;
+  right: 14px;
+  display: none;
+
+}
 
 @media (max-width: 768px) {
   .input_wr {
     margin-bottom: 0;
     input {
       border-radius: 0;
-      padding: 13px 35px 13px 20px;
-      border-bottom: 2px solid #EDE8E9;
+      padding: 13px 33px 13px 20px;
+      border-bottom: 1px solid #EDE8E9;
 
       &::placeholder {
-        @include fs_fw_c(12px,400, $darkGrey);
+        @include fs_fw_c(14px,600, $secondary);
       }
     }
   }
@@ -62,4 +69,13 @@
     top: 53%;
     transform: translateY(-50%);
   }
+
+  .clean{
+    display: none;
+    &.active{
+      display: block;
+    }
+
+  }
 }
+

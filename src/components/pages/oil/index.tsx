@@ -65,7 +65,10 @@ export const Oil: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = 
                                                 value={(query[item] ?? '') as string}
                                                 fun={handleFilter}
                                                 labelAlt={filterData[item][0]?.label}
-                                                options={filterData[item]}
+                                                options={filterData[item].map((item) => ({
+                                                    value: item.value,
+                                                    label: item.label?.toUpperCase(),
+                                                }))}
                                                 isTranslated
                                             />
                                         );
@@ -132,11 +135,13 @@ export const Oil: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = 
                     </div>
                 </>
             )}
-            {data &&
-                data.totalPages !== 0 &&
-                data.data.map((item) => {
-                    return <ResponsTable item={item} key={item.id} />;
-                })}
+            {data && data.totalPages !== 0 && (
+                <div className={s.res_table_wr}>
+                    {data.data.map((item) => {
+                        return <ResponsTable item={item} key={item.id} />;
+                    })}
+                </div>
+            )}
 
             {data && <Pagination pageCount={data.totalPages} />}
         </>

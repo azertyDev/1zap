@@ -101,58 +101,71 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
 
     return (
         <div>
-            <div className={`${s.map} ${mapIsOpen ? s.active : ''}`}>
-                <Map
-                    provider={maptilerProvider}
-                    dprs={[1, 2]}
-                    defaultCenter={[41.31172327941058, 69.2818072781773]}
-                    defaultZoom={15}
-                    boxClassname={s.map}
-                >
-                    {data &&
-                        data.data
-                            .map((item) => item.location)
-                            .map((item, index) => {
-                                return (
-                                    <Overlay anchor={JSON.parse(item.coordination)} offset={[30, 30]} key={index}>
-                                        <MapItem
-                                            amount={item.availability}
-                                            price={{
-                                                sum: item.sum,
-                                                usd: item.usd,
-                                            }}
-                                            branchId={item.branchId}
-                                            productId={item.productId}
-                                            providerId={item.providerId}
-                                        />
-                                    </Overlay>
-                                );
-                            })}
+            <div
+                className={`${s.map} ${mapIsOpen ? s.active : ''} ${data && data.data.length === 0 ? s.hide_map : ''}`}
+            >
+                {data && (
+                    <Map
+                        provider={maptilerProvider}
+                        dprs={[1, 2]}
+                        defaultCenter={JSON.parse(
+                            data.data.map((item) => item.location)[0]?.coordination ??
+                                '[41.31172327941058, 69.2818072781773]'
+                        )}
+                        defaultZoom={15}
+                        boxClassname={s.map}
+                    >
+                        {data &&
+                            data.data
+                                .map((item) => item.location)
+                                .map((item, index) => {
+                                    return (
+                                        <Overlay anchor={JSON.parse(item.coordination)} offset={[30, 30]} key={index}>
+                                            <MapItem
+                                                amount={item.availability}
+                                                price={{
+                                                    sum: item.sum,
+                                                    usd: item.usd,
+                                                }}
+                                                branchId={item.branchId}
+                                                productId={item.productId}
+                                                providerId={item.providerId}
+                                            />
+                                        </Overlay>
+                                    );
+                                })}
 
-                    <ZoomControl
-                        isClient
-                        closeMap={setToggleMap}
-                        pagination={handlePage}
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            marginTop: '499px',
-                            left: '0',
-                            width: '100%',
-                            zIndex: 2,
-                        }}
-                    />
-                    <div className={s.shadow}></div>
-                </Map>
+                        <ZoomControl
+                            isClient
+                            closeMap={setToggleMap}
+                            pagination={handlePage}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                marginTop: '499px',
+                                left: '0',
+                                width: '100%',
+                                zIndex: 2,
+                            }}
+                        />
+                        <div className={s.shadow}></div>
+                    </Map>
+                )}
             </div>
 
             <Container>
-                <div className={`${s.search_wr} ${mapIsOpen ? s.active : ''}`}>
+                <div
+                    className={`${s.search_wr} ${mapIsOpen ? s.active : ''} ${
+                        data && data.data.length === 0 ? s.hide_map : ''
+                    }`}
+                >
                     <ToggleButton mapIsOpen={mapIsOpen} fun={setToggleMap} />
-                    <ToggleResize
-                        mapIsOpen={mapIsOpen}
-                        fun={setToggleMap as (val: boolean | ((prev: boolean) => boolean)) => () => void}
-                    />
+                    <div className={data && data.data.length === 0 ? s.hide_map_resize : ''}>
+                        <ToggleResize
+                            mapIsOpen={mapIsOpen}
+                            fun={setToggleMap as (val: boolean | ((prev: boolean) => boolean)) => () => void}
+                        />
+                    </div>
 
                     <div className={`${s.search} ${mapIsOpen ? s.notActive : ''}`}>
                         <InputSearch />
@@ -199,8 +212,12 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                                             fun={handleFilter}
                                             labelAlt={t('common:choose')}
                                             options={
-                                                /*@ts-ignore*/
-                                                staticPar ? transformSelectOptions(staticPar[item]) : selectDefaultVal
+                                                staticPar /*@ts-ignore*/
+                                                    ? transformSelectOptions(staticPar[item]).map((item) => ({
+                                                          value: item.value,
+                                                          label: item.label.toUpperCase(),
+                                                      }))
+                                                    : selectDefaultVal
                                             }
                                         />
                                     );
@@ -208,8 +225,8 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                             </FilterSelections>
                         </div>
                     </div>
-                    {data && <ResultTableForm data={data.data} />}
-                    {data && <ResultTableFormResp data={data.data} />}
+                    {data && data.data.length > 0 && <ResultTableForm data={data.data} />}
+                    {data && data.data.length > 0 && <ResultTableFormResp data={data.data} />}
 
                     {data && data.data.length > 0 && <Pagination pageCount={data.totalPages} />}
                     {data && data.data.length === 0 && <NoResult />}

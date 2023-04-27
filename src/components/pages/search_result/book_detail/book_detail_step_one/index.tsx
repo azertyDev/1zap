@@ -15,7 +15,7 @@ import { useStore } from 'src/store/useStore';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
 import { formatPhoneToClient } from 'src/helpers/formatPhoneToClient';
-import { formatPrice } from 'src/helpers/formatPrice';
+import { formatNumber } from 'src/helpers/formatNumber';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
@@ -42,6 +42,8 @@ export const BookDetailStepOne: FC<{
         })();
     }, [branchId, productId]);
 
+    console.log('branch', branch);
+
     return (
         <div className={s.book_inner}>
             <div className={s.close_res}>
@@ -50,7 +52,7 @@ export const BookDetailStepOne: FC<{
                 </IconsWrapper>
             </div>
 
-            {branch && (
+            {branch && product && (
                 <>
                     <div className={s.map_wr_res}>
                         <Map
@@ -60,7 +62,7 @@ export const BookDetailStepOne: FC<{
                             defaultZoom={15}
                         >
                             <Overlay anchor={JSON.parse(branch.location)} offset={[30, 30]}>
-                                <MapPoint val={1} />
+                                <MapPoint val={product.availability} />
                             </Overlay>
                         </Map>
                     </div>
@@ -107,20 +109,19 @@ export const BookDetailStepOne: FC<{
                                     <p>{t('workTime')}</p>
                                 </div>
                                 <div className={s.detail_content}>
-                                    <p>
-                                        {t('common:weekendSchedule')}{' '}
-                                        {t(`common:workingSchedule.${branch.weekendSchedule}`)}
-                                    </p>
-                                    <p>
-                                        {t('common:workingScheduleText')}{' '}
-                                        {t(`common:workingSchedule.${branch.workingSchedule}`)}
-                                    </p>
-
-                                    <div className={s.detail_border_wr}>
+                                    <div>
+                                        <p>{t('common:workingScheduleText')}:</p>
                                         <p>
-                                            {t('common:break')} {branch.breakTime}
+                                            {t(`common:workingSchedule.${branch.workingSchedule}`)}({branch.breakTime})
                                         </p>
                                     </div>
+                                    <div className={s.detail_border_wr}>
+                                        <p>{t('common:weekendSchedule')}:</p>
+                                        <p>
+                                            {t(`common:weekend.${branch.weekend}`)}({branch.weekendSchedule})
+                                        </p>
+                                    </div>
+
                                     <p>{t('infoonezap')}</p>
                                 </div>
                             </div>
@@ -197,7 +198,7 @@ export const BookDetailStepOne: FC<{
                                     <div className={s.final_step_item}>
                                         <p className={s.final_step_title}>
                                             {currency === 'uzs'
-                                                ? `${formatPrice(String(product.sum))} ${t('common:sum')}`
+                                                ? `${formatNumber(product.sum)} ${t('common:sum')}`
                                                 : `$${product.usd}`}
                                         </p>
                                         <p className={s.final_step_text}>
@@ -211,7 +212,7 @@ export const BookDetailStepOne: FC<{
                                         <p className={s.final_step_title}>
                                             {' '}
                                             {currency === 'uzs'
-                                                ? `${formatPrice(String(product.sum))} ${t('common:sum')}`
+                                                ? `${formatNumber(product.sum)} ${t('common:sum')}`
                                                 : `$${product.usd}`}
                                         </p>
                                         <p className={s.final_step_title}>{product.uniqNumber}</p>

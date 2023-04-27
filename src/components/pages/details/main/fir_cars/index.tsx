@@ -57,7 +57,7 @@ export const FitCars: FC<{ dataCatalog: string; dataFilterFirstLevel: string; da
                     fun={handleFilterBrand}
                     labelAlt={t('common:choose')}
                     isTranslated
-                    options={catalog}
+                    options={catalog.map((item) => ({ value: item.value, label: item.label?.toUpperCase() }))}
                 />
             )}
 

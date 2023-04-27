@@ -36,7 +36,7 @@ export const footerLinksFourth = {
     id: 2,
     title: 'footer:support',
     links: [
-        { id: 1, link: '#!', text: 'footer:infoCenter' },
+        { id: 1, link: '/center', text: 'footer:infoCenter' },
         { id: 2, link: '#!', text: 'footer:support' },
         { id: 3, link: '#!', text: 'footer:trustSecur' },
     ],

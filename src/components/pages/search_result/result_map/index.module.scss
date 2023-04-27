@@ -14,6 +14,8 @@
   &.active {
     height: 573px;
   }
+
+
 }
 
 .shadow {
@@ -37,6 +39,8 @@
 }
 
 
+
+
 .search_wr {
   width: 100%;
   z-index: 1;
@@ -46,6 +50,8 @@
   &.active {
     margin-top: 535px;
   }
+
+
 }
 
 .search {
@@ -71,7 +77,7 @@
 }
 
 .filter_btn {
-  padding: 7px 15px;
+  padding: 7px 12px;
   background: $blockBg;
   border-radius: 8px;
   @include fs_fw_c(12px, 700, $text);
@@ -84,8 +90,6 @@
 }
 
 .filter_price_buttons {
-
-
   span {
     position: absolute;
     width: 15px;
@@ -124,9 +128,20 @@
       height: 523px;
     }
 
-
+    &.hide_map{
+      display: none;
+      @include w_h(0, 0);
+    }
   }
 
+  .hide_map_resize{
+    background: transparent;
+    div{
+      background: transparent;
+      pointer-events: none;
+    }
+
+  }
   .pigeon-zoom-buttons {
     display: none;
   }
@@ -134,7 +149,9 @@
 
   .search_wr {
     margin-top: 260px;
-
+    &.hide_map{
+      margin: 0 0 60px;
+    }
     &.active {
       margin-top: 336px;
     }
@@ -153,7 +170,7 @@
   .filter_for_respon {
     display: flex;
     align-content: center;
-    padding: 8px 13px;
+    padding: 8px;
   }
 
   .filter_laptop {
@@ -167,12 +184,12 @@
 
     span {
       &:first-child {
-        top: 20%;
+        top: 8%;
 
       }
 
       &:last-child {
-        bottom:20%;
+        bottom:8%;
 
       }
     }

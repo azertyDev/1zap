@@ -25,6 +25,8 @@ import { useFindVin } from 'src/hooks/laximoData/useFindVin';
 import { useRouter } from 'next/router';
 import { useFindVehicleByWizard } from 'src/hooks/laximoData/useFindVehicleByWizard';
 import { NoResult } from 'components/ui/no_result';
+import { FilterResponsive } from 'components/ui/filter/filter_responsive';
+import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 
 export const Details: FC<{
     dataFind: string;
@@ -41,10 +43,14 @@ export const Details: FC<{
 
     const { dataFindV } = useFindVin(dataFind);
     const { dataVehicle } = useFindVehicleByWizard(dataResultVehicle);
+    const { handleOpenClose, openClose } = useOpenCloseWithVal();
 
     const { t } = useTranslation();
 
-    console.log(dataFindV);
+    useEffect(() => {
+        handleOpenClose(false)();
+    }, [tab]);
+
     return (
         <PageWrapper>
             <Container>
@@ -66,6 +72,7 @@ export const Details: FC<{
                         </InputSelectWrTabs>
                     </SearchTabs>
                 </div>
+                <div className={s.no_result}>{dataFindV && dataFindV.length === 0 && <NoResult />}</div>
 
                 <div className={s.table}>
                     {((dataFindV && dataFindV.length > 0) || dataVehicle) && (
@@ -79,7 +86,7 @@ export const Details: FC<{
                             </TableRow>
                         </>
                     )}
-                    {dataFindV && dataFindV.length === 0 && <NoResult />}
+
                     {(dataFindV || dataVehicle) &&
                         (dataFindV! || dataVehicle!).map(({ $, attribute }) => {
                             return (
@@ -92,13 +99,19 @@ export const Details: FC<{
                                             <h5>{$.name}</h5>
                                         </TableElement>
                                         <TableElement className={'table_b'}>
-                                            {attribute.map(({ $ }) => {
-                                                return $.key === 'date' ||
-                                                    $.key === 'production_date' ||
-                                                    $.key === 'model_year' ? (
-                                                    <h5 key={$.key}>{$.value}</h5>
-                                                ) : null;
-                                            })}
+                                            <h5>
+                                                {attribute
+                                                    .map(({ $ }) => {
+                                                        return $.key === 'date' ||
+                                                            $.key === 'production_date' ||
+                                                            $.key === 'model_year'
+                                                            ? $.value
+                                                            : null;
+                                                    })
+                                                    .filter((item) => {
+                                                        if (item) return item;
+                                                    })[0] ?? null}
+                                            </h5>
                                         </TableElement>
                                         <TableElement className={'table_b'}>
                                             {attribute.map(({ $ }) => {
@@ -119,6 +132,48 @@ export const Details: FC<{
                             );
                         })}
                 </div>
+
+                {(dataFindV || dataVehicle) && (
+                    <div className={s.amount_of_product_wr}>
+                        <div className={s.amount_of_product} onClick={handleOpenClose(true)}>
+                            Показать автомобили ({(dataVehicle! || dataFindV!).length})
+                        </div>
+                        {(dataVehicle! || dataFindV!).length > 0 && <div className={s.amount_of_product_line}></div>}
+                    </div>
+                )}
+
+                {(dataFindV || dataVehicle) &&
+                    (dataFindV! || dataVehicle!).map(({ $, attribute }) => {
+                        return (
+                            <div className={`${s.table_res} ${openClose ? s.active : '' + ''}`} key={$.name + $.ssd}>
+                                <p className={s.table_res_title}>{$.name}</p>
+                                <div className={s.table_res_content}>
+                                    <div className={s.table_res_content_text}>
+                                        <p className={s.table_res_brand}>{$.brand}</p>
+
+                                        <p className={s.table_res_date}>
+                                            {attribute
+                                                .map(({ $ }) => {
+                                                    return $.key === 'date' ||
+                                                        $.key === 'production_date' ||
+                                                        $.key === 'model_year'
+                                                        ? $.value
+                                                        : null;
+                                                })
+                                                .filter((item) => {
+                                                    if (item) return item;
+                                                })[0] ?? null}
+                                        </p>
+                                    </div>
+                                    <Link
+                                        href={`/details/categories?Catalog=${$.catalog}&Vid=${$.vehicleid}&sd=${$.ssd}`}
+                                    >
+                                        <button>{t('common:show')}</button>
+                                    </Link>
+                                </div>
+                            </div>
+                        );
+                    })}
             </Container>
         </PageWrapper>
     );

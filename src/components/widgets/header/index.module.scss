@@ -19,9 +19,12 @@
   @include w_mw__h(32px, 32px, 32px);
   background: $blockBg;
   border-radius: 10px;
-  margin-right: 9px;
-}
 
+}
+.text{
+  @include  fs_fw_c(14px,600,$text);
+  margin-left: 9px;
+}
 
 
 @media (max-width: 868px) {

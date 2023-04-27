@@ -45,8 +45,20 @@
     }
   }
 }
+
+.res_table_wr{
+  margin-top: 50px;
+}
+@media (max-width: 1110px){
+  .table{
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .tabs_wr_out {
     display: none;
   }
+
+
 }

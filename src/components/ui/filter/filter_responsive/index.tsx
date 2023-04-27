@@ -88,9 +88,10 @@ export const FilterResponsive: FC<{
                                                         <Icon size={13} name={'done'} style={s.icon} />
                                                     </div>
                                                     <span>
-                                                        {isTranslated
+                                                        {(isTranslated
                                                             ? t(`common:selects.${subitem.label}`)
-                                                            : subitem.label}
+                                                            : subitem.label
+                                                        )?.toUpperCase()}
                                                     </span>
                                                 </li>
                                             );
