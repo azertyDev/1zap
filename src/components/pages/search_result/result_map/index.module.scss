@@ -20,10 +20,11 @@
 
 .shadow {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.0001) 28.82%, #FFFFFF 100%);
-  @include w_h(100%, 50%);
+  @include w_h(100%, 70px);
   position: absolute;
   bottom: 0;
   left: 0;
+
 }
 
 

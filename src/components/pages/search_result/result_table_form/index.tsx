@@ -7,11 +7,13 @@ import { TableElement } from 'components/ui/table/table_element';
 import { Icon } from 'components/ui/icon';
 import { useStore } from 'src/store/useStore';
 import { formatNumber } from 'src/helpers/formatNumber';
+import { useFiltersAscDesc } from 'src/hooks/common/filtersAscDesc';
 
 export const ResultTableForm: FC<{ data: IProduct[] }> = ({ data }): JSX.Element => {
     const { t } = useTranslation();
     const { toggleBookDetail } = useStore((state) => state);
     const { currency } = useStore((state) => state);
+    const { handleAscDesc } = useFiltersAscDesc();
 
     return (
         <div>
@@ -26,10 +28,10 @@ export const ResultTableForm: FC<{ data: IProduct[] }> = ({ data }): JSX.Element
                             <TableElement className={'table_h'}>
                                 <div className={s.filter_price_wr}>
                                     <div className={s.filter_price_buttons}>
-                                        <div onClick={() => alert(1)}>
+                                        <div onClick={handleAscDesc('asc')}>
                                             <Icon name={'expand_less'} size={18} color={'#9A9EA7'} />
                                         </div>
-                                        <div onClick={() => alert(2)}>
+                                        <div onClick={handleAscDesc('desc')}>
                                             <Icon name={'expand_more'} size={18} color={'#9A9EA7'} />
                                         </div>
                                     </div>

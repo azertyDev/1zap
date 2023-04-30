@@ -6,6 +6,7 @@
   @include w_mw__h(24px, 24px, 30px);
   cursor: pointer;
   margin-bottom: 7px;
+  z-index: 2;
   img{
     filter: grayscale(0) !important;
   }

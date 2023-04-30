@@ -31,10 +31,18 @@ import { selectDefaultVal } from 'src/constants/ selectDefaultVal';
 import { productsApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { Icon } from 'components/ui/icon';
+import { useFiltersAscDesc } from 'src/hooks/common/filtersAscDesc';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
-const getFilterParamsResultPage = (payment: string, delivery: string, service: string, client: string) => {
+const getFilterParamsResultPage = (
+    payment: string,
+    delivery: string,
+    service: string,
+    client: string,
+    price: string,
+    amount: string
+) => {
     const formatQuery = (param: string, val: string) => {
         return val ? `&${param}=${val}` : '';
     };
@@ -42,7 +50,7 @@ const getFilterParamsResultPage = (payment: string, delivery: string, service: s
     return `${formatQuery('payment', payment)}${formatQuery('delivery', delivery)}${formatQuery(
         'service',
         service
-    )}${formatQuery('client', client)}`;
+    )}${formatQuery('client', client)}${formatQuery('price', price)}${formatQuery('availability', amount)}`;
 };
 
 export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
@@ -51,7 +59,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
         pathname,
         push,
         locale,
-        query: { page, id, payment, delivery, service, client },
+        query: { page, id, payment, delivery, service, client, price, amount },
         query,
     } = useRouter();
 
@@ -60,6 +68,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
     const { handleFilter } = useFilter();
 
     const [data, setData] = useState<{ data: IProduct[]; totalPages: number } | null>(null);
+    const { handleAscDesc } = useFiltersAscDesc();
 
     useEffect(() => {
         (async () => {
@@ -70,7 +79,9 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                         payment as string,
                         delivery as string,
                         service as string,
-                        client as string
+                        client as string,
+                        price as string,
+                        amount as string
                     )}`
                 )
                 .then((res) => {
@@ -173,10 +184,10 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                             <button className={s.filter_btn}>
                                 <p> {t('common:selects:price')}</p>
                                 <span className={s.filter_price_buttons}>
-                                    <span onClick={() => alert(1)}>
+                                    <span onClick={handleAscDesc('asc')}>
                                         <Icon name={'expand_less'} size={16} color={'#9A9EA7'} />
                                     </span>
-                                    <span onClick={() => alert(2)}>
+                                    <span onClick={handleAscDesc('desc')}>
                                         <Icon name={'expand_more'} size={16} color={'#9A9EA7'} />
                                     </span>
                                 </span>
@@ -184,10 +195,10 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                             <button className={s.filter_btn}>
                                 <p>{t('common:selects:howmany')}</p>
                                 <span className={s.filter_price_buttons}>
-                                    <span onClick={() => alert(1)}>
+                                    <span onClick={handleAscDesc('asc')}>
                                         <Icon name={'expand_less'} size={16} color={'#9A9EA7'} />
                                     </span>
-                                    <span onClick={() => alert(2)}>
+                                    <span onClick={handleAscDesc('desc')}>
                                         <Icon name={'expand_more'} size={16} color={'#9A9EA7'} />
                                     </span>
                                 </span>

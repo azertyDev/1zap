@@ -112,7 +112,8 @@ export const BookDetailStepOne: FC<{
                                     <div>
                                         <p>{t('common:workingScheduleText')}:</p>
                                         <p>
-                                            {t(`common:workingSchedule.${branch.workingSchedule}`)}({branch.breakTime})
+                                            {t(`common:workingSchedule.${branch.workingSchedule}`)},{t('common:break')}{' '}
+                                            {branch.breakTime}
                                         </p>
                                     </div>
                                     <div className={s.detail_border_wr}>
@@ -181,7 +182,7 @@ export const BookDetailStepOne: FC<{
                                     defaultZoom={15}
                                 >
                                     <Overlay anchor={JSON.parse(branch.location)} offset={[30, 30]}>
-                                        <MapPoint val={1} />
+                                        <MapPoint val={product.availability} />
                                     </Overlay>
                                 </Map>
                             </div>

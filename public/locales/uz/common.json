@@ -67,7 +67,7 @@
   "сourier": "Kuryer",
   "tirefitting": "Shina o'rnatuvchi",
   "SelectionParts": "Qismlarni tanlash",
-  "break": "Tanaffus",
+  "break": "tanaffus",
   "sevendays": "Haftada etti kun",
   "infoonezap": "Sotuvchiga ma'lumotni 1zap.uz saytidan topganingizni ayting",
   "toOrder": "Kitob",
@@ -176,6 +176,7 @@
     "pickup": "Olib ketish ",
     "courier": "Yetkazib berish",
     "legal": "Tashkilot",
-    "individual": "Jismoniy shaxs"
+    "individual": "Jismoniy shaxs",
+    "choose_img_id": "Raqamga o'ting"
   }
 }
