@@ -16,6 +16,7 @@ import { BecomeProviderHeader } from 'components/pages/become_provider/header';
 import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
 
 import s from './index.module.scss';
+import { IStaticParams } from 'types';
 
 export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
     const { t } = useTranslation();

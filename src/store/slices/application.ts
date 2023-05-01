@@ -1,6 +1,7 @@
 import { applicationApi } from 'src/utils/api';
 import { StateCreator } from 'zustand';
 import toast from 'react-hot-toast';
+import { IApplicationData } from 'types';
 
 export interface IApplicationSlice {
     applications: IApplicationData | null;

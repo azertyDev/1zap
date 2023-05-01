@@ -1,11 +1,39 @@
-import { useCallback, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
+import { IProductGroup } from 'types';
 
-export const useFiltersAscDesc = () => {
-    const { pathname, push, query } = useRouter();
-    const [nameFilter, setNameFilter] = useState('asc');
+export const useFiltersAscDesc = (data: { data: IProductGroup[]; totalPages: number }) => {
+    const [dataOut, setDataOut] = useState(data);
+    useEffect(() => {
+        setDataOut(data);
+    }, [data]);
 
-    const handleAscDesc = useCallback((val: string) => () => 1, []);
-    const sortData = (data: any, condition: string, param: string) => {};
-    return { handleAscDesc, sortData };
+    const handleAsc = useCallback(
+        (param: 'sum' | 'usd') => {
+            return () => {
+                setDataOut({
+                    data: [...(data?.data as any)].sort(
+                        (a: IProductGroup, b: IProductGroup) => a[param].average - b[param].average
+                    ),
+                    totalPages: data?.totalPages!,
+                });
+            };
+        },
+        [data]
+    );
+
+    const handleDesc = useCallback(
+        (param: 'sum' | 'usd') => {
+            return () => {
+                setDataOut({
+                    data: [...(data?.data as any)].sort(
+                        (a: IProductGroup, b: IProductGroup) => b[param].average - a[param].average
+                    ),
+                    totalPages: data?.totalPages!,
+                });
+            };
+        },
+        [data]
+    );
+
+    return { dataOut, handleDesc, handleAsc };
 };

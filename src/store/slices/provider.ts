@@ -1,6 +1,7 @@
 import { toast } from 'react-hot-toast';
 import { providerApi } from 'src/utils/api';
 import { StateCreator } from 'zustand';
+import { IProviderData, IProviders, IBranchData } from 'types';
 
 export interface IProviderSlice {
     providers: IProviders;

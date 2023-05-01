@@ -1,6 +1,5 @@
 import s from './index.module.scss';
 import { Container } from 'components/ui/container';
-import { Title } from 'components/ui/title';
 import { IconsWrapper } from 'components/ui/icons_wrapper';
 import { PageWrapper } from 'components/ui/page_wrapper';
 import { Icon } from 'components/ui/icon';

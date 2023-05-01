@@ -13,6 +13,7 @@ import { staticParamsApi } from 'src/utils/api';
 import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
 import s from '../index.module.scss';
 import { providerValues } from './initialValues';
+import { IBranchData, IImage } from 'types';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 

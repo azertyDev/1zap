@@ -8,6 +8,7 @@ import { StandartInput } from 'src/components/ui/input/standart_input';
 import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 
 import s from '../index.module.scss';
+import { IBranchData, IProviderData } from 'types';
 
 interface SecondFormProps {
     initialValues: IProviderData;

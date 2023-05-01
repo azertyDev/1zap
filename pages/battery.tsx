@@ -9,6 +9,7 @@ import { PageWrapper } from 'components/ui/page_wrapper';
 
 import { Battery } from 'components/pages/battery';
 import { productsApi } from 'src/utils/api';
+import {IProductGroup} from "../types";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {

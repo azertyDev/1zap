@@ -16,6 +16,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
 import { formatPhoneToClient } from 'src/helpers/formatPhoneToClient';
 import { formatNumber } from 'src/helpers/formatNumber';
+import { IBranchData, IPieceProduct } from 'types';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 

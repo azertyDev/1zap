@@ -24,6 +24,7 @@ import { tabsValue } from 'src/constants/tabsValue';
 import { FC } from 'react';
 import Link from 'next/link';
 import { Icon } from 'components/ui/icon';
+import { IProductGroup } from 'types';
 
 export const Oil: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
@@ -116,13 +117,6 @@ export const Oil: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = 
                                     </TableElement>
 
                                     <TableElement className={'table_b'}>
-                                        <h5>{item.property}</h5>
-                                    </TableElement>
-                                    <TableElement className={'table_b'}>
-                                        <h5>{item.average}</h5>
-                                        <p>{t('common:fromTo', { from: item.priceFrom, to: item.priceTo })}</p>
-                                    </TableElement>
-                                    <TableElement className={'table_b'}>
                                         <Link href={`/search_result?id=${item.uniqNumber}`}>
                                             <button>
                                                 {t('common:show')} - {item.availability}
@@ -138,7 +132,7 @@ export const Oil: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = 
             {data && data.totalPages !== 0 && (
                 <div className={s.res_table_wr}>
                     {data.data.map((item) => {
-                        return <ResponsTable item={item} key={item.id} />;
+                        return <ResponsTable item={item} key={item.id} img={'/assets/images/oil.png'} />;
                     })}
                 </div>
             )}

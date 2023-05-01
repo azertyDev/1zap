@@ -31,18 +31,13 @@ import { selectDefaultVal } from 'src/constants/ selectDefaultVal';
 import { productsApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { Icon } from 'components/ui/icon';
-import { useFiltersAscDesc } from 'src/hooks/common/filtersAscDesc';
+
+import { useStore } from 'src/store/useStore';
+import { IProduct, IStaticParams } from 'types';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
-const getFilterParamsResultPage = (
-    payment: string,
-    delivery: string,
-    service: string,
-    client: string,
-    price: string,
-    amount: string
-) => {
+const getFilterParamsResultPage = (payment: string, delivery: string, service: string, client: string) => {
     const formatQuery = (param: string, val: string) => {
         return val ? `&${param}=${val}` : '';
     };
@@ -50,7 +45,7 @@ const getFilterParamsResultPage = (
     return `${formatQuery('payment', payment)}${formatQuery('delivery', delivery)}${formatQuery(
         'service',
         service
-    )}${formatQuery('client', client)}${formatQuery('price', price)}${formatQuery('availability', amount)}`;
+    )}${formatQuery('client', client)}`;
 };
 
 export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
@@ -59,16 +54,16 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
         pathname,
         push,
         locale,
-        query: { page, id, payment, delivery, service, client, price, amount },
+        query: { page, id, payment, delivery, service, client },
         query,
     } = useRouter();
 
     const { openClose: mapIsOpen, handleOpenClose: setToggleMap } = useOpenCloseWithVal();
     const { openClose: isOpenFilter, handleOpenClose: setIsOpenFilter } = useOpenCloseWithVal();
     const { handleFilter } = useFilter();
+    const { currency } = useStore((state) => state);
 
     const [data, setData] = useState<{ data: IProduct[]; totalPages: number } | null>(null);
-    const { handleAscDesc } = useFiltersAscDesc();
 
     useEffect(() => {
         (async () => {
@@ -79,9 +74,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                         payment as string,
                         delivery as string,
                         service as string,
-                        client as string,
-                        price as string,
-                        amount as string
+                        client as string
                     )}`
                 )
                 .then((res) => {
@@ -108,6 +101,30 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
             });
         },
         [query]
+    );
+
+    const handleAsc = useCallback(
+        (param: 'sum' | 'usd' | 'availability') => {
+            return () => {
+                setData({
+                    data: [...(data?.data as any)].sort((a: IProduct, b: IProduct) => a[param] - b[param]),
+                    totalPages: data?.totalPages!,
+                });
+            };
+        },
+        [data]
+    );
+
+    const handleDesc = useCallback(
+        (param: 'sum' | 'usd' | 'availability') => {
+            return () => {
+                setData({
+                    data: [...(data?.data as any)].sort((a: IProduct, b: IProduct) => b[param] - a[param]),
+                    totalPages: data?.totalPages!,
+                });
+            };
+        },
+        [data]
     );
 
     return (
@@ -184,10 +201,10 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                             <button className={s.filter_btn}>
                                 <p> {t('common:selects:price')}</p>
                                 <span className={s.filter_price_buttons}>
-                                    <span onClick={handleAscDesc('asc')}>
+                                    <span onClick={handleAsc(currency === 'uzs' ? 'sum' : 'usd')}>
                                         <Icon name={'expand_less'} size={16} color={'#9A9EA7'} />
                                     </span>
-                                    <span onClick={handleAscDesc('desc')}>
+                                    <span onClick={handleDesc(currency === 'uzs' ? 'sum' : 'usd')}>
                                         <Icon name={'expand_more'} size={16} color={'#9A9EA7'} />
                                     </span>
                                 </span>
@@ -195,10 +212,10 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                             <button className={s.filter_btn}>
                                 <p>{t('common:selects:howmany')}</p>
                                 <span className={s.filter_price_buttons}>
-                                    <span onClick={handleAscDesc('asc')}>
+                                    <span onClick={handleAsc('availability')}>
                                         <Icon name={'expand_less'} size={16} color={'#9A9EA7'} />
                                     </span>
-                                    <span onClick={handleAscDesc('desc')}>
+                                    <span onClick={handleDesc('availability')}>
                                         <Icon name={'expand_more'} size={16} color={'#9A9EA7'} />
                                     </span>
                                 </span>
@@ -236,7 +253,9 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                             </FilterSelections>
                         </div>
                     </div>
-                    {data && data.data.length > 0 && <ResultTableForm data={data.data} />}
+                    {data && data.data.length > 0 && (
+                        <ResultTableForm data={data.data} handleAsc={handleAsc} handleDesc={handleDesc} />
+                    )}
                     {data && data.data.length > 0 && <ResultTableFormResp data={data.data} />}
 
                     {data && data.data.length > 0 && <Pagination pageCount={data.totalPages} />}

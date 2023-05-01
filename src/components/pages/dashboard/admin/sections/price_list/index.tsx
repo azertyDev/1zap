@@ -21,6 +21,7 @@ import { useStore } from 'src/store/useStore';
 import { priceListApi, productsApi } from 'src/utils/api';
 import s from './index.module.scss';
 import { baseURL } from 'src/utils/constants';
+import { IBranchData } from 'types';
 
 interface IOptions {
     value: number | undefined;

@@ -4,6 +4,7 @@ import type { NextPageWithLayout } from '../_app';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { BecomeProviderComp } from 'components/pages/become_provider';
 import { staticParamsApi } from 'src/utils/api';
+import {IStaticParams} from "../../types";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale } = context;

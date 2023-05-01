@@ -24,6 +24,7 @@ import { Pagination } from 'components/ui/pagination/Pagination';
 import Link from 'next/link';
 import { FC } from 'react';
 import { Icon } from 'components/ui/icon';
+import { IProductGroup } from 'types';
 
 export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
@@ -116,9 +117,6 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                                     </TableElement>
 
                                     <TableElement className={'table_b'}>
-                                        <h5>{item.property}</h5>
-                                    </TableElement>
-                                    <TableElement className={'table_b'}>
                                         <h5>$19</h5>
                                         <p>от 15$ до 23$</p>
                                     </TableElement>
@@ -139,7 +137,7 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
             {data && data.totalPages !== 0 && (
                 <div className={s.res_table_wr}>
                     {data.data.map((item) => {
-                        return <ResponsTable item={item} key={item.id} />;
+                        return <ResponsTable item={item} key={item.id} img={'/assets/images/tire.png'} />;
                     })}
                 </div>
             )}

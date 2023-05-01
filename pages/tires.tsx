@@ -9,6 +9,7 @@ import { PageWrapper } from 'components/ui/page_wrapper';
 
 import { Tires } from 'components/pages/tires';
 import { productsApi } from 'src/utils/api';
+import {IProductGroup} from "../types";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {

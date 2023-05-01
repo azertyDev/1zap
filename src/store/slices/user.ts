@@ -4,6 +4,7 @@ import { StateCreator } from 'zustand';
 import { userApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { i18n } from 'next-i18next';
+import { IUserData } from 'types';
 
 export interface IUserSlice {
     userData?: IUserData;

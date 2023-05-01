@@ -1,3 +1,5 @@
+import * as diagnostics_channel from 'diagnostics_channel';
+
 interface IUser {
     id?: number;
     fullName?: string;
@@ -140,10 +142,17 @@ interface IProductGroup {
     manufacturer: string;
     uniqNumber: string;
     availability: number;
-    average: number;
-    priceTo: number;
-    priceFrom: number;
-    property: string;
+    currency: string;
+    sum: {
+        priceTo: 4234355;
+        priceFrom: 4234355;
+        average: 4234355;
+    };
+    usd: {
+        priceTo: 373.38;
+        priceFrom: 373.38;
+        average: 373.38;
+    };
 }
 
 interface IMethod {

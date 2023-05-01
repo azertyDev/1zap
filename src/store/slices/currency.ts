@@ -1,5 +1,4 @@
 import { StateCreator } from 'zustand';
-import toast from 'react-hot-toast';
 
 export interface ICurrencySlice {
     currency: string;

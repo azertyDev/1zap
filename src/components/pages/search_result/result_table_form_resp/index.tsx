@@ -5,6 +5,7 @@ import s from './index.module.scss';
 import { useTranslation } from 'next-i18next';
 import { useStore } from 'src/store/useStore';
 import { formatNumber } from 'src/helpers/formatNumber';
+import { IProduct } from 'types';
 
 export const ResultTableFormResp: FC<{ data: IProduct[] }> = ({ data }): JSX.Element => {
     const { t } = useTranslation();

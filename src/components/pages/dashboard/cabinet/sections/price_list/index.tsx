@@ -23,6 +23,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { baseURL } from 'src/utils/constants';
 import s from './index.module.scss';
+import { IBranchData } from 'types';
 
 interface IOptions {
     value: number | undefined;
