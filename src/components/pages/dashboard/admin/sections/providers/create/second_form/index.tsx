@@ -39,10 +39,11 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
             value: 1000,
         },
     ];
+
     const {
-        push,
         query: { id },
     } = useRouter();
+
     const { addProvider } = useStore((state) => state);
 
     const selectCoin = (value: number) => {
@@ -90,12 +91,6 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
     useEffect(() => {
         setInitialValues(formik.values);
     }, [formik.values, setInitialValues]);
-
-    const handleSubmit = () => {
-        if (formik.dirty || formik.isValid) {
-            push('/dashboard/providers');
-        }
-    };
 
     return (
         <FormikProvider value={formik}>
@@ -147,7 +142,6 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
                     </Button>
                     <Button
                         type="submit"
-                        onClick={() => handleSubmit}
                         disabled={!(formik.dirty || formik.isValid || formik.isSubmitting)}
                         variant={!(formik.dirty || formik.isValid) ? 'disabled' : 'primary'}
                     >

@@ -23,18 +23,18 @@ export const BranchForm = () => {
 
     useEffect(() => {
         fetchProviderBranches();
-    }, [fetchProviderBranches]);
+    }, []);
 
     useEffect(() => {
         providerBranches?.map((branch: IBranchData) => {
             branchesOptions.push({ value: branch.id, label: branch.branchName });
         });
-    }, [branchesOptions, providerBranches]);
+    }, [providerBranches]);
 
     const defaultOptions = [
         {
             value: 'all',
-            label: 'Все прайс-листы',
+            label: 'Все',
         },
     ];
 

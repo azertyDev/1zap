@@ -1,3 +1,4 @@
+@import 'styles/mixins';
 @import 'styles/variables.scss';
 
 .layout {
@@ -13,5 +14,14 @@
         padding: 0 55px;
         display: flex;
         flex-direction: column;
+
+        main {
+            flex: 1;
+        }
+
+        & .footer {
+            @include flex-items(stretch, center);
+            padding: 25px 0;
+        }
     }
 }

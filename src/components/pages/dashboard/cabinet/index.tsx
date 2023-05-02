@@ -8,14 +8,12 @@ import { PromoPage } from './sections/promo';
 import { PriceList } from './sections/price_list';
 import { VinRequests } from './sections/vin_request';
 import { IncominRequests } from './sections/incoming_requests/vin_request';
-import Header from 'src/components/ui/dashboard/header';
-import BottomFooter from 'src/components/widgets/footer/bottom_footer';
 import s from './index.module.scss';
 
 interface PropsType extends FC {}
 
 export default (props: PropsType): JSX.Element => {
-    const { asPath, query } = useRouter();
+    const { asPath } = useRouter();
 
     const page = () => {
         switch (asPath) {
@@ -42,9 +40,7 @@ export default (props: PropsType): JSX.Element => {
 
     return (
         <div className={s.wrapper}>
-            <Header title={query.slug as string} />
             <main>{page()}</main>
-            <BottomFooter className={s.footer} />
         </div>
     );
 };
