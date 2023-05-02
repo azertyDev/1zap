@@ -9,6 +9,7 @@ import { SelectField } from 'src/components/ui/select';
 import { FileUpload } from 'src/components/ui/upload/file';
 import { useStore } from 'src/store/useStore';
 import { productsApi } from 'src/utils/api';
+import { IBranchData } from 'types';
 import s from '../index.module.scss';
 
 interface IOptions {
