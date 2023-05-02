@@ -25,6 +25,9 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { Icon } from 'components/ui/icon';
 import { IProductGroup } from 'types';
+import { formatNumber } from 'src/helpers/formatNumber';
+import { useStore } from 'src/store/useStore';
+import { useFiltersAscDesc } from 'src/hooks/common/filtersAscDesc';
 
 export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
@@ -34,6 +37,8 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
     const { t } = useTranslation();
     const { query } = useRouter();
 
+    const { currency } = useStore((state) => state);
+    const { dataOut, handleAsc, handleDesc } = useFiltersAscDesc(data);
     return (
         <>
             <Title main className={s.title}>
@@ -80,21 +85,20 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                     </>
                 )}
             </div>
-            {data && data.totalPages !== 0 && (
+            {dataOut && dataOut.totalPages !== 0 && (
                 <>
                     <div className={s.table}>
                         <TableRow className={s.table_row}>
                             <TableElement className={'table_h'}>{t('common:selects.manufacturers')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.number')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.photo')}</TableElement>
-                            <TableElement className={'table_h'}>{t('common:selects.size')}</TableElement>
                             <TableElement className={'table_h'}>
                                 <div className={s.filter_price_wr}>
                                     <div className={s.filter_price_buttons}>
-                                        <div onClick={() => alert(1)}>
+                                        <div onClick={handleAsc(currency === 'uzs' ? 'sum' : 'usd')}>
                                             <Icon name={'expand_less'} size={18} color={'#9A9EA7'} />
                                         </div>
-                                        <div onClick={() => alert(2)}>
+                                        <div onClick={handleDesc(currency === 'uzs' ? 'sum' : 'usd')}>
                                             <Icon name={'expand_more'} size={18} color={'#9A9EA7'} />
                                         </div>
                                     </div>
@@ -103,7 +107,7 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                             </TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.offer')}</TableElement>
                         </TableRow>
-                        {data.data.map((item) => {
+                        {dataOut.data.map((item) => {
                             return (
                                 <TableRow className={s.table_row} key={item.id}>
                                     <TableElement className={'table_b'}>
@@ -117,8 +121,23 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                                     </TableElement>
 
                                     <TableElement className={'table_b'}>
-                                        <h5>$19</h5>
-                                        <p>от 15$ до 23$</p>
+                                        <h5>
+                                            {currency === 'usd'
+                                                ? `$${item.usd.average}`
+                                                : `${formatNumber(item.sum.average)} сум`}
+                                        </h5>
+                                        <p>
+                                            {t('common:fromTo', {
+                                                from:
+                                                    currency === 'usd'
+                                                        ? `$${item.usd.priceFrom}`
+                                                        : `${formatNumber(item.sum.priceFrom)}`,
+                                                to:
+                                                    currency === 'usd'
+                                                        ? `$${item.usd.priceTo}`
+                                                        : `${formatNumber(item.sum.priceTo)}`,
+                                            })}
+                                        </p>
                                     </TableElement>
                                     <TableElement className={'table_b'}>
                                         <Link href={`/search_result?id=${item.uniqNumber}`}>
@@ -134,15 +153,15 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                 </>
             )}
 
-            {data && data.totalPages !== 0 && (
+            {dataOut && dataOut.totalPages !== 0 && (
                 <div className={s.res_table_wr}>
-                    {data.data.map((item) => {
+                    {dataOut.data.map((item) => {
                         return <ResponsTable item={item} key={item.id} img={'/assets/images/tire.png'} />;
                     })}
                 </div>
             )}
 
-            {data && <Pagination pageCount={data.totalPages} />}
+            {dataOut && <Pagination pageCount={dataOut.totalPages} />}
         </>
     );
 };

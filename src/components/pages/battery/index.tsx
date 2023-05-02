@@ -39,7 +39,6 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
 
     const { dataOut, handleAsc, handleDesc } = useFiltersAscDesc(data);
 
-    console.log(data);
     return (
         <>
             <Title main className={s.title}>
