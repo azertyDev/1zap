@@ -1,0 +1,38 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.wr{
+  background: $main;
+  padding: 30px 33px;
+  border-radius: 16px;
+  margin-bottom: 50px;
+}
+
+.title{
+  @include fs_fw_c(20px,700,#fff);
+  margin-bottom: 10px;
+}
+
+.links_wr{
+  @include flex-items(flex-start,center)
+}
+
+.icon{
+  @include flex-items(center,center);
+  padding-top: 2px;
+  margin: 0 9px;
+
+}
+.link,.link_one{
+  @include fs_fw_c(14px,600,#fff);
+}
+
+.link_one{
+  &.not_active{
+    pointer-events: none;
+  }
+}
+
+.linkTwo_wr{
+  @include flex-items(flex-start,center)
+}

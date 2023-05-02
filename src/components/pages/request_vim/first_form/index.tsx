@@ -24,6 +24,7 @@ import { formatValuesToSend } from 'src/helpers/formatValuesToSend';
 
 import { getModelSwitchCondition } from 'src/helpers/getModelSwitchCondition';
 import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
+import { IStaticParams } from 'types';
 
 export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPar: IStaticParams }> = ({
     dataCatalog,

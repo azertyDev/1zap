@@ -23,13 +23,16 @@ export const DetailsChosenCategories: FC<{ dataAuto: string; dataList: string }>
     } = useRouter();
 
     const { auto, list } = useDetailChosenCateg(dataAuto, dataList);
-
+    console.log(list);
     return (
         <PageWrapper>
             <Container>
                 {auto && list && (
                     <DetailCategoriesWr title={`${auto?.brand} ${auto?.name}`}>
                         <AsideDetailsCategories>
+                            <p className={s.field_name}>{list.map((item) => item?.$.name)}</p>
+                            <div className={s.line}></div>
+
                             <ul>
                                 {list.map((item) => {
                                     return item.Unit.map((subitem) => {
@@ -47,7 +50,7 @@ export const DetailsChosenCategories: FC<{ dataAuto: string; dataList: string }>
                                 })}
                             </ul>
                         </AsideDetailsCategories>
-                        <div>
+                        <div className={s.items_wr}>
                             {list.map((item) => {
                                 return (
                                     <ContentDetailsCategories title={item?.$.name} key={item?.$.name}>

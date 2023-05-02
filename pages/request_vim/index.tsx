@@ -5,6 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { RequestVimComp } from 'components/pages/request_vim/step_one';
 import { getLaximoData } from 'src/helpers/getLaximoData';
 import { staticParamsApi } from 'src/utils/api';
+import {IStaticParams} from "../../types";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {

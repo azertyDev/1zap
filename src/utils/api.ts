@@ -1,5 +1,14 @@
 import { AxiosResponse } from 'axios';
 import { axiosInstance } from './axios';
+import {
+    IUserData,
+    IApplicationData,
+    IApplicationDataProvider,
+    IProviderData,
+    ICreateVinOrder,
+    IStaticParams,
+    IOrderDetail,
+} from 'types';
 
 const responseBody = (response: AxiosResponse) => response.data;
 

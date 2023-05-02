@@ -6,6 +6,7 @@ import { Layout } from 'components/layout/client';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { SearchResult } from 'components/pages/search_result';
 import { staticParamsApi } from 'src/utils/api';
+import { IStaticParams } from '../types';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale } = context;

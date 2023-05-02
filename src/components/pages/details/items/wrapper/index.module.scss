@@ -1,7 +1,14 @@
 @import "styles/variables";
 @import "styles/mixins";
 
+
+.sub_title{
+  @include fs_fw_c(32px,700,$secondary);
+  margin-bottom: 30px;
+  display: none;
+}
 .title {
+  @include fs_fw_c(36px,700,$darkGrey);
   margin: 0 0 50px;
 }
 
@@ -9,4 +16,45 @@
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-gap: 48px;
+}
+
+@media (max-width: 1030px) {
+  .inner {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    grid-gap: 20px;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+
+  .inner{
+    display: block;
+  }
+
+  .title {
+    margin: 0 0 25px;
+    @include fs_fw_c(25px,700,$darkGrey);
+    line-height: 32px;
+  }
+  .sub_title{
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .sub_title{
+    @include fs_fw_c(28px,700,$secondary);
+    margin-bottom: 25px;
+    display: block;
+  }
+
+
+  .title {
+    margin: 0 0 15px;
+    @include fs_fw_c(20px,700,$darkGrey);
+    line-height: 28px;
+  }
 }

@@ -23,6 +23,8 @@ import { ResponsTable } from 'components/ui/table/respons_table';
 import { Pagination } from 'components/ui/pagination/Pagination';
 import Link from 'next/link';
 import { FC } from 'react';
+import { Icon } from 'components/ui/icon';
+import { IProductGroup } from 'types';
 
 export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
@@ -64,7 +66,10 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                                                 value={(query[item] ?? '') as string}
                                                 fun={handleFilter}
                                                 labelAlt={filterData[item][0]?.label}
-                                                options={filterData[item]}
+                                                options={filterData[item].map((item) => ({
+                                                    value: item.value,
+                                                    label: item.label?.toUpperCase(),
+                                                }))}
                                                 isTranslated
                                             />
                                         );
@@ -81,8 +86,21 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                         <TableRow className={s.table_row}>
                             <TableElement className={'table_h'}>{t('common:selects.manufacturers')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.number')}</TableElement>
+                            <TableElement className={'table_h'}>{t('common:selects.photo')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.size')}</TableElement>
-                            <TableElement className={'table_h'}>{t('common:selects.middlePrice')}</TableElement>
+                            <TableElement className={'table_h'}>
+                                <div className={s.filter_price_wr}>
+                                    <div className={s.filter_price_buttons}>
+                                        <div onClick={() => alert(1)}>
+                                            <Icon name={'expand_less'} size={18} color={'#9A9EA7'} />
+                                        </div>
+                                        <div onClick={() => alert(2)}>
+                                            <Icon name={'expand_more'} size={18} color={'#9A9EA7'} />
+                                        </div>
+                                    </div>
+                                    <p> {t('common:selects.middlePrice')}</p>
+                                </div>
+                            </TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.offer')}</TableElement>
                         </TableRow>
                         {data.data.map((item) => {
@@ -98,9 +116,6 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                                         <Image src={'/assets/images/tire.png'} alt={'tire'} width={52} height={70} />
                                     </TableElement>
 
-                                    <TableElement className={'table_b'}>
-                                        <h5>{item.property}</h5>
-                                    </TableElement>
                                     <TableElement className={'table_b'}>
                                         <h5>$19</h5>
                                         <p>от 15$ до 23$</p>
@@ -118,11 +133,14 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                     </div>
                 </>
             )}
-            {data &&
-                data.totalPages !== 0 &&
-                data.data.map((item) => {
-                    return <ResponsTable item={item} key={item.id} />;
-                })}
+
+            {data && data.totalPages !== 0 && (
+                <div className={s.res_table_wr}>
+                    {data.data.map((item) => {
+                        return <ResponsTable item={item} key={item.id} img={'/assets/images/tire.png'} />;
+                    })}
+                </div>
+            )}
 
             {data && <Pagination pageCount={data.totalPages} />}
         </>

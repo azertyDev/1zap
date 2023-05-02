@@ -17,6 +17,7 @@ import { useTranslation } from 'next-i18next';
 import { baseURL } from 'src/utils/constants';
 import { PriceCreateForm } from './form/create';
 import s from './index.module.scss';
+import { IBranchData } from 'types';
 
 export const PriceList = () => {
     const { t } = useTranslation();

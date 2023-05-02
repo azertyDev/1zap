@@ -1,26 +1,28 @@
 import s from './index.module.scss';
 
-import React, { FC, FormEvent } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { useTranslation } from 'next-i18next';
-import { FieldInputProps, FormikState, useFormik, FormikProvider, Form } from 'formik';
+import { useFormik, FormikProvider, Form } from 'formik';
 import { client_validation } from 'src/validation/client_validation';
 import { useRouter } from 'next/router';
+import { Icon } from 'components/ui/icon';
 
 export const InputSearch: FC = (): JSX.Element => {
     const { t } = useTranslation();
+    const [formikValue, setFormikValue] = useState(false);
 
     const {
         pathname,
-        query,
         push,
         query: { id },
     } = useRouter();
 
     const formik = useFormik({
         initialValues: {
-            searchVal: id ?? '',
+            searchVal: formikValue ? '' : id,
         },
         validationSchema: client_validation.search,
+        enableReinitialize: true,
         onSubmit: (values) => {
             push({
                 pathname,
@@ -31,6 +33,11 @@ export const InputSearch: FC = (): JSX.Element => {
             });
         },
     });
+
+    const resetForm = useCallback(() => {
+        setFormikValue(true);
+        formik.resetForm();
+    }, []);
 
     return (
         <FormikProvider value={formik}>
@@ -47,6 +54,14 @@ export const InputSearch: FC = (): JSX.Element => {
 
                     <span>{t('common:search')} </span>
                 </button>
+                <div
+                    className={`${s.clean} ${
+                        formik.values.searchVal && formik.values.searchVal.length > 0 ? s.active : ''
+                    }`}
+                    onClick={resetForm}
+                >
+                    <Icon name={'cancel'} color={'#C6303C'} size={18} />
+                </div>
             </Form>
         </FormikProvider>
     );

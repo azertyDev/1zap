@@ -85,7 +85,7 @@
   }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1110px) {
   .table_wr {
     display: block;
     margin-top: 20px;
@@ -94,23 +94,11 @@
 
 @media (max-width: 768px) {
   .table_wr {
-
     margin-top: 0;
   }
 }
 
 @media (max-width: 375px) {
-  .info_wr {
-    @include dg_gc_gr_gg(repeat(2, 1fr), auto, 3px);
-
-    p {
-      padding: 0;
-
-      &:after {
-        display: none;
-      }
-    }
-  }
 
   .order_wr {
     display: block;

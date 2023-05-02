@@ -4,6 +4,7 @@ import { FirstForm } from './first_form';
 import { SecondForm } from './second_form';
 import { providerValues } from './first_form/initialValues';
 import s from './index.module.scss';
+import { IProviderData } from 'types';
 
 export const CreateProvider: FC<any> = () => {
     const [tab, setTab] = useState(1);

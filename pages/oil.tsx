@@ -8,6 +8,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { PageWrapper } from 'components/ui/page_wrapper';
 import { Oil } from 'components/pages/oil';
 import { productsApi } from 'src/utils/api';
+import {IProductGroup} from "../types";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {

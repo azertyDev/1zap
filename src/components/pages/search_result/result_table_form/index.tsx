@@ -6,9 +6,14 @@ import { TableRow } from 'components/ui/table/table_row';
 import { TableElement } from 'components/ui/table/table_element';
 import { Icon } from 'components/ui/icon';
 import { useStore } from 'src/store/useStore';
-import { formatPrice } from 'src/helpers/formatPrice';
+import { formatNumber } from 'src/helpers/formatNumber';
+import { IProduct } from 'types';
 
-export const ResultTableForm: FC<{ data: IProduct[] }> = ({ data }): JSX.Element => {
+export const ResultTableForm: FC<{
+    data: IProduct[];
+    handleAsc: (param: 'sum' | 'usd' | 'availability') => () => void;
+    handleDesc: (param: 'sum' | 'usd' | 'availability') => () => void;
+}> = ({ data, handleAsc, handleDesc }): JSX.Element => {
     const { t } = useTranslation();
     const { toggleBookDetail } = useStore((state) => state);
     const { currency } = useStore((state) => state);
@@ -23,13 +28,25 @@ export const ResultTableForm: FC<{ data: IProduct[] }> = ({ data }): JSX.Element
                             <TableElement className={'table_h'}>{t('common:selects.number')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.nameProduct')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.howmany')}</TableElement>
-                            <TableElement className={'table_h'}>{t('common:selects.price')}</TableElement>
+                            <TableElement className={'table_h'}>
+                                <div className={s.filter_price_wr}>
+                                    <div className={s.filter_price_buttons}>
+                                        <div onClick={handleAsc(currency === 'uzs' ? 'sum' : 'usd')}>
+                                            <Icon name={'expand_less'} size={18} color={'#9A9EA7'} />
+                                        </div>
+                                        <div onClick={handleDesc(currency === 'uzs' ? 'sum' : 'usd')}>
+                                            <Icon name={'expand_more'} size={18} color={'#9A9EA7'} />
+                                        </div>
+                                    </div>
+                                    <p> {t('common:selects.price')}</p>
+                                </div>
+                            </TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.seller')}</TableElement>
                         </TableRow>
                     </>
                 )}
 
-                {data.map((item:any) => {
+                {data.map((item: any) => {
                     return (
                         <TableRow key={item.id} className={s.table_row}>
                             <TableElement className={'table_b'}>
@@ -45,20 +62,21 @@ export const ResultTableForm: FC<{ data: IProduct[] }> = ({ data }): JSX.Element
                             </TableElement>
                             <TableElement className={'table_b'}>
                                 <h5>
-                                    {item.availability} {t('common:howmany')}
+                                    {formatNumber(item.availability)} {t('common:howmany')}
                                 </h5>
                                 <p>
-                                    <span className={s.howmany_wr}>
-                                        <Icon size={14} name={'autorenew'} color={'#0D0A19'} />
-                                        <span>24</span>
-                                        {t('common:hourago')}
-                                    </span>
+                                    {/*<span className={s.howmany_wr}>*/}
+                                    {/*    <Icon size={14} name={'autorenew'} color={'#0D0A19'} />*/}
+                                    {/*    <span>24</span>*/}
+                                    {/*    {t('common:hourago')}*/}
+                                    {/*</span>*/}
 
                                     <span> {item.availability > 0 ? t('common:wehave') : t('common:wedonthave')}</span>
                                 </p>
                             </TableElement>
+
                             <TableElement className={'table_b'}>
-                                <h5>{currency === 'usd' ? `$${item.usd}` : `${formatPrice(String(item.sum))} сум`}</h5>
+                                <h5>{currency === 'usd' ? `$${item.usd}` : `${formatNumber(item.sum)} сум`}</h5>
                                 <p>{item.rtext}</p>
                             </TableElement>
                             <TableElement className={'table_b'}>

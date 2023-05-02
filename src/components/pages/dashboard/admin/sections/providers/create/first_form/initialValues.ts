@@ -1,3 +1,5 @@
+import { IProviderData } from 'types';
+
 export const providerValues: IProviderData = {
     legalAddress: '',
     phone: '',

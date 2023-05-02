@@ -14,14 +14,17 @@
   &.active {
     height: 573px;
   }
+
+
 }
 
 .shadow {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.0001) 28.82%, #FFFFFF 100%);
-  @include w_h(100%, 50%);
+  @include w_h(100%, 70px);
   position: absolute;
   bottom: 0;
   left: 0;
+
 }
 
 
@@ -37,6 +40,8 @@
 }
 
 
+
+
 .search_wr {
   width: 100%;
   z-index: 1;
@@ -46,6 +51,8 @@
   &.active {
     margin-top: 535px;
   }
+
+
 }
 
 .search {
@@ -71,11 +78,39 @@
 }
 
 .filter_btn {
-  padding: 7px 15px;
+  padding: 7px 12px;
   background: $blockBg;
   border-radius: 8px;
   @include fs_fw_c(12px, 700, $text);
   margin-right: 5px;
+  position: relative;
+
+  p {
+    margin-right: 15px;
+  }
+}
+
+.filter_price_buttons {
+  span {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:first-child {
+      top: 8%;
+      right: 10px;
+
+    }
+
+    &:last-child {
+      bottom:8%;
+      right: 10px;
+
+    }
+  }
 }
 
 @media (max-width: 1000px) {
@@ -94,11 +129,20 @@
       height: 523px;
     }
 
-
-
-
+    &.hide_map{
+      display: none;
+      @include w_h(0, 0);
+    }
   }
 
+  .hide_map_resize{
+    background: transparent;
+    div{
+      background: transparent;
+      pointer-events: none;
+    }
+
+  }
   .pigeon-zoom-buttons {
     display: none;
   }
@@ -106,7 +150,9 @@
 
   .search_wr {
     margin-top: 260px;
-
+    &.hide_map{
+      margin: 0 0 60px;
+    }
     &.active {
       margin-top: 336px;
     }
@@ -115,7 +161,7 @@
   .search {
     padding: 0;
     background: #fff;
-    border: 2px solid #EDE8E9;
+    border: 1px solid #EDE8E9;
     border-radius: 8px;
     box-shadow: none;
     overflow: hidden;
@@ -125,10 +171,28 @@
   .filter_for_respon {
     display: flex;
     align-content: center;
-    padding: 8px 13px;
+    padding: 8px;
   }
 
   .filter_laptop {
     display: none;
+  }
+}
+
+@media (max-width: 375px) {
+  .filter_price_buttons {
+
+
+    span {
+      &:first-child {
+        top: 8%;
+
+      }
+
+      &:last-child {
+        bottom:8%;
+
+      }
+    }
   }
 }

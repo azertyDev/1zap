@@ -2,6 +2,7 @@ import { ChangeEvent, MouseEvent, useState } from 'react';
 import { imageApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
+import { IImage } from 'types';
 
 interface FileUploaderProps {
     name: string;

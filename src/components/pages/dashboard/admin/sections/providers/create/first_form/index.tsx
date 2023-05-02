@@ -5,6 +5,7 @@ import { DynamicForm } from './dynamic_form';
 import { Button } from 'src/components/ui/button';
 
 import s from '../index.module.scss';
+import { IProviderData } from 'types';
 
 interface FirstFormProps {
     initialValues: IProviderData;

@@ -1,0 +1,43 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.wr{
+  @include dg_gc_gr_gg(1fr 321px,auto,30px);
+  border-bottom:  1px solid #EDE8E9;
+  padding-bottom: 50px;
+  margin-bottom: 50px;
+}
+
+.left_menu_title{
+  @include fs_fw_c(14px,400,$text);
+
+}
+
+.left_menu_list{
+  a{
+    margin-top: 24px;
+    display: block;
+    @include fs_fw_c(16px,700,$secondary);
+  }
+}
+
+.right_menu{
+  border: 1px solid #E4E6E8;
+  border-radius: 10px;
+  padding: 23px 0;
+  h4{
+    @include fs_fw_c(18px,700,$secondary);
+    margin-bottom: 5px;
+    padding:  0 26px;
+  }
+  a{
+    display: block;
+    @include fs_fw_c(14px,400,$text);
+    margin-top: 20px;
+    padding:  0 26px;
+    &.active{
+      @include fs_fw_c(14px,700,$main);
+border-left: 2px solid $main;
+    }
+  }
+}

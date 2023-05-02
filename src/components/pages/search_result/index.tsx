@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { ResultMap } from 'components/pages/search_result/result_map';
 
 import s from './index.module.scss';
+import { IStaticParams } from 'types';
 
 export const SearchResult: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
     return (

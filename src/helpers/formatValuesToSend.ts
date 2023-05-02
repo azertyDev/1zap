@@ -1,3 +1,5 @@
+import {ICreateVinOrder} from "../../types";
+
 export const formatValuesToSend = {
     createVin(values: any) {
         const dataSend: ICreateVinOrder = {

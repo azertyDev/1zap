@@ -9,7 +9,15 @@
 
 @media (max-width: 1000px) {
   .wr {
-
     border-radius:25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wr {
+    border-radius:25px;
+    padding: 0;
+    box-shadow: none;
+    background: transparent;
   }
 }

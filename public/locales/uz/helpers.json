@@ -4,6 +4,7 @@
     "more_then_two_words": "Maydon kamida 2 ta belgidan iborat boʻlishi kerak",
     "year_length": "4 ta raqam olinishi kerak",
     "error_sending": "Maʼlumotlarni yuborishda xatolik yuz berdi",
+    "error_getting": "Dannix olishda xatolik yuz berdi",
     "image_add": "Surat yuklandi!",
     "image_del": "Surat olib tashlandi!",
     "image_err_add": "Surat yuborishda xatolik yuz berdi!",

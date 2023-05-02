@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { FC } from 'react';
 import { MapPoint } from 'components/ui/map/map_point';
 import { useStore } from 'src/store/useStore';
-import { formatPrice } from 'src/helpers/formatPrice';
+import { formatNumber } from 'src/helpers/formatNumber';
 import { useTranslation } from 'next-i18next';
 
 export const MapItem: FC<{
@@ -17,9 +17,9 @@ export const MapItem: FC<{
     const { t } = useTranslation('common');
     return (
         <div className={s.mark} onClick={toggleBookDetail(true, branchId, productId, providerId)}>
-            <MapPoint val={amount} />
+            <MapPoint val={amount} hidePoint />
             <div className={s.mark_price}>
-                {currency === 'uzs' ? `${formatPrice(String(price.sum))} ${t('sum')}` : `$${price.usd}`}
+                {currency === 'uzs' ? `${formatNumber(price.sum)} ${t('sum')}` : `$${price.usd}`}
             </div>
         </div>
     );
