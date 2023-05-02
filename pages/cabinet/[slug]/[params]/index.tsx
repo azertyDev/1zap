@@ -3,9 +3,8 @@ import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Layout } from 'src/components/layout/dashboard';
 import Header from 'src/components/ui/dashboard/header';
-import Bottom_footer from 'src/components/widgets/footer/bottom_footer';
 import { BranchForm } from 'src/components/pages/dashboard/cabinet/sections/promo/forms/branch_form';
-import { AdvForm } from 'src/components/pages/dashboard/cabinet/sections/promo/forms/adv_form';
+import { MainInnerPages } from 'src/components/pages/dashboard/cabinet/sections/main/sub_pages';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale, query } = context;
@@ -26,32 +25,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const routes = {
-    promo_branches: '/promo/branches',
-    promo_adv: '/promo/adverts',
+    promo: '/promo',
+    main: '/main',
 };
 
 const Index: NextPageWithLayout = ({ query }: any) => {
-    switch (`/${query.slug}/${query.params}`) {
-        case routes.promo_branches:
+    switch (`/${query.slug}`) {
+        case routes.promo:
             return <BranchForm />;
-        case routes.promo_adv:
-            return <AdvForm />;
+        case routes.main:
+            return <MainInnerPages subPage={query.params} />;
 
         default:
-            break;
+            return <div>Страница не найдена</div>;
     }
-
-    return <div>{query.id}</div>;
 };
 
 Index.getLayout = function getLayout(page) {
-    return (
-        <Layout>
-            <Header title={page.props.query.slug as string} />
-            {page}
-            <Bottom_footer />
-        </Layout>
-    );
+    return <Layout>{page}</Layout>;
 };
 
 export default Index;

@@ -44,9 +44,9 @@ const Index: NextPageWithLayout = ({ query }: any) => {
 Index.getLayout = function getLayout(page) {
     return (
         <Layout>
-            <Header title={page.props.query.slug as string} />
+            {/* <Header title={page.props.query.slug as string} /> */}
             {page}
-            <Bottom_footer />
+            {/* <Bottom_footer /> */}
         </Layout>
     );
 };

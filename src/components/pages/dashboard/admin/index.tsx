@@ -1,12 +1,7 @@
 import { FC } from 'react';
 import { useRouter } from 'next/router';
-import { Main } from './sections/main';
-import { Profile } from './sections/profile';
-import { Balance } from './sections/balance';
-import { Statistics } from './sections/statistics';
 import { Providers } from './sections/providers';
 import { PromoPage } from './sections/promo';
-import { PriceList } from './sections/price_list';
 import { VinRequests } from './sections/vin_request';
 import Header from 'src/components/ui/dashboard/header';
 import BottomFooter from 'src/components/widgets/footer/bottom_footer';
@@ -32,9 +27,9 @@ export default (props: PropsType): JSX.Element => {
 
     return (
         <div className={s.wrapper}>
-            <Header title={query.slug as string} />
+            {/* <Header title={query.slug as string} /> */}
             <main>{page()}</main>
-            <BottomFooter className={s.footer} />
+            {/* <BottomFooter className={s.footer} /> */}
         </div>
     );
 };

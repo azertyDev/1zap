@@ -1,15 +1,18 @@
 import { toast } from 'react-hot-toast';
-import { providerApi } from 'src/utils/api';
+import { priceListApi, providerApi } from 'src/utils/api';
 import { StateCreator } from 'zustand';
+import Router from 'next/router';
 
 export interface IProviderSlice {
     providers: IProviders;
     provider: IProviderData | null;
     providerBranches: IBranchData[] | null;
+    priceList: any;
     branch: IBranchData[] | null;
     loading: boolean;
     error: null;
     fetchProviders: () => void;
+    fetchPriceList: () => void;
     fetchProviderBranches: () => void;
     fetchProviderById: (id: number) => void;
     fetchBranchById: (id: number) => void;
@@ -34,6 +37,7 @@ const initialState = {
     },
     provider: null,
     providerBranches: null,
+    priceList: [],
     branch: null,
     loading: false,
     error: null,
@@ -56,6 +60,25 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
                 // console.log('Error', response);
 
                 set({ providers: undefined, error: response.data, loading: false });
+            })
+            .finally(() => {
+                set({ loading: false });
+            });
+    },
+    fetchPriceList: async () => {
+        set({ loading: true });
+
+        await priceListApi
+            .fetchPriceList()
+            .then((response) => {
+                // console.log('fetchPriceList', response);
+
+                set({ priceList: response });
+            })
+            .catch(({ response }) => {
+                // console.log('Error', response);
+
+                set({ priceList: undefined, error: response.data, loading: false });
             })
             .finally(() => {
                 set({ loading: false });
@@ -126,10 +149,8 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
         await providerApi
             .addProvider(data)
             .then((response) => {
-                console.log('@addProvider: ', response);
-
                 toast.success('Provider created', { icon: '👏', duration: 5000 });
-                // set({ branch: response });
+                Router.push('/dashboard/providers');
             })
             .catch(({ response }) => {
                 console.log('@addProvider error:', response);
