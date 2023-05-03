@@ -9,7 +9,7 @@ import { PageWrapper } from 'components/ui/page_wrapper';
 
 import { Tires } from 'components/pages/tires';
 import { productsApi } from 'src/utils/api';
-import {IProductGroup} from "../types";
+import { IProductGroup } from '../types';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {
@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
             data: data,
-            ...(await serverSideTranslations(locale as string, ['header', 'common', 'footer', 'home'])),
+            ...(await serverSideTranslations(locale as string, ['header', 'common', 'footer', 'home', 'helpers'])),
         },
     };
 };

@@ -1,4 +1,3 @@
-
 .title {
   margin-bottom: 30px;
 }
@@ -7,19 +6,21 @@
   max-width: 883px;
 }
 
-.table{
+.table {
   margin-top: 70px;
 }
 
-.table_row{
+.table_row {
   display: grid;
-  grid-template-columns: 102px 120px 70px minmax(130px,160px)  minmax(130px,150px) 124px;
+  grid-template-columns: 1fr 1fr 1fr minmax(170px, 207px) 124px;
 }
+
 
 .filter_price_wr {
   display: flex;
   align-items: center;
 }
+
 .filter_price_buttons {
   position: relative;
   margin-right: 25px;
@@ -45,14 +46,16 @@
   }
 }
 
-.res_table_wr{
+.res_table_wr {
   margin-top: 50px;
 }
-@media (max-width: 1110px){
-  .table{
+
+@media (max-width: 1110px) {
+  .table {
     display: none;
   }
 }
+
 @media (max-width: 768px) {
   .tabs_wr_out {
     display: none;
