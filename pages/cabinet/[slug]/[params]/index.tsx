@@ -2,9 +2,8 @@ import type { NextPageWithLayout } from 'pages/_app';
 import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Layout } from 'src/components/layout/dashboard';
-import Header from 'src/components/ui/dashboard/header';
-import { BranchForm } from 'src/components/pages/dashboard/cabinet/sections/promo/forms/branch_form';
-import { MainInnerPages } from 'src/components/pages/dashboard/cabinet/sections/main/sub_pages';
+import { MainInnerPages } from 'components/pages/dashboard/cabinet/sections/main/sub_pages';
+import { PromoInnerPages } from 'components/pages/dashboard/cabinet/sections/promo/forms';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale, query } = context;
@@ -25,14 +24,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const routes = {
-    promo: '/promo',
     main: '/main',
+    promo: '/promo',
 };
 
 const Index: NextPageWithLayout = ({ query }: any) => {
     switch (`/${query.slug}`) {
         case routes.promo:
-            return <BranchForm />;
+            return <PromoInnerPages subPage={query.params} />;
         case routes.main:
             return <MainInnerPages subPage={query.params} />;
 
