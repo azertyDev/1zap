@@ -34,7 +34,7 @@ export const ResponsTable: FC<{ item: IProductGroup; img: string }> = ({ item, i
                     </p>
                 </div>
 
-                <Link href={`/search_result?id=${item.uniqNumber}`}>
+                <Link href={`/search_result?oem=${item.uniqNumber}`}>
                     <button type={'button'} className={s.show_btn}>
                         {t('common:show')}
                     </button>

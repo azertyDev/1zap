@@ -19,4 +19,9 @@ export const formikValues = {
         payment: '',
         image: '',
     },
+    contact: {
+        username: '',
+        email: '',
+        description: '',
+    },
 };

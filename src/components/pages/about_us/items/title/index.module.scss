@@ -1,0 +1,7 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.title{
+  @include fs_fw_c(50px,400,$secondary);
+  margin: 70px 0;
+}

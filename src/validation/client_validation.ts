@@ -50,4 +50,9 @@ export const client_validation = {
         payment: yup.string().required('required'),
         description: yup.string().required('required'),
     }),
+    contact: yup.object().shape({
+        username: yup.string().required('required'),
+        email: yup.string().email('invalid_format').required('required'),
+        description: yup.string().required('required'),
+    }),
 };
