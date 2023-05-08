@@ -16,6 +16,7 @@ export const router: any = {
 };
 
 export const MainInnerPages = ({ subPage }: { subPage: string }) => {
+    console.log(subPage);
     const RoutePage = router[subPage];
     const findedPage = linksData.find((link) => link.title === subPage);
 
