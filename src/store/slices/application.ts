@@ -12,20 +12,7 @@ export interface IApplicationSlice {
 
 const initialState = {
     applications: {
-        data: [
-            {
-                id: null,
-                providerName: '',
-                providerSurname: '',
-                providerPatronymic: '',
-                phone: '',
-                service: '',
-                city: '',
-                isActive: '',
-                createdAt: '',
-                updatedAt: '',
-            },
-        ],
+        data: [],
         page: null,
         lastPage: null,
         total: null,
@@ -45,10 +32,10 @@ export const applicationSlice: StateCreator<IApplicationSlice> = (set, get) => (
             .then((response) => {
                 set({ applications: response, loading: false });
 
-                toast.success('Successfully fetched!', { icon: '👏' });
+                // toast.success('Successfully fetched!', { icon: '👏' });
             })
             .catch(({ response }) => {
-                console.log('fetchApplications', response);
+                // console.log('fetchApplications', response);
 
                 set({ applications: null, error: response.data, loading: false });
             })

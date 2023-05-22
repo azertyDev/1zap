@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { Column } from 'react-table';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect } from 'react';
 import { MenuItem } from '@szhsin/react-menu';
 import { Button } from 'src/components/ui/button';
 import { BaseModal } from 'src/components/ui/dashboard/modal/base_modal';
@@ -16,8 +16,9 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { baseURL } from 'src/utils/constants';
 import { PriceCreateForm } from './form/create';
+import { priceListApi } from 'src/utils/api';
+import { toast } from 'react-hot-toast';
 import s from './index.module.scss';
-import { IBranchData } from 'types';
 
 export const PriceList = () => {
     const { t } = useTranslation();
@@ -33,6 +34,34 @@ export const PriceList = () => {
     const openModal = () => {
         handleModalOpen();
     };
+
+    const deleteCell = (id: number) => {
+        priceListApi.delete(id).then(() => {
+            fetchPriceList();
+            toast.success(t('helpers.deleted'));
+        });
+    };
+
+    const menuContent = (data: any) => (
+        <>
+            <MenuItem>
+                <Icon name="cloud_download" color="black" />
+                Скачать шаблон
+            </MenuItem>
+            <MenuItem>
+                <Icon name="refresh" color="black" />
+                Обновить
+            </MenuItem>
+            <MenuItem>
+                <Icon name="edit" color="black" />
+                Редактировать
+            </MenuItem>
+            <MenuItem onClick={() => deleteCell(data.id)}>
+                <Icon name="delete" color="black" />
+                Удалить
+            </MenuItem>
+        </>
+    );
 
     const priceListCols: Column<any>[] = [
         {
@@ -74,7 +103,7 @@ export const PriceList = () => {
             disableSortBy: true,
             accessor: (cell: any) => {
                 return (
-                    <ActionsBlock cell={cell}>
+                    <ActionsBlock cell={cell} menu={menuContent(cell)}>
                         <Link
                             href={{
                                 pathname: '#',

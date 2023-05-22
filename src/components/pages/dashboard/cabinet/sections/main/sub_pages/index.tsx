@@ -13,10 +13,10 @@ export const router: any = {
     balance: Balance,
     products: Products,
     promo: Promo,
+    branch: () => <h1>Branch</h1>,
 };
 
 export const MainInnerPages = ({ subPage }: { subPage: string }) => {
-    console.log(subPage);
     const RoutePage = router[subPage];
     const findedPage = linksData.find((link) => link.title === subPage);
 

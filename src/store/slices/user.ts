@@ -47,7 +47,7 @@ export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
                 console.log(response.user.role);
 
                 response.user.role === 'admin' || response.user.role === 'moderator'
-                    ? Router.push('/dashboard/main')
+                    ? Router.push('/dashboard/providers')
                     : Router.push('/cabinet/main');
             })
             .catch(({ response }) => {

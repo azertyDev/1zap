@@ -28,6 +28,7 @@ export const applicationApi = {
     fetchApplications: (status: string): Promise<IApplicationData> => requests.get('/applications/all', { status }),
     addApplication: (body: IApplicationDataProvider): Promise<IApplicationDataProvider> =>
         requests.post('/app', { ...body }),
+    delete: (id: number) => requests.delete(`/applications/remove/${id}`),
 };
 
 export const providerApi = {
@@ -66,6 +67,7 @@ export const staticParamsApi = {
 
 export const priceListApi = {
     fetchPriceList: (): Promise<any> => requests.get('/pricelist/all'),
+    delete: (id: number): Promise<any> => requests.delete(`/pricelist/${id}`),
 };
 
 export const orderDetails = {

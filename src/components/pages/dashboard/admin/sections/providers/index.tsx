@@ -2,24 +2,43 @@ import dayjs from 'dayjs';
 import Link from 'next/link';
 import { Column } from 'react-table';
 import { FC, useEffect } from 'react';
-import { Table } from 'src/components/ui/dashboard/table';
-import { useStore } from 'src/store/useStore';
+import { toast } from 'react-hot-toast';
+import { useTranslation } from 'next-i18next';
 import { shallow } from 'zustand/shallow';
+import { useStore } from 'src/store/useStore';
+import { MenuItem } from '@szhsin/react-menu';
+import { applicationApi } from 'src/utils/api';
+import { Table } from 'src/components/ui/dashboard/table';
 import { ColumnFilter } from 'src/components/ui/dashboard/table/columnFilter';
 import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
 import { StatisticsBlock } from 'src/components/ui/dashboard/statistics_block';
+import { Icon } from 'src/components/ui/icon';
 import s from './index.module.scss';
 
 export const Providers: FC = (props): JSX.Element => {
-    const { applications, providers, loading, error, fetchApplications, fetchProviders } = useStore(
-        (state) => state,
-        shallow
-    );
+    const { t } = useTranslation();
+    const { applications, providers, fetchProviders, fetchApplications } = useStore((state) => state, shallow);
 
     useEffect(() => {
         fetchApplications();
         fetchProviders();
     }, [fetchApplications, fetchProviders]);
+
+    const deleteApp = (id: number) => {
+        applicationApi.delete(id).then(() => {
+            fetchApplications();
+            toast.success(t('helpers.deleted'));
+        });
+    };
+
+    const menuContent = (data: any) => (
+        <>
+            <MenuItem onClick={() => deleteApp(data.id)}>
+                <Icon name="delete" color="black" />
+                Удалить
+            </MenuItem>
+        </>
+    );
 
     const applicationCols = [
         {
@@ -58,7 +77,7 @@ export const Providers: FC = (props): JSX.Element => {
             disableSortBy: true,
             accessor: (cell: any) => {
                 return (
-                    <ActionsBlock cell={cell}>
+                    <ActionsBlock cell={cell} menu={menuContent(cell)}>
                         <Link
                             href={{
                                 pathname: '/dashboard/[slug]/[params]',
@@ -133,14 +152,6 @@ export const Providers: FC = (props): JSX.Element => {
             },
         },
     ];
-
-    if (error) {
-        return <div className="error">{error}</div>;
-    }
-
-    if (loading) {
-        return <div>Loading....</div>;
-    }
 
     const data = [
         {

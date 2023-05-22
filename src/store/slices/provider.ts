@@ -22,16 +22,7 @@ export interface IProviderSlice {
 
 const initialState = {
     providers: {
-        data: [
-            {
-                id: null,
-                fullName: '',
-                phone: '',
-                companyName: '',
-                email: '',
-                createdAt: '',
-            },
-        ],
+        data: [],
         page: null,
         lastPage: null,
         total: null,
@@ -55,7 +46,7 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
             .then((response) => {
                 // console.log('fetchProviders', response);
 
-                set({ providers: response });
+                set({ providers: response, loading: false });
             })
             .catch(({ response }) => {
                 // console.log('Error', response);
@@ -74,7 +65,7 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
             .then((response) => {
                 // console.log('fetchPriceList', response);
 
-                set({ priceList: response });
+                set({ priceList: response, loading: false });
             })
             .catch(({ response }) => {
                 // console.log('Error', response);
@@ -94,7 +85,7 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
             .then((response) => {
                 // console.log('fetchProviderById', response);
 
-                set({ provider: response });
+                set({ provider: response, loading: false });
             })
             .catch(({ response }) => {
                 // console.log('Error', response);

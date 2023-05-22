@@ -40,7 +40,7 @@ export const Header: FC = (): JSX.Element => {
                         <ExchangeRate />
                         <Language />
                         {signedIn ? (
-                            <Link href={isAdmin ? '/dashboard/main' : '/cabinet/main'} className={s.login}>
+                            <Link href={isAdmin ? '/dashboard/providers' : '/cabinet/main'} className={s.login}>
                                 <div className={s.img_block}>
                                     <Image src={'/assets/icons/person.svg'} alt={'user'} width={16} height={16} />
                                 </div>
