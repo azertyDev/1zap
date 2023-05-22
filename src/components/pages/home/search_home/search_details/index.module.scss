@@ -8,7 +8,7 @@
   margin-left: 16px;
   background: $light;
   @include flex-items(center, center);
-  @include fs_fw_c(14px ,600, $darkGrey);
+  @include fs_fw_c(14px, 600, $darkGrey);
 
   span {
     margin-left: 4px;
@@ -29,6 +29,90 @@
   display: none;
 }
 
+.input_wr {
+  position: relative;
+}
+
+.debounce {
+  width: 100%;
+
+  background: $main;
+  z-index: 2;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border-radius: 0 0 25px 25px;
+  padding: 0 18px 27px 59px;
+
+  &:after {
+    content: "";
+    width: 20px;
+    height: 25px;
+    background: $main;
+    position: absolute;
+    right: 0;
+    top: -22px;
+  }
+
+  &:before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    background: $main;
+    position: absolute;
+    left: 0;
+    top: -22px;
+  }
+}
+
+.debounce_line {
+  height: 1px;
+  background: #fff;
+  margin-bottom: 3px;
+}
+
+.debounce_item {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 14px;
+  position: relative;
+}
+
+.debounce_item_link {
+  @include pa_t_l(0, 0);
+  width: 100%;
+  height: 100%;
+  border-radius: 8px
+}
+
+.debounce_item_title {
+  @include fs_fw_c(14px, 600, $secondary);
+  padding: 5px 20px;
+  border-right: 1px solid #EDE8E9;
+}
+
+
+.debounce_item_text {
+  @include fs_fw_c(12px, 600, $secondary);
+  padding: 5px 18px;
+}
+
+.debounce_show_all {
+  @include fs_fw_c(14px, 600, #fff);
+  margin-top: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.nothing_found{
+  @include fs_fw_c(18px, 600, #fff);
+  margin-top: 20px;
+}
+
 @media (max-width: 1000px) {
   .btn {
     display: none;
@@ -45,5 +129,31 @@
   .big_search_img {
     display: none;
   }
+
+  .debounce {
+    &:before, &:after {
+      display: none;
+    }
+
+    top: 110%;
+    border-radius: 10px;
+    padding: 0 20px 10px;
+  }
+
+  .debounce_line {
+    display: none;
+  }
 }
 
+
+@media (max-width: 500px) {
+  .debounce {
+    &:before, &:after {
+      display: none;
+    }
+
+    top: 110%;
+    border-radius: 10px;
+    padding: 0 10px 10px;
+  }
+}

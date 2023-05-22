@@ -9,16 +9,19 @@ import { PageWrapper } from 'components/ui/page_wrapper';
 
 import { Battery } from 'components/pages/battery';
 import { productsApi } from 'src/utils/api';
-import {IProductGroup} from "../types";
+import { IProductGroup } from '../types';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {
         locale,
-        query: { page },
+        query: { page, manufacturers, polarities, capacities, currents },
     } = context;
 
     let data = await productsApi
-        .getProductsWithGroup('batteries', `?page=${page ?? 1}`)
+        .getProductsWithGroup(
+            'batteries',
+            `?page=${page ?? 1}${manufacturers ? `&manufacturer=${manufacturers}` : ''}}`
+        )
         .then((res) => res)
         .catch((err) => null);
 

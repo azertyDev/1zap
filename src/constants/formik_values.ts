@@ -24,4 +24,16 @@ export const formikValues = {
         email: '',
         description: '',
     },
+    create_theme: {
+        titleRu: '',
+        titleUz: '',
+        isProvider: false,
+    },
+    sub_theme: {
+        titleRu: '',
+        titleUz: '',
+        textRu: '',
+        textUz: '',
+        isOften: false,
+    },
 };

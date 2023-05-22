@@ -4,6 +4,7 @@ export const dashboardMenu = [
     { id: Math.random(), name: 'promo', icon: 'label' },
     { id: Math.random(), name: 'vin-requests', icon: 'inbox' },
     { id: Math.random(), name: 'operations', icon: 'view_day' },
+    { id: Math.random(), name: 'center', icon: 'view_day' },
     // { id: 0, name: 'main', icon: 'timelapse' },
     // { id: 4, name: 'profile', icon: 'person' },
     // { id: 5, name: 'balance', icon: 'payments' },

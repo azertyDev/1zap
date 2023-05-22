@@ -6,6 +6,7 @@ import { VinRequests } from './sections/vin_request';
 import Header from 'src/components/ui/dashboard/header';
 import BottomFooter from 'src/components/widgets/footer/bottom_footer';
 import s from './index.module.scss';
+import { CenterPage } from 'components/pages/dashboard/admin/sections/center';
 
 interface PropsType extends FC {}
 
@@ -20,6 +21,8 @@ export default (props: PropsType): JSX.Element => {
                 return <PromoPage />;
             case `/dashboard/vin-requests`:
                 return <VinRequests />;
+            case `/dashboard/center`:
+                return <CenterPage />;
             default:
                 return 'Страница не найдена';
         }

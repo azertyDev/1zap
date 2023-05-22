@@ -1,0 +1,53 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.form_top_wr {
+  @include flex-items(space-between, center);
+}
+
+.form_top_title {
+  @include fs_fw_c(20px, 500px, $secondary);
+}
+
+.form_top_delete {
+
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+  @include fs_fw_c(12px, 400, #fff);
+  display: block;
+  background: #dc3545;
+
+}
+
+.line {
+  margin: 40px 0;
+  width: 100%;
+  height: 4px;
+  background: $blockBg;
+}
+
+.sub_title {
+  @include fs_fw_c(18px, 500px, $secondary);
+  margin-bottom: 20px;
+
+}
+
+.richtext_wr {
+  margin-bottom: 30px;
+}
+
+.richtext_title {
+  @include fs_fw_c(16px, 600px, $secondary);
+  margin-bottom: 10px;
+}
+
+.faq_wr {
+  @include flex-items(flex-start, center);
+margin: 50px 0;
+  h5 {
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+
+}

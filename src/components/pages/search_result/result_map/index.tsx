@@ -225,15 +225,17 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                                     </span>
                                 </span>
                             </button>
-                            <FilterResponsive
-                                btnText={'anotherFilter'}
-                                isOpen={isOpenFilter}
-                                toggleFilter={setIsOpenFilter}
-                                data={staticPar as any}
-                                isTranslated
-                            />
+                            <div className={oem ? s.disable_res_filter : ''}>
+                                <FilterResponsive
+                                    btnText={'anotherFilter'}
+                                    isOpen={isOpenFilter}
+                                    toggleFilter={setIsOpenFilter}
+                                    data={staticPar as any}
+                                    isTranslated
+                                />
+                            </div>
                         </div>
-                        <div className={s.filter_laptop}>
+                        <div className={`${s.filter_laptop} ${oem ? s.disable : ''}`}>
                             <FilterSelections>
                                 {filterTitles['search'].map((item) => {
                                     return (

@@ -4,6 +4,7 @@
   "searchDetail": "Поиск по номеру детали",
   "categoryProduct": "Категории товаров",
   "searchTitle": "Поиск по названию",
-  "searchDetailShort": "По номеру детали"
-
+  "searchDetailShort": "По номеру детали",
+  "nothing_found": "Совпадений не найдено...",
+  "show_all": "Посмотреть всё"
 }

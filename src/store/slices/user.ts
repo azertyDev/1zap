@@ -44,10 +44,9 @@ export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
                 // Expiration day: 1
                 Cookies.set('userInfo', JSON.stringify(response), { expires: oneDay });
                 Cookies.set('token', JSON.stringify(response.token), { expires: oneDay });
-                console.log(response.user.role);
 
                 response.user.role === 'admin' || response.user.role === 'moderator'
-                    ? Router.push('/dashboard/main')
+                    ? Router.push('/dashboard/providers')
                     : Router.push('/cabinet/main');
             })
             .catch(({ response }) => {

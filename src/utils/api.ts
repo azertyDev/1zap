@@ -8,6 +8,9 @@ import {
     ICreateVinOrder,
     IStaticParams,
     IOrderDetail,
+    ITopic,
+    ISubTopic,
+    ISubTopicCreate,
 } from 'types';
 
 const responseBody = (response: AxiosResponse) => response.data;
@@ -17,6 +20,7 @@ const requests = {
     post: (url: string, body: {}, config?: {}) => axiosInstance.post(url, body, config).then(responseBody),
     put: (url: string, body: {}) => axiosInstance.put(url, body).then(responseBody),
     delete: (url: string) => axiosInstance.delete(url).then(responseBody),
+    patch: (url: string, body: any) => axiosInstance.patch(url, body).then(responseBody),
 };
 
 export const userApi = {
@@ -74,4 +78,16 @@ export const orderDetails = {
 
 export const promoApi = {
     branch: (body: any) => requests.post('/products/marketing/branch', body),
+};
+
+export const centerApi = {
+    getAllTopics: () => requests.get('/topic/all'),
+    addTopic: (body: ITopic) => requests.post('/topic/add', body),
+    deleteTopic: (id: number) => requests.delete(`/topic/remove/${id}`),
+    // getSubtopicsByTopic: (id: string) => requests.get(`/subtopic/all/${id}`),
+    createSubTopic: (body: ISubTopicCreate) => requests.post('/subtopic/add', body),
+    getSubtopicsByTopic: (id: string) => requests.get(`/article/${id}`),
+    getSubTopic: (id: string) => requests.get(`/subtopic/${id}`),
+    editSubTopic: (id: string, body: ISubTopicCreate) => requests.patch(`/subtopic/edit/${id}`, body),
+    deleteSubtopic: (id: string) => requests.delete(`/subtopic/remove/${id}`),
 };
