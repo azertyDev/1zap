@@ -4,5 +4,7 @@
   "searchDetail": "Qism raqamini qidirish",
   "categoryProduct": "Mahsulot toifalari",
   "searchTitle": "Ism bo'yicha qidiring",
-  "searchDetailShort": "Qism raqami bo'yicha"
+  "searchDetailShort": "Qism raqami bo'yicha",
+  "nothing_found": "Hech qanday moslik topilmadi...",
+  "show_all": "Hammasini ko'rish"
 }

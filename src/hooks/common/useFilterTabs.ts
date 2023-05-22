@@ -9,7 +9,9 @@ export const useFilterTabs = (catalogNumber: number) => {
     useEffect(() => {
         (async () => {
             const { data } = await axiosInstance(`/catalog/${catalogNumber}`);
-            setFilterData(data?.category);
+            if (data) {
+                setFilterData(data?.category);
+            }
         })();
     }, []);
 

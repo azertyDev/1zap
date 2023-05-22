@@ -19,4 +19,21 @@ export const formikValues = {
         payment: '',
         image: '',
     },
+    contact: {
+        username: '',
+        email: '',
+        description: '',
+    },
+    create_theme: {
+        titleRu: '',
+        titleUz: '',
+        isProvider: false,
+    },
+    sub_theme: {
+        titleRu: '',
+        titleUz: '',
+        textRu: '',
+        textUz: '',
+        isOften: false,
+    },
 };

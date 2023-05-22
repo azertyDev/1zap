@@ -150,7 +150,7 @@ export const ChosenDetail: FC<{
                                             </TableElement>
                                             <TableElement className={'table_b'}>
                                                 <a
-                                                    href={`/search_result?id=${item.$.oem}`}
+                                                    href={`/search_result?oem=${item.$.oem}`}
                                                     target={'_blank'}
                                                     className={item.$.oem.length === 0 ? s.disable : ''}
                                                     rel="noreferrer"
@@ -183,7 +183,7 @@ export const ChosenDetail: FC<{
                                             </div>
 
                                             <a
-                                                href={`/search_result?id=${item.$.oem}`}
+                                                href={`/search_result?oem=${item.$.oem}`}
                                                 target={'_blank'}
                                                 className={item.$.oem.length === 0 ? s.disable : ''}
                                                 rel="noreferrer"

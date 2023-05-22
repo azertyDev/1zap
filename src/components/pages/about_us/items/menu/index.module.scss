@@ -1,0 +1,24 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.wr{
+  margin-top: 42px;
+  background: $blockBg;
+  padding: 40px 0 20px;
+}
+.links_wr{
+  margin-top: 35px;
+}
+
+.link{
+  @include fs_fw_c(18px,500,#777777);
+  display: inline-block;
+  margin-right: 40px;
+  &.active{
+    color: $secondary;
+  }
+}
+
+.title{
+  @include fs_fw_c(56px,700,$secondary);
+}

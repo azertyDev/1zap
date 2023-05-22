@@ -14,12 +14,12 @@ export const InputSearch: FC = (): JSX.Element => {
     const {
         pathname,
         push,
-        query: { id },
+        query: { filter },
     } = useRouter();
 
     const formik = useFormik({
         initialValues: {
-            searchVal: formikValue ? '' : id,
+            searchVal: formikValue ? '' : filter,
         },
         validationSchema: client_validation.search,
         enableReinitialize: true,
@@ -27,7 +27,7 @@ export const InputSearch: FC = (): JSX.Element => {
             push({
                 pathname,
                 query: {
-                    id: values.searchVal,
+                    filter: values.searchVal,
                     page: 1,
                 },
             });

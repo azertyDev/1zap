@@ -1,11 +1,10 @@
 import type { NextPageWithLayout } from 'pages/_app';
-import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Layout } from 'src/components/layout/dashboard';
 import { CreateProvider } from 'src/components/pages/dashboard/admin/sections/providers/create';
-import Header from 'src/components/ui/dashboard/header';
-import Bottom_footer from 'src/components/widgets/footer/bottom_footer';
+import { CenterSubPage } from 'components/pages/dashboard/admin/sections/center/sub_pages/subtopicts';
+import { CenterForm } from 'components/pages/dashboard/admin/sections/center/sub_pages/form';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale, query } = context;
@@ -27,13 +26,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const routes = {
     create_provider: '/providers/create',
+    center_categories: '/center/category',
+    center_form: '/center/form',
 };
 
 const Index: NextPageWithLayout = ({ query }: any) => {
     switch (`/${query.slug}/${query.params}`) {
         case routes.create_provider:
             return <CreateProvider query={query} />;
-
+        case routes.center_categories:
+            return <CenterSubPage query={query.id} />;
+        case routes.center_form:
+            return <CenterForm query={query} />;
         default:
             break;
     }

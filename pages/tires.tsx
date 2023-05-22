@@ -14,11 +14,16 @@ import { IProductGroup } from '../types';
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {
         locale,
-        query: { page },
+        query: { page, manufacturers, seasons, widths, heights },
     } = context;
 
     let data = await productsApi
-        .getProductsWithGroup('tires', `?page=${page ?? 1}`)
+        .getProductsWithGroup(
+            'tires',
+            `?page=${page ?? 1}${manufacturers ? `&manufacturer=${manufacturers}` : ''}${
+                seasons ? `&season=${seasons}` : ''
+            }${widths ? `&width=${widths}` : ''}${heights ? `&height=${heights}` : ''}`
+        )
         .then((res) => res)
         .catch((err) => null);
 
@@ -31,6 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const TirePage: NextPageWithLayout<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }) => {
+    console.log(data);
     return <Tires data={data} />;
 };
 

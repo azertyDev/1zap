@@ -54,7 +54,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
         pathname,
         push,
         locale,
-        query: { page, id, payment, delivery, service, client },
+        query: { page, filter, oem, payment, delivery, service, client },
         query,
     } = useRouter();
 
@@ -67,22 +67,27 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
 
     useEffect(() => {
         (async () => {
-            await productsApi
-                // @ts-ignore
-                .getProductsNoGroup(
-                    `page=${page ?? 1}&lang=${locale}&filter=${id}${getFilterParamsResultPage(
-                        payment as string,
-                        delivery as string,
-                        service as string,
-                        client as string
-                    )}`
-                )
-                .then((res) => {
-                    setData(res);
-                })
-                .catch((err) => {
-                    toast.error(t('helpers:error_getting'));
-                });
+            if (filter) {
+                await productsApi
+                    // @ts-ignore
+                    .getProductsNoGroup(
+                        `page=${page ?? 1}&lang=${locale}&filter=${filter}${getFilterParamsResultPage(
+                            payment as string,
+                            delivery as string,
+                            service as string,
+                            client as string
+                        )}`
+                    )
+                    .then((res) => setData(res))
+                    .catch((err) => toast.error(t('helpers:error_getting')));
+            }
+            if (oem) {
+                await productsApi
+                    // @ts-ignore
+                    .getProductsNoGroup(`page=${page ?? 1}&lang=${locale}&oem=${oem}`)
+                    .then((res) => setData(res))
+                    .catch((err) => toast.error(t('helpers:error_getting')));
+            }
         })();
     }, [query]);
 
@@ -220,15 +225,17 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                                     </span>
                                 </span>
                             </button>
-                            <FilterResponsive
-                                btnText={'anotherFilter'}
-                                isOpen={isOpenFilter}
-                                toggleFilter={setIsOpenFilter}
-                                data={staticPar as any}
-                                isTranslated
-                            />
+                            <div className={oem ? s.disable_res_filter : ''}>
+                                <FilterResponsive
+                                    btnText={'anotherFilter'}
+                                    isOpen={isOpenFilter}
+                                    toggleFilter={setIsOpenFilter}
+                                    data={staticPar as any}
+                                    isTranslated
+                                />
+                            </div>
                         </div>
-                        <div className={s.filter_laptop}>
+                        <div className={`${s.filter_laptop} ${oem ? s.disable : ''}`}>
                             <FilterSelections>
                                 {filterTitles['search'].map((item) => {
                                     return (

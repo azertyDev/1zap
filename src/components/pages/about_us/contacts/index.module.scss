@@ -1,0 +1,77 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.wr{
+  @include dg_gc_gr_gg(1fr 1fr,auto,110px);
+  margin-bottom: 100px;
+}
+
+.par_one{
+  @include fs_fw_c(18px,400,#000000);
+  margin-bottom: 4px;
+}
+
+.par_two{
+  @include fs_fw_c(18px,400,#404040);
+}
+.map{
+  width: 100%;
+  height: 288px;
+  margin: 32px 0 82px;
+}
+
+.par_onecontact_data_wr{
+  @include dg_gc_gr_gg(repeat(2,1fr),auto,32px)
+}
+
+.par_onecontact_data_wr{
+  div{
+    border-left: 1px solid #787878;
+    padding-left: 16px;
+  }
+}
+
+
+
+.textarea {
+  padding: 20px;
+  resize: none;
+  border: 1px solid #E4E6E8;
+  border-radius: 8px;
+  width: 100% !important;
+  height: 215px;
+  @include fs_fw_c(14px, 600, $text);
+  margin-bottom: 20px;
+
+  &.error{
+    box-shadow: 0 0 7px 0 $main;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $blockBg;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $main;
+    border-radius: 20px;
+  }
+
+  scrollbar-color: $main $main;
+
+  &::placeholder {
+    @include fs_fw_c(14px, 600, $text);
+  }
+}
+
+.submit_btn{
+  width: 80%;
+}

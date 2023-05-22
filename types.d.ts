@@ -210,3 +210,35 @@ interface IOrderDetail {
     name: string;
     phone: string;
 }
+
+interface ITopic {
+    titleRu: string;
+    titleUz: string;
+    id: number;
+    isProvider: boolean;
+}
+
+interface ISubTopic {
+    id: number;
+    titleRu: string;
+    titleUz: string;
+    isProvider: boolean;
+    subTopic: {
+        id: number;
+        titleRu: string;
+        titleUz: string;
+        isProvider: boolean;
+        textRu: string;
+        textUz: string;
+        isOften: boolean;
+    }[];
+}
+
+interface ISubTopicCreate {
+    topicId?: number;
+    titleRu: string;
+    titleUz: string;
+    textRu: string;
+    textUz: string;
+    isOften: boolean;
+}

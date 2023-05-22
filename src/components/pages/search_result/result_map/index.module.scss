@@ -73,6 +73,12 @@
   }
 }
 
+.filter_laptop {
+  &.disable{
+    pointer-events: none;
+  }
+}
+
 .filter_for_respon {
   display: none;
 }
@@ -88,6 +94,9 @@
   p {
     margin-right: 15px;
   }
+}
+.disable_res_filter{
+  pointer-events: none;
 }
 
 .filter_price_buttons {
