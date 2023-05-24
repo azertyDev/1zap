@@ -1,6 +1,7 @@
 import { linksData } from 'src/data/common';
 import { Balance } from './Balance';
-import { Branches } from './Branches';
+import { Branches } from './branches';
+import { EditForm } from './branches/form/EditForm';
 import { Products } from './Products';
 import { Promo } from './Promo';
 import { Requisites } from './Requisites';
@@ -13,7 +14,7 @@ export const router: any = {
     balance: Balance,
     products: Products,
     promo: Promo,
-    branch: () => <h1>Branch</h1>,
+    editBranch: EditForm,
 };
 
 export const MainInnerPages = ({ subPage }: { subPage: string }) => {

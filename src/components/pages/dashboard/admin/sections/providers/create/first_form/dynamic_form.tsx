@@ -11,9 +11,9 @@ import { maptiler } from 'pigeon-maps/providers';
 import { ZoomControl } from 'src/components/ui/map/map_controls/zoom';
 import { staticParamsApi } from 'src/utils/api';
 import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
-import s from '../index.module.scss';
 import { providerValues } from './initialValues';
 import { IBranchData, IImage } from 'types';
+import s from '../index.module.scss';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 

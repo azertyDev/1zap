@@ -11,6 +11,7 @@ import {
     ITopic,
     ISubTopic,
     ISubTopicCreate,
+    IBranchData,
 } from 'types';
 
 const responseBody = (response: AxiosResponse) => response.data;
@@ -45,6 +46,7 @@ export const providerApi = {
 
 export const branchApi = {
     getBranchById: (id: number) => requests.get(`/branch/${id}`),
+    updateBranch: (id: number, body: IBranchData) => requests.put(`/branch/${id}`, { body }),
 };
 
 export const imageApi = {

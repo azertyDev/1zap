@@ -1,5 +1,5 @@
 import { FC, ReactNode, useMemo } from 'react';
-import { useTable, useSortBy, useFilters } from 'react-table';
+import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
 import { Icon } from 'components/ui/icon';
 import { ColumnFilter } from './columnFilter';
 import s from './index.module.scss';
@@ -18,14 +18,26 @@ export const Table: FC<TableProps> = ({ data, columns, title }) => {
         []
     );
 
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+        previousPage,
+        nextPage,
+        pageCount,
+        page,
+    } = useTable(
         {
             data: useMemo(() => data, [data]),
             columns: useMemo(() => columns, [columns]),
             defaultColumn,
         },
+
         useFilters,
-        useSortBy
+        useSortBy,
+        usePagination
     );
 
     return (
@@ -67,6 +79,15 @@ export const Table: FC<TableProps> = ({ data, columns, title }) => {
                     })}
                 </tbody>
             </table>
+            <span>
+                {pageCount}
+            </span>
+            <button className="border rounded p-1" onClick={previousPage}>
+                {'<'}
+            </button>
+            <button className="border rounded p-1" onClick={nextPage}>
+                {'>'}
+            </button>
         </div>
     );
 };

@@ -30,7 +30,7 @@ export const Branches = (props: any) => {
         console.log(rest);
 
         push({
-            pathname: '/cabinet/main/branch',
+            pathname: '/cabinet/main/editBranch',
             query: { id: id },
         });
     };

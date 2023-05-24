@@ -40,6 +40,13 @@ export const linksData = [
         desc: 'Изменить и добавить',
     },
     {
+        id: 7,
+        link: '/cabinet/main/editBranch',
+        icon: 'place',
+        title: 'editBranch',
+        desc: 'Отредактируйте данные филиала и фото',
+    },
+    {
         id: 3,
         link: '/cabinet/main/settings',
         icon: 'build',
