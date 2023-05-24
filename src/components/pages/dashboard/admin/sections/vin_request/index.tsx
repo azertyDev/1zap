@@ -9,16 +9,20 @@ import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
 import { useModal } from 'src/hooks/common/useModal';
 import { vinOrderApi } from 'src/utils/api';
 import s from './index.module.scss';
+import { createSourceEditor } from 'jodit/types/plugins/source/editor/factory';
+import { useTranslation } from 'next-i18next';
+import Modal from 'react-responsive-modal';
 
 export const VinRequests = () => {
     const [data, setData] = useState<any>();
-    const { open, handleModalClose, handleModalOpen } = useModal(false);
+    const { open, handleModalClose, handleModalOpen } = useModal();
+    const { t } = useTranslation();
 
     console.log(data?.data);
 
     useEffect(() => {
         vinOrderApi
-            .fetchVinRequests('moderation')
+            .fetchVinAction('primary')
             .then((response) => {
                 setData(response);
             })
@@ -30,10 +34,19 @@ export const VinRequests = () => {
     const vinRequestCols: Column<any>[] = [
         {
             Header: 'Дата',
-            // accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(Date.now()).format('DD/MM/YYYY') as any,
-            // Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
+            id: 'eventdate',
+            accessor: 'createdAt',
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
             disableFilters: true,
+            disableSortBy: false,
+        },
+        {
+            Header: 'Время',
+            id: 'eventtime',
+            accessor: 'createdAt',
+            Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
+            disableFilters: true,
+            disableSortBy: false,
         },
         {
             Header: 'Марка',
@@ -58,13 +71,15 @@ export const VinRequests = () => {
         },
         {
             Header: 'Статус',
-            accessor: 'createdAt',
-            // Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
+            accessor: 'status',
+            Cell: ({ cell }: any) => t(`dashboard:status.${cell.value}`) as any,
+            disableSortBy: true,
             disableFilters: true,
         },
         {
             Header: 'Город',
             accessor: 'city',
+            Cell: ({ cell }: any) => t(`common:selects.${cell.value}`) as any,
             disableSortBy: true,
             disableFilters: true,
         },
@@ -74,7 +89,7 @@ export const VinRequests = () => {
             disableSortBy: true,
             accessor: (cell: any) => {
                 return (
-                    <ActionsBlock cell={cell}>
+                    <ActionsBlock>
                         <Button variant="primary" fullWidth onClick={handleModalOpen}>
                             Открыть
                         </Button>
@@ -91,9 +106,7 @@ export const VinRequests = () => {
             )}
 
             <BaseModal
-                center
                 open={open}
-                showCloseIcon={false}
                 onClose={handleModalClose}
                 headerContent={
                     <div>

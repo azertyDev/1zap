@@ -64,6 +64,7 @@ export const productsApi = {
 export const vinOrderApi = {
     createOrder: (data: ICreateVinOrder) => requests.post('/vin', data),
     fetchVinRequests: (status?: any): Promise<any> => requests.get('/vinOrder/all', { status }),
+    fetchVinAction: (status?: any): Promise<any> => requests.get('/vinAction/all', { status }),
 };
 
 export const staticParamsApi = {

@@ -32,6 +32,13 @@
   "currency": "Валюта",
   "productType": "Тип товаров",
   "availability": "Наличие",
+  "status": {
+    "primary": "primary",
+    "repeated": "repeated",
+    "accepted": "accepted",
+    "rejected": "rejected",
+    "moderation": "moderation"
+  },
   "providerBranch": {
     "branchName": "Наименование филиала",
     "phisicalAddress": "Физический адрес",
