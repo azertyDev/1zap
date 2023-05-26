@@ -2,9 +2,66 @@
 @import 'styles/variables.scss';
 
 .root {
-    margin: 0;
+  margin: 0;
 
-    div.modalContent {
-        padding: 25px 30px;
+
+}
+
+
+.btn_wr {
+  display: flex;
+  margin-bottom: 25px;
+
+  button {
+    margin-right: 25px;
+  }
+}
+
+.sub_title {
+  margin-bottom: 25px;
+}
+
+.modal_tabs {
+  @include dg_gc_gr_gg(repeat(3, 1fr), auto, 0);
+  margin-bottom: 24px;
+
+  div {
+    @include fs_fw_c(14px, 600, $text);
+    @include flex-items(center, center);
+    cursor: pointer;
+
+    &.active {
+      color: $secondary;
+      border: 1px solid #E4E6E8;
+      border-radius: 8px;
+      padding: 12px;
     }
+  }
+}
+
+.modal_table_wr{
+  @include dg_gc_gr_gg(repeat(2, 1fr), auto,0 30px );
+
+  div{
+    @include flex-items(space-between, center);
+    padding: 14px 0;
+    border-bottom: 1px solid #E4E6E8;
+
+
+    p{
+      @include fs_fw_c(12px, 400, $secondary);
+    }
+    p:last-child{
+      @include fs_fw_c(12px, 700, $secondary);
+    }
+  }
+}
+
+.modal_tabs_title{
+  @include fs_fw_c(14px, 700, $secondary);
+  margin:0 0 13px;
+}
+
+.modal_description{
+  @include fs_fw_c(14px, 400, $text);
 }

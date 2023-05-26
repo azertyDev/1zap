@@ -28,12 +28,25 @@
     "currency": "Валюта",
     "productType": "Тип товаров",
     "availability": "Наличие",
+    "contacts": "Kontaktlar",
+    "details": "Tafsilotlar",
+    "moderation": "Moderatsiya",
+    "vinrequest": "VIN запроса",
+    "car_info": "VIN kodini so'rang",
+    "info_detail": "Kerakli qismlar haqida ma'lumot",
+    "info_client": "Mijoz ma'lumotlari",
+    "comments": "Yetkazib beruvchi sharhi",
+    "name": "Ism",
+    "number": "Raqam",
+    "city": "Shahar",
+    "payment": "To'lov",
     "status": {
-        "primary": "primary",
+        "primary": "Faol so'rovlar",
         "repeated": "repeated",
         "accepted": "accepted",
-        "rejected": "rejected",
-        "moderation": "moderation"
+        "rejected": "Rad etilgan",
+        "completed": "Tugallangan so'rovlar",
+        "moderation": "Moderatsiya so'rovlari"
     },
     "providerBranch": {
         "branchName": "Наименование филиала",

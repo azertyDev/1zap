@@ -32,12 +32,25 @@
   "currency": "Валюта",
   "productType": "Тип товаров",
   "availability": "Наличие",
+  "contacts": "Контакты",
+  "details": "Детали",
+  "moderation": "Модерация",
+  "vinrequest": "VIN запроса",
+  "car_info": "Информация об автомобиле",
+  "info_detail": "Информация об необходимых деталей",
+  "info_client": "Информация о клиенте",
+  "comments": "Комментарий поставщика",
+  "name": "Имя",
+  "number": "Номер",
+  "city": "Город",
+  "payment": "Оплата",
   "status": {
-    "primary": "primary",
+    "primary": "Активные запросы",
     "repeated": "repeated",
     "accepted": "accepted",
-    "rejected": "rejected",
-    "moderation": "moderation"
+    "rejected": "Отклонен",
+    "completed": "Завершенные запросы",
+    "moderation": "Запросы на модерацию"
   },
   "providerBranch": {
     "branchName": "Наименование филиала",

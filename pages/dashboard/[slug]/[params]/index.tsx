@@ -5,6 +5,7 @@ import { Layout } from 'src/components/layout/dashboard';
 import { CreateProvider } from 'src/components/pages/dashboard/admin/sections/providers/create';
 import { CenterSubPage } from 'components/pages/dashboard/admin/sections/center/sub_pages/subtopicts';
 import { CenterForm } from 'components/pages/dashboard/admin/sections/center/sub_pages/form';
+import { VinRequests } from 'components/pages/dashboard/admin/sections/vin_request';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale, query } = context;
@@ -28,6 +29,8 @@ const routes = {
     create_provider: '/providers/create',
     center_categories: '/center/category',
     center_form: '/center/form',
+    vin_request_primary: '/vin-requests/primary',
+    vin_request_completed: '/vin-requests/completed',
 };
 
 const Index: NextPageWithLayout = ({ query }: any) => {
@@ -38,6 +41,10 @@ const Index: NextPageWithLayout = ({ query }: any) => {
             return <CenterSubPage query={query.id} />;
         case routes.center_form:
             return <CenterForm query={query} />;
+        case routes.vin_request_primary:
+            return <VinRequests query={query.params} />;
+        case routes.vin_request_completed:
+            return <VinRequests query={query.params} />;
         default:
             break;
     }

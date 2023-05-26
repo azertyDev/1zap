@@ -6,9 +6,9 @@ import { Balance } from './sections/balance';
 import { Statistics } from './sections/statistics';
 import { PromoPage } from './sections/promo';
 import { PriceList } from './sections/price_list';
-import { VinRequests } from './sections/vin_request';
-import { IncominRequests } from './sections/incoming_requests/vin_request';
+import { IncominRequests } from './sections/vin_request/new';
 import s from './index.module.scss';
+import { IncominRequestsAccepted } from 'components/pages/dashboard/cabinet/sections/vin_request/accepted';
 
 interface PropsType extends FC {}
 
@@ -29,10 +29,10 @@ export default (props: PropsType): JSX.Element => {
                 return <PriceList />;
             case `/cabinet/promo`:
                 return <PromoPage />;
-            case `/cabinet/vin-requests`:
-                return <VinRequests />;
             case `/cabinet/incoming_requests`:
                 return <IncominRequests />;
+            case `/cabinet/incoming_requests?status=accepted`:
+                return <IncominRequestsAccepted />;
             default:
                 return 'Страница не найдена';
         }

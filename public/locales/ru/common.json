@@ -96,6 +96,7 @@
   "groupDetails": "Группы запчастей",
   "find": "Найти",
   "show": "Показать",
+  "save": "Сохранить",
   "vinNumber": "VIN номер",
   "byVinNumber": "По VIN-номеру",
   "yearIssue": "Год выпуска",
@@ -192,6 +193,7 @@
     "samarkand": "Самарканд",
     "andijan": "Андижан",
     "namangan": "Наманган",
-    "choose_img_id": "Перейти к номеру"
+    "choose_img_id": "Перейти к номеру",
+    "status": "Статус выполнения"
   }
 }

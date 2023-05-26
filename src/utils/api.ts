@@ -21,7 +21,7 @@ const requests = {
     post: (url: string, body: {}, config?: {}) => axiosInstance.post(url, body, config).then(responseBody),
     put: (url: string, body: {}) => axiosInstance.put(url, body).then(responseBody),
     delete: (url: string) => axiosInstance.delete(url).then(responseBody),
-    patch: (url: string, body: any) => axiosInstance.patch(url, body).then(responseBody),
+    patch: (url: string, body?: any) => axiosInstance.patch(url, body).then(responseBody),
 };
 
 export const userApi = {
@@ -65,6 +65,7 @@ export const vinOrderApi = {
     createOrder: (data: ICreateVinOrder) => requests.post('/vin', data),
     fetchVinRequests: (status?: any): Promise<any> => requests.get('/vinOrder/all', { status }),
     fetchVinAction: (status?: any): Promise<any> => requests.get('/vinAction/all', { status }),
+    rejectVin: (id: number): Promise<any> => requests.patch(`/vinAction/reject/${id}`),
 };
 
 export const staticParamsApi = {

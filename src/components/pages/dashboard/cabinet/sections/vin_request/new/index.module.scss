@@ -1,0 +1,10 @@
+@import 'styles/mixins';
+@import 'styles/variables';
+
+.root {
+    margin: 0;
+
+    div.modalContent {
+        padding: 25px 30px;
+    }
+}

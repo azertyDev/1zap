@@ -18,7 +18,7 @@ export default (props: PropsType): JSX.Element => {
             case `/dashboard/promo`:
                 return <PromoPage />;
             case `/dashboard/vin-requests`:
-                return <VinRequests />;
+                return <VinRequests query={'moderation'} />;
             case `/dashboard/center`:
                 return <CenterPage />;
             default:

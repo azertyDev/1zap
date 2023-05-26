@@ -88,6 +88,7 @@
   "groupDetails": "Ehtiyot qismlar guruhlari",
   "find": "Toping",
   "show": "Ko'rsatish",
+  "save": "Saqlash",
   "vinNumber": "VIN raqami",
   "byVinNumber": "VIN raqami bo'yicha",
   "yearIssue": "Chiqarilgan yili",
@@ -182,6 +183,7 @@
     "courier": "Yetkazib berish",
     "legal": "Tashkilot",
     "individual": "Jismoniy shaxs",
-    "choose_img_id": "Raqamga o'ting"
+    "choose_img_id": "Raqamga o'ting",
+    "status": "Amalga oshirish holati"
   }
 }

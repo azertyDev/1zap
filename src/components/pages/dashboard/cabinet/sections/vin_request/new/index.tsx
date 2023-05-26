@@ -1,13 +1,15 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { Column } from 'react-table';
-import { Button } from 'src/components/ui/button';
-import { BaseModal } from 'src/components/ui/dashboard/modal/base_modal';
-import { Table } from 'src/components/ui/dashboard/table';
-import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
+import { Button } from 'components/ui/button';
+import { BaseModal } from 'components/ui/dashboard/modal/base_modal';
+import { Table } from 'components/ui/dashboard/table';
+import { ActionsBlock } from 'components/ui/dashboard/table/ActionsBlock';
 import { useModal } from 'src/hooks/common/useModal';
 import { vinOrderApi } from 'src/utils/api';
 import s from './index.module.scss';
+import Link from 'next/link';
+import { Icon } from 'components/ui/icon';
 
 export const IncominRequests = () => {
     const [data, setData] = useState<any>();
@@ -85,10 +87,16 @@ export const IncominRequests = () => {
 
     return (
         <div className={s.root}>
+            <Link href={'/cabinet/incoming_requests?status=accepted'}>
+                <Button variant={'primary'}>
+                    <Icon name={'archive'} size={20} color={'#fff'} />
+                    Принятые запросы
+                </Button>
+            </Link>
+
             {data?.data.length > 0 && (
                 <Table data={data?.data} columns={vinRequestCols} title={<h4>Запросы на модерацию</h4>} />
             )}
-
             <BaseModal
                 center
                 open={open}

@@ -242,3 +242,23 @@ interface ISubTopicCreate {
     textUz: string;
     isOften: boolean;
 }
+
+interface IVinItem {
+    id: number;
+    vinNumber: string;
+    yearIssue: string;
+    description: string;
+    brand: string;
+    model: string;
+    payment: string;
+    status: string;
+    city: string;
+    customer: {
+        id: number;
+        username: string;
+        phone: string;
+        city: string;
+        createdAt: string;
+    };
+    createdAt: string;
+}
