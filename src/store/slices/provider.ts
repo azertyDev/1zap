@@ -13,7 +13,7 @@ export interface IProviderSlice {
     loading: boolean;
     error: null;
     fetchProviders: () => void;
-    fetchPriceList: () => void;
+    fetchPriceList: (page?: number, limit?: number) => void;
     fetchProviderBranches: () => void;
     fetchProviderById: (id: number) => void;
     fetchBranchById: (id: number) => void;
@@ -57,11 +57,11 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
                 set({ loading: false });
             });
     },
-    fetchPriceList: async () => {
+    fetchPriceList: async (page, limit) => {
         set({ loading: true });
 
         await priceListApi
-            .fetchPriceList()
+            .fetchPriceList(page, limit)
             .then((response) => {
                 // console.log('fetchPriceList', response);
 

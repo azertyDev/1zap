@@ -1,5 +1,5 @@
 import { FC, ReactNode, useMemo } from 'react';
-import { useTable, useSortBy, useFilters, usePagination } from 'react-table';
+import { useTable, useSortBy, useFilters, usePagination, useResizeColumns } from 'react-table';
 import { Icon } from 'components/ui/icon';
 import { ColumnFilter } from './columnFilter';
 import s from './index.module.scss';
@@ -14,31 +14,24 @@ export const Table: FC<TableProps> = ({ data, columns, title }) => {
     const defaultColumn = useMemo(
         () => ({
             Filter: ColumnFilter,
+            minWidth: 30,
+            width: 150,
+            maxWidth: 400,
         }),
         []
     );
 
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-        previousPage,
-        nextPage,
-        pageCount,
-        page,
-    } = useTable(
+    const { rows, prepareRow, headerGroups, getTableProps, getTableBodyProps } = useTable(
         {
             data: useMemo(() => data, [data]),
             columns: useMemo(() => columns, [columns]),
             defaultColumn,
         },
-
         useFilters,
-        useSortBy,
-        usePagination
+        useSortBy
     );
+
+    console.log();
 
     return (
         <div className={s.root} data-id="table-root">
@@ -49,10 +42,22 @@ export const Table: FC<TableProps> = ({ data, columns, title }) => {
                         <tr {...headerGroup.getHeaderGroupProps()} key={index}>
                             {headerGroup.headers.map((column, index) => {
                                 return (
-                                    <th {...column.getHeaderProps(column.getSortByToggleProps())} key={index}>
+                                    <th
+                                        {...column.getHeaderProps(
+                                            column.getSortByToggleProps({
+                                                style: {
+                                                    width: column.width,
+                                                    minWidth: column.minWidth,
+                                                    maxWidth: column.maxWidth,
+                                                },
+                                            })
+                                        )}
+                                        key={index}
+                                    >
                                         <div>
-                                            {column.canSort ? <Icon name="unfold_more" size={16} /> : null}
                                             {column.render('Header')}
+                                            {column.canSort ? <Icon name="unfold_more" size={16} /> : null}
+                                            {/* {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''} */}
                                             <div>{column.canFilter ? column?.render('Filter') : null}</div>
                                         </div>
                                     </th>
@@ -69,7 +74,16 @@ export const Table: FC<TableProps> = ({ data, columns, title }) => {
                             <tr {...row.getRowProps()} key={index}>
                                 {row.cells.map((cell, index) => {
                                     return (
-                                        <td {...cell.getCellProps()} key={index}>
+                                        <td
+                                            {...cell.getCellProps({
+                                                style: {
+                                                    width: cell.column.width,
+                                                    minWidth: cell.column.minWidth,
+                                                    maxWidth: cell.column.maxWidth,
+                                                },
+                                            })}
+                                            key={index}
+                                        >
                                             {cell.render('Cell')}
                                         </td>
                                     );
@@ -79,15 +93,6 @@ export const Table: FC<TableProps> = ({ data, columns, title }) => {
                     })}
                 </tbody>
             </table>
-            <span>
-                {pageCount}
-            </span>
-            <button className="border rounded p-1" onClick={previousPage}>
-                {'<'}
-            </button>
-            <button className="border rounded p-1" onClick={nextPage}>
-                {'>'}
-            </button>
         </div>
     );
 };

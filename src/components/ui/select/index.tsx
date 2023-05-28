@@ -61,18 +61,20 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
                             fontSize: '12px',
                             cursor: 'pointer',
                         }),
-                        singleValue: (base) => ({
+                        singleValue: (base, state) => ({
                             ...base,
                             border: 'none',
-                            color: '#0D0A19',
                             fontWeight: '600',
                             fontSize: '14px',
+                            color: state.isDisabled ? '#9A9EA7' : '#0D0A19',
                         }),
-                        dropdownIndicator: (base) => ({
+                        dropdownIndicator: (base, state) => ({
                             ...base,
+                            color: state.isDisabled ? '#9A9EA7' : '#0D0A19',
                             svg: {
-                                width: '16px',
-                                height: '16px',
+                                width: '18px',
+                                height: '18px',
+                                fill: state.isDisabled ? '#9A9EA7' : '#0D0A19',
                             },
                         }),
                         indicatorSeparator: (base) => ({

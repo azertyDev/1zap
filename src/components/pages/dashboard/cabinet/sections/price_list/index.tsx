@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { Column } from 'react-table';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { MenuItem } from '@szhsin/react-menu';
 import { Button } from 'src/components/ui/button';
 import { BaseModal } from 'src/components/ui/dashboard/modal/base_modal';
@@ -18,7 +18,9 @@ import { baseURL } from 'src/utils/constants';
 import { PriceCreateForm } from './form/create';
 import { priceListApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
+import ReactPaginate from 'react-paginate';
 import s from './index.module.scss';
+import { Pagination } from 'src/components/ui/dashboard/pagination';
 
 export const PriceList = () => {
     const { t } = useTranslation();
@@ -26,10 +28,16 @@ export const PriceList = () => {
     const { priceList, fetchPriceList, fetchProviderBranches } = useStore();
     const { open, handleModalOpen, handleModalClose } = useModal();
 
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(5);
+
     useEffect(() => {
-        fetchPriceList();
+        fetchPriceList(page, limit);
+    }, [page, limit, fetchPriceList]);
+
+    useEffect(() => {
         fetchProviderBranches();
-    }, []);
+    }, [fetchProviderBranches]);
 
     const openModal = () => {
         handleModalOpen();
@@ -37,7 +45,7 @@ export const PriceList = () => {
 
     const deleteCell = (id: number) => {
         priceListApi.delete(id).then(() => {
-            fetchPriceList();
+            fetchPriceList(page, limit);
             toast.success(t('helpers.deleted'));
         });
     };
@@ -69,12 +77,14 @@ export const PriceList = () => {
             accessor: 'title',
             disableSortBy: true,
             disableFilters: true,
+            width: 200,
         },
         {
             Header: 'Тип прайса',
             accessor: 'type',
             disableSortBy: true,
             disableFilters: true,
+            width: 100,
         },
         {
             Header: 'Филиал',
@@ -87,14 +97,12 @@ export const PriceList = () => {
             accessor: 'id',
             disableSortBy: true,
             disableFilters: true,
-            width: 90,
-            maxWidth: 100,
-            minWidth: 80,
+            width: 50,
         },
         {
             Header: 'Дата',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY HH:mm') as any,
             disableFilters: true,
         },
         {
@@ -139,6 +147,10 @@ export const PriceList = () => {
         { id: 4, name: 'Шины', file: `${baseURL}/static/tires.xlsx` },
     ];
 
+    const handlePageClick = (page: any) => {
+        setPage(page.selected + 1);
+    };
+
     return (
         <div className={s.wrapper}>
             <StatisticsBlock data={statisticsData} title={<h4>Текущие показатели</h4>} />
@@ -174,6 +186,8 @@ export const PriceList = () => {
             </div>
 
             {priceList?.data?.length > 0 && <Table columns={priceListCols} data={priceList?.data} />}
+
+            <Pagination pageCount={priceList.totalPages} onPageChange={handlePageClick} />
 
             <BaseModal
                 center

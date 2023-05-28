@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Field, FieldArray, Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { Heading } from 'src/components/ui/dashboard/heading';
@@ -14,6 +14,9 @@ import { Icon } from 'src/components/ui/icon';
 import { SelectField } from 'src/components/ui/select';
 import { ZoomControl } from 'src/components/ui/map/map_controls/zoom';
 import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
+import { Button } from 'src/components/ui/button';
+import { ImageUpload } from 'src/components/ui/upload/image';
+import { IImage } from 'types';
 import s from '../../../index.module.scss';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
@@ -25,7 +28,7 @@ export const EditForm = (props: any) => {
     const { pageProps } = props;
     const [params, setParams] = useState<any>();
     const [branch, setBranch] = useState<any>();
-    console.log(branch);
+    const [location, setLocation] = useState<any>(branch?.location);
 
     const defaultOptions = [
         {
@@ -57,11 +60,14 @@ export const EditForm = (props: any) => {
         { event, latLng, pixel }: { event: MouseEvent; latLng: [number, number]; pixel: [number, number] },
         field: string
     ) => {
+        setLocation(latLng);
         formik.setFieldValue(field, JSON.stringify(latLng));
     };
 
-    const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
+    const onSubmit = async (values: any, {}: FormikHelpers<typeof initialValues>) => {
         console.log(values);
+
+        await branchApi.updateBranch(id as any, values);
     };
 
     const formik = useFormik({
@@ -70,13 +76,6 @@ export const EditForm = (props: any) => {
         // validationSchema,
         enableReinitialize: true,
     });
-
-    const coords = branch?.location
-        .replace(/\[|\]/g, '')
-        .split(',')
-        .map(function (el: any) {
-            return +el;
-        });
 
     return (
         <>
@@ -88,14 +87,17 @@ export const EditForm = (props: any) => {
                         <div className={s.row}>
                             <div className={s.block}>
                                 <StandartInput
+                                    disabled
                                     label="dashboard:providerBranch.phisicalAddress"
                                     {...formik.getFieldProps(`phisicalAddress`)}
                                 />
                                 <StandartInput
+                                    disabled
                                     label="dashboard:providerBranch.branchName"
                                     {...formik.getFieldProps(`branchName`)}
                                 />
                                 <StandartInput
+                                    disabled
                                     label="dashboard:providerBranch.managerName"
                                     {...formik.getFieldProps(`managerName`)}
                                 />
@@ -108,37 +110,44 @@ export const EditForm = (props: any) => {
                             </div>
 
                             <div className={s.block}>
-                                <Map
-                                    provider={maptilerProvider}
-                                    dprs={[1, 2]}
-                                    defaultCenter={[41.31172327941058, 69.2818072781773]}
-                                    defaultZoom={15}
-                                    // metaWheelZoom
-                                    onClick={(event) => handleMap(event, `location`)}
-                                >
-                                    <Marker anchor={coords as [number, number]}>
-                                        <Icon name="location_on" size={30} color="#C6303C" />
-                                    </Marker>
+                                {!!branch?.location && (
+                                    <>
+                                        <Map
+                                            provider={maptilerProvider}
+                                            dprs={[1, 2]}
+                                            defaultCenter={JSON.parse(branch?.location)}
+                                            defaultZoom={15}
+                                            // metaWheelZoom
+                                            onClick={(event) => handleMap(event, `location`)}
+                                        >
+                                            <Marker anchor={location}>
+                                                <Icon name="location_on" size={30} color="#C6303C" />
+                                            </Marker>
 
-                                    <ZoomControl />
-                                </Map>
+                                            <ZoomControl />
+                                        </Map>
 
-                                <StandartInput
-                                    label="dashboard:providerBranch.landmark"
-                                    {...formik.getFieldProps(`landmark`)}
-                                />
+                                        <StandartInput
+                                            disabled
+                                            label="dashboard:providerBranch.landmark"
+                                            {...formik.getFieldProps(`landmark`)}
+                                        />
+                                    </>
+                                )}
                             </div>
                         </div>
 
                         <div className={s.row}>
                             <div className={`${s.row} ${s.gap_30}`}>
                                 <Field
+                                    isDisabled
                                     component={SelectField}
                                     name={`branchType`}
                                     label="dashboard:providerBranch.branchType"
                                     options={params ? transformSelectOptions(params.branchType) : defaultOptions}
                                 />
                                 <Field
+                                    isDisabled
                                     component={SelectField}
                                     name={`city`}
                                     label="dashboard:providerBranch.city"
@@ -185,78 +194,78 @@ export const EditForm = (props: any) => {
                         <div className={s.checkboxGroup}>
                             <Accordion title="providerBranch.payment.title" open>
                                 <Checkbox
+                                    disabled
                                     label="providerBranch.payment.cash"
-                                    // checked={payment[0].isActive}
                                     {...formik.getFieldProps(`payment[0].isActive`)}
                                 />
                                 <Checkbox
+                                    disabled
                                     label="providerBranch.payment.card"
-                                    // checked={branch.payment[1].isActive}
                                     {...formik.getFieldProps(`payment[1].isActive`)}
                                 />
                                 <Checkbox
+                                    disabled
                                     label="providerBranch.payment.transfer"
-                                    // checked={branch.payment[2].isActive}
                                     {...formik.getFieldProps(`payment[2].isActive`)}
                                 />
                             </Accordion>
                             <Accordion title="providerBranch.delivery.title" open>
                                 <Checkbox
+                                    disabled
                                     label="providerBranch.delivery.pickup"
-                                    // checked={branch.delivery[0].isActive}
                                     {...formik.getFieldProps(`delivery[0].isActive`)}
                                 />
                                 <Checkbox
+                                    disabled
                                     label="providerBranch.delivery.courier"
-                                    // checked={branch.delivery[1].isActive}
                                     {...formik.getFieldProps(`delivery[1].isActive`)}
                                 />
                             </Accordion>
                             <Accordion title="providerBranch.service.title" open>
                                 <Checkbox
+                                    disabled
                                     label="providerBranch.service.tireFitting"
-                                    // checked={branch.service[0].isActive}
                                     {...formik.getFieldProps(`service[0].isActive`)}
                                 />
                                 <Checkbox
+                                    disabled
                                     label="providerBranch.service.autoService"
-                                    // checked={branch.service[1].isActive}
                                     {...formik.getFieldProps(`service[1].isActive`)}
                                 />
                                 <Checkbox
+                                    disabled
                                     label="providerBranch.service.partSelection"
-                                    // checked={branch.service[2].isActive}
                                     {...formik.getFieldProps(`service[2].isActive`)}
                                 />
                             </Accordion>
                             <Accordion title="providerBranch.clientType.title" open>
                                 <Checkbox
+                                    disabled
                                     label="providerBranch.clientType.legal"
-                                    // checked={branch.clientType[0].isActive}
                                     {...formik.getFieldProps(`clientType[0].isActive`)}
                                 />
                                 <Checkbox
+                                    disabled
                                     label="providerBranch.clientType.individual"
-                                    // checked={branch.clientType[1].isActive}
                                     {...formik.getFieldProps(`clientType[1].isActive`)}
                                 />
                             </Accordion>
                         </div>
 
-                        {/* <div className={s.imgGroup}>
+                        <div className={s.imgGroup}>
                             <FieldArray
-                                name={`providerBranch.[${index}].images`}
+                                name={`images`}
                                 render={(helperProps) => {
-                                    return branch.images && branch.images.length ? (
-                                        branch.images?.map((image: IImage, i: number) => {
+                                    return branch?.images && branch?.images.length ? (
+                                        branch?.images?.map((image: IImage, i: number) => {
                                             return (
                                                 <div key={i}>
                                                     <ImageUpload
                                                         preview={`${image.url}`}
-                                                        setFieldValue={form.setFieldValue}
-                                                        name={`providerBranch.[${index}].images[${i}]`}
+                                                        setFieldValue={formik.setFieldValue}
+                                                        name={`images[${i}]`}
                                                     />
-                                                    {branch.images.length > 0 && branch.images.length !== 5 && (
+                                                    {/* {branch.images.length > 0 && branch.images.length !== 5 && (
                                                         <div className={s.actionButtons}>
                                                             <span onClick={() => helperProps.push({ url: '' })}>
                                                                 <Icon name="add_circle" size={18} />
@@ -267,7 +276,7 @@ export const EditForm = (props: any) => {
                                                                 Удалить
                                                             </span>
                                                         </div>
-                                                    )}
+                                                    )} */}
                                                 </div>
                                             );
                                         })
@@ -284,7 +293,16 @@ export const EditForm = (props: any) => {
                                     );
                                 }}
                             />
-                        </div> */}
+                        </div>
+
+                        <div className={s.actionButtons}>
+                            <Button variant="disabled" type="reset">
+                                Отмена
+                            </Button>
+                            <Button variant="primary" type="submit">
+                                Обновить
+                            </Button>
+                        </div>
                     </div>
                 </Form>
             </FormikProvider>

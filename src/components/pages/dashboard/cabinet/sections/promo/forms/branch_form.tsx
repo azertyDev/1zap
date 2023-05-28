@@ -9,6 +9,7 @@ import { Heading } from 'src/components/ui/dashboard/heading';
 import { Field, Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import s from './index.module.scss';
 import { IBranchData } from 'types';
+import { selectDefaultVal } from 'src/constants/ selectDefaultVal';
 
 interface IOptions {
     label: string;
@@ -18,18 +19,16 @@ interface IOptions {
 export const BranchForm = () => {
     const { query } = useRouter();
     const { providerBranches, fetchProviderBranches } = useStore();
-    const branchesOptions: IOptions[] = useMemo(() => [], []);
+    const branchesOptions: IOptions[] = [];
     const symbolsLimit = 80;
 
     useEffect(() => {
         fetchProviderBranches();
-    }, []);
+    }, [fetchProviderBranches]);
 
-    useEffect(() => {
-        providerBranches?.map((branch: IBranchData) => {
-            branchesOptions.push({ value: branch.id, label: branch.branchName });
-        });
-    }, [providerBranches]);
+    providerBranches?.map((branch: IBranchData) => {
+        branchesOptions.push({ value: branch.id, label: branch.branchName });
+    });
 
     const defaultOptions = [
         {

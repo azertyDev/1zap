@@ -55,7 +55,7 @@
         // Disabled box.
         &:disabled + label:before {
             box-shadow: none;
-            background: #ddd;
+            background: $text;
         }
 
         // Checkmark. Could be replaced with an image
