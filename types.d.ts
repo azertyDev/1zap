@@ -73,7 +73,7 @@ interface IProviderData {
     inn?: string;
     coin?: number | null;
     applicationId?: number;
-    providerBranch: IBranchData[];
+    providerBranch?: IBranchData[];
 }
 
 interface IBranchData {

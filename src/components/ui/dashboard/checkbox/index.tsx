@@ -14,7 +14,7 @@ export const Checkbox: FC<CheckboxProps> = (props): JSX.Element => {
 
     return (
         <div className={s.root} data-id="checkbox-root">
-            <input {...field} id={field.name} type="checkbox" checked={props?.value} />
+            <input {...field} id={field.name} type="checkbox" checked={props?.value} disabled={props.disabled} />
             <label htmlFor={field.name}>{props.label ? t(`dashboard:${props.label}`) : field.name}</label>
         </div>
     );

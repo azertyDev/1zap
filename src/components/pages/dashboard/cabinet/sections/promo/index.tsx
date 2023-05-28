@@ -55,23 +55,6 @@ export const PromoPage: FC = () => {
         },
     ];
 
-    const data = [
-        {
-            id: 1,
-            company: 'Hyundai auto asia',
-            type: 'На прайс-лист',
-            description: 'Обязательно получите подтверждение резерва на 1zap или по звонку',
-            createdAt: '2023-03-13T11:34:48.981279Z',
-        },
-        {
-            id: 2,
-            company: 'KIA auto service',
-            type: 'На филиал',
-            description: 'Обязательно получите подтверждение резерва на 1zap или по звонку',
-            createdAt: '2023-03-10T11:34:48.981279Z',
-        },
-    ];
-
     const promoItems = [
         {
             id: 1,

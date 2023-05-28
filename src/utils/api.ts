@@ -42,11 +42,12 @@ export const providerApi = {
     addProvider: (body: IProviderData): Promise<any> => requests.post('/providers/new', body),
     fetchProviderBranches: (): Promise<any> => requests.get('/provider/branchs'),
     fetchBranchById: (id: number): Promise<any> => requests.get(`/provider/branch/${id}`),
+    updateProvider: (id: number, body: IProviderData) => requests.patch(`/provider/${id}`, { ...body }),
 };
 
 export const branchApi = {
     getBranchById: (id: number) => requests.get(`/branch/${id}`),
-    updateBranch: (id: number, body: IBranchData) => requests.put(`/branch/${id}`, { body }),
+    updateBranch: (id: number, body: IBranchData) => requests.patch(`/provider/branch/${id}`, { ...body }),
 };
 
 export const imageApi = {
@@ -72,7 +73,8 @@ export const staticParamsApi = {
 };
 
 export const priceListApi = {
-    fetchPriceList: (): Promise<any> => requests.get('/pricelist/all'),
+    fetchPriceList: (page: number = 1, limit: number = 10): Promise<any> =>
+        requests.get(`/pricelist/all?page=${page}&limit=${limit}`),
     delete: (id: number): Promise<any> => requests.delete(`/pricelist/${id}`),
 };
 
