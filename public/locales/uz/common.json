@@ -85,6 +85,7 @@
   "fitCar": "Avtomobil bilan tanlash",
   "findModelVim": "Modelni VIN raqami bo'yicha toping",
   "open": "Ochiq",
+  "close": "Yopish",
   "groupDetails": "Ehtiyot qismlar guruhlari",
   "find": "Toping",
   "show": "Ko'rsatish",
@@ -116,6 +117,7 @@
     "tue-san": "Se-Yak"
   },
   "sum": "sum",
+  "in": "{{time}} da",
   "weekendSchedule": "Dam olish kunlari",
   "workingScheduleText": "Ish kuni",
   "offers": "takliflar",

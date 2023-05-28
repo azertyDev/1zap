@@ -39,7 +39,7 @@ export const client_validation = {
             .matches(/\d\d\d\d/, 'invalid_format')
             .required('required'),
         brand: yup.string().required('required'),
-        model: yup.string().required('required'),
+
         phone: yup
             .string()
             .trim()

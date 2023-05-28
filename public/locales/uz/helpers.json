@@ -10,8 +10,8 @@
     "image_err_add": "Surat yuborishda xatolik yuz berdi!",
     "image_err_del": "Suratni oʻchirishda xatolik yuz berdi!",
     "data_err": "Noto'g'ri ma'lumotlar!",
-    "empty_excel_file": "Пустой файл",
-    "type_and_file_mismatches": "Тип товара не соответствует типу файла",
+    "empty_excel_file": "Bo'sh fayl",
+    "type_and_file_mismatches": "Mahsulot turi fayl turiga mos kelmaydi",
     "deleted": "O'chirildi",
     "updated": "Yangilandi"
 }

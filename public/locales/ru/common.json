@@ -93,6 +93,7 @@
   "fitCar": "Подбор по машине",
   "findModelVim": " Найдите модель по VIN-номеру",
   "open": "Открыть",
+  "close": "Закрыть",
   "groupDetails": "Группы запчастей",
   "find": "Найти",
   "show": "Показать",
@@ -124,6 +125,7 @@
     "tue-san": "Вт-Вс"
   },
   "sum": "сум",
+  "in": "в {{time}}",
   "weekendSchedule": "Выходные дни",
   "workingScheduleText": "Рабочие дни",
   "offers": "предложения",

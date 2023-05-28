@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Column } from 'react-table';
 import { Button } from 'components/ui/button';
 import { BaseModal } from 'components/ui/dashboard/modal/base_modal';
@@ -10,46 +10,77 @@ import { vinOrderApi } from 'src/utils/api';
 import s from './index.module.scss';
 import Link from 'next/link';
 import { Icon } from 'components/ui/icon';
+import { useTranslation } from 'next-i18next';
+import { IVinItem } from 'types';
+import { Field, Form, FormikProvider, useFormik } from 'formik';
+import { toast } from 'react-hot-toast';
+import { InputWrapper } from 'components/ui/input/input_wrapper';
+import { SelectField } from 'components/ui/select';
+import { VinSelectProvider } from 'components/pages/dashboard/cabinet/sections/vin_request/items/select';
 
 export const IncominRequestsAccepted = () => {
     const [data, setData] = useState<any>();
+    const { t } = useTranslation();
     const { open, handleModalClose, handleModalOpen } = useModal(false);
+    const [modalOrder, setModalOrder] = useState(0);
+    const [trigger, setTrigger] = useState(false);
+    const [vinData, setVinData] = useState<IVinItem | null>(null);
 
-    console.log(data?.data);
+    const handleModalOrder = useCallback((num: number) => {
+        return () => setModalOrder(num);
+    }, []);
+
+    const handleVinData = useCallback((data: IVinItem, order: number) => {
+        return () => {
+            setVinData(data);
+            handleModalOrder(order)();
+            handleModalOpen();
+        };
+    }, []);
 
     useEffect(() => {
         vinOrderApi
-            .fetchVinRequests()
+            .getAllVinByProvider()
             .then((response) => {
                 setData(response);
             })
             .catch((err) => {
-                console.log(err);
+                toast.error(t('helpers:error_getting'));
             });
-    }, []);
+    }, [trigger]);
 
     const vinRequestCols: Column<any>[] = [
         {
-            Header: 'Дата',
-            // accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(Date.now()).format('DD/MM/YYYY') as any,
-            // Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
+            Header: t('dashboard:date') as string,
+            id: 'eventdate',
+            accessor: 'createdAt',
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
             disableFilters: true,
+            disableSortBy: false,
         },
         {
-            Header: 'Марка',
+            Header: t('dashboard:time') as string,
+            id: 'eventtime',
+            accessor: 'createdAt',
+            Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
+            disableFilters: true,
+            disableSortBy: false,
+        },
+        {
+            Header: t('common:selects.brand') as string,
             accessor: 'brand',
             disableSortBy: true,
             disableFilters: true,
         },
         {
-            Header: 'Модель',
+            Header: t('common:selects.model') as string,
             accessor: 'model',
             disableSortBy: true,
             disableFilters: true,
+            width: 50,
         },
         {
-            Header: 'Год',
+            Header: t('common:selects.year') as string,
             accessor: 'yearIssue',
             disableSortBy: true,
             disableFilters: true,
@@ -58,26 +89,35 @@ export const IncominRequestsAccepted = () => {
             minWidth: 80,
         },
         {
-            Header: 'Статус',
-            accessor: 'createdAt',
-            // Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
-            disableFilters: true,
-        },
-        {
-            Header: 'Город',
-            accessor: 'city',
+            Header: t('dashboard:status_noun') as string,
+            accessor: 'status',
+            Cell: ({ cell }: any) => t(`dashboard:status.${cell.value}`) as any,
             disableSortBy: true,
             disableFilters: true,
         },
         {
-            Header: 'Действия',
+            Header: t('dashboard:req_detail') as string,
             disableFilters: true,
             disableSortBy: true,
             accessor: (cell: any) => {
                 return (
-                    <ActionsBlock cell={cell}>
-                        <Button variant="primary" fullWidth onClick={handleModalOpen}>
-                            Открыть
+                    <ActionsBlock>
+                        <Button variant="primary" fullWidth onClick={handleVinData(cell, 1)}>
+                            {t('common:open')}
+                        </Button>
+                    </ActionsBlock>
+                );
+            },
+        },
+        {
+            Header: t('dashboard:client_contact') as string,
+            disableFilters: true,
+            disableSortBy: true,
+            accessor: (cell: any) => {
+                return (
+                    <ActionsBlock>
+                        <Button variant="primary" fullWidth onClick={handleVinData(cell, 2)}>
+                            {t('common:open')}
                         </Button>
                     </ActionsBlock>
                 );
@@ -87,15 +127,19 @@ export const IncominRequestsAccepted = () => {
 
     return (
         <div className={s.root}>
-            <Link href={'/cabinet/incoming_requests'}>
-                <Button variant={'primary'}>
-                    <Icon name={'all_inbox'} size={20} color={'#fff'} />
-                    Новые запросы
-                </Button>
-            </Link>
-            {data?.data.length > 0 && (
-                <Table data={data?.data} columns={vinRequestCols} title={<h4>Запросы на модерацию</h4>} />
-            )}
+            <h2> {t('dashboard:accepted_req')}</h2>
+
+            <div className={s.link}>
+                <Link href={'/cabinet/incoming_requests'}>
+                    <Button variant={'primary'}>
+                        <Icon name={'all_inbox'} size={20} color={'#fff'} />
+                        {t('dashboard:new_req')}
+                    </Button>
+                </Link>
+            </div>
+
+            {data?.data.length > 0 && <Table data={data?.data} columns={vinRequestCols} />}
+
             <BaseModal
                 center
                 open={open}
@@ -103,14 +147,93 @@ export const IncominRequestsAccepted = () => {
                 onClose={handleModalClose}
                 headerContent={
                     <div>
-                        <h2>Детали VIN запроса</h2>
-                        <span>01/10/2022 в 10:00</span>
+                        <h2>{t('dashboard:req_detail_vin')}</h2>
+                        {vinData && (
+                            <span>
+                                {dayjs(vinData.createdAt).format('DD/MM/YYYY')}{' '}
+                                {t('common:in', { time: dayjs(vinData.createdAt).format('h:mm') })}
+                            </span>
+                        )}
                     </div>
                 }
             >
-                <div className={s.modalContent}>
-                    <p>Информация об автомобиле</p>
-                </div>
+                {vinData && modalOrder === 1 && (
+                    <div>
+                        <h6 className={s.modal_tabs_title}> {t('dashboard:car_info')}</h6>
+                        <div className={s.modal_table_wr}>
+                            <div>
+                                <p> {t('common:selects.brand')}</p>
+                                <p>{vinData.brand}</p>
+                            </div>
+                            <div>
+                                <p> {t('common:selects.model')}</p>
+                                <p>{vinData.model}</p>
+                            </div>
+                            <div>
+                                <p> {t('common:selects.year')}</p>
+                                <p>{vinData.yearIssue}</p>
+                            </div>
+                            <div>
+                                <p> VIN</p>
+                                <p>{vinData.vinNumber}</p>
+                            </div>
+                        </div>
+                        <div className={s.modal_description}>
+                            <h6 className={s.modal_tabs_title}> {t('dashboard:info_detail')}</h6>
+                            <p>{vinData.description}</p>
+                        </div>
+                        <div className={s.control_btns}>
+                            <Button variant={'primary'} onClick={handleModalOrder(2)}>
+                                {t('dashboard:client_contact')}
+                            </Button>
+
+                            <Button variant={'disabled'} onClick={handleModalClose}>
+                                {t('common:close')}
+                            </Button>
+                        </div>
+                    </div>
+                )}
+
+                {vinData && (modalOrder === 2 || modalOrder === 3) && (
+                    <div>
+                        {modalOrder === 2 && (
+                            <>
+                                <h6 className={s.modal_tabs_title}> {t('dashboard:info_client')}</h6>
+                                <div className={s.modal_table_wr}>
+                                    <div>
+                                        <p> {t('dashboard:name')}</p>
+                                        <p>{vinData.customer.username}</p>
+                                    </div>
+                                    <div>
+                                        <p> {t('dashboard:city')}</p>
+                                        <p> {t(`common:selects.${vinData.city}`)}</p>
+                                    </div>
+                                    <div>
+                                        <p> {t('dashboard:number')}</p>
+                                        <p>{vinData.customer.phone}</p>
+                                    </div>
+                                    <div>
+                                        <p> {t('dashboard:payment')}</p>
+                                        <p>{t(`common:selects.${vinData.payment}`)}</p>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+
+                        <VinSelectProvider
+                            status={vinData.status}
+                            vinId={vinData.id}
+                            closeModal={handleModalClose}
+                            trigger={setTrigger}
+                            setOrder={handleModalOrder}
+                            modalOrder={modalOrder}
+                        >
+                            <Button variant={'primary'} onClick={handleModalOrder(1)}>
+                                {t('dashboard:req_detail')}
+                            </Button>
+                        </VinSelectProvider>
+                    </div>
+                )}
             </BaseModal>
         </div>
     );

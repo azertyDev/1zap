@@ -63,8 +63,11 @@ export const productsApi = {
 
 export const vinOrderApi = {
     createOrder: (data: ICreateVinOrder) => requests.post('/vin', data),
-    fetchVinRequests: (status?: any): Promise<any> => requests.get('/vinOrder/all', { status }),
-    fetchVinAction: (status?: any): Promise<any> => requests.get('/vinAction/all', { status }),
+    getAllVinByProviderCommon: (): Promise<any> => requests.get(`/vinOrder/common?primary=1&repeated=1`),
+    getAllVinByProvider: (): Promise<any> => requests.get(`vinOrder/all?accepted=1&completed=1&rejected=1`),
+    acceptVinByProvider: (id: number) => requests.patch(`/vinOrder/accept/${id}`),
+    completeVinByProvider: (id: number) => requests.patch(`/vinOrder/completed/${id}`),
+    fetchVinActionAdmin: (status?: string): Promise<any> => requests.get(`/vinAction/all?${status}`),
     rejectVin: (id: number): Promise<any> => requests.patch(`/vinAction/reject/${id}`),
 };
 
