@@ -4,7 +4,7 @@ import { SelectField } from 'components/ui/select';
 import s from 'components/pages/dashboard/cabinet/sections/vin_request/accepted/index.module.scss';
 import { Button } from 'components/ui/button';
 import { useTranslation } from 'next-i18next';
-import React, { Dispatch, FC, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, FC, SetStateAction, useCallback, useEffect } from 'react';
 import { vinOrderApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 
@@ -16,30 +16,21 @@ export const VinSelectProvider: FC<{
     trigger: Dispatch<SetStateAction<boolean>>;
     setOrder: (num: number) => () => void;
     modalOrder: number;
-}> = ({ status, vinId, children, closeModal, trigger, setOrder, modalOrder }) => {
+    open: boolean;
+}> = ({ status, vinId, children, closeModal, trigger, setOrder, modalOrder, open }) => {
     const { t } = useTranslation();
 
-    const formikRejectRes = useFormik({
-        initialValues: { reason: '' },
-        enableReinitialize: true,
-        onSubmit: async (values) => {
-            alert(values.reason);
-        },
-    });
-
     const formik = useFormik({
-        initialValues: { status: status, reason: '' },
+        initialValues: { status: status, reason: '', description: '' },
         enableReinitialize: true,
         onSubmit: async (values) => {
-            if (values.reason.length > 0) {
-                alert(1);
-            }
             if (values.status === 'completed' && status !== 'completed') {
                 vinOrderApi
                     .completeVinByProvider(vinId)
                     .then((response) => {
                         closeModal();
                         trigger((prev) => !prev);
+                        toast.success(t('helpers:vin_compl'));
                     })
                     .catch((err) => {
                         toast.error(t('helpers:error_sending'));
@@ -51,12 +42,33 @@ export const VinSelectProvider: FC<{
         },
     });
 
+    const handleRejectVin = async () => {
+        if (
+            (formik.values.reason === 'other' || formik.values.reason === 'client_reject') &&
+            formik.values.description.length === 0
+        ) {
+            toast.error(t('dashboard:vin_reject_problem'));
+            return;
+        }
+
+        vinOrderApi
+            .rejectVinByProvider(vinId, {
+                description: formik.values.description,
+                reason: formik.values.reason,
+            })
+            .then((response) => {
+                toast.success(t('helpers:vin_reject'));
+                closeModal();
+                trigger((prev) => !prev);
+            })
+            .catch((err) => {
+                toast.error(t('helpers:error_sending'));
+            });
+    };
+
     useEffect(() => {
-        return () => {
-            formik.resetForm();
-            formikRejectRes.resetForm();
-        };
-    }, [vinId]);
+        formik.resetForm();
+    }, [open]);
 
     return (
         <FormikProvider value={formik}>
@@ -147,12 +159,21 @@ export const VinSelectProvider: FC<{
                                         { value: 'other', label: t('dashboard:reject_res.other') },
                                     ]}
                                 />
+                                {(formik.values.reason === 'other' || formik.values.reason === 'client_reject') && (
+                                    <Field
+                                        as={'textarea'}
+                                        name={'description'}
+                                        placeholder={t('dashboard:vin_reject_problem') as string}
+                                        className={s.textarea}
+                                    />
+                                )}
 
                                 <div className={s.control_btns}>
                                     <Button
-                                        disabled={!formik.dirty || !formik.isValid}
-                                        variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                                        variant={formik.values.reason.length > 0 ? 'primary' : 'disabled'}
+                                        disabled={formik.values.reason.length === 0}
                                         fullWidth
+                                        onClick={handleRejectVin}
                                         type={'button'}
                                     >
                                         {t('dashboard:req_reject')}

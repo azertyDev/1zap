@@ -8,7 +8,7 @@ import { FloatingInput } from 'src/components/ui/input/float_input';
 import { SelectField } from 'src/components/ui/select';
 import { FileUpload } from 'src/components/ui/upload/file';
 import { useStore } from 'src/store/useStore';
-import { productsApi } from 'src/utils/api';
+import { branchApi, productsApi } from 'src/utils/api';
 import { IBranchData } from 'types';
 import s from '../index.module.scss';
 
@@ -20,15 +20,33 @@ interface IOptions {
 export const PriceCreateForm: FC<any> = (props) => {
     const { t } = useTranslation();
     const { fetchPriceList, providerBranches } = useStore();
-    const branchesOptions: IOptions[] = useMemo(() => [], []);
-    const [options, setOptions] = useState<IOptions[]>(branchesOptions);
+    // const branchesOptions: IOptions[] = useMemo(() => [], []);
+    // const [options, setOptions] = useState<IOptions[]>(branchesOptions);
+    //
+    // useEffect(() => {
+    //     providerBranches?.map((branch: IBranchData) => {
+    //         branchesOptions.push({ value: branch.id, label: branch.branchName });
+    //     });
+    //     setOptions([...branchesOptions]);
+    // }, [branchesOptions]);
+    const [branches, setBranches] = useState(null);
 
     useEffect(() => {
-        providerBranches?.map((branch: IBranchData) => {
-            branchesOptions.push({ value: branch.id, label: branch.branchName });
-        });
-        setOptions([...branchesOptions]);
-    }, [branchesOptions]);
+        (async () => {
+            branchApi
+                .getAllBranches()
+                .then((res) => {
+                    const val = res.map((item: { id: number; branchName: string }) => ({
+                        value: item.id,
+                        label: item.branchName,
+                    }));
+                    setBranches(val);
+                })
+                .catch(() => {
+                    toast.error(t('helpers:error_getting'));
+                });
+        })();
+    }, []);
 
     const initialValues = {
         title: '',
@@ -90,7 +108,9 @@ export const PriceCreateForm: FC<any> = (props) => {
             <Form>
                 <div className={s.form__group}>
                     <FloatingInput {...formik.getFieldProps('title')} title={t('common.price_list_name')!} />
-                    <Field component={SelectField} name="branchId" label="dashboard:branch" options={options} />
+                    {branches && (
+                        <Field component={SelectField} name="branchId" label="dashboard:branch" options={branches} />
+                    )}
                     <Field
                         component={SelectField}
                         name="currencyType"

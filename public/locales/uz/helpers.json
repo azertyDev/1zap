@@ -13,5 +13,9 @@
     "empty_excel_file": "Bo'sh fayl",
     "type_and_file_mismatches": "Mahsulot turi fayl turiga mos kelmaydi",
     "deleted": "O'chirildi",
-    "updated": "Yangilandi"
+    "updated": "Yangilandi",
+    "vin_reject": "Vin so'rovi rad etildi",
+    "vin_accept": "Vin so'rovi qabul qilindi",
+    "vin_compl": "Vin soʻrovi bajarildi",
+    "vin_repeat": "Vin so'rovi holati takrorlandi"
 }

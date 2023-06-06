@@ -13,5 +13,9 @@
   "empty_excel_file": "Пустой файл",
   "type_and_file_mismatches": "Тип товара не соответствует типу файла",
   "deleted": "Удалено",
-  "updated": "Обновлено"
+  "updated": "Обновлено",
+  "vin_reject": "Vin запрос отклонен",
+  "vin_accept": "Vin запрос принят",
+  "vin_compl": "Vin запрос завершен",
+  "vin_repeat": "Vin запрос получил статус повторный"
 }

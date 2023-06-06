@@ -7,7 +7,7 @@ import { BaseModal } from 'src/components/ui/dashboard/modal/base_modal';
 import { Table } from 'src/components/ui/dashboard/table';
 import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
 import { useModal } from 'src/hooks/common/useModal';
-import { applicationApi, vinOrderApi } from 'src/utils/api';
+import { vinOrderApi } from 'src/utils/api';
 import s from './index.module.scss';
 import { useTranslation } from 'next-i18next';
 import { IVinItem } from 'types';
@@ -15,9 +15,9 @@ import { Icon } from 'components/ui/icon';
 import { useStepOrder } from 'src/hooks/common/useStepOrder';
 import { Field, Form, FormikProvider, useFormik } from 'formik';
 import { SelectField } from 'components/ui/select';
-import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
-import { InputWrapper } from 'components/ui/input/input_wrapper';
 import { toast } from 'react-hot-toast';
+import { Pagination } from 'components/ui/pagination/Pagination';
+import { useRouter } from 'next/router';
 
 export const VinRequests: FC<{ query: string }> = ({ query }) => {
     const [data, setData] = useState<any>();
@@ -25,6 +25,9 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
     const [toggle, setToggle] = useState(false);
     const { t } = useTranslation();
     const { order, handleOrder } = useStepOrder();
+    const {
+        query: { page },
+    } = useRouter();
 
     const [vinData, setVinData] = useState<IVinItem | null>(null);
 
@@ -39,8 +42,12 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
         initialValues: { status: '' },
         onSubmit: async (values) => {
             vinOrderApi
-                .rejectVin(vinData?.id!)
+                .rejectOrRepeatVin(vinData?.id!, values.status === 'rejected' ? 'reject' : 'repeated')
                 .then((response) => {
+                    values.status === 'rejected'
+                        ? toast.success(t('helpers:vin_reject'))
+                        : toast.success(t('helpers:vin_repeat'));
+
                     setToggle((prev) => !prev);
                     handleModalClose();
                 })
@@ -54,10 +61,10 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
         vinOrderApi
             .fetchVinActionAdmin(
                 query === 'primary'
-                    ? 'primary=1&repeated=1&accepted=1'
+                    ? `primary=1&repeated=1&accepted=1&page=${page}`
                     : query === 'completed'
-                    ? 'rejected=1&completed=1'
-                    : 'moderation=1'
+                    ? `rejected=1&completed=1&page=${page}`
+                    : `moderation=1&page=${page ?? '1'}`
             )
             .then((response) => {
                 setData(response);
@@ -65,7 +72,13 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
             .catch((err) => {
                 toast.error(t('helpers:error_getting'));
             });
-    }, [query, toggle]);
+    }, [query, toggle, page]);
+
+    useEffect(() => {
+        return () => {
+            handleOrder(1)();
+        };
+    }, [open]);
 
     const vinRequestCols: Column<any>[] = [
         {
@@ -75,6 +88,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
             disableFilters: true,
             disableSortBy: false,
+            maxWidth: 80,
         },
         {
             Header: t('dashboard:time') as string,
@@ -83,6 +97,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
             Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
             disableFilters: true,
             disableSortBy: false,
+            maxWidth: 70,
         },
         {
             Header: t('common:selects.brand') as string,
@@ -101,9 +116,8 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
             accessor: 'yearIssue',
             disableSortBy: true,
             disableFilters: true,
-            width: 90,
-            maxWidth: 100,
-            minWidth: 80,
+
+            maxWidth: 80,
         },
         {
             Header: t('dashboard:status_noun') as string,
@@ -118,29 +132,30 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
             Cell: ({ cell }: any) => t(`common:selects.${cell.value}`) as any,
             disableSortBy: true,
             disableFilters: true,
+            maxWidth: 90,
         },
         {
             Header: t('dashboard:req_detail') as string,
             disableFilters: true,
             disableSortBy: true,
+            maxWidth: 110,
             accessor: (cell: any) => {
                 return (
                     <ActionsBlock>
                         <Button variant="primary" fullWidth onClick={handleVinData(cell)}>
-                            Открыть
+                            {t('common:open')}
                         </Button>
                     </ActionsBlock>
                 );
             },
         },
     ];
-    console.log(vinData);
+
     return (
         <div className={s.root}>
-            {query}
             <div className={s.btn_wr}>
                 {query !== 'moderation' && (
-                    <Link href={'/dashboard/vin-requests'}>
+                    <Link href={'/dashboard/vin-requests?page=1'}>
                         <Button variant={'primary'}>
                             <Icon name={'archive'} size={20} color={'#fff'} />
                             {t('dashboard:moder_req')}
@@ -149,7 +164,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
                 )}
 
                 {query !== 'primary' && (
-                    <Link href={'/dashboard/vin-requests/primary'}>
+                    <Link href={'/dashboard/vin-requests/primary?page=1'}>
                         <Button variant={'primary'}>
                             <Icon name={'all_inbox'} size={20} color={'#fff'} /> {t('dashboard:active_req')}
                         </Button>
@@ -157,7 +172,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
                 )}
 
                 {query !== 'completed' && (
-                    <Link href={'/dashboard/vin-requests/completed'}>
+                    <Link href={'/dashboard/vin-requests/completed?page=1'}>
                         <Button variant={'primary'}>
                             <Icon name={'unarchive'} size={20} color={'#fff'} />
                             {t('dashboard:finish_req')}
@@ -171,7 +186,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
                 {query === 'moderation' && t('dashboard:moder_req')}
             </h4>
             {data?.data.length > 0 && <Table data={data?.data} columns={vinRequestCols} />}
-
+            {data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}
             <BaseModal
                 open={open}
                 onClose={handleModalClose}
@@ -197,7 +212,8 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
                         <div className={order === 2 ? s.active : ''} onClick={handleOrder(2)}>
                             {t('dashboard:contacts')}
                         </div>
-                        {query !== 'completed' && (
+
+                        {(query === 'moderation' || vinData?.status === 'primary') && (
                             <div className={order === 3 ? s.active : ''} onClick={handleOrder(3)}>
                                 {t('dashboard:moderation')}
                             </div>
@@ -256,20 +272,54 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
                     )}
                     {order === 3 && vinData && query !== 'completed' && (
                         <div>
-                            {query === 'moderation' && (
-                                <h6 className={s.modal_tabs_title}> {t('dashboard:comments')}</h6>
+                            {query === 'moderation' && vinData.rejectedDesc.length > 0 && (
+                                <>
+                                    <h6 className={s.modal_tabs_title}> {t('dashboard:comments')}</h6>
+                                    <p className={s.modal_description}>{vinData.rejectedDesc}</p>
+                                </>
                             )}
 
                             <FormikProvider value={formik}>
                                 <Form>
-                                    <InputWrapper>
+                                    <div className={s.moderation_inputs_wr}>
                                         <Field
                                             component={SelectField}
                                             name="status"
                                             label={t('common:selects.status')}
-                                            options={[{ value: 'rejected', label: t('dashboard:status.rejected') }]}
+                                            options={
+                                                query === 'moderation'
+                                                    ? [
+                                                          {
+                                                              value: 'rejected',
+                                                              label: t('dashboard:status.rejected'),
+                                                          },
+                                                          {
+                                                              value: 'repeated',
+                                                              label: t('dashboard:status.repeated'),
+                                                          },
+                                                      ]
+                                                    : [{ value: 'rejected', label: t('dashboard:status.rejected') }]
+                                            }
                                         />
-                                    </InputWrapper>
+
+                                        {query === 'moderation' && (
+                                            <Field
+                                                component={SelectField}
+                                                name="status"
+                                                label={t('dashboard:compensation.comp')}
+                                                options={[
+                                                    {
+                                                        value: 'no_comp',
+                                                        label: t('dashboard:compensation.no_comp'),
+                                                    },
+                                                    {
+                                                        value: 'with_comp',
+                                                        label: t('dashboard:compensation.with_comp'),
+                                                    },
+                                                ]}
+                                            />
+                                        )}
+                                    </div>
 
                                     <Button
                                         disabled={!formik.dirty || !formik.isValid}

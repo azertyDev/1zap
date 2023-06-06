@@ -50,3 +50,22 @@
     grid-template-columns:1fr 160px;
     grid-gap: 40px;
 }
+
+.textarea{
+    border: 1px solid #E4E6E8;
+    border-radius: 8px;
+    padding: 20px;
+    @include fs_fw_c(14px,600,$text);
+    width: 100%;
+    height: 108px;
+    margin-top: 15px;
+    resize: none;
+
+    &:focus {
+        outline: 0;
+    }
+
+    &::placeholder{
+        @include fs_fw_c(14px,600,$text);
+    }
+}

@@ -47,6 +47,7 @@ export const providerApi = {
 
 export const branchApi = {
     getBranchById: (id: number) => requests.get(`/branch/${id}`),
+    getAllBranches: () => requests.get('provider/branchs'),
     updateBranch: (id: number, body: IBranchData) => requests.patch(`/provider/branch/${id}`, { ...body }),
 };
 
@@ -64,12 +65,20 @@ export const productsApi = {
 
 export const vinOrderApi = {
     createOrder: (data: ICreateVinOrder) => requests.post('/vin', data),
-    getAllVinByProviderCommon: (): Promise<any> => requests.get(`/vinOrder/common?primary=1&repeated=1`),
-    getAllVinByProvider: (): Promise<any> => requests.get(`vinOrder/all?accepted=1&completed=1&rejected=1`),
+    getAllVinByProviderCommon: (page: string): Promise<any> =>
+        requests.get(`/vinOrder/common?primary=1&repeated=1&page=${page}`),
+    getAllVinByProvider: (page: string) => requests.get(`vinOrder/all?accepted=1&completed=1&page=${page}`),
     acceptVinByProvider: (id: number) => requests.patch(`/vinOrder/accept/${id}`),
     completeVinByProvider: (id: number) => requests.patch(`/vinOrder/completed/${id}`),
+    rejectVinByProvider: (
+        id: number,
+        body: {
+            description: string;
+            reason: string;
+        }
+    ) => requests.patch(`/vinOrder/reject/${id}`, body),
     fetchVinActionAdmin: (status?: string): Promise<any> => requests.get(`/vinAction/all?${status}`),
-    rejectVin: (id: number): Promise<any> => requests.patch(`/vinAction/reject/${id}`),
+    rejectOrRepeatVin: (id: number, status: string): Promise<any> => requests.patch(`/vinAction/${status}/${id}`),
 };
 
 export const staticParamsApi = {
@@ -88,7 +97,20 @@ export const orderDetails = {
 };
 
 export const promoApi = {
-    branch: (body: any) => requests.post('/products/marketing/branch', body),
+    getBlockedPromoByProvider: () => requests.get('products/marketing/blocked'),
+    getActivePromoByProvider: (page: string) =>
+        requests.get(`products/marketing/all?active=1&pending=1&expired=1&page=${page}`),
+    getPriceListByBranch: (id: number) => requests.get(`pricelist/branch/${id}`),
+    getProductsByPriceList: (id: number, locale: string, page: string) =>
+        requests.get(`products/common/byPricelistId?id=${id}&lang=${locale}&page=${page}`),
+    addPromoByChosenProducts: (body: any) => requests.post('products/marketing', body),
+    addPromoByBranch: (body: any) => requests.post('/products/marketing/branch', body),
+    addPromoByPriceList: (body: any) => requests.post('/products/marketing/pricelist', body),
+    getActivePromoByAdmin: (page: string) => requests.get(`promo/active?page=${page}`),
+    getModerationPromoByAdmin: (page: string) => requests.get(`promo/moderation?page=${page}`),
+    getSinglePromoAdmin: (id: number) => requests.get(`/promo/${id}`),
+    rejectPromoByAdmin: (id: number, body: any) => requests.patch(`promo/block/${id}`, body),
+    acceptPromoByAdmin: (id: number) => requests.patch(`promo/activate/${id}`),
 };
 
 export const centerApi = {

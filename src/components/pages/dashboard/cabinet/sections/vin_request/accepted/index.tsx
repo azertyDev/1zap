@@ -17,6 +17,8 @@ import { toast } from 'react-hot-toast';
 import { InputWrapper } from 'components/ui/input/input_wrapper';
 import { SelectField } from 'components/ui/select';
 import { VinSelectProvider } from 'components/pages/dashboard/cabinet/sections/vin_request/items/select';
+import { Pagination } from 'components/ui/pagination/Pagination';
+import { useRouter } from 'next/router';
 
 export const IncominRequestsAccepted = () => {
     const [data, setData] = useState<any>();
@@ -25,6 +27,9 @@ export const IncominRequestsAccepted = () => {
     const [modalOrder, setModalOrder] = useState(0);
     const [trigger, setTrigger] = useState(false);
     const [vinData, setVinData] = useState<IVinItem | null>(null);
+    const {
+        query: { page },
+    } = useRouter();
 
     const handleModalOrder = useCallback((num: number) => {
         return () => setModalOrder(num);
@@ -40,14 +45,14 @@ export const IncominRequestsAccepted = () => {
 
     useEffect(() => {
         vinOrderApi
-            .getAllVinByProvider()
+            .getAllVinByProvider(page as string)
             .then((response) => {
                 setData(response);
             })
             .catch((err) => {
                 toast.error(t('helpers:error_getting'));
             });
-    }, [trigger]);
+    }, [trigger, page]);
 
     const vinRequestCols: Column<any>[] = [
         {
@@ -57,6 +62,7 @@ export const IncominRequestsAccepted = () => {
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
             disableFilters: true,
             disableSortBy: false,
+            width: 80,
         },
         {
             Header: t('dashboard:time') as string,
@@ -65,6 +71,7 @@ export const IncominRequestsAccepted = () => {
             Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
             disableFilters: true,
             disableSortBy: false,
+            width: 60,
         },
         {
             Header: t('common:selects.brand') as string,
@@ -77,16 +84,13 @@ export const IncominRequestsAccepted = () => {
             accessor: 'model',
             disableSortBy: true,
             disableFilters: true,
-            width: 50,
         },
         {
             Header: t('common:selects.year') as string,
             accessor: 'yearIssue',
             disableSortBy: true,
             disableFilters: true,
-            width: 90,
-            maxWidth: 100,
-            minWidth: 80,
+            width: 50,
         },
         {
             Header: t('dashboard:status_noun') as string,
@@ -99,6 +103,7 @@ export const IncominRequestsAccepted = () => {
             Header: t('dashboard:req_detail') as string,
             disableFilters: true,
             disableSortBy: true,
+            width: 120,
             accessor: (cell: any) => {
                 return (
                     <ActionsBlock>
@@ -113,6 +118,7 @@ export const IncominRequestsAccepted = () => {
             Header: t('dashboard:client_contact') as string,
             disableFilters: true,
             disableSortBy: true,
+            width: 120,
             accessor: (cell: any) => {
                 return (
                     <ActionsBlock>
@@ -130,7 +136,7 @@ export const IncominRequestsAccepted = () => {
             <h2> {t('dashboard:accepted_req')}</h2>
 
             <div className={s.link}>
-                <Link href={'/cabinet/incoming_requests'}>
+                <Link href={'/cabinet/incoming_requests?page=1'}>
                     <Button variant={'primary'}>
                         <Icon name={'all_inbox'} size={20} color={'#fff'} />
                         {t('dashboard:new_req')}
@@ -139,7 +145,7 @@ export const IncominRequestsAccepted = () => {
             </div>
 
             {data?.data.length > 0 && <Table data={data?.data} columns={vinRequestCols} />}
-
+            {data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}
             <BaseModal
                 center
                 open={open}
@@ -227,6 +233,7 @@ export const IncominRequestsAccepted = () => {
                             trigger={setTrigger}
                             setOrder={handleModalOrder}
                             modalOrder={modalOrder}
+                            open={open}
                         >
                             <Button variant={'primary'} onClick={handleModalOrder(1)}>
                                 {t('dashboard:req_detail')}

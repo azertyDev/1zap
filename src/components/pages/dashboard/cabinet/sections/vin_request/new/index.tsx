@@ -14,10 +14,14 @@ import { toast } from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
 import { IVinItem } from 'types';
 import { useRouter } from 'next/router';
+import { Pagination } from 'components/ui/pagination/Pagination';
 
 export const IncominRequests = () => {
     const [data, setData] = useState<any>();
     const [vinData, setVinData] = useState<IVinItem | null>(null);
+    const {
+        query: { page },
+    } = useRouter();
 
     const handleVinData = useCallback((data: IVinItem) => {
         return () => {
@@ -32,21 +36,22 @@ export const IncominRequests = () => {
 
     useEffect(() => {
         vinOrderApi
-            .getAllVinByProviderCommon()
+            .getAllVinByProviderCommon((page ?? '1') as string)
             .then((response) => {
                 setData(response);
             })
             .catch((err) => {
                 toast.error(t('helpers:error_getting'));
             });
-    }, []);
+    }, [page]);
 
     const handleShowContacts = useCallback((id: number) => {
         return async () => {
             vinOrderApi
                 .acceptVinByProvider(id)
                 .then((response) => {
-                    push('/cabinet/incoming_requests?status=accepted');
+                    push('/cabinet/incoming_requests?status=accepted&page=1');
+                    toast.success(t('helpers:vin_accept'));
                 })
                 .catch((err) => {
                     toast.error(t('helpers:error_sending'));
@@ -62,6 +67,7 @@ export const IncominRequests = () => {
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
             disableFilters: true,
             disableSortBy: false,
+            width: 80,
         },
         {
             Header: t('dashboard:time') as string,
@@ -70,6 +76,7 @@ export const IncominRequests = () => {
             Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
             disableFilters: true,
             disableSortBy: false,
+            width: 60,
         },
         {
             Header: t('common:selects.brand') as string,
@@ -88,9 +95,7 @@ export const IncominRequests = () => {
             accessor: 'yearIssue',
             disableSortBy: true,
             disableFilters: true,
-            width: 90,
-            maxWidth: 100,
-            minWidth: 80,
+            width: 60,
         },
         {
             Header: t('dashboard:status_noun') as string,
@@ -98,6 +103,7 @@ export const IncominRequests = () => {
             Cell: ({ cell }: any) => t(`dashboard:status.${cell.value}`) as any,
             disableSortBy: true,
             disableFilters: true,
+            width: 95,
         },
         {
             Header: t('common:selects.city') as string,
@@ -105,12 +111,15 @@ export const IncominRequests = () => {
             Cell: ({ cell }: any) => t(`common:selects.${cell.value}`) as any,
             disableSortBy: true,
             disableFilters: true,
+            width: 95,
         },
         {
             Header: t('dashboard:req_detail') as string,
             disableFilters: true,
             disableSortBy: true,
+            width: 110,
             accessor: (cell: any) => {
+                console.log(cell);
                 return (
                     <ActionsBlock>
                         <Button variant="primary" fullWidth onClick={handleVinData(cell)}>
@@ -126,7 +135,7 @@ export const IncominRequests = () => {
         <div className={s.root}>
             <h2> {t('dashboard:new_req')}</h2>
             <div className={s.link}>
-                <Link href={'/cabinet/incoming_requests?status=accepted'}>
+                <Link href={'/cabinet/incoming_requests?status=accepted&page=1'}>
                     <Button variant={'primary'}>
                         <Icon name={'archive'} size={20} color={'#fff'} />
                         {t('dashboard:accepted_req')}
@@ -135,7 +144,7 @@ export const IncominRequests = () => {
             </div>
 
             {data?.data.length > 0 && <Table data={data?.data} columns={vinRequestCols} />}
-
+            {data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}
             <BaseModal
                 center
                 open={open}

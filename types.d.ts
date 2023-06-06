@@ -135,6 +135,7 @@ interface IPieceProduct {
     sum: number;
     usd: number;
     currency: string;
+    description?: string;
 }
 
 interface IProductGroup {
@@ -253,6 +254,8 @@ interface IVinItem {
     payment: string;
     status: string;
     city: string;
+    rejectedDesc: string;
+    rejectedReason: string;
     customer: {
         id: number;
         username: string;

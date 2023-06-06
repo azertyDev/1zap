@@ -65,4 +65,10 @@
 
 .modal_description{
   @include fs_fw_c(14px, 400, $text);
+  margin-bottom: 20px;
+}
+
+.moderation_inputs_wr{
+  @include dg_gc_gr_gg(1fr 1fr ,auto,25px);
+  margin-bottom: 25px;
 }

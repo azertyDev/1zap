@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import * as Yup from 'yup';
 
 export const client_validation = {
     becomeProvider: yup.object().shape({
@@ -64,5 +65,15 @@ export const client_validation = {
         titleUz: yup.string().required('required'),
         textRu: yup.string().required('required'),
         textUz: yup.string().required('required'),
+    }),
+    promo: Yup.object({
+        descriptionRu: Yup.string()
+            .min(3, 'Must be at least 3 characters')
+            .max(80, 'Must be 80 characters or less')
+            .required('Required'),
+        descriptionUz: Yup.string()
+            .min(3, 'Must be at least 3 characters')
+            .max(80, 'Must be 80 characters or less')
+            .required('Required'),
     }),
 };

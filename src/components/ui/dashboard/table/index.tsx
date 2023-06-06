@@ -31,8 +31,6 @@ export const Table: FC<TableProps> = ({ data, columns, title }) => {
         useSortBy
     );
 
-    console.log();
-
     return (
         <div className={s.root} data-id="table-root">
             {title && title}

@@ -6,9 +6,10 @@ import { useTranslation } from 'next-i18next';
 
 interface paginationInt {
     pageCount: number;
+    pageName?: string;
 }
 
-export const Pagination: FC<paginationInt> = ({ pageCount }): JSX.Element => {
+export const Pagination: FC<paginationInt> = ({ pageCount, pageName = 'page' }): JSX.Element => {
     const {
         pathname,
         push,
@@ -21,7 +22,7 @@ export const Pagination: FC<paginationInt> = ({ pageCount }): JSX.Element => {
         (ev: any) => {
             push({
                 pathname: pathname,
-                query: { ...query, page: ev.nextSelectedPage + 1 },
+                query: { ...query, [pageName]: ev.nextSelectedPage + 1 },
             });
         },
         [query]
