@@ -97,6 +97,7 @@ export const Providers: FC = (props): JSX.Element => {
             Header: '',
             accessor: 'fullName',
             disableSortBy: true,
+            minWidth: 200,
             // Cell: (props): any => {
             //     const {
             //         original: { providerName, providerSurname },

@@ -1,5 +1,4 @@
-import * as Yup from 'yup';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Field, FieldArray, Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { Heading } from 'src/components/ui/dashboard/heading';
@@ -18,17 +17,20 @@ import { Button } from 'src/components/ui/button';
 import { ImageUpload } from 'src/components/ui/upload/image';
 import { IImage } from 'types';
 import s from '../../../index.module.scss';
+import { useTranslation } from 'next-i18next';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
 export const EditForm = (props: any) => {
     const {
         query: { id },
+        push,
     } = useRouter();
     const { pageProps } = props;
     const [params, setParams] = useState<any>();
     const [branch, setBranch] = useState<any>();
     const [location, setLocation] = useState<any>(branch?.location);
+    const { t } = useTranslation();
 
     const defaultOptions = [
         {
@@ -65,9 +67,8 @@ export const EditForm = (props: any) => {
     };
 
     const onSubmit = async (values: any, {}: FormikHelpers<typeof initialValues>) => {
-        console.log(values);
-
         await branchApi.updateBranch(id as any, values);
+        push('/cabinet/main/branches');
     };
 
     const formik = useFormik({
@@ -79,7 +80,7 @@ export const EditForm = (props: any) => {
 
     return (
         <>
-            <Heading title={pageProps.title} desc={pageProps.desc} />
+            <Heading title={t(`dashboard:${pageProps.title}`)} desc={t(`dashboard:${pageProps.desc}`)} />
 
             <FormikProvider value={formik}>
                 <Form>
@@ -287,7 +288,7 @@ export const EditForm = (props: any) => {
                                                 style={{ whiteSpace: 'nowrap' }}
                                             >
                                                 <Icon name="add_circle" size={18} />
-                                                Добавить фотографию
+                                                {t('dashboard:add_photo')}
                                             </span>
                                         </div>
                                     );
@@ -296,11 +297,11 @@ export const EditForm = (props: any) => {
                         </div>
 
                         <div className={s.actionButtons}>
-                            <Button variant="disabled" type="reset">
-                                Отмена
+                            <Button variant="disabled" type="reset" onClick={() => push('/cabinet/main/branches')}>
+                                {t('common:cancel')}
                             </Button>
                             <Button variant="primary" type="submit">
-                                Обновить
+                                {t('dashboard:refresh')}
                             </Button>
                         </div>
                     </div>

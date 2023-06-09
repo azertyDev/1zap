@@ -11,11 +11,14 @@ import { Heading } from 'src/components/ui/dashboard/heading';
 import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
 import { BaseSwitch } from 'src/components/ui/switch/BaseSwitch';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 export const Branches = (props: any) => {
     const { pageProps } = props;
     const { providerBranches, fetchProviderBranches } = useStore();
     const { push, ...rest } = useRouter();
+
+    const { t } = useTranslation();
     // const [active, setActive] = useState(false);
 
     // const handleChange = () => {
@@ -27,8 +30,6 @@ export const Branches = (props: any) => {
     }, [fetchProviderBranches]);
 
     const updateBranch = (id: number) => {
-        console.log(rest);
-
         push({
             pathname: '/cabinet/main/editBranch',
             query: { id: id },
@@ -39,42 +40,42 @@ export const Branches = (props: any) => {
         <>
             <MenuItem onClick={() => updateBranch(data.id)}>
                 <Icon name="edit" color="black" />
-                Редактировать
+                {t('dashboard:edit')}
             </MenuItem>
             <MenuItem>
                 <Icon name="delete" color="black" />
-                Удалить
+                {t('dashboard:delete')}
             </MenuItem>
         </>
     );
 
     const branchesCols: Column<any>[] = [
         {
-            Header: 'Дата',
+            Header: t('dashboard:date') as string,
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY') as any,
             disableFilters: true,
         },
         {
-            Header: 'Название',
+            Header: t('dashboard:called') as string,
             accessor: 'branchName',
             disableSortBy: true,
             disableFilters: true,
         },
         {
-            Header: 'Прайс-листы',
+            Header: t('dashboard:price-list') as string,
             accessor: 'type',
             disableSortBy: true,
             disableFilters: true,
         },
         {
-            Header: 'Позиции',
+            Header: t('dashboard:positions') as string,
             // accessor: 'branchName',
             disableFilters: true,
             disableSortBy: true,
         },
         {
-            Header: 'Промо',
+            Header: t('dashboard:promo_noun') as string,
             disableSortBy: true,
             disableFilters: true,
             accessor: (cell: any) => {
@@ -82,10 +83,10 @@ export const Branches = (props: any) => {
                     <ActionsBlock>
                         <Link
                             href={{
-                                pathname: '#',
+                                pathname: '/cabinet/promo/all_branches',
                             }}
                         >
-                            Добавить
+                            {t('dashboard:add')}
                         </Link>
                     </ActionsBlock>
                 );
@@ -110,7 +111,7 @@ export const Branches = (props: any) => {
         //     },
         // },
         {
-            Header: 'Включен',
+            Header: t('dashboard:switch_on') as string,
             disableFilters: true,
             disableSortBy: true,
             accessor: (cell: any) => {
@@ -128,7 +129,7 @@ export const Branches = (props: any) => {
 
     return (
         <>
-            <Heading title={pageProps.title} desc={pageProps.desc} />
+            <Heading title={t(`dashboard:${pageProps.title}`)} desc={t(`dashboard:${pageProps.desc}`)} />
 
             {!!providerBranches && <Table columns={branchesCols} data={providerBranches} />}
         </>

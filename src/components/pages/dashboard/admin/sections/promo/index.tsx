@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
 import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
 import { useTranslation } from 'next-i18next';
@@ -9,16 +9,31 @@ import { promoApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { Table } from 'components/ui/dashboard/table';
 import { Pagination } from 'components/ui/pagination/Pagination';
+import { MenuItem } from '@szhsin/react-menu';
+import { Icon } from 'components/ui/icon';
 
 export const PromoPage: FC = () => {
     const [dataActive, setDataActive] = useState<any>(null);
     const [dataModeration, setDataModeration] = useState<any>(null);
+    const [trigger, setTrigger] = useState(false);
 
     const { t } = useTranslation();
     const {
         locale,
         query: { page, activePromoPage },
     } = useRouter();
+
+    const handleDeletePromo = useCallback((id: number) => {
+        return () => {
+            promoApi
+                .deletePromoByAdmin(id)
+                .then(() => {
+                    setTrigger((prev) => !prev);
+                    toast.success(t('dashboard:promo_deleted'));
+                })
+                .catch(() => toast.error(t('helpers:error_getting')));
+        };
+    }, []);
 
     useEffect(() => {
         (() => {
@@ -36,18 +51,23 @@ export const PromoPage: FC = () => {
                 .then((res) => setDataActive(res))
                 .catch((err) => toast.error(t('helpers:error_getting')));
         })();
-    }, [activePromoPage]);
+    }, [activePromoPage, trigger]);
 
-    // console.log('moderation', dataModeration);
-    // console.log('active', dataActive);
+    const menuContent = (data: any) => (
+        <MenuItem onClick={handleDeletePromo(data.id)}>
+            <Icon name="delete" color="black" />
+            {t('dashboard:delete')}
+        </MenuItem>
+    );
 
     const colsModer = [
         {
             Header: t('dashboard:date'),
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY'),
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY'),
             disableFilters: true,
-            maxWidth: 40,
+            maxWidth: 70,
+            minWidth: 70,
         },
         {
             Header: t('dashboard:provider'),
@@ -86,8 +106,10 @@ export const PromoPage: FC = () => {
         {
             Header: t('dashboard:date'),
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY'),
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY'),
             disableFilters: true,
+            maxWidth: 70,
+            minWidth: 70,
         },
         {
             Header: t('dashboard:provider'),
@@ -122,7 +144,7 @@ export const PromoPage: FC = () => {
             disableSortBy: true,
             accessor: (cell: any) => {
                 return (
-                    <ActionsBlock>
+                    <ActionsBlock cell={cell} menu={menuContent(cell)}>
                         <Link href={`/dashboard/promo/edit?id=${cell.id}&type=active`}>{t('common:open')}</Link>
                     </ActionsBlock>
                 );

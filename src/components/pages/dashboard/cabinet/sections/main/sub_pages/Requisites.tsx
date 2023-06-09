@@ -6,9 +6,11 @@ import { Button } from 'src/components/ui/button';
 import s from '../index.module.scss';
 import { useStore } from 'src/store/useStore';
 import { providerApi } from 'src/utils/api';
+import { useTranslation } from 'next-i18next';
 
 const Requisites = (props: any) => {
     const { pageProps } = props;
+    const { t } = useTranslation();
     const { userData } = useStore();
 
     const initialValues = {
@@ -28,8 +30,6 @@ const Requisites = (props: any) => {
     });
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
-        console.log(values);
-
         await providerApi.updateProvider(userData?.user?.id!, values);
     };
 
@@ -42,7 +42,7 @@ const Requisites = (props: any) => {
 
     return (
         <>
-            <Heading title={pageProps.title} desc={pageProps.desc} />
+            <Heading title={t(`dashboard:${pageProps.title}`)} desc={t(`dashboard:${pageProps.desc}`)} />
 
             <FormikProvider value={formik}>
                 <Form>
@@ -70,15 +70,6 @@ const Requisites = (props: any) => {
                             />
                         </div>
 
-                        {/* <div className={s.row}>
-                            <StandartInput label="dashboard:inn" {...formik.getFieldProps('inn')} />
-                            <StandartInput label="common:okd" {...formik.getFieldProps('oked')} />
-                        </div> */}
-
-                        {/* <div className={s.row}>
-                            <StandartInput label="common:bankName" {...formik.getFieldProps('bank_name')} />
-                            <StandartInput label="common:check" {...formik.getFieldProps('check_accaunt')} />
-                        </div> */}
                         <div className={s.actionButtons}>
                             <Button variant="disabled" type="reset">
                                 Отмена

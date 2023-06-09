@@ -3,12 +3,16 @@
 
 .root {
     word-break: break-word;
-
+position: relative;
     width: 100%;
     margin-bottom: 30px;
 
     input.filterInput {
         background: none;
+        position: relative;
+        &::placeholder{
+            @include fs_fw_c(12px,700,$text);
+        }
     }
 
     h4 {
@@ -138,4 +142,30 @@ div.actionButtons {
             }
         }
     }
+}
+
+
+.input_search_wr{
+    display: flex;
+    align-items: center;
+}
+
+.input_search_icon{
+    margin-right: 4px;
+
+    height: 16px;
+}
+
+.filter_calendar{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
+    border: 1px solid #E4E6E8;
+    border-radius: 14px 14px 0  0;
+    width: 100%;
+    padding: 28px 23px;
+    background: red;
 }

@@ -46,3 +46,8 @@
 .btns{
     margin-top: auto;
 }
+
+.comment{
+    @include fs_fw_c(14px,600,$text)
+}
+

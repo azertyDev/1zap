@@ -1,8 +1,8 @@
 .form {
+display: grid;
+  grid-template-columns: minmax(210px,210px) 1fr 1fr;
   gap: 30px;
-  display: grid;
   margin-bottom: 30px;
-  grid-template-columns: 0.7fr 1fr 1fr;
 
   .select_row {
     gap: 28px;
@@ -16,7 +16,7 @@
   flex-direction: column;
   padding: 14px 20px 20px;
   border: 1px dashed #ececf2;
-
+height: 100%;
   p {
     font-weight: 600;
     font-size: 14px;

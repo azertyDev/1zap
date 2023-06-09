@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Table } from 'src/components/ui/dashboard/table';
@@ -12,8 +12,6 @@ import { promoApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { useModal } from 'src/hooks/common/useModal';
 import { BaseModal } from 'components/ui/dashboard/modal/base_modal';
-import { Field, Form, FormikProvider } from 'formik';
-import { SelectField } from 'components/ui/select';
 
 export const PromoPage: FC = () => {
     const {
@@ -22,9 +20,30 @@ export const PromoPage: FC = () => {
     } = useRouter();
     const [changeData, setChangeData] = useState<any>(null);
     const [activeData, setActiveData] = useState<any>(null);
+    const [comment, setComment] = useState('');
+    const [trigger, setTrigger] = useState(false);
     const { open, handleModalClose, handleModalOpen } = useModal();
 
     const { t } = useTranslation();
+
+    const handleComment = useCallback((val: string) => {
+        return () => {
+            handleModalOpen();
+            setComment(val);
+        };
+    }, []);
+
+    const deletePromo = useCallback((id: number) => {
+        return () => {
+            promoApi
+                .deletePromoByProvider(id)
+                .then((res) => {
+                    setTrigger((prev) => !prev);
+                    toast.success('dashboard:promo_deleted');
+                })
+                .catch((err) => toast.error(t('helpers:error_sending')));
+        };
+    }, []);
 
     useEffect(() => {
         (() => {
@@ -42,21 +61,22 @@ export const PromoPage: FC = () => {
                 .then((res) => setChangeData(res))
                 .catch((err) => toast.error(t('helpers:error_getting')));
         })();
-    }, []);
+    }, [trigger]);
 
     const colsChange = [
         {
             Header: t('dashboard:date'),
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY'),
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY'),
             disableFilters: true,
-            maxWidth: 60,
+            maxWidth: 70,
+            minWidth: 70,
         },
         {
             Header: t('dashboard:promo_type'),
             accessor: 'type',
             disableSortBy: true,
-            maxWidth: 100,
+            maxWidth: 120,
             disableFilters: true,
             Cell: ({ cell }: any) => t(`dashboard:promo_type_texts.${cell.value}`) as any,
         },
@@ -65,7 +85,7 @@ export const PromoPage: FC = () => {
             accessor: 'blockedReason',
             disableSortBy: true,
             disableFilters: true,
-
+            minWidth: 200,
             Cell: ({ cell }: any) => t(`dashboard:reasons_reject_promo.${cell.value}`) as any,
         },
         {
@@ -76,7 +96,7 @@ export const PromoPage: FC = () => {
             accessor: (cell: any) => {
                 return (
                     <ActionsBlock>
-                        <Button variant="primary" fullWidth onClick={handleModalOpen}>
+                        <Button variant="primary" fullWidth onClick={handleComment(cell.description)}>
                             {t('common:open')}
                         </Button>
                     </ActionsBlock>
@@ -91,9 +111,7 @@ export const PromoPage: FC = () => {
             accessor: (cell: any) => {
                 return (
                     <ActionsBlock>
-                        <Button variant="primary" fullWidth>
-                            {t('dashboard:change')}
-                        </Button>
+                        <Link href={`/cabinet/promo/edit?id=${cell.id}`}> {t('dashboard:change')}</Link>
                     </ActionsBlock>
                 );
             },
@@ -106,7 +124,7 @@ export const PromoPage: FC = () => {
             accessor: (cell: any) => {
                 return (
                     <ActionsBlock>
-                        <Button variant="primary" fullWidth>
+                        <Button variant="primary" fullWidth onDoubleClick={deletePromo(cell.id)}>
                             {t('dashboard:delete')}
                         </Button>
                     </ActionsBlock>
@@ -118,16 +136,18 @@ export const PromoPage: FC = () => {
         {
             Header: t('dashboard:date'),
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY'),
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY'),
             disableFilters: true,
-            maxWidth: 60,
+            maxWidth: 70,
+            minWidth: 70,
         },
         {
             Header: t('dashboard:promo_type'),
             accessor: 'type',
             disableSortBy: true,
-            maxWidth: 100,
+            maxWidth: 120,
             disableFilters: true,
+
             Cell: ({ cell }: any) => t(`dashboard:promo_type_texts.${cell.value}`) as any,
         },
         {
@@ -159,37 +179,40 @@ export const PromoPage: FC = () => {
             accessor: (cell: any) => {
                 return (
                     <ActionsBlock>
-                        <Link href={`/cabinet/promo/edit`}>{t('common:open')}</Link>
+                        <Link href={`/cabinet/promo/edit?id=${cell.id}`}>{t('common:open')}</Link>
                     </ActionsBlock>
                 );
             },
         },
     ];
 
-    const promoItems = [
-        {
-            id: 1,
-            title: t('dashboard:promo_texts.all_branches'),
-            desc: t('dashboard:promo_texts.all_branches_text'),
-            price: `500 ${t('dashboard:coins')}`,
-            url: 'all_branches',
-        },
-        {
-            id: 2,
-            title: t('dashboard:promo_texts.all_price_list'),
-            desc: t('dashboard:promo_texts.all_price_list_text'),
-            price: t('dashboard:coins_from', { coin: 20 }),
-            url: 'all_lists',
-        },
-        {
-            id: 3,
-            title: t('dashboard:promo_texts.chosen_position'),
-            desc: t('dashboard:promo_texts.chosen_position_text'),
-            price: t('dashboard:coins_from', { coin: 5 }),
-            url: 'chosen',
-        },
-    ];
-    console.log(changeData);
+    const promoItems = useMemo(
+        () => [
+            {
+                id: 1,
+                title: t('dashboard:promo_texts.all_branches'),
+                desc: t('dashboard:promo_texts.all_branches_text'),
+                price: `1000 ${t('dashboard:coins')}`,
+                url: 'all_branches',
+            },
+            {
+                id: 2,
+                title: t('dashboard:promo_texts.all_price_list'),
+                desc: t('dashboard:promo_texts.all_price_list_text'),
+                price: t('dashboard:coins_from', { coin: 20 }),
+                url: 'all_lists',
+            },
+            {
+                id: 3,
+                title: t('dashboard:promo_texts.chosen_position'),
+                desc: t('dashboard:promo_texts.chosen_position_text'),
+                price: t('dashboard:coins_from', { coin: 5 }),
+                url: 'chosen',
+            },
+        ],
+        []
+    );
+
     return (
         <div className={s.wrapper}>
             <h4>{t('dashboard:promo_place')}</h4>
@@ -214,11 +237,11 @@ export const PromoPage: FC = () => {
                 onClose={handleModalClose}
                 headerContent={
                     <div>
-                        <h2>{t('dashboard:req_detail_vin')}</h2>
+                        <h3>{t('dashboard:reject_promo_comment')}</h3>
                     </div>
                 }
             >
-                <div>1</div>
+                <p className={s.comment}>{comment}</p>
             </BaseModal>
             {changeData?.data && (
                 <Table data={changeData?.data} columns={colsChange} title={<h4>{t('dashboard:need_change')}</h4>} />

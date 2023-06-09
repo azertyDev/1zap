@@ -46,3 +46,24 @@
   @include dg_gc_gr_gg(128px 172px,auto,10px)
 }
 
+
+.statistic_wr {
+  @include dg_gc_gr_gg(repeat(3, 285px), auto, 40px);
+  margin-bottom: 30px;
+}
+
+.counter {
+  background: #FFFFFF;
+  box-shadow: 0 8px 12px rgba(153, 155, 168, 0.15);
+  border-radius: 10px;
+  padding: 9px 23px;
+  @include flex-items(space-between, flex-start);
+
+  p {
+    @include fs_fw_c(14px, 700, $secondary);
+  }
+
+  span{
+    @include fs_fw_c(14px, 400, $text);
+  }
+}

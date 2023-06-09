@@ -61,6 +61,8 @@ export const productsApi = {
     getProductsNoGroup: (params: any) => requests.get(`/branchs?${params}`),
     getPieceProduct: (id: number) => requests.get(`/piece/${id}`),
     getProductsWithGroup: (type: string, params: any) => requests.get(`/group/${type}${params}`),
+    getBranchInfo: (id: number) => requests.get(`products/countBranch/${id}`),
+    getListInfo: (id: number) => requests.get(`products/countPricelist/${id}`),
 };
 
 export const vinOrderApi = {
@@ -104,13 +106,17 @@ export const promoApi = {
     getProductsByPriceList: (id: number, locale: string, page: string) =>
         requests.get(`products/common/byPricelistId?id=${id}&lang=${locale}&page=${page}`),
     addPromoByChosenProducts: (body: any) => requests.post('products/marketing', body),
-    addPromoByBranch: (body: any) => requests.post('/products/marketing/branch', body),
-    addPromoByPriceList: (body: any) => requests.post('/products/marketing/pricelist', body),
+    addPromoByBranch: (body: any) => requests.post('products/marketing/branch', body),
+    addPromoByPriceList: (body: any) => requests.post('products/marketing/pricelist', body),
+    deletePromoByProvider: (id: number) => requests.delete(`products/marketing/${id}`),
+    getSinglePromoProvider: (id: string) => requests.get(`products/marketing/${id}`),
+    editPromoByProvider: (id: string, body: any) => requests.patch(`products/marketing/edit/${id}`, body),
     getActivePromoByAdmin: (page: string) => requests.get(`promo/active?page=${page}`),
     getModerationPromoByAdmin: (page: string) => requests.get(`promo/moderation?page=${page}`),
-    getSinglePromoAdmin: (id: number) => requests.get(`/promo/${id}`),
+    getSinglePromoAdmin: (id: number) => requests.get(`promo/${id}`),
     rejectPromoByAdmin: (id: number, body: any) => requests.patch(`promo/block/${id}`, body),
     acceptPromoByAdmin: (id: number) => requests.patch(`promo/activate/${id}`),
+    deletePromoByAdmin: (id: number) => requests.delete(`promo/${id}`),
 };
 
 export const centerApi = {

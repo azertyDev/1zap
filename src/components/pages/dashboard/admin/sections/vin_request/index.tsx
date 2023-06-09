@@ -39,7 +39,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
     }, []);
 
     const formik = useFormik({
-        initialValues: { status: '' },
+        initialValues: { status: '', comp: '' },
         onSubmit: async (values) => {
             vinOrderApi
                 .rejectOrRepeatVin(vinData?.id!, values.status === 'rejected' ? 'reject' : 'repeated')
@@ -305,7 +305,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
                                         {query === 'moderation' && (
                                             <Field
                                                 component={SelectField}
-                                                name="status"
+                                                name="comp"
                                                 label={t('dashboard:compensation.comp')}
                                                 options={[
                                                     {

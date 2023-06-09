@@ -15,6 +15,7 @@ import { useModal } from 'src/hooks/common/useModal';
 import { BaseModal } from 'components/ui/dashboard/modal/base_modal';
 import dayjs from 'dayjs';
 import { SelectField } from 'components/ui/select';
+import { useGetBranchesAndPriceLists } from 'src/hooks/promo/useGetBranchesAndPriceLists';
 
 interface IOptions {
     label: string;
@@ -23,18 +24,21 @@ interface IOptions {
 
 export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ query }) => {
     const { t } = useTranslation();
-    const { locale, push } = useRouter();
+    const { push } = useRouter();
     const [dataStat, setDataStat] = useState<any>(null);
     const [dataFormik, setDataFormik] = useState<any>(null);
     const { open, handleModalClose, handleModalOpen } = useModal();
 
+    const { formikBranches, formikPrice, branches, lists } = useGetBranchesAndPriceLists(false, false);
+
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<any>) => {
         promoApi
             .acceptPromoByAdmin(query.id)
-            .then((res) => {
+            .then(() => {
+                toast.success(t('dashboard:promo_accepted'));
                 push('/dashboard/promo');
             })
-            .catch((err) => toast.error(t('helpers:error_sending')));
+            .catch(() => toast.error(t('helpers:error_sending')));
     };
 
     const formik = useFormik({
@@ -52,10 +56,11 @@ export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ que
         onSubmit: async (values) => {
             promoApi
                 .rejectPromoByAdmin(query.id, values)
-                .then((res) => {
+                .then(() => {
+                    toast.success(t('dashboard:promo_rejected'));
                     push('/dashboard/promo');
                 })
-                .catch((err) => toast.error(t('helpers:error_sending')));
+                .catch(() => toast.error(t('helpers:error_sending')));
         },
     });
 
@@ -80,7 +85,7 @@ export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ que
                         },
                     ]);
                 })
-                .catch((err) => toast.error(t('helpers:error_getting')));
+                .catch(() => toast.error(t('helpers:error_getting')));
         })();
     }, []);
 
@@ -113,7 +118,16 @@ export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ que
                 </div>
             )}
 
-            <PromoForm formik={formik} disableBranch disableList disableTextarea />
+            <PromoForm
+                formik={formikBranches}
+                formikPrice={formikPrice}
+                formikTexts={formik}
+                branchesOptions={branches}
+                lists={lists}
+                disableTextarea
+                disableBranch
+                disableList
+            />
             <div className={s.buttons_wr}>
                 <Link href={'/dashboard/promo'}>
                     <Button type="button" variant={'disabled'} fullWidth>
@@ -138,10 +152,14 @@ export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ que
                 onClose={handleModalClose}
                 headerContent={
                     <div>
-                        <h2>{t('dashboard:req_detail_vin')}</h2>
+                        <h2>{t('dashboard:reject_promo')}</h2>
                         <span>
-                            {dayjs(Date.now()).format('DD/MM/YYYY')}{' '}
-                            {t('common:in', { time: dayjs(Date.now()).format('h:mm') })}
+                            {dataFormik && (
+                                <>
+                                    {dayjs(dataFormik.createdAt).format('DD/MM/YYYY')}{' '}
+                                    {t('common:in', { time: dayjs(dataFormik.createdAt).format('h:mm') })}
+                                </>
+                            )}
                         </span>
                     </div>
                 }

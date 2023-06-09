@@ -4,40 +4,42 @@ import { InfoLinks } from 'src/components/ui/dashboard/info_links';
 import { OverviewBlock } from 'src/components/ui/dashboard/overview_block';
 import { Avatar } from 'src/components/ui/avatar';
 import s from './index.module.scss';
+import { useTranslation } from 'next-i18next';
 
 export const Main = () => {
     const { userData } = useStore();
+    const { t } = useTranslation();
 
     const overviewData = [
         {
             id: 1,
-            heading: 'Баланс',
+            heading: t('dashboard:balance'),
             body: userData?.balance,
-            footer: 'До 01.01.23',
+            footer: t('dashboard:till', { till: '01.01.23' }),
             icon: 'payments',
             link: '/cabinet/balance',
         },
         {
             id: 2,
-            heading: 'Переходов',
+            heading: t('dashboard:transitions'),
             body: '2,354',
-            footer: '+123 Сегодня',
+            footer: `+123 ${t('dashboard:today')}`,
             icon: 'ads_click',
             link: '/cabinet/statistics',
         },
         {
             id: 3,
-            heading: 'Товаров',
+            heading: t('dashboard:productss'),
             body: '13,213',
-            footer: 'Обновление 3 дня назад',
+            footer: t('dashboard:refresh_day', { day: 22 }),
             icon: 'inventory_2',
             link: '/cabinet/price-list',
         },
         {
             id: 4,
-            heading: 'Запросов',
+            heading: t('dashboard:requests'),
             body: '503',
-            footer: '+13 Сегодня',
+            footer: `+123 ${t('dashboard:today')}`,
             icon: 'inbox',
             link: '/cabinet/statistics',
         },

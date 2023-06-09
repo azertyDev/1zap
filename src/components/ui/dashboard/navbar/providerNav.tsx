@@ -53,7 +53,6 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                                 key={item.id}
                                 href={`/cabinet/${item.name}`}
                                 className={slug === item.name ? s.active : ''}
-                                shallow
                             >
                                 <li>
                                     <Icon name={item.icon} size={22} />

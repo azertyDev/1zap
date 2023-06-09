@@ -30,64 +30,42 @@ export const linksData = [
         link: '/cabinet/main/requisites',
         icon: 'account_balance',
         title: 'requisites',
-        desc: 'Реквизиты и документы',
+        desc: 'req_and_doc',
     },
     {
         id: 1,
         link: '/cabinet/main/branches',
         icon: 'place',
         title: 'branches',
-        desc: 'Изменить и добавить',
-    },
-    {
-        id: 7,
-        link: '/cabinet/main/editBranch',
-        icon: 'place',
-        title: 'editBranch',
-        desc: 'Отредактируйте данные филиала и фото',
+        desc: 'change_and_add',
     },
     {
         id: 3,
         link: '/cabinet/main/settings',
         icon: 'build',
         title: 'settings',
-        desc: 'Язык, пароль и уведомления',
+        desc: 'lang_password',
     },
     {
         id: 4,
-        link: '/cabinet/main/balance',
+        link: '/cabinet/balance',
         icon: 'monetization_on',
         title: 'account_balance',
-        desc: 'Информация и пополнение',
+        desc: 'info_fillup',
     },
     {
         id: 5,
-        link: '/cabinet/main/products',
+        link: '/cabinet/price-list',
         icon: 'inventory_2',
         title: 'products',
-        desc: 'Редактирование и обновление',
+        desc: 'edit_and_refresh',
     },
     {
         id: 6,
-        link: '/cabinet/main/promo',
+        link: '/cabinet/promo',
         icon: 'label',
         title: 'promo',
-        desc: 'Размещенные объявления',
-    },
-];
-
-export const balanceStatistics = [
-    {
-        id: 1,
-        title: 'Монет',
-        date: 'До 01.01.23',
-        count: '1000',
-    },
-    {
-        id: 2,
-        title: 'Монет',
-        date: 'До 01.01.23',
-        count: '1000',
+        desc: 'allocation_ad',
     },
 ];
 

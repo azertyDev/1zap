@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { branchApi, promoApi } from 'src/utils/api';
+import { promoApi } from 'src/utils/api';
 import { useCallback, useEffect, useState } from 'react';
 import { Heading } from 'src/components/ui/dashboard/heading';
 import { FormikHelpers, FormikValues, useFormik } from 'formik';
@@ -12,11 +12,11 @@ import { Table } from 'components/ui/dashboard/table';
 import { Pagination } from 'components/ui/pagination/Pagination';
 import { Icon } from 'components/ui/icon';
 import { toast } from 'react-hot-toast';
-
-interface IOptions {
-    label: string;
-    value: number | undefined | string;
-}
+import { mathPromo } from 'src/helpers/mathPromo';
+import { useGetBranchesAndPriceLists } from 'src/hooks/promo/useGetBranchesAndPriceLists';
+import { useGetPriceListInfo } from 'src/hooks/promo/useGetPriceListInfo';
+import { useGetBranchInfo } from 'src/hooks/promo/useGetBranchInfo';
+import { ColumnFilter } from 'components/ui/dashboard/table/columnFilter';
 
 export const ChosenForm = () => {
     const { t } = useTranslation();
@@ -28,18 +28,14 @@ export const ChosenForm = () => {
         query: { page },
     } = useRouter();
 
-    const [branches, setBranches] = useState<IOptions[] | null>(null);
-    const [lists, setLists] = useState<IOptions[] | null>(null);
+    const { formikBranches, formikPrice, branches, lists } = useGetBranchesAndPriceLists();
+    const { branchInfo } = useGetBranchInfo(formikBranches, formikBranches.values.branchId);
     const [data, setData] = useState<any>(null);
     const [activeIds, setActiveIds] = useState<number[]>([]);
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<any>) => {
         await promoApi
-            .addPromoByChosenProducts({
-                descriptionRu: formik.values.descriptionRu,
-                descriptionUz: formik.values.descriptionUz,
-                products: activeIds.map((item) => ({ id: item })),
-            })
+            .addPromoByChosenProducts({ ...values, products: activeIds.map((item) => ({ id: item })) })
             .then((res) => {
                 push('/cabinet/promo');
             })
@@ -47,59 +43,6 @@ export const ChosenForm = () => {
                 toast.error(t('helpers:error_sending'));
             });
     };
-
-    const formik = useFormik({
-        onSubmit,
-        enableReinitialize: true,
-        initialValues: {
-            branchId: null,
-            price: lists && lists.length > 0 ? lists[0].value : null,
-            descriptionRu: '',
-            descriptionUz: '',
-        },
-        validationSchema: client_validation.promo,
-    });
-
-    useEffect(() => {
-        (async () => {
-            branchApi
-                .getAllBranches()
-                .then((res) => {
-                    const val = res.map((item: { id: number; branchName: string }) => ({
-                        value: item.id,
-                        label: item.branchName,
-                    }));
-                    setBranches(val);
-                    formik.setFieldValue('branchId', val[0].value);
-                })
-                .catch(() => {
-                    toast.error(t('helpers:error_getting'));
-                });
-        })();
-    }, []);
-
-    useEffect(() => {
-        (async () => {
-            if (formik.values.branchId) {
-                promoApi
-                    .getPriceListByBranch(formik.values.branchId as number)
-                    .then((res) => {
-                        if (res.length === 0) {
-                            toast.error(t('dashboard:no_price_list'));
-                        }
-
-                        const val1 = res.map((subitem: { id: number; title: string }) => ({
-                            value: subitem.id,
-                            label: subitem.title,
-                        }));
-                        setLists(val1);
-                    })
-                    .catch(() => {
-                        toast.error(t('helpers:error_getting'));
-                    });
-            }
-        })();
-    }, [formik.values.branchId]);
 
     const handleActiveIds = useCallback((id: number) => {
         return () => {
@@ -112,11 +55,27 @@ export const ChosenForm = () => {
         };
     }, []);
 
+    const { listInfo } = useGetPriceListInfo(formikPrice, formikPrice.values.pricelistId);
+
+    const formikTexts = useFormik({
+        onSubmit,
+        enableReinitialize: true,
+        initialValues: {
+            descriptionRu: listInfo.textRu ? listInfo.textRu : branchInfo.textRu ? branchInfo.textRu : '',
+            descriptionUz: listInfo.textUz ? listInfo.textUz : branchInfo.textUz ? branchInfo.textUz : '',
+        },
+        validationSchema: client_validation.promo,
+    });
+
     useEffect(() => {
         (() => {
-            if (lists && formik.values.price) {
+            if (lists && formikPrice.values.pricelistId) {
                 promoApi
-                    .getProductsByPriceList(formik.values.price as number, locale as string, (page as string) ?? '1')
+                    .getProductsByPriceList(
+                        formikPrice.values.pricelistId as number,
+                        locale as string,
+                        (page as string) ?? '1'
+                    )
                     .then((res) => {
                         setData(res);
                     })
@@ -125,25 +84,23 @@ export const ChosenForm = () => {
                     });
             }
         })();
-        // alert(formik.values.price);
-    }, [locale, page, formik.values.price, formik.values.branchId]);
+    }, [locale, page, formikPrice.values.pricelistId, formikBranches.values.branchId]);
 
     useEffect(() => {
         push({
             pathname: pathname,
             query: { ...query, page: 1 },
         });
-    }, [formik.values.price, formik.values.branchId]);
+    }, [formikPrice.values.pricelistId, formikPrice.values.pricelistId]);
 
     const cols = [
         {
-            Header: 'Поиск',
+            Header: '',
+            accessor: 'description',
             width: 300,
             disableSortBy: true,
-            disableFilters: true,
-            accessorFn: (row: any) => `${row.description} ${row.id}`,
+            Filter: ColumnFilter,
             Cell: ({ cell }: any) => {
-                console.log(cell);
                 return (
                     <div
                         onClick={handleActiveIds(cell.row.original.id)}
@@ -166,37 +123,50 @@ export const ChosenForm = () => {
         {
             Header: t('common:selects.number'),
             accessor: 'uniqNumber',
-            disableSortBy: true,
             disableFilters: true,
         },
         {
             Header: t('common:selects.manufacturers'),
             accessor: 'manufacturer',
-            disableSortBy: true,
             disableFilters: true,
         },
         {
             Header: t('common:selects.howmany'),
             accessor: 'availability',
-            disableSortBy: true,
             disableFilters: true,
         },
         {
             Header: t('common:selects.price'),
             accessor: 'sum',
-            disableSortBy: true,
             disableFilters: true,
         },
     ];
 
-    console.log(data);
     return (
         <div className={s.root}>
             <Heading title={t('dashboard:promo_place')} desc={t('dashboard:promo_texts.chosen_position')} />
-            <PromoForm formik={formik} branchesOptions={branches} lists={lists} />
-            {data?.data && <Table data={data.data} columns={cols} />}
-            {data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}
-            <PromoSubmitInfo formik={formik} info={{ coin: 500, discount: 2, position: 13 }} />
+            <PromoForm
+                formik={formikBranches}
+                formikPrice={formikPrice}
+                formikTexts={formikTexts}
+                branchesOptions={branches}
+                disableTextarea={listInfo.hasReclam || branchInfo.hasReclam}
+                lists={lists}
+            />
+
+            {!branchInfo.hasReclam && !listInfo.hasReclam && (
+                <>
+                    {data?.data && <Table data={data.data} columns={cols} />}
+                    {data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}
+                </>
+            )}
+
+            {!branchInfo.hasReclam && !listInfo.hasReclam && (
+                <PromoSubmitInfo
+                    formik={formikTexts}
+                    info={{ ...mathPromo(activeIds.length * 5), position: activeIds.length }}
+                />
+            )}
         </div>
     );
 };
