@@ -1,0 +1,19 @@
+.titles{
+  margin-bottom: 25px;
+
+  &.last{
+    margin: 40px 0 25px;
+
+  }
+}
+
+.inputs_wr{
+  display: grid;
+  grid-template-columns: minmax(200px,1fr) minmax(200px,1fr);
+  gap: 30px;
+  margin-bottom: 30px;
+  button{
+    height: 100%;
+  }
+
+}

@@ -8,9 +8,10 @@ interface TableProps {
     data: any;
     columns: any;
     title?: ReactNode;
+    isSecondType?: boolean;
 }
 
-export const Table: FC<TableProps> = ({ data, columns, title }) => {
+export const Table: FC<TableProps> = ({ data, columns, title, isSecondType }) => {
     const defaultColumn = useMemo(
         () => ({
             Filter: ColumnFilter,
@@ -32,7 +33,7 @@ export const Table: FC<TableProps> = ({ data, columns, title }) => {
     );
 
     return (
-        <div className={s.root} data-id="table-root">
+        <div className={`${s.root} ${isSecondType ? s.second : ''}`} data-id="table-root">
             {title && title}
             <table {...getTableProps()}>
                 <thead>

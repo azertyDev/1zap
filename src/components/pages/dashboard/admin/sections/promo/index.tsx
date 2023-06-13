@@ -20,7 +20,7 @@ export const PromoPage: FC = () => {
     const { t } = useTranslation();
     const {
         locale,
-        query: { page, activePromoPage },
+        query: { page, pageSec },
     } = useRouter();
 
     const handleDeletePromo = useCallback((id: number) => {
@@ -38,7 +38,7 @@ export const PromoPage: FC = () => {
     useEffect(() => {
         (() => {
             promoApi
-                .getModerationPromoByAdmin((page ?? '1') as string)
+                .getModerationPromoByAdmin(page as string)
                 .then((res) => setDataModeration(res))
                 .catch((err) => toast.error(t('helpers:error_getting')));
         })();
@@ -47,11 +47,11 @@ export const PromoPage: FC = () => {
     useEffect(() => {
         (() => {
             promoApi
-                .getActivePromoByAdmin((activePromoPage ?? '1') as string)
+                .getActivePromoByAdmin(pageSec as string)
                 .then((res) => setDataActive(res))
                 .catch((err) => toast.error(t('helpers:error_getting')));
         })();
-    }, [activePromoPage, trigger]);
+    }, [pageSec, trigger]);
 
     const menuContent = (data: any) => (
         <MenuItem onClick={handleDeletePromo(data.id)}>
@@ -167,9 +167,7 @@ export const PromoPage: FC = () => {
                     title={<h4>{t('dashboard:active_admin_promo')}</h4>}
                 />
             )}
-            {dataActive?.totalPages > 1 && (
-                <Pagination pageCount={dataActive?.totalPages} pageName={'activePromoPage'} />
-            )}
+            {dataActive?.totalPages > 1 && <Pagination pageCount={dataActive?.totalPages} isSecPage />}
         </div>
     );
 };

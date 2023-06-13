@@ -129,7 +129,7 @@ export const Branches = (props: any) => {
 
     return (
         <>
-            <Heading title={t(`dashboard:${pageProps.title}`)} desc={t(`dashboard:${pageProps.desc}`)} />
+            <Heading title={t(`dashboard:${pageProps.title}`)} desc={t(`dashboard:branch_info_setting`)} />
 
             {!!providerBranches && <Table columns={branchesCols} data={providerBranches} />}
         </>

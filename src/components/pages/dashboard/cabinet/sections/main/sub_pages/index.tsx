@@ -1,10 +1,7 @@
 import dynamic from 'next/dynamic';
 import { linksData } from 'src/data/common';
-import { Balance } from './Balance';
 import { Branches } from './branches';
 import { EditForm } from './branches/form/EditForm';
-import { Products } from './Products';
-import { Promo } from './Promo';
 import { Settings } from './Settings';
 
 const DynamicRequisites = dynamic(() => import('./Requisites'), {
@@ -16,9 +13,6 @@ export const router: any = {
     requisites: DynamicRequisites,
     branches: Branches,
     settings: Settings,
-    balance: Balance,
-    products: Products,
-    promo: Promo,
     editBranch: EditForm,
 };
 

@@ -21,7 +21,7 @@ export const ListsForm = () => {
         promoApi
             .addPromoByPriceList({ ...values, ...formikPrice.values })
             .then((res) => {
-                push('/cabinet/promo');
+                push('/cabinet/promo?page=1');
             })
             .catch(() => {
                 toast.error(t('helpers:error_getting'));

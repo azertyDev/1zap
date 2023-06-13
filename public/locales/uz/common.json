@@ -1,8 +1,8 @@
 {
   "logout": "Chiqish",
   "search": "Qidirmoq",
-  "title": "Название",
   "openMap": "Xaritani ochish",
+  "title": "Ism",
   "openSearch": "Qidiruvni oching",
   "noresult": "Hech qanday natija topilmadi",
   "noresulttext": "Qidiruvingiz boʻyicha hech qanday natija topilmadi yoki boʻsh soʻz kiritildi",
@@ -137,7 +137,6 @@
     "tue-san": "Se-Yak",
     "tireFitting": "Shinalarni o'rnatish",
     "autoService": "Аvtovobil xizmati",
-    "partSelection": "Аvtomobil qismlari",
     "tashkent": "Toshkent",
     "bukhara": "Buxoro",
     "samarkand": "Samarqand",
@@ -190,5 +189,10 @@
     "status": "Amalga oshirish holati"
   },
   "new_password": "Yangi parol",
-  "new_password_repeat": "Parolni tasdiqlash"
+  "new_password_repeat": "Parolni tasdiqlash",
+    "agreementNumber": "Shartnoma raqami",
+  "partSelection": "Аvtomobil qismlari",
+  "usd": "dollar",
+  "for_legal": "Yuridik shaxslar uchun",
+  "for_people": "Jismoniy shaxslar uchun"
 }

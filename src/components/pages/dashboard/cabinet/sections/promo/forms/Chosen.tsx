@@ -37,7 +37,7 @@ export const ChosenForm = () => {
         await promoApi
             .addPromoByChosenProducts({ ...values, products: activeIds.map((item) => ({ id: item })) })
             .then((res) => {
-                push('/cabinet/promo');
+                push('/cabinet/promo?page=1');
             })
             .catch((err) => {
                 toast.error(t('helpers:error_sending'));

@@ -16,24 +16,40 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { baseURL } from 'src/utils/constants';
 import { PriceCreateForm } from './form/create';
-import { priceListApi } from 'src/utils/api';
+import { priceListApi, providerApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
-import ReactPaginate from 'react-paginate';
+
 import s from './index.module.scss';
-import { Pagination } from 'src/components/ui/dashboard/pagination';
+import { IProviderStat } from 'types';
+import { Pagination } from 'components/ui/pagination/Pagination';
 
 export const PriceList = () => {
     const { t } = useTranslation();
     const { push } = useRouter();
-    const { priceList, fetchPriceList, fetchProviderBranches } = useStore();
+    const { fetchProviderBranches } = useStore();
+    const [priceList, setPriceList] = useState<any>(null);
     const { open, handleModalOpen, handleModalClose } = useModal();
+    const {
+        query: { page },
+    } = useRouter();
 
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(5);
+    const [dataStat, setDataStat] = useState<IProviderStat | null>(null);
 
     useEffect(() => {
-        fetchPriceList(page, limit);
-    }, [page, limit, fetchPriceList]);
+        (() => {
+            providerApi
+                .getProviderStatistic()
+                .then((res) => setDataStat(res))
+                .catch(() => toast.error('helpers:error_getting'));
+        })();
+    }, []);
+
+    useEffect(() => {
+        priceListApi
+            .fetchPriceList(page as string)
+            .then((res) => setPriceList(res))
+            .catch(() => toast.error(t('helpers:error_getting')));
+    }, [page]);
 
     useEffect(() => {
         fetchProviderBranches();
@@ -45,49 +61,51 @@ export const PriceList = () => {
 
     const deleteCell = (id: number) => {
         priceListApi.delete(id).then(() => {
-            fetchPriceList(page, limit);
-            toast.success(t('helpers.deleted'));
+            priceListApi
+                .fetchPriceList(page as string)
+                .then((res) => setPriceList(res))
+                .catch(() => toast.error(t('helpers:error_getting')));
+            toast.success(t('helpers:deleted'));
         });
     };
 
     const menuContent = (data: any) => (
-        <>
-            <MenuItem>
-                <Icon name="cloud_download" color="black" />
-                Скачать шаблон
-            </MenuItem>
-            <MenuItem>
-                <Icon name="refresh" color="black" />
-                Обновить
-            </MenuItem>
-            <MenuItem>
-                <Icon name="edit" color="black" />
-                Редактировать
-            </MenuItem>
-            <MenuItem onClick={() => deleteCell(data.id)}>
-                <Icon name="delete" color="black" />
-                Удалить
-            </MenuItem>
-        </>
+        <MenuItem onClick={() => deleteCell(data.id)}>
+            <Icon name="delete" color="black" />
+            {t('dashboard:delete')}
+        </MenuItem>
     );
 
     const priceListCols: Column<any>[] = [
         {
-            Header: 'Название прайса',
+            Header: t('dashboard:price_list_name') as string,
             accessor: 'title',
             disableSortBy: true,
             disableFilters: true,
             width: 200,
         },
         {
-            Header: 'Тип прайса',
+            Header: t('dashboard:price_list_type') as string,
             accessor: 'type',
+            // @ts-ignore
+            Cell: ({ cell }) => {
+                switch (cell.value) {
+                    case 'part':
+                        return t('common:partSelection');
+                    case 'tire':
+                        return t('common:tires');
+                    case 'oil':
+                        return t('common:oil');
+                    case 'battery':
+                        return t('common:batteries');
+                }
+            },
             disableSortBy: true,
             disableFilters: true,
-            width: 100,
+            width: 120,
         },
         {
-            Header: 'Филиал',
+            Header: t('dashboard:branch') as string,
             accessor: 'branchName',
             disableFilters: true,
             disableSortBy: true,
@@ -100,25 +118,19 @@ export const PriceList = () => {
             width: 50,
         },
         {
-            Header: 'Дата',
+            Header: t('dashboard:date') as string,
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY HH:mm') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY') as any,
             disableFilters: true,
         },
         {
-            Header: 'Действия',
+            Header: t('dashboard:action') as string,
             disableFilters: true,
             disableSortBy: true,
             accessor: (cell: any) => {
                 return (
                     <ActionsBlock cell={cell} menu={menuContent(cell)}>
-                        <Link
-                            href={{
-                                pathname: '#',
-                            }}
-                        >
-                            Открыть
-                        </Link>
+                        <Link href={`/cabinet/price-list/edit?page=1&id=${cell.id}`}>{t('common:open')}</Link>
                     </ActionsBlock>
                 );
             },
@@ -128,39 +140,35 @@ export const PriceList = () => {
     const statisticsData = [
         {
             id: 1,
-            title: 'Позиций',
-            date: 'Обновление 20.10.22',
-            count: '10.12',
+            title: t('dashboard:position'),
+            date: t('dashboard:refresh_day', { day: dataStat?.products?.date }),
+            count: dataStat?.products?.total,
         },
         {
             id: 2,
-            title: 'Переходов',
-            date: 'За текущий месяц',
-            count: '120',
+            title: t('dashboard:transitions'),
+            date: t('dashboard:this_month'),
+            count: dataStat?.transitions?.total,
         },
     ];
 
     const filesMenu = [
-        { id: 1, name: 'Запчасти', file: `${baseURL}/static/parts.xlsx` },
-        { id: 2, name: 'Масла', file: `${baseURL}/static/oils.xlsx` },
-        { id: 3, name: 'Аккумуляторы', file: `${baseURL}/static/battery.xlsx` },
-        { id: 4, name: 'Шины', file: `${baseURL}/static/tires.xlsx` },
+        { id: 1, name: t('common:partSelection'), file: `${baseURL}/static/parts.xlsx` },
+        { id: 2, name: t('common:oil'), file: `${baseURL}/static/oils.xlsx` },
+        { id: 3, name: t('common:batteries'), file: `${baseURL}/static/battery.xlsx` },
+        { id: 4, name: t('common:tires'), file: `${baseURL}/static/tires.xlsx` },
     ];
-
-    const handlePageClick = (page: any) => {
-        setPage(page.selected + 1);
-    };
 
     return (
         <div className={s.wrapper}>
-            <StatisticsBlock data={statisticsData} title={<h4>Текущие показатели</h4>} />
+            <StatisticsBlock data={statisticsData as any} title={<h4>{t('dashboard:current_res')}</h4>} />
 
             <div className={s.actionBtns}>
                 <Menu
                     button={
                         <Button variant="primary">
                             <Icon name="cloud_download" color="white" />
-                            Скачать шаблон
+                            {t('dashboard:download_ex')}
                         </Button>
                     }
                 >
@@ -177,24 +185,23 @@ export const PriceList = () => {
                 </Menu>
                 <Button variant="primary" onClick={openModal}>
                     <Icon name="table_chart" color="white" />
-                    Новый прайс лист
+                    {t('dashboard:new_price')}
                 </Button>
-                <Button variant="primary" onClick={() => push('/cabinet/promo')}>
+                <Button variant="primary" onClick={() => push('/cabinet/promo/all_lists')}>
                     <Icon name="label" color="white" />
-                    Разместить рекламу
+                    {t('dashboard:add_adv')}
                 </Button>
             </div>
 
             {priceList?.data?.length > 0 && <Table columns={priceListCols} data={priceList?.data} />}
-
-            <Pagination pageCount={priceList.totalPages} onPageChange={handlePageClick} />
+            {priceList?.totalPages > 1 && <Pagination pageCount={priceList?.totalPages} />}
 
             <BaseModal
                 center
                 open={open}
                 showCloseIcon={false}
                 onClose={handleModalClose}
-                headerContent={<div className={s.modalHeader}>Новый прайс лист</div>}
+                headerContent={<div className={s.modalHeader}> {t('dashboard:new_price')}</div>}
             >
                 <div className={s.modalContent}>
                     <PriceCreateForm handleModalClose={handleModalClose} />

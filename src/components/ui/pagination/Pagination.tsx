@@ -6,15 +6,15 @@ import { useTranslation } from 'next-i18next';
 
 interface paginationInt {
     pageCount: number;
-    pageName?: string;
+    isSecPage?: boolean;
 }
 
-export const Pagination: FC<paginationInt> = ({ pageCount, pageName = 'page' }): JSX.Element => {
+export const Pagination: FC<paginationInt> = ({ pageCount, isSecPage = false }): JSX.Element => {
     const {
         pathname,
         push,
         query,
-        query: { page },
+        query: { page, pageSec },
     } = useRouter();
     const { t } = useTranslation();
 
@@ -22,7 +22,7 @@ export const Pagination: FC<paginationInt> = ({ pageCount, pageName = 'page' }):
         (ev: any) => {
             push({
                 pathname: pathname,
-                query: { ...query, [pageName]: ev.nextSelectedPage + 1 },
+                query: { ...query, [isSecPage ? 'pageSec' : 'page']: ev.nextSelectedPage + 1 },
             });
         },
         [query]
@@ -34,16 +34,29 @@ export const Pagination: FC<paginationInt> = ({ pageCount, pageName = 'page' }):
                 pageCount === 0 || pageCount === 1 ? 'hideNext' : ''
             }`}
         >
-            <ReactPaginate
-                onClick={handlePage}
-                pageCount={pageCount ? +pageCount : 0}
-                pageRangeDisplayed={2}
-                marginPagesDisplayed={1}
-                activeLinkClassName={'active_box'}
-                nextLabel={`${t('common:next')}`}
-                forcePage={page ? +page - 1 : 0}
-                breakLabel=".."
-            />
+            {isSecPage ? (
+                <ReactPaginate
+                    onClick={handlePage}
+                    pageCount={pageCount ? +pageCount : 0}
+                    pageRangeDisplayed={2}
+                    marginPagesDisplayed={1}
+                    activeLinkClassName={'active_box'}
+                    nextLabel={`${t('common:next')}`}
+                    forcePage={pageSec ? +pageSec - 1 : 0}
+                    breakLabel=".."
+                />
+            ) : (
+                <ReactPaginate
+                    onClick={handlePage}
+                    pageCount={pageCount ? +pageCount : 0}
+                    pageRangeDisplayed={2}
+                    marginPagesDisplayed={1}
+                    activeLinkClassName={'active_box'}
+                    nextLabel={`${t('common:next')}`}
+                    forcePage={page ? +page - 1 : 0}
+                    breakLabel=".."
+                />
+            )}
         </div>
     );
 };

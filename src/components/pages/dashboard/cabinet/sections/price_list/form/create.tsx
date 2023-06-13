@@ -87,6 +87,7 @@ export const PriceCreateForm: FC<any> = (props) => {
                 fetchPriceList();
                 props.handleModalClose();
                 toast.success('Successfully uploaded');
+                formik.resetForm();
             })
             .catch(({ response }) => {
                 toast.error(
@@ -118,11 +119,11 @@ export const PriceCreateForm: FC<any> = (props) => {
                         options={[
                             {
                                 value: 'usd',
-                                label: 'Доллары',
+                                label: t('common:usd'),
                             },
                             {
                                 value: 'sum',
-                                label: 'Сум',
+                                label: t('common:sum'),
                             },
                         ]}
                     />
@@ -133,11 +134,11 @@ export const PriceCreateForm: FC<any> = (props) => {
                         options={[
                             {
                                 value: 'legal',
-                                label: 'Для юрлиц',
+                                label: t('common:for_legal'),
                             },
                             {
                                 value: 'individual',
-                                label: 'Для физлиц',
+                                label: t('common:for_people'),
                             },
                         ]}
                     />
@@ -148,19 +149,19 @@ export const PriceCreateForm: FC<any> = (props) => {
                         options={[
                             {
                                 value: 'part',
-                                label: 'Запчасти',
+                                label: t('common:partSelection'),
                             },
                             {
                                 value: 'tire',
-                                label: 'Шины',
+                                label: t('common:tires'),
                             },
                             {
                                 value: 'oil',
-                                label: 'Масло',
+                                label: t('common:oil'),
                             },
                             {
                                 value: 'battery',
-                                label: 'Аккумулятор',
+                                label: t('common:batteries'),
                             },
                         ]}
                     />
@@ -171,18 +172,18 @@ export const PriceCreateForm: FC<any> = (props) => {
                         options={[
                             {
                                 value: 'from_seven',
-                                label: 'Поставка от 7 дней',
+                                label: t('dashboard:delivery', { day: 7 }),
                             },
                             {
                                 value: 'from_fourteen',
-                                label: 'Поставка от 14 дней',
+                                label: t('dashboard:delivery', { day: 14 }),
                             },
                         ]}
                     />
                 </div>
 
                 <div className={s.payment_type}>
-                    <p>Способ оплаты</p>
+                    <p>{t('dashboard:providerBranch.payment.title')}</p>
                     <div className={s.checkbox__group}>
                         <Checkbox
                             label="providerBranch.payment.cash"
@@ -200,7 +201,11 @@ export const PriceCreateForm: FC<any> = (props) => {
                 </div>
 
                 <div className={s.modalButtons}>
-                    <FileUpload name="file" title="Загрузить прайс" setFieldValue={formik.setFieldValue} />
+                    <FileUpload
+                        name="file"
+                        title={t('dashboard:download_price')}
+                        setFieldValue={formik.setFieldValue}
+                    />
 
                     <Button
                         fullWidth
@@ -208,7 +213,7 @@ export const PriceCreateForm: FC<any> = (props) => {
                         disabled={!formik.dirty || !formik.isValid}
                         variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
                     >
-                        Сохранить
+                        {t('common:save')}
                     </Button>
                 </div>
             </Form>

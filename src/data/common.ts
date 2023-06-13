@@ -1,9 +1,9 @@
 export const dashboardMenu = [
     { id: Math.random(), name: 'providers', icon: 'person' },
-    { id: Math.random(), name: 'income', icon: 'inbox' },
-    { id: Math.random(), name: 'promo', icon: 'label' },
-    { id: Math.random(), name: 'vin-requests', icon: 'inbox' },
-    { id: Math.random(), name: 'operations', icon: 'view_day' },
+    { id: Math.random(), name: 'income', icon: 'inbox', query: '?page=1&pageSec=1' },
+    { id: Math.random(), name: 'promo', icon: 'label', query: '?page=1&pageSec=1' },
+    { id: Math.random(), name: 'vin-requests', icon: 'inbox', query: '?page=1' },
+    { id: Math.random(), name: 'operations', icon: 'view_day', query: '?page=1' },
     { id: Math.random(), name: 'center', icon: 'view_day' },
     // { id: 0, name: 'main', icon: 'timelapse' },
     // { id: 4, name: 'profile', icon: 'person' },
@@ -16,11 +16,11 @@ export const dashboardMenu = [
 
 export const cabinetMenu = [
     { id: Math.random(), name: 'main', icon: 'timelapse' },
-    { id: Math.random(), name: 'balance', icon: 'payments' },
-    { id: Math.random(), name: 'promo', icon: 'label' },
+    { id: Math.random(), name: 'balance', icon: 'payments', query: '?page=1' },
+    { id: Math.random(), name: 'promo', icon: 'label', query: '?page=1' },
     { id: Math.random(), name: 'statistics', icon: 'bar_chart' },
-    { id: Math.random(), name: 'price-list', icon: 'inventory_2' },
-    { id: Math.random(), name: 'incoming_requests', icon: 'inbox' },
+    { id: Math.random(), name: 'price-list', icon: 'inventory_2', query: '?page=1' },
+    { id: Math.random(), name: 'incoming_requests', icon: 'inbox', query: '?page=1' },
     { id: Math.random(), name: 'support', icon: 'headset_mic' },
 ];
 
@@ -48,21 +48,21 @@ export const linksData = [
     },
     {
         id: 4,
-        link: '/cabinet/balance',
+        link: '/cabinet/balance?page=1',
         icon: 'monetization_on',
         title: 'account_balance',
         desc: 'info_fillup',
     },
     {
         id: 5,
-        link: '/cabinet/price-list',
+        link: '/cabinet/price-list?page=1',
         icon: 'inventory_2',
         title: 'products',
         desc: 'edit_and_refresh',
     },
     {
         id: 6,
-        link: '/cabinet/promo',
+        link: '/cabinet/promo?page=1',
         icon: 'label',
         title: 'promo',
         desc: 'allocation_ad',

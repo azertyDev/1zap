@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Field, FieldArray, Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { Heading } from 'src/components/ui/dashboard/heading';
-import { branchApi, staticParamsApi } from 'src/utils/api';
+import { branchApi, providerApi, staticParamsApi } from 'src/utils/api';
 import { initialValues } from './initialValues';
 import { Accordion } from 'src/components/ui/accordion';
 import { Checkbox } from 'src/components/ui/dashboard/checkbox';
@@ -53,7 +53,7 @@ export const EditForm = (props: any) => {
     }, []);
 
     useEffect(() => {
-        branchApi.getBranchById(id as unknown as number).then((branch) => {
+        providerApi.getBranchById(id as string).then((branch) => {
             setBranch(branch);
         });
     }, [id]);
@@ -80,7 +80,7 @@ export const EditForm = (props: any) => {
 
     return (
         <>
-            <Heading title={t(`dashboard:${pageProps.title}`)} desc={t(`dashboard:${pageProps.desc}`)} />
+            <Heading title={t(`dashboard:branch_settings`)} desc={t(`dashboard:edit_branch`)} />
 
             <FormikProvider value={formik}>
                 <Form>

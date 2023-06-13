@@ -1,0 +1,21 @@
+@import "styles/mixins";
+@import "styles/variables";
+
+.btns_wr {
+  @include dg_gc_gr_gg(repeat(3, 223px), auto, 30px);
+  margin-bottom: 26px;
+}
+
+
+.table_btn{
+  width: 100%;
+  pointer-events: none;
+  &.active{
+    button{
+
+      background: $main !important;
+      color: #fff;
+    }
+
+  }
+}

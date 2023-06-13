@@ -265,3 +265,14 @@ interface IVinItem {
     };
     createdAt: string;
 }
+
+interface IProviderStat {
+    balance: { balance: number; date: string };
+    image: null | string;
+    name: string;
+    phone: string;
+    products: { total: number; date: string };
+    providerId: number;
+    requests: { total: number; info: number };
+    transitions: { total: number; info: number };
+}

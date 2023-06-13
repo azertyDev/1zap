@@ -1,6 +1,7 @@
 {
   "logout": "Выйти",
   "search": "Поиск",
+  "title": "Название",
   "openMap": "Открыть карту",
   "openSearch": "Открыть поиск",
   "noresult": "Результатов не найдено",
@@ -144,8 +145,8 @@
     "tue-san": "Вт-Вс",
     "tireFitting": "Шиномонтаж",
     "autoService": "Автосервис",
-    "partSelection": "Запчасти",
     "payment": "Способ оплаты",
+
     "delivery": "Способ доставки",
     "service": "Услуги",
     "supply": "Поставка",
@@ -171,7 +172,6 @@
     "photo": "Фото",
     "middlePrice": "Средняя цена",
     "price_list_name": "Название прайс листа",
-    "title": "Название",
     "offer": "Предложения",
     "typeAndStick": "Тип и вязкость",
     "size": "Размер",
@@ -199,5 +199,11 @@
     "status": "Статус выполнения"
   },
   "new_password": "Новый пароль",
-  "new_password_repeat": "Подтверждение пароля"
+  "new_password_repeat": "Подтверждение пароля",
+  "agreementNumber": "Номер договора",
+  "partSelection": "Запчасти",
+  "usd": "доллары",
+  "for_legal": "Для юрлиц",
+  "for_people": "Для физлиц"
+
 }

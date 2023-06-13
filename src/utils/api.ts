@@ -43,6 +43,8 @@ export const providerApi = {
     fetchProviderBranches: (): Promise<any> => requests.get('/provider/branchs'),
     fetchBranchById: (id: number): Promise<any> => requests.get(`/provider/branch/${id}`),
     updateProvider: (id: number, body: IProviderData) => requests.patch(`/provider/${id}`, { ...body }),
+    getProviderStatistic: (): Promise<any> => requests.get('/provider/observer'),
+    getBranchById: (id: string): Promise<any> => requests.get(`provider/branch/${id}`),
 };
 
 export const branchApi = {
@@ -89,7 +91,7 @@ export const staticParamsApi = {
 };
 
 export const priceListApi = {
-    fetchPriceList: (page: number = 1, limit: number = 10): Promise<any> =>
+    fetchPriceList: (page: number | string = 1, limit: number = 10): Promise<any> =>
         requests.get(`/pricelist/all?page=${page}&limit=${limit}`),
     delete: (id: number): Promise<any> => requests.delete(`/pricelist/${id}`),
 };
@@ -103,7 +105,7 @@ export const promoApi = {
     getActivePromoByProvider: (page: string) =>
         requests.get(`products/marketing/all?active=1&pending=1&expired=1&page=${page}`),
     getPriceListByBranch: (id: number) => requests.get(`pricelist/branch/${id}`),
-    getProductsByPriceList: (id: number, locale: string, page: string) =>
+    getProductsByPriceList: (id: number | string, locale: string, page: string) =>
         requests.get(`products/common/byPricelistId?id=${id}&lang=${locale}&page=${page}`),
     addPromoByChosenProducts: (body: any) => requests.post('products/marketing', body),
     addPromoByBranch: (body: any) => requests.post('products/marketing/branch', body),
@@ -129,4 +131,16 @@ export const centerApi = {
     getSubTopic: (id: string) => requests.get(`/subtopic/${id}`),
     editSubTopic: (id: string, body: ISubTopicCreate) => requests.patch(`/subtopic/edit/${id}`, body),
     deleteSubtopic: (id: string) => requests.delete(`/subtopic/remove/${id}`),
+};
+
+export const walletApi = {
+    getIncomingRequest: (page: string) => requests.get(`replenishment/incoming?page=${page}`),
+    getApprovedRequest: (page: string) => requests.get(`replenishment/approved?page=${page}`),
+    approveRequest: (body: any) =>
+        requests.post('replenishment/approved', body, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        }),
+    getHistoryAdmin: (page: string) => requests.get(`replenishment/usage?page=${page}`),
+    getHistoryProvider: (page: string) => requests.get(`wallets/usage?page=${page}`),
+    addCoins: (body: any) => requests.post('wallets/up', body),
 };

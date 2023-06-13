@@ -36,7 +36,7 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                         return (
                             <Link
                                 key={item.id}
-                                href={`/cabinet/${item.name}`}
+                                href={`/cabinet/${item.name}${item.query ?? ''}`}
                                 className={slug === item.name ? s.active : ''}
                             >
                                 <li>
@@ -51,7 +51,7 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                         return (
                             <Link
                                 key={item.id}
-                                href={`/cabinet/${item.name}`}
+                                href={`/cabinet/${item.name}${item.query ?? ''}`}
                                 className={slug === item.name ? s.active : ''}
                             >
                                 <li>

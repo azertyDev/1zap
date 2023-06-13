@@ -2,18 +2,18 @@
 @import "styles/variables";
 
 * {
-    padding: 0;
-    margin: 0;
-    border: none;
-    font-family: 'Montserrat';
+  padding: 0;
+  margin: 0;
+  border: none;
+  font-family: 'Montserrat';
 }
 
 *,
 *:before,
 *:after {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
@@ -81,40 +81,117 @@ input {
   font-size: 0.875rem;
 }
 
-.swiper-pagination-bullet-active{
+.swiper-pagination-bullet-active {
   background: $main;
 
 }
 
-.calendar{
+.calendar {
   width: 362px;
   box-shadow: 0px 6px 20px rgba(153, 155, 168, 0.1);
   border-radius: 12px;
   overflow: hidden;
 }
 
-.react-calendar__navigation{
+.react-calendar__navigation {
   width: 100%;
 }
 
+.react-date-picker__wrapper{
+  display: none !important;
+}
 
-.react-calendar__month-view__days__day{
+.react-calendar__month-view__days__day {
   background: #FFFFFF !important;
 }
 
-.react-calendar__navigation{
+.react-calendar__navigation {
   background: #F5F6F7;
   border-radius: 12px 12px 0 0;
   width: 100%;
   padding: 20px 17px;
+  position: relative;
 }
 
-.react-calendar__viewContainer,.react-calendar__month-view{
+.react-calendar__viewContainer, .react-calendar__month-view {
   background: #fff;
 }
 
-@media (max-width:768px) {
-  .pigeon-zoom-buttons{
-    display: none!important;
+.react-calendar__navigation__next2-button, .react-calendar__navigation__prev2-button {
+  display: none;
+}
+
+.react-calendar__navigation__next-button, .react-calendar__navigation__prev-button {
+  background: transparent;
+  font-size: 45px;
+  line-height: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.react-calendar__navigation__prev-button{
+  left: 10px;
+}
+
+.react-calendar__navigation__next-button{
+  right: 10px;
+}
+
+
+.react-calendar__month-view__weekdays{
+  padding: 20px;
+}
+
+.react-calendar__month-view__days{
+  padding: 0 20px 20px 20px;
+}
+.react-calendar__month-view__weekdays__weekday{
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #0D0A19;
+  abbr{
+    border-bottom: none !important;
+    cursor: inherit !important;
+    text-decoration: none !important;
+
+    }
+
+
+
+
+}
+
+.react-calendar__tile{
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  color: #0D0A19;
+  padding: 5px;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth{
+  color: #9A9EA7;
+  font-weight: 400;
+}
+
+
+.react-calendar__navigation__label__labelText--from {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0D0A19;
+
+
+}
+.react-calendar__navigation__label{
+  background: transparent !important;
+
+}
+
+@media (max-width: 768px) {
+  .pigeon-zoom-buttons {
+    display: none !important;
   }
 }

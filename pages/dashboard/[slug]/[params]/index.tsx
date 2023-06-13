@@ -7,6 +7,7 @@ import { CenterSubPage } from 'components/pages/dashboard/admin/sections/center/
 import { CenterForm } from 'components/pages/dashboard/admin/sections/center/sub_pages/form';
 import { VinRequests } from 'components/pages/dashboard/admin/sections/vin_request';
 import { EditPromoForm } from 'components/pages/dashboard/admin/sections/promo/edit';
+import { PriceListEdit } from 'components/pages/dashboard/cabinet/sections/price_list/edit';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale, query } = context;

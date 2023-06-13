@@ -21,15 +21,15 @@ export default (props: PropsType): JSX.Element => {
                 return <Main />;
             case `/cabinet/profile`:
                 return <Profile />;
-            case `/cabinet/balance`:
+            case `/cabinet/balance?page=${query.page}`:
                 return <Balance />;
             case `/cabinet/statistics`:
                 return <Statistics />;
-            case `/cabinet/price-list`:
+            case `/cabinet/price-list?page=${query.page}`:
                 return <PriceList />;
-            case `/cabinet/promo${query.page ? `?page=${query.page}` : ''}`:
+            case `/cabinet/promo?page=${query.page}`:
                 return <PromoPage />;
-            case `/cabinet/incoming_requests${query.page ? `?page=${query.page}` : ''}`:
+            case `/cabinet/incoming_requests?page=${query.page}`:
                 return <IncominRequests />;
             case `/cabinet/incoming_requests?status=accepted&page=${query.page}`:
                 return <IncominRequestsAccepted />;

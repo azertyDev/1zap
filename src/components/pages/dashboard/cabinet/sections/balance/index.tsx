@@ -1,43 +1,65 @@
 import { OverviewBlock } from 'src/components/ui/dashboard/overview_block';
 import { StatisticsBlock } from 'src/components/ui/dashboard/statistics_block';
-
 import s from './index.module.scss';
 import { useTranslation } from 'next-i18next';
 import { toast } from 'react-hot-toast';
-import { ColumnFilter } from 'components/ui/dashboard/table/columnFilter';
-import { Icon } from 'components/ui/icon';
 import { Table } from 'components/ui/dashboard/table';
 import { Pagination } from 'components/ui/pagination/Pagination';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { FilterCalendar } from 'components/ui/dashboard/table/filterCalendar';
+import { IProviderStat } from 'types';
+import { providerApi, walletApi } from 'src/utils/api';
+import { useRouter } from 'next/router';
 
 export const Balance = () => {
     const { t } = useTranslation();
-    const [data, setData] = useState<any>([
-        {
-            id: 1,
-            type: 'added',
-            createdAt: Date.now(),
-            cost: 2,
-            info: 'Хз',
-        },
-    ]);
+    const [data, setData] = useState<any>(null);
+    const {
+        query: { page },
+    } = useRouter();
 
-    const handleSendBalance = (val: number) => {
+    const [dataStat, setDataStat] = useState<IProviderStat | null>(null);
+    useEffect(() => {
+        (() => {
+            providerApi
+                .getProviderStatistic()
+                .then((res) => setDataStat(res))
+                .catch(() => toast.error(t('helpers:error_getting')));
+        })();
+    }, []);
+
+    useEffect(() => {
+        (() => {
+            walletApi
+                .getHistoryProvider(page as string)
+                .then((res) => setData(res))
+                .catch(() => toast.error(t('helpers:error_getting')));
+        })();
+    }, [page]);
+
+    const handleSendBalance = useCallback((val: number) => {
         return () => {
-            toast.success(t('dashboard:balance_moderation'), {
-                duration: 4000,
-            });
+            walletApi
+                .addCoins({
+                    info: 'wallet_up',
+                    coin: val,
+                })
+                .then(() =>
+                    toast.success(t('dashboard:balance_moderation'), {
+                        duration: 4000,
+                    })
+                )
+                .catch(() => toast.error(t('helpers:error_sending')));
         };
-    };
+    }, []);
 
     const balanceStatistics = [
         {
             id: 1,
             title: t('dashboard:coins'),
-            date: t('dashboard:till', { till: '01/01/23' }),
-            count: '122',
+            date: t('dashboard:till', { till: dataStat?.balance.date }),
+            count: dataStat?.balance.balance,
         },
     ];
     const balanceCardsData = [
@@ -77,9 +99,9 @@ export const Balance = () => {
             id: 'eventdate',
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY') as any,
-            Filter: FilterCalendar,
             disableSortBy: false,
-            maxWidth: 80,
+            disableFilters: true,
+            maxWidth: 70,
         },
         {
             Header: t('dashboard:time') as string,
@@ -92,23 +114,18 @@ export const Balance = () => {
         },
         {
             Header: t('dashboard:type') as string,
-            accessor: 'type',
-            Cell: ({ cell }: any) => t(`dashboard:balance_types.${cell.value}`),
+            accessor: 'action',
+            Cell: ({ cell }: any) => t(`dashboard:wallet_type.${cell.value}`),
             disableFilters: true,
             disableSortBy: false,
+            minWidth: 200,
         },
         {
             Header: t('dashboard:cost') as string,
-            accessor: 'cost',
-            Cell: ({ cell }: any) =>
-                cell.value > 1 ? `${cell.value} ${t(`dashboard:coins`)}` : `${cell.value} ${t(`dashboard:coin`)}`,
-            disableFilters: true,
-            disableSortBy: false,
-        },
-        {
-            Header: t('dashboard:info') as string,
-            accessor: 'info',
-            Cell: ({ cell }: any) => cell.value,
+            accessor: 'amount',
+            Cell: ({ cell }: any) => {
+                return `${cell.value} ${t('dashboard:coins')}`;
+            },
             disableFilters: true,
             disableSortBy: false,
         },
@@ -117,7 +134,12 @@ export const Balance = () => {
     return (
         <div className={s.wrapper}>
             <div>
-                <StatisticsBlock data={balanceStatistics} title={<h4>{t('dashboard:current_balance')}</h4>} />
+                {dataStat && (
+                    <StatisticsBlock
+                        data={balanceStatistics as any}
+                        title={<h4>{t('dashboard:current_balance')}</h4>}
+                    />
+                )}
             </div>
 
             <div className={s.overview}>
@@ -130,9 +152,9 @@ export const Balance = () => {
             </div>
 
             <h4 className={s.title}>{t('dashboard:history_balance')}</h4>
-
-            {data && <Table data={data} columns={cols} />}
-            {/*{data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}*/}
+            <FilterCalendar />
+            {data?.data && <Table data={data?.data} columns={cols} isSecondType />}
+            {data?.totalPages > 1 && <Pagination pageCount={data?.totalPages} />}
         </div>
     );
 };

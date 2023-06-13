@@ -8,10 +8,11 @@ import { Button } from '../../button';
 interface FileUploadProps {
     title: string;
     name: string;
+    accept?: string;
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
-export const FileUpload = ({ title, name, setFieldValue }: FileUploadProps) => {
+export const FileUpload = ({ title, name, setFieldValue, accept = '' }: FileUploadProps) => {
     const [file, setFile] = useState();
     const fileInput = useRef<HTMLInputElement>(null);
 
@@ -28,7 +29,7 @@ export const FileUpload = ({ title, name, setFieldValue }: FileUploadProps) => {
                 type="file"
                 style={{ display: 'none' }}
                 // accept="xlsx, xlsm, xltm"
-                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.ms-excel.sheet.macroEnabled.12"
+                accept={`application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.ms-excel.sheet.macroEnabled.12 ${accept}`}
             />
 
             <Button variant="primary" fullWidth onClick={() => fileInput?.current?.click()}>

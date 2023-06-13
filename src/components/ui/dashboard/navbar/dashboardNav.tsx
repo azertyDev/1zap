@@ -28,7 +28,7 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                         return (
                             <Link
                                 key={item.id}
-                                href={`/dashboard/${item.name}`}
+                                href={`/dashboard/${item.name}${item.query ?? ''}`}
                                 className={slug === item.name ? s.active : ''}
                             >
                                 <li>

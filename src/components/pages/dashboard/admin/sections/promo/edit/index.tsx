@@ -36,7 +36,7 @@ export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ que
             .acceptPromoByAdmin(query.id)
             .then(() => {
                 toast.success(t('dashboard:promo_accepted'));
-                push('/dashboard/promo');
+                push('/dashboard/promo?page=1&pageSec=1');
             })
             .catch(() => toast.error(t('helpers:error_sending')));
     };

@@ -70,10 +70,17 @@ export const client_validation = {
         descriptionRu: Yup.string()
             .min(3, 'Must be at least 3 characters')
             .max(80, 'Must be 80 characters or less')
-            .required('Required'),
+            .required('required'),
         descriptionUz: Yup.string()
             .min(3, 'Must be at least 3 characters')
             .max(80, 'Must be 80 characters or less')
-            .required('Required'),
+            .required('required'),
+    }),
+    wallet: Yup.object({
+        file: Yup.mixed().required('required'),
+        agreementNumber: Yup.string().required('required'),
+    }),
+    price_list_edit: Yup.object({
+        file: Yup.mixed().required('required'),
     }),
 };

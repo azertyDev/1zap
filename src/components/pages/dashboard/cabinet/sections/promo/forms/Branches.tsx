@@ -22,7 +22,7 @@ export const BranchForm = () => {
         await promoApi
             .addPromoByBranch({ ...values, ...formikBranches.values })
             .then((res) => {
-                push('/cabinet/promo');
+                push('/cabinet/promo?page=1');
             })
             .catch((err) => {
                 toast.error(t('helpers:error_sending'));
