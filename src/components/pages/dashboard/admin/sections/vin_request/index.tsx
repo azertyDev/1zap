@@ -54,6 +54,12 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
                 .catch((err) => {
                     toast.error(t('helpers:error_sending'));
                 });
+
+            if (values.comp === 'with_comp') {
+                vinOrderApi.compensation(vinData?.id!).catch(() => {
+                    toast.error(t('helpers:error_sending'));
+                });
+            }
         },
     });
 

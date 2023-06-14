@@ -47,8 +47,6 @@ export const FilterCalendar: FC<{ showCalendar?: boolean }> = ({ showCalendar = 
         return () => setIsOpen(val);
     }, []);
 
-    console.log(month);
-
     return (
         <div className={s.filter_calendar}>
             <div className={s.calendar_btns_wr}>

@@ -30,14 +30,15 @@ export const userApi = {
 };
 
 export const applicationApi = {
-    fetchApplications: (status: string): Promise<IApplicationData> => requests.get('/applications/all', { status }),
+    fetchApplications: (status: string, page: string): Promise<IApplicationData> =>
+        requests.get(`/applications/all?page=${page}`, { status }),
     addApplication: (body: IApplicationDataProvider): Promise<IApplicationDataProvider> =>
         requests.post('/app', { ...body }),
     delete: (id: number) => requests.delete(`/applications/remove/${id}`),
 };
 
 export const providerApi = {
-    fetchProviders: (): Promise<any> => requests.get('/provider/all'),
+    fetchProviders: (page: string): Promise<any> => requests.get(`/provider/all?page=${page}`),
     fetchProviderById: (id: number): Promise<any> => requests.get(`/providers/${id}`),
     addProvider: (body: IProviderData): Promise<any> => requests.post('/providers/new', body),
     fetchProviderBranches: (): Promise<any> => requests.get('/provider/branchs'),
@@ -83,6 +84,7 @@ export const vinOrderApi = {
     ) => requests.patch(`/vinOrder/reject/${id}`, body),
     fetchVinActionAdmin: (status?: string): Promise<any> => requests.get(`/vinAction/all?${status}`),
     rejectOrRepeatVin: (id: number, status: string): Promise<any> => requests.patch(`/vinAction/${status}/${id}`),
+    compensation: (id: number) => requests.patch(`/vinAction/compensation/${id}`),
 };
 
 export const staticParamsApi = {

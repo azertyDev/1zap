@@ -6,6 +6,7 @@ import { Button } from 'src/components/ui/button';
 
 import s from '../index.module.scss';
 import { IProviderData } from 'types';
+import { useTranslation } from 'next-i18next';
 
 interface FirstFormProps {
     initialValues: IProviderData;
@@ -15,6 +16,8 @@ interface FirstFormProps {
 
 export const FirstForm: FC<FirstFormProps> = ({ initialValues, setInitialValues, handleTabChange }) => {
     const validationSchema = Yup.object().shape({});
+
+    const { t } = useTranslation();
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
         console.log('First form values:', values);
@@ -43,10 +46,10 @@ export const FirstForm: FC<FirstFormProps> = ({ initialValues, setInitialValues,
                 />
                 <div className={s.actionButtons}>
                     <Button variant="disabled" type="reset">
-                        Отмена
+                        {t('common:cancel')}
                     </Button>
                     <Button variant="primary" type="submit" onClick={() => handleTabChange(2)}>
-                        Далее
+                        {t('common:next')}
                     </Button>
                 </div>
             </Form>

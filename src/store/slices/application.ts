@@ -4,10 +4,10 @@ import toast from 'react-hot-toast';
 import { IApplicationData } from 'types';
 
 export interface IApplicationSlice {
-    applications: IApplicationData | null;
+    applications: any;
     loading: boolean;
     error: null;
-    fetchApplications: (status?: string) => void;
+    fetchApplications: (status?: string, page?: string) => void;
 }
 
 const initialState = {
@@ -24,11 +24,11 @@ const initialState = {
 export const applicationSlice: StateCreator<IApplicationSlice> = (set, get) => ({
     ...initialState,
 
-    fetchApplications: async (status = 'active') => {
+    fetchApplications: async (status = 'active', page = '1') => {
         set({ loading: true });
 
         await applicationApi
-            .fetchApplications(status)
+            .fetchApplications(status, page)
             .then((response) => {
                 set({ applications: response, loading: false });
 

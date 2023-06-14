@@ -5,15 +5,15 @@ import { IProviderData, IProviders, IBranchData } from 'types';
 import Router from 'next/router';
 
 export interface IProviderSlice {
-    providers: IProviders;
+    providers: any;
     provider: IProviderData | null;
     providerBranches: IBranchData[] | null;
     priceList: any;
     branch: IBranchData[] | null;
     loading: boolean;
     error: null;
-    fetchProviders: () => void;
-    fetchPriceList: (page?: number, limit?: number) => void;
+    fetchProviders: (page: string) => void;
+    fetchPriceList: (page?: string, limit?: number) => void;
     fetchProviderBranches: () => void;
     fetchProviderById: (id: number) => void;
     fetchBranchById: (id: number) => void;
@@ -38,11 +38,11 @@ const initialState = {
 export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
     ...initialState,
 
-    fetchProviders: async () => {
+    fetchProviders: async (page = '1') => {
         set({ loading: true });
 
         await providerApi
-            .fetchProviders()
+            .fetchProviders(page)
             .then((response) => {
                 // console.log('fetchProviders', response);
 
@@ -141,8 +141,8 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
         await providerApi
             .addProvider(data)
             .then((response) => {
-                toast.success('Provider created', { icon: '👏', duration: 5000 });
-                Router.push('/dashboard/providers');
+                toast.success('Провайдер создан', { duration: 5000 });
+                Router.push('/dashboard/providers?page=1&pageSec=1');
             })
             .catch(({ response }) => {
                 console.log('@addProvider error:', response);

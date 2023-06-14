@@ -14,20 +14,28 @@ import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
 import { StatisticsBlock } from 'src/components/ui/dashboard/statistics_block';
 import { Icon } from 'src/components/ui/icon';
 import s from './index.module.scss';
+import { useRouter } from 'next/router';
+import { Pagination } from 'components/ui/pagination/Pagination';
 
 export const Providers: FC = (props): JSX.Element => {
     const { t } = useTranslation();
+    const {
+        query: { page, pageSec },
+    } = useRouter();
     const { applications, providers, fetchProviders, fetchApplications } = useStore((state) => state, shallow);
 
     useEffect(() => {
-        fetchApplications();
-        fetchProviders();
-    }, [fetchApplications, fetchProviders]);
+        fetchApplications('active', page as string);
+    }, [page]);
+
+    useEffect(() => {
+        fetchProviders(pageSec as string);
+    }, [pageSec]);
 
     const deleteApp = (id: number) => {
         applicationApi.delete(id).then(() => {
             fetchApplications();
-            toast.success(t('helpers.deleted'));
+            toast.success(t('helpers:deleted'));
         });
     };
 
@@ -35,26 +43,29 @@ export const Providers: FC = (props): JSX.Element => {
         <>
             <MenuItem onClick={() => deleteApp(data.id)}>
                 <Icon name="delete" color="black" />
-                Удалить
+                {t('dashboard:delete')}
             </MenuItem>
         </>
     );
+
+    console.log(providers);
 
     const applicationCols = [
         {
             Header: '',
             accessor: 'providerName',
             disableSortBy: true,
+            minWidth: 200,
             Filter: ColumnFilter,
         },
         {
-            Header: 'Организация',
+            Header: t('dashboard:organization') as string,
             accessor: 'companyName',
             disableSortBy: true,
             disableFilters: true,
         },
         {
-            Header: 'Контактный телефон',
+            Header: t('dashboard:phone') as string,
             accessor: 'phone',
             disableSortBy: true,
             disableFilters: true,
@@ -64,15 +75,17 @@ export const Providers: FC = (props): JSX.Element => {
             accessor: 'id',
             disableSortBy: true,
             disableFilters: true,
+            maxWidth: 80,
         },
         {
-            Header: 'Дата',
+            Header: t('dashboard:date') as string,
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY'),
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY'),
             disableFilters: true,
+            maxWidth: 80,
         },
         {
-            Header: 'Действия',
+            Header: t('dashboard:action') as string,
             disableFilters: true,
             disableSortBy: true,
             accessor: (cell: any) => {
@@ -84,7 +97,7 @@ export const Providers: FC = (props): JSX.Element => {
                                 query: { id: cell.id, slug: 'providers', params: 'create' },
                             }}
                         >
-                            Добавить
+                            {t('dashboard:add')}
                         </Link>
                     </ActionsBlock>
                 );
@@ -98,22 +111,16 @@ export const Providers: FC = (props): JSX.Element => {
             accessor: 'fullName',
             disableSortBy: true,
             minWidth: 200,
-            // Cell: (props): any => {
-            //     const {
-            //         original: { providerName, providerSurname },
-            //     } = props.cell.row;
-
-            //     return `${providerName} ${providerSurname}`;
-            // },
+            Filter: ColumnFilter,
         },
         {
-            Header: 'Организация',
+            Header: t('dashboard:organization') as string,
             accessor: 'companyName',
             disableSortBy: true,
             disableFilters: true,
         },
         {
-            Header: 'Контактный телефон',
+            Header: t('dashboard:phone') as string,
             accessor: 'phone',
             disableSortBy: true,
             disableFilters: true,
@@ -123,70 +130,76 @@ export const Providers: FC = (props): JSX.Element => {
             accessor: 'id',
             disableSortBy: true,
             disableFilters: true,
-            width: 90,
-            maxWidth: 100,
+            maxWidth: 80,
             minWidth: 80,
         },
         {
-            Header: 'Дата',
+            Header: t('dashboard:date') as string,
             accessor: 'createdAt',
-            // Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
             disableFilters: true,
+            maxWidth: 90,
+            minWidth: 90,
         },
-        {
-            Header: 'Действия',
-            disableFilters: true,
-            disableSortBy: true,
-            accessor: (cell: any) => {
-                return (
-                    <ActionsBlock cell={cell}>
-                        <Link
-                            href={{
-                                pathname: '/dashboard/[slug]/[params]',
-                                query: { id: cell.id, slug: 'providers', params: 'create' },
-                            }}
-                        >
-                            Изменить
-                        </Link>
-                    </ActionsBlock>
-                );
-            },
-        },
+        // {
+        //     Header: t('dashboard:action') as string,
+        //     disableFilters: true,
+        //     disableSortBy: true,
+        //     accessor: (cell: any) => {
+        //         return (
+        //             <ActionsBlock>
+        //                 <Link
+        //                     href={{
+        //                         pathname: '/dashboard/[slug]/[params]',
+        //                         query: { id: cell.id, slug: 'providers', params: 'create' },
+        //                     }}
+        //                 >
+        //                     {t('dashboard:change')}
+        //                 </Link>
+        //             </ActionsBlock>
+        //         );
+        //     },
+        // },
     ];
 
     const data = [
         {
             id: 1,
-            title: 'Новые заявки',
-            date: 'Необходима обработка',
+            title: t('dashboard:new_requests'),
+            date: t('dashboard:have_to_check'),
             count: applications?.data.length!,
         },
         {
             id: 2,
-            title: 'Всего поставщиков',
-            date: 'За весь период',
+            title: t('dashboard:count_of_providers'),
+            date: t('dashboard:all_period'),
             count: providers?.data.length!,
         },
     ];
 
     return (
         <div>
-            <StatisticsBlock data={data} title={<h4>Текущие показатели</h4>} />
+            <StatisticsBlock data={data} title={<h4>{t('dashboard:current_res')}</h4>} />
 
-            {applications?.data.length !== 0 && (
+            {applications?.data && (
                 <Table
                     columns={applicationCols}
                     data={applications?.data}
-                    title={<h4 className={s.title}>Новые заявки</h4>}
+                    title={<h4 className={s.title}>{t('dashboard:new_requests')}</h4>}
                 />
             )}
+
+            {applications?.totalPages > 1 && <Pagination pageCount={applications.totalPages} />}
+
+            <div className={s.divider}></div>
             {providers?.data.length > 0 && (
                 <Table
                     columns={providerCols}
                     data={providers?.data}
-                    title={<h4 className={s.title}>Все поставщики</h4>}
+                    title={<h4 className={s.title}>{t('dashboard:all_providers')}</h4>}
                 />
             )}
+
+            {providers?.totalPages > 1 && <Pagination pageCount={providers.totalPages} isSecPage />}
         </div>
     );
 };

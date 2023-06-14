@@ -19,7 +19,7 @@ interface IOptions {
 
 export const PriceCreateForm: FC<any> = (props) => {
     const { t } = useTranslation();
-    const { fetchPriceList, providerBranches } = useStore();
+    const { fetchPriceList } = useStore();
     // const branchesOptions: IOptions[] = useMemo(() => [], []);
     // const [options, setOptions] = useState<IOptions[]>(branchesOptions);
     //
@@ -84,10 +84,9 @@ export const PriceCreateForm: FC<any> = (props) => {
                 headers: { 'Content-Type': 'multipart/form-data' },
             })
             .then(() => {
-                fetchPriceList();
                 props.handleModalClose();
-                toast.success('Successfully uploaded');
                 formik.resetForm();
+                fetchPriceList();
             })
             .catch(({ response }) => {
                 toast.error(

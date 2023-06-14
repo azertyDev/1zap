@@ -128,6 +128,15 @@ export const Balance = () => {
             },
             disableFilters: true,
             disableSortBy: false,
+            maxWidth: 100,
+        },
+        {
+            Header: t('dashboard:info') as string,
+            accessor: 'info',
+            Cell: ({ cell }: any) => t(`dashboard:wallet_info.${cell.value.toLowerCase()}`),
+            disableFilters: true,
+            disableSortBy: false,
+            minWidth: 220,
         },
     ];
 

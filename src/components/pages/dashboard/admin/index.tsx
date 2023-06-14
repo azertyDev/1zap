@@ -16,7 +16,7 @@ export default (props: PropsType): JSX.Element => {
 
     const page = () => {
         switch (asPath) {
-            case `/dashboard/providers`:
+            case `/dashboard/providers?page=${query.page}&pageSec=${query.pageSec}`:
                 return <Providers />;
             case `/dashboard/promo?page=${query.page}&pageSec=${query.pageSec}`:
                 return <PromoPage />;

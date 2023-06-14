@@ -267,5 +267,17 @@
   "addv": "Реклама",
   "for_search": "Qidirish uchun kiring...",
   "have": "Mavjud",
-  "dont_have": "Yo'q"
+  "dont_have": "Yo'q",
+  "new_requests": "Yangi ilovalar",
+  "all_providers": "Barcha provayderlar",
+  "have_to_check": "Qayta ishlash talab qilinadi",
+  "count_of_providers": "Jami yetkazib beruvchilar",
+  "all_period": "Butun davr uchun",
+  "organization": "Tashkilot",
+  "add_branch": "Qo'shimcha filial",
+  "delete_branch": "Filialni o'chirish",
+  "add_branch_info": "Filial ma'lumotlarini kiriting va rasmni yuklang",
+  "ready": "Tayyor",
+  "back": "Orqaga",
+  "price_list_info": "Narxlar ro'yxatiga muvofiq joriy ko'rsatkichlar"
 }

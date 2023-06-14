@@ -17,6 +17,8 @@ import { useGetBranchesAndPriceLists } from 'src/hooks/promo/useGetBranchesAndPr
 import { useGetPriceListInfo } from 'src/hooks/promo/useGetPriceListInfo';
 import { useGetBranchInfo } from 'src/hooks/promo/useGetBranchInfo';
 import { ColumnFilter } from 'components/ui/dashboard/table/columnFilter';
+import { formatNumber } from 'src/helpers/formatNumber';
+import { useStore } from 'src/store/useStore';
 
 export const ChosenForm = () => {
     const { t } = useTranslation();
@@ -27,6 +29,7 @@ export const ChosenForm = () => {
         query,
         query: { page },
     } = useRouter();
+    const { currency } = useStore((state) => state);
 
     const { formikBranches, formikPrice, branches, lists } = useGetBranchesAndPriceLists();
     const { branchInfo } = useGetBranchInfo(formikBranches, formikBranches.values.branchId);
@@ -134,11 +137,17 @@ export const ChosenForm = () => {
             Header: t('common:selects.howmany'),
             accessor: 'availability',
             disableFilters: true,
+            Cell: ({ cell }: { cell: any }) => `${cell.value} ${t('common:howmany')}`,
         },
         {
             Header: t('common:selects.price'),
             accessor: 'sum',
             disableFilters: true,
+            Cell: ({ cell }: { cell: any }) => {
+                return currency === 'usd'
+                    ? `$${formatNumber(cell.value)}`
+                    : `${formatNumber(cell.value)} ${t('common:sum')}`;
+            },
         },
     ];
 

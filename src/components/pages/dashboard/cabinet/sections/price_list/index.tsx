@@ -26,8 +26,7 @@ import { Pagination } from 'components/ui/pagination/Pagination';
 export const PriceList = () => {
     const { t } = useTranslation();
     const { push } = useRouter();
-    const { fetchProviderBranches } = useStore();
-    const [priceList, setPriceList] = useState<any>(null);
+    const { priceList, fetchPriceList, fetchProviderBranches } = useStore();
     const { open, handleModalOpen, handleModalClose } = useModal();
     const {
         query: { page },
@@ -40,16 +39,13 @@ export const PriceList = () => {
             providerApi
                 .getProviderStatistic()
                 .then((res) => setDataStat(res))
-                .catch(() => toast.error('helpers:error_getting'));
+                .catch(() => toast.error(t('helpers:error_getting')));
         })();
     }, []);
 
     useEffect(() => {
-        priceListApi
-            .fetchPriceList(page as string)
-            .then((res) => setPriceList(res))
-            .catch(() => toast.error(t('helpers:error_getting')));
-    }, [page]);
+        fetchPriceList(page as string);
+    }, [page, fetchPriceList]);
 
     useEffect(() => {
         fetchProviderBranches();
@@ -61,11 +57,8 @@ export const PriceList = () => {
 
     const deleteCell = (id: number) => {
         priceListApi.delete(id).then(() => {
-            priceListApi
-                .fetchPriceList(page as string)
-                .then((res) => setPriceList(res))
-                .catch(() => toast.error(t('helpers:error_getting')));
-            toast.success(t('helpers:deleted'));
+            fetchPriceList(page as string);
+            toast.success(t('helpers.deleted'));
         });
     };
 

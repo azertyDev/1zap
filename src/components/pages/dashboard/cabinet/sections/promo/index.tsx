@@ -39,7 +39,7 @@ export const PromoPage: FC = () => {
                 .deletePromoByProvider(id)
                 .then((res) => {
                     setTrigger((prev) => !prev);
-                    toast.success('dashboard:promo_deleted');
+                    toast.success(t('dashboard:promo_deleted'));
                 })
                 .catch((err) => toast.error(t('helpers:error_sending')));
         };
@@ -186,32 +186,29 @@ export const PromoPage: FC = () => {
         },
     ];
 
-    const promoItems = useMemo(
-        () => [
-            {
-                id: 1,
-                title: t('dashboard:promo_texts.all_branches'),
-                desc: t('dashboard:promo_texts.all_branches_text'),
-                price: `1000 ${t('dashboard:coins')}`,
-                url: 'all_branches',
-            },
-            {
-                id: 2,
-                title: t('dashboard:promo_texts.all_price_list'),
-                desc: t('dashboard:promo_texts.all_price_list_text'),
-                price: t('dashboard:coins_from', { coin: 20 }),
-                url: 'all_lists',
-            },
-            {
-                id: 3,
-                title: t('dashboard:promo_texts.chosen_position'),
-                desc: t('dashboard:promo_texts.chosen_position_text'),
-                price: t('dashboard:coins_from', { coin: 5 }),
-                url: 'chosen',
-            },
-        ],
-        []
-    );
+    const promoItems = [
+        {
+            id: 1,
+            title: t('dashboard:promo_texts.all_branches'),
+            desc: t('dashboard:promo_texts.all_branches_text'),
+            price: `1000 ${t('dashboard:coins')}`,
+            url: 'all_branches',
+        },
+        {
+            id: 2,
+            title: t('dashboard:promo_texts.all_price_list'),
+            desc: t('dashboard:promo_texts.all_price_list_text'),
+            price: t('dashboard:coins_from', { coin: 20 }),
+            url: 'all_lists',
+        },
+        {
+            id: 3,
+            title: t('dashboard:promo_texts.chosen_position'),
+            desc: t('dashboard:promo_texts.chosen_position_text'),
+            price: t('dashboard:coins_from', { coin: 5 }),
+            url: 'chosen',
+        },
+    ];
 
     return (
         <div className={s.wrapper}>

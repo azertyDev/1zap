@@ -7,11 +7,14 @@ import s from '../index.module.scss';
 import { useStore } from 'src/store/useStore';
 import { providerApi } from 'src/utils/api';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
+import { toast } from 'react-hot-toast';
 
 const Requisites = (props: any) => {
     const { pageProps } = props;
     const { t } = useTranslation();
     const { userData } = useStore();
+    const { push } = useRouter();
 
     const initialValues = {
         fullName: userData?.user?.fullName ?? '',
@@ -30,7 +33,10 @@ const Requisites = (props: any) => {
     });
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
-        await providerApi.updateProvider(userData?.user?.id!, values);
+        await providerApi
+            .updateProvider(userData?.user?.id!, values)
+            .then(() => push('/cabinet/main'))
+            .catch(() => toast.error(t('helpers:error_sending')));
     };
 
     const formik = useFormik({
@@ -72,14 +78,14 @@ const Requisites = (props: any) => {
 
                         <div className={s.actionButtons}>
                             <Button variant="disabled" type="reset">
-                                Отмена
+                                {t('common:cancel')}
                             </Button>
                             <Button
                                 type="submit"
                                 disabled={!(formik.dirty || formik.isValid || formik.isSubmitting)}
                                 variant={!(formik.dirty || formik.isValid) ? 'disabled' : 'primary'}
                             >
-                                Обновить
+                                {t('dashboard:refresh')}
                             </Button>
                         </div>
                     </div>

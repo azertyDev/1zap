@@ -1,5 +1,5 @@
 export const dashboardMenu = [
-    { id: Math.random(), name: 'providers', icon: 'person' },
+    { id: Math.random(), name: 'providers', icon: 'person', query: '?page=1&pageSec=1' },
     { id: Math.random(), name: 'income', icon: 'inbox', query: '?page=1&pageSec=1' },
     { id: Math.random(), name: 'promo', icon: 'label', query: '?page=1&pageSec=1' },
     { id: Math.random(), name: 'vin-requests', icon: 'inbox', query: '?page=1' },

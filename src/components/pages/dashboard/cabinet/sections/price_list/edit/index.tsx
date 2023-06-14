@@ -93,11 +93,12 @@ export const PriceListEdit = () => {
             Header: t('common:selects.price'),
             accessor: currency === 'uzs' ? 'sum' : 'usd',
             Cell: ({ cell }: { cell: any }) => {
-                return currency === 'usd' ? `$${cell.value}` : `${formatNumber(cell.value)} ${t('common:sum')}`;
+                return currency === 'usd'
+                    ? `$${formatNumber(cell.value)}`
+                    : `${formatNumber(cell.value)} ${t('common:sum')}`;
             },
             disableFilters: true,
         },
-
         {
             Header: t('dashboard:action') as string,
             disableFilters: true,
@@ -117,11 +118,9 @@ export const PriceListEdit = () => {
         },
     ];
 
-    console.log(data);
-
     return (
         <div>
-            <StatisticsBlock data={statisticsData as any} title={<h4>{t('dashboard:current_res')}</h4>} />
+            <StatisticsBlock data={statisticsData as any} title={<h4>{t('dashboard:price_list_info')}</h4>} />
 
             <div className={s.btns_wr}>
                 <FileUpload name="file" title={t('dashboard:download_price')} setFieldValue={formik.setFieldValue} />

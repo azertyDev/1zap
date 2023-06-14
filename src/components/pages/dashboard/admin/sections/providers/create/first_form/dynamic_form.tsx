@@ -14,12 +14,14 @@ import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
 import { providerValues } from './initialValues';
 import { IBranchData, IImage } from 'types';
 import s from '../index.module.scss';
+import { useTranslation } from 'next-i18next';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
 export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
     const { form, ...rest } = props;
     const [params, setParams] = useState<any>();
+    const { t } = useTranslation();
     const defaultOptions = [
         {
             value: '',
@@ -236,11 +238,11 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                                     <div className={s.actionButtons}>
                                                         <span onClick={() => helperProps.push({ url: '' })}>
                                                             <Icon name="add_circle" size={18} />
-                                                            Добавить
+                                                            {t('dashboard:add')}
                                                         </span>
                                                         <span onClick={() => helperProps.remove(i)}>
                                                             <Icon name="delete" size={18} />
-                                                            Удалить
+                                                            {t('dashboard:delete')}
                                                         </span>
                                                     </div>
                                                 )}
@@ -254,7 +256,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                             style={{ whiteSpace: 'nowrap' }}
                                         >
                                             <Icon name="add_circle" size={18} />
-                                            Добавить фотографию
+                                            {t('dashboard:add_photo')}
                                         </span>
                                     </div>
                                 );
@@ -266,12 +268,12 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                         {/*@ts-ignore*/}
                         <span onClick={() => rest.push({ ...providerValues?.providerBranch[0] })}>
                             <Icon name="add_circle" size={18} />
-                            Дополнительный филиал
+                            {t('dashboard:add_branch')}
                         </span>
 
                         <span onClick={() => rest.remove(index)}>
                             <Icon name="delete" size={18} />
-                            Удалить филиал
+                            {t('dashboard:delete_branch')}
                         </span>
                     </div>
                 </div>
@@ -283,7 +285,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                 {/*@ts-ignore*/}
                 <span onClick={() => rest.push({ ...providerValues.providerBranch[0] })}>
                     <Icon name="add_circle" size={18} />
-                    Добавить филиал
+                    {t('dashboard:add_branch')}
                 </span>
             </div>
         </div>

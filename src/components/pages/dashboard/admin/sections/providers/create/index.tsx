@@ -5,10 +5,12 @@ import { SecondForm } from './second_form';
 import { providerValues } from './first_form/initialValues';
 import s from './index.module.scss';
 import { IProviderData } from 'types';
+import { useTranslation } from 'next-i18next';
 
 export const CreateProvider: FC<any> = () => {
     const [tab, setTab] = useState(1);
     const [initialValues, setInitialValues] = useState<IProviderData>({ ...providerValues });
+    const { t } = useTranslation();
 
     const handleTabChange = (value: number) => {
         setTab(value);
@@ -16,7 +18,7 @@ export const CreateProvider: FC<any> = () => {
 
     return (
         <div className={s.wrapper}>
-            <Heading title="Настройки филиала" desc="Введите данные филиала и загрузите фото " />
+            <Heading title={t('dashboard:branch_settings')} desc={t('dashboard:add_branch_info')} />
             <div className={s.tabs}>
                 <div className={s.tab}>
                     {tab === 1 ? (

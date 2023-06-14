@@ -8,6 +8,7 @@ import { StandartInput } from 'src/components/ui/input/standart_input';
 import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { IBranchData, IProviderData } from 'types';
 import s from '../index.module.scss';
+import { useTranslation } from 'next-i18next';
 
 interface SecondFormProps {
     initialValues: IProviderData;
@@ -16,6 +17,7 @@ interface SecondFormProps {
 }
 
 export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValues, handleTabChange }) => {
+    const { t } = useTranslation();
     const coinsData = [
         {
             id: Date.now() * 1000,
@@ -94,7 +96,7 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
     return (
         <FormikProvider value={formik}>
             <Form>
-                <h4>Реквизиты</h4>
+                <h4>{t('dashboard:requisites')}</h4>
                 <div className={s.formGroup}>
                     <div className={s.row}>
                         <div className={s.block}>
@@ -115,7 +117,7 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
                     </div>
 
                     <div className={s.coinsBlock}>
-                        <h4>Пополнение баланса</h4>
+                        <h4>{t('dashboard:balanceFilling')}</h4>
                         <div className={s.coins}>
                             {coinsData.map((coin, index) => {
                                 return (
@@ -124,7 +126,7 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
                                         onClick={() => selectCoin(coin.value)}
                                         className={`${s.coin} ${formik.values.coin === coin.value ? s.active : ''}`}
                                     >
-                                        {coin.value} Монет
+                                        {coin.value} {t('dashboard:coins')}
                                     </span>
                                 );
                             })}
@@ -137,14 +139,14 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
 
                 <div className={s.actionButtons}>
                     <Button variant="disabled" type="reset" onClick={() => handleTabChange(1)}>
-                        Назад
+                        {t('dashboard:back')}
                     </Button>
                     <Button
                         type="submit"
                         disabled={!(formik.dirty || formik.isValid || formik.isSubmitting)}
                         variant={!(formik.dirty || formik.isValid) ? 'disabled' : 'primary'}
                     >
-                        Готово
+                        {t('dashboard:ready')}
                     </Button>
                 </div>
             </Form>

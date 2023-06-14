@@ -256,9 +256,9 @@
     "compensation": "Конпенсация",
     "viewing_statistic": "Просмотр статистики",
     "viewing_branch_info": "Просмотр контактов поставщика",
-    "buying_product_ads": "покупка рекламы на продукт",
-    "buying_branch_ads": "покупка рекламы на филиал",
-    "buying_pricelist_ads": "покупка рекламы на прайслист"
+    "buying_product_ads": "Покупка рекламы на продукт",
+    "buying_branch_ads": "Покупка рекламы на филиал",
+    "buying_pricelist_ads": "Покупка рекламы на прайслист"
   },
   "wallet_type": {
     "TOP": "Пополнение",
@@ -267,5 +267,17 @@
   "addv": "Реклама",
   "for_search": "Введите для поиска...",
   "have": "Есть",
-  "dont_have": "Отсутствует"
+  "dont_have": "Отсутствует",
+  "new_requests": "Новые заявки",
+  "all_providers": "Все поставщики",
+  "have_to_check": "Необходима обработка",
+  "count_of_providers": "Всего поставщиков",
+  "all_period": "За весь период",
+  "organization": "Организация",
+  "add_branch": "Дополнительный филиал",
+  "delete_branch": "Удалить филиал",
+  "add_branch_info": "Введите данные филиала и загрузите фото",
+  "ready": "Готово",
+  "back": "Назад",
+  "price_list_info": "Текущие показатели по прайс листу"
 }

@@ -19,11 +19,6 @@ export const Branches = (props: any) => {
     const { push, ...rest } = useRouter();
 
     const { t } = useTranslation();
-    // const [active, setActive] = useState(false);
-
-    // const handleChange = () => {
-    //     setActive(!active);
-    // };
 
     useEffect(() => {
         fetchProviderBranches();
@@ -92,24 +87,6 @@ export const Branches = (props: any) => {
                 );
             },
         },
-        // {
-        //     Header: 'Информация',
-        //     disableFilters: true,
-        //     disableSortBy: true,
-        //     accessor: (cell: any) => {
-        //         return (
-        //             <ActionsBlock>
-        //                 <Link
-        //                     href={{
-        //                         pathname: '#',
-        //                     }}
-        //                 >
-        //                     Изменить
-        //                 </Link>
-        //             </ActionsBlock>
-        //         );
-        //     },
-        // },
         {
             Header: t('dashboard:switch_on') as string,
             disableFilters: true,

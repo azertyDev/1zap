@@ -9,6 +9,7 @@ import { PriceList } from './sections/price_list';
 import { IncominRequests } from './sections/vin_request/new';
 import s from './index.module.scss';
 import { IncominRequestsAccepted } from 'components/pages/dashboard/cabinet/sections/vin_request/accepted';
+import { SupportProvider } from 'components/pages/dashboard/cabinet/sections/support';
 
 interface PropsType extends FC {}
 
@@ -33,6 +34,8 @@ export default (props: PropsType): JSX.Element => {
                 return <IncominRequests />;
             case `/cabinet/incoming_requests?status=accepted&page=${query.page}`:
                 return <IncominRequestsAccepted />;
+            case `/cabinet/support`:
+                return <SupportProvider />;
             default:
                 return 'Страница не найдена';
         }
