@@ -104,7 +104,6 @@ export const PriceListEdit = () => {
             disableSortBy: true,
             width: 100,
             accessor: (cell: any) => {
-                console.log(cell.hasAdvertising);
                 return (
                     <ActionsBlock>
                         <div className={`${s.table_btn} ${cell.hasAdvertising ? s.active : ''}`}>

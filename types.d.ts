@@ -116,6 +116,7 @@ interface IProduct {
     landmark: string;
     ltext: string;
     rtext: string;
+    pltext: string;
     location: {
         availability: number;
         branchId: number;

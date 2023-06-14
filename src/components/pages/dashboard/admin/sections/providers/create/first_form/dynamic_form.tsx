@@ -263,7 +263,8 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                     </div>
 
                     <div className={s.actionButtons}>
-                        <span onClick={() => rest.push({ ...providerValues.providerBranch[0] })}>
+                        {/*@ts-ignore*/}
+                        <span onClick={() => rest.push({ ...providerValues?.providerBranch[0] })}>
                             <Icon name="add_circle" size={18} />
                             Дополнительный филиал
                         </span>
@@ -279,6 +280,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
     ) : (
         <div className={s.formGroup}>
             <div className={s.actionButtons}>
+                {/*@ts-ignore*/}
                 <span onClick={() => rest.push({ ...providerValues.providerBranch[0] })}>
                     <Icon name="add_circle" size={18} />
                     Добавить филиал

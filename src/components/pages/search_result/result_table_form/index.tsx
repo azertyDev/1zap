@@ -58,7 +58,7 @@ export const ResultTableForm: FC<{
                             </TableElement>
                             <TableElement className={'table_b'}>
                                 <h5>{item.description}</h5>
-                                <p>{item.ltext}</p>
+                                <p>{item.pltext ? item.pltext : item.ltext}</p>
                             </TableElement>
                             <TableElement className={'table_b'}>
                                 <h5>
