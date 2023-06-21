@@ -19,8 +19,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         ? {
               payment: [{ value: null, label: 'all' }, ...staticPar.payment],
               delivery: [{ value: null, label: 'all' }, ...staticPar.delivery],
-              service: [{ value: null, label: 'all' }, ...staticPar.service],
+              service: [{ value: null, label: 'all' }, ...staticPar.service2],
               client: [{ value: null, label: 'all' }, ...staticPar.client],
+              shipment: [{ value: null, label: 'all' }, ...staticPar.shipment],
+              updates: [{ value: null, label: 'all' }, ...staticPar.updates],
           }
         : null;
 

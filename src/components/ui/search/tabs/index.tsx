@@ -14,18 +14,28 @@ export const SearchTabs: FC<SearchTabsInt & HtmlHTMLAttributes<HTMLDivElement>> 
     activeTab,
     handleTab,
     className = '',
+    responsiveDif,
 }): JSX.Element => {
     const { t } = useTranslation();
     const { pathname } = useRouter();
 
     return (
         <div className={className}>
-            <div className={s.tabs}>
+            <div className={`${s.tabs} ${responsiveDif ? s.res_dif : ''}`}>
                 {tabs.map((item) => {
                     return (
                         <div key={item.id} className={`${s.tab} ${activeTab === item.id ? s.active : ''}`}>
                             {item.hasOwnProperty('link') ? (
-                                <Link href={item.link as string}>{t(item.text)}</Link>
+                                <>
+                                    <Link className={`${item.altText ? s.text : ''}`} href={item.link as string}>
+                                        {t(item.text)}
+                                    </Link>
+                                    {item.altText && (
+                                        <Link className={s.text_alt} href={item.link as string}>
+                                            {t(item.altText)}
+                                        </Link>
+                                    )}
+                                </>
                             ) : (
                                 <div onClick={handleTab(item.id)}>
                                     <span className={`${item.altText ? s.text : ''}`}>{t(item.text)}</span>

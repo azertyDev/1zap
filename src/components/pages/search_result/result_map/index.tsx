@@ -37,7 +37,14 @@ import { IProduct, IStaticParams } from 'types';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
-const getFilterParamsResultPage = (payment: string, delivery: string, service: string, client: string) => {
+const getFilterParamsResultPage = (
+    payment: string,
+    delivery: string,
+    service: string,
+    client: string,
+    shipment: string,
+    updates: string
+) => {
     const formatQuery = (param: string, val: string) => {
         return val ? `&${param}=${val}` : '';
     };
@@ -45,7 +52,7 @@ const getFilterParamsResultPage = (payment: string, delivery: string, service: s
     return `${formatQuery('payment', payment)}${formatQuery('delivery', delivery)}${formatQuery(
         'service',
         service
-    )}${formatQuery('client', client)}`;
+    )}${formatQuery('clientType', client)}${formatQuery('shipment', shipment)}${formatQuery('updates', updates)}`;
 };
 
 export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
@@ -54,7 +61,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
         pathname,
         push,
         locale,
-        query: { page, filter, oem, payment, delivery, service, client },
+        query: { page, filter, oem, payment, delivery, service, client, shipment, updates },
         query,
     } = useRouter();
 
@@ -67,27 +74,22 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
 
     useEffect(() => {
         (async () => {
-            if (filter) {
-                await productsApi
-                    // @ts-ignore
-                    .getProductsNoGroup(
-                        `page=${page ?? 1}&lang=${locale}&filter=${filter}${getFilterParamsResultPage(
-                            payment as string,
-                            delivery as string,
-                            service as string,
-                            client as string
-                        )}`
-                    )
-                    .then((res) => setData(res))
-                    .catch((err) => toast.error(t('helpers:error_getting')));
-            }
-            if (oem) {
-                await productsApi
-                    // @ts-ignore
-                    .getProductsNoGroup(`page=${page ?? 1}&lang=${locale}&oem=${oem}`)
-                    .then((res) => setData(res))
-                    .catch((err) => toast.error(t('helpers:error_getting')));
-            }
+            await productsApi
+                // @ts-ignore
+                .getProductsNoGroup(
+                    `page=${page ?? 1}&lang=${locale}${filter ? `&filter=${filter}` : ''}${
+                        oem ? `&oem=${oem}` : ''
+                    }${getFilterParamsResultPage(
+                        payment as string,
+                        delivery as string,
+                        service as string,
+                        client as string,
+                        shipment as string,
+                        updates as string
+                    )}`
+                )
+                .then((res) => setData(res))
+                .catch((err) => toast.error(t('helpers:error_getting')));
         })();
     }, [query]);
 
@@ -225,7 +227,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                                     </span>
                                 </span>
                             </button>
-                            <div className={oem ? s.disable_res_filter : ''}>
+                            <div>
                                 <FilterResponsive
                                     btnText={'anotherFilter'}
                                     isOpen={isOpenFilter}
@@ -235,7 +237,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                                 />
                             </div>
                         </div>
-                        <div className={`${s.filter_laptop} ${oem ? s.disable : ''}`}>
+                        <div className={s.filter_laptop}>
                             <FilterSelections>
                                 {filterTitles['search'].map((item) => {
                                     return (

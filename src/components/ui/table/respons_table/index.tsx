@@ -21,6 +21,8 @@ export const ResponsTable: FC<{ item: IProductGroup; img: string }> = ({ item, i
                 <h5>{item.uniqNumber}</h5>
             </div>
 
+            <p className={s.desc}>{item.property}</p>
+
             <div className={`${s.item} ${s.last_item}`}>
                 <div>
                     <p className={s.item_text}>
@@ -51,7 +53,8 @@ export const ResponsTable: FC<{ item: IProductGroup; img: string }> = ({ item, i
                         <Icon size={14} name={'close'} />
                     </IconsWrapper>
                 </div>
-                <Image src={img} alt={'image'} width={100} height={70} quality={50} />
+
+                <Image src={img} alt={'image'} width={100} height={70} quality={100} />
             </div>
         </div>
     );

@@ -9,6 +9,7 @@ import { providerApi } from 'src/utils/api';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
+import { useEffect, useState } from 'react';
 
 const Requisites = (props: any) => {
     const { pageProps } = props;
@@ -16,25 +17,36 @@ const Requisites = (props: any) => {
     const { userData } = useStore();
     const { push } = useRouter();
 
+    const [data, setData] = useState<{
+        fullName: string;
+        legalAddress: string;
+        phone: string;
+        email: string;
+        inn: string;
+    } | null>(null);
+
+    useEffect(() => {
+        providerApi
+            .getProviderRequisites()
+            .then((res) => setData(res))
+            .catch(() => toast.error(t('helpers:error_getting')));
+    }, []);
+
     const initialValues = {
-        fullName: userData?.user?.fullName ?? '',
-        legalAddress: userData?.user.companyName ?? '',
-        phone: userData?.user?.phone ?? '',
-        email: userData?.user?.email ?? '',
-        inn: userData?.user?.fullName ?? '',
+        fullName: data?.fullName ?? '',
+        legalAddress: data?.legalAddress ?? '',
+        phone: data?.phone?.slice(4) ?? '',
+        email: data?.email ?? '',
+        inn: data?.inn ?? '',
     };
 
     const validationSchema = Yup.object().shape({
-        fullName: Yup.string().required('required'),
-        legalAddress: Yup.string().required('required'),
         phone: Yup.string().required('required'),
-        email: Yup.string().required('required'),
-        inn: Yup.string().required('required'),
     });
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
         await providerApi
-            .updateProvider(userData?.user?.id!, values)
+            .updateProviderPhone(userData?.user?.id!, { phone: values.phone.replaceAll(' ', '') })
             .then(() => push('/cabinet/main'))
             .catch(() => toast.error(t('helpers:error_sending')));
     };
@@ -77,7 +89,7 @@ const Requisites = (props: any) => {
                         </div>
 
                         <div className={s.actionButtons}>
-                            <Button variant="disabled" type="reset">
+                            <Button variant="disabled" type="reset" onClick={() => push('/cabinet/main')}>
                                 {t('common:cancel')}
                             </Button>
                             <Button

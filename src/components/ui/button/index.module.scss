@@ -15,6 +15,10 @@
             margin-right: 6px;
         }
     }
+
+    &.disable_pointer{
+        pointer-events: none;
+    }
 }
 
 .primary {
@@ -29,3 +33,4 @@
 .fullWidth {
     width: 100%;
 }
+

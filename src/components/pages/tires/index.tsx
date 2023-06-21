@@ -28,6 +28,7 @@ import { IProductGroup } from 'types';
 import { formatNumber } from 'src/helpers/formatNumber';
 import { useStore } from 'src/store/useStore';
 import { useFiltersAscDesc } from 'src/hooks/common/filtersAscDesc';
+import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 
 export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
@@ -92,6 +93,7 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                             <TableElement className={'table_h'}>{t('common:selects.manufacturers')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.number')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.photo')}</TableElement>
+                            <TableElement className={'table_h'}>{t('common:selects.size')}</TableElement>
                             <TableElement className={'table_h'}>
                                 <div className={s.filter_price_wr}>
                                     <div className={s.filter_price_buttons}>
@@ -119,7 +121,9 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                                     <TableElement className={'table_b'}>
                                         <Image src={'/assets/images/tire.png'} alt={'tire'} width={52} height={70} />
                                     </TableElement>
-
+                                    <TableElement className={'table_b'}>
+                                        <h5>{item.property}</h5>
+                                    </TableElement>
                                     <TableElement className={'table_b'}>
                                         <h5>
                                             {currency === 'usd'

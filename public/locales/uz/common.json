@@ -108,7 +108,9 @@
   "weekend": {
     "sat-sun": "Shan-Yak",
     "without_weekend": "Haftada etti kun",
-    "sunday": "Yakshanba"
+    "sunday": "Yakshanba",
+    "monday": "Dushanba",
+    "saturday": "Shanba"
   },
   "workingSchedule": {
     "seven-day": "Du-Ya",
@@ -117,13 +119,16 @@
     "tue-sat": "Se-Sha",
     "tue-san": "Se-Yak"
   },
-  "sum": "sum",
+  "sum": "Sum",
   "in": "{{time}} da",
   "weekendSchedule": "Dam olish kunlari",
   "workingScheduleText": "Ish kuni",
   "offers": "takliflar",
   "fromTo": "{{from}} dan {{to}} gacha",
   "selects": {
+    "other": "Har qanday",
+    "params": "Variantlar",
+    "shop_type": "Do'kon turi",
     "all": "Hammasi",
     "shop": "Do'kon",
     "dealer": "Avtodiller",
@@ -135,6 +140,8 @@
     "mon-sat": "Du-Sha",
     "tue-sat": "Se-Sha",
     "tue-san": "Se-Yak",
+    "monday": "Dushanba",
+    "saturday": "Shanba",
     "tireFitting": "Shinalarni o'rnatish",
     "autoService": "Аvtovobil xizmati",
     "tashkent": "Toshkent",
@@ -186,14 +193,30 @@
     "legal": "Tashkilot",
     "individual": "Jismoniy shaxs",
     "choose_img_id": "Raqamga o'ting",
-    "status": "Amalga oshirish holati"
+    "status": "Amalga oshirish holati",
+    "partSelection": "Аvtomobil qismlari",
+    "shipment": "Ta'minot",
+    "in_stock": "Mavjud",
+    "order": "Buyurtma bo'yicha",
+    "one_three_day": "1-3 kun",
+    "up_seven_day": "7 kungacha",
+    "up_thirty_day": "30 kungacha",
+    "today": "Bugun",
+    "three_day": "3 kun",
+    "seven_day": "7 kun",
+    "fourteen_day": "14 kun",
+    "month": "Oy"
   },
   "new_password": "Yangi parol",
   "new_password_repeat": "Parolni tasdiqlash",
-    "agreementNumber": "Shartnoma raqami",
+  "agreementNumber": "Shartnoma raqami",
   "partSelection": "Аvtomobil qismlari",
-  "usd": "dollar",
+  "usd": "Dollar",
   "for_legal": "Yuridik shaxslar uchun",
   "for_people": "Jismoniy shaxslar uchun",
-  "coin": "tangalar"
+  "coin": "tangalar",
+  "ru": "Rus tili",
+  "uz": "O'zbek tili",
+  "rate": "Ayirboshlash kursi $",
+
 }

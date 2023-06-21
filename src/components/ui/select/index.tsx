@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { FieldProps, useField } from 'formik';
 import { useTranslation } from 'next-i18next';
-import Select, { Props as SelectProps } from 'react-select';
+import Select, { Props as SelectProps, components } from 'react-select';
 
 import s from './index.module.scss';
 
@@ -16,6 +16,15 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
     const onChange = ({ value }: any) => {
         setValue(value);
     };
+    console.log(field.name);
+
+    const NoOptionsMessage = useCallback((props: any) => {
+        return (
+            <components.NoOptionsMessage {...props}>
+                <span></span>
+            </components.NoOptionsMessage>
+        );
+    }, []);
 
     return (
         <div className={`${s.root} ${props.field.value ? s.active : ''} ${props.isDisabled ? s.disabled : ''}`}>
@@ -30,7 +39,8 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
                     onChange={onChange}
                     id={field.name}
                     instanceId={field.name}
-                    isSearchable={false}
+                    isSearchable={field.name === 'codeimg'}
+                    components={{ NoOptionsMessage }}
                     className="select_container"
                     classNamePrefix="select"
                     placeholder={field.value ? null : t(label)}

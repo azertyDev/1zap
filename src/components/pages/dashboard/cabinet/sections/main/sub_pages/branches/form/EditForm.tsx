@@ -26,11 +26,13 @@ export const EditForm = (props: any) => {
         query: { id },
         push,
     } = useRouter();
-    const { pageProps } = props;
+
     const [params, setParams] = useState<any>();
     const [branch, setBranch] = useState<any>();
     const [location, setLocation] = useState<any>(branch?.location);
     const { t } = useTranslation();
+
+    console.log(branch);
 
     const defaultOptions = [
         {
@@ -78,234 +80,238 @@ export const EditForm = (props: any) => {
         enableReinitialize: true,
     });
 
+    console.log('values', formik.values);
+
     return (
         <>
             <Heading title={t(`dashboard:branch_settings`)} desc={t(`dashboard:edit_branch`)} />
 
             <FormikProvider value={formik}>
-                <Form>
-                    <div className={s.formGroup}>
-                        <div className={s.row}>
-                            <div className={s.block}>
-                                <StandartInput
-                                    disabled
-                                    label="dashboard:providerBranch.phisicalAddress"
-                                    {...formik.getFieldProps(`phisicalAddress`)}
-                                />
-                                <StandartInput
-                                    disabled
-                                    label="dashboard:providerBranch.branchName"
-                                    {...formik.getFieldProps(`branchName`)}
-                                />
-                                <StandartInput
-                                    disabled
-                                    label="dashboard:providerBranch.managerName"
-                                    {...formik.getFieldProps(`managerName`)}
-                                />
-                                <StandartInput
-                                    isPhone
-                                    label="dashboard:providerBranch.phone"
-                                    {...formik.getFieldProps(`phone`)}
-                                    setFieldValue={formik.setFieldValue}
-                                />
-                            </div>
-
-                            <div className={s.block}>
-                                {!!branch?.location && (
-                                    <>
-                                        <Map
-                                            provider={maptilerProvider}
-                                            dprs={[1, 2]}
-                                            defaultCenter={JSON.parse(branch?.location)}
-                                            defaultZoom={15}
-                                            // metaWheelZoom
-                                            onClick={(event) => handleMap(event, `location`)}
-                                        >
-                                            <Marker anchor={location}>
-                                                <Icon name="location_on" size={30} color="#C6303C" />
-                                            </Marker>
-
-                                            <ZoomControl />
-                                        </Map>
-
-                                        <StandartInput
-                                            disabled
-                                            label="dashboard:providerBranch.landmark"
-                                            {...formik.getFieldProps(`landmark`)}
-                                        />
-                                    </>
-                                )}
-                            </div>
-                        </div>
-
-                        <div className={s.row}>
-                            <div className={`${s.row} ${s.gap_30}`}>
-                                <Field
-                                    isDisabled
-                                    component={SelectField}
-                                    name={`branchType`}
-                                    label="dashboard:providerBranch.branchType"
-                                    options={params ? transformSelectOptions(params.branchType) : defaultOptions}
-                                />
-                                <Field
-                                    isDisabled
-                                    component={SelectField}
-                                    name={`city`}
-                                    label="dashboard:providerBranch.city"
-                                    options={params ? transformSelectOptions(params.city) : defaultOptions}
-                                />
-                            </div>
-
-                            <div className={`${s.gap_30}`}>
+                {branch && (
+                    <Form>
+                        <div className={s.formGroup}>
+                            <div className={s.row}>
                                 <div className={s.block}>
-                                    <div className={`${s.row} ${s.gap_30}`}>
-                                        <Field
-                                            component={SelectField}
-                                            name={`workingSchedule`}
-                                            label="dashboard:providerBranch.workingSchedule"
-                                            options={
-                                                params ? transformSelectOptions(params.workingSchedule) : defaultOptions
-                                            }
-                                        />
-                                        <Field
-                                            component={SelectField}
-                                            name={`weekendSchedule`}
-                                            label="dashboard:providerBranch.weekendSchedule"
-                                            options={params ? params.weekendSchedule : defaultOptions}
-                                        />
-                                    </div>
-                                    <div className={`${s.row} ${s.gap_30}`}>
-                                        <Field
-                                            component={SelectField}
-                                            name={`weekend`}
-                                            label="dashboard:providerBranch.weekend"
-                                            options={params ? transformSelectOptions(params.weekend) : defaultOptions}
-                                        />
-                                        <Field
-                                            component={SelectField}
-                                            name={`breakTime`}
-                                            label="dashboard:providerBranch.breakTime"
-                                            options={params ? params.breakTime : defaultOptions}
-                                        />
+                                    <StandartInput
+                                        disabled
+                                        label="dashboard:providerBranch.phisicalAddress"
+                                        {...formik.getFieldProps(`phisicalAddress`)}
+                                    />
+                                    <StandartInput
+                                        disabled
+                                        label="dashboard:providerBranch.branchName"
+                                        {...formik.getFieldProps(`branchName`)}
+                                    />
+                                    <StandartInput
+                                        disabled
+                                        label="dashboard:providerBranch.managerName"
+                                        {...formik.getFieldProps(`managerName`)}
+                                    />
+                                    <StandartInput
+                                        isPhone
+                                        label="dashboard:providerBranch.phone"
+                                        {...formik.getFieldProps(`phone`)}
+                                        setFieldValue={formik.setFieldValue}
+                                    />
+                                </div>
+
+                                <div className={`${s.block} ${s.block_map_edit}`}>
+                                    {!!branch?.location && (
+                                        <>
+                                            <Map
+                                                provider={maptilerProvider}
+                                                dprs={[1, 2]}
+                                                defaultCenter={JSON.parse(branch?.location)}
+                                                defaultZoom={15}
+                                                // metaWheelZoom
+                                                onClick={(event) => handleMap(event, `location`)}
+                                            >
+                                                <Marker anchor={location}>
+                                                    <Icon name="location_on" size={30} color="#C6303C" />
+                                                </Marker>
+
+                                                <ZoomControl />
+                                            </Map>
+
+                                            <StandartInput
+                                                disabled
+                                                label="dashboard:providerBranch.landmark"
+                                                {...formik.getFieldProps(`landmark`)}
+                                            />
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className={s.row}>
+                                <div className={`${s.row} ${s.gap_30}`}>
+                                    <Field
+                                        isDisabled
+                                        component={SelectField}
+                                        name={`branchType`}
+                                        label="dashboard:providerBranch.branchType"
+                                        options={params ? transformSelectOptions(params.branchType) : defaultOptions}
+                                    />
+                                    <Field
+                                        isDisabled
+                                        component={SelectField}
+                                        name={`city`}
+                                        label="dashboard:providerBranch.city"
+                                        options={params ? transformSelectOptions(params.city) : defaultOptions}
+                                    />
+                                </div>
+
+                                <div className={`${s.gap_30}`}>
+                                    <div className={s.block}>
+                                        <div className={`${s.row} ${s.gap_30}`}>
+                                            <Field
+                                                component={SelectField}
+                                                name={`workingSchedule`}
+                                                label="dashboard:providerBranch.workingSchedule"
+                                                options={params ? params.workingSchedule : defaultOptions}
+                                            />
+                                            <Field
+                                                component={SelectField}
+                                                name={`weekendSchedule`}
+                                                label="dashboard:providerBranch.weekendSchedule"
+                                                options={params ? params.weekendSchedule : defaultOptions}
+                                            />
+                                        </div>
+                                        <div className={`${s.row} ${s.gap_30}`}>
+                                            <Field
+                                                component={SelectField}
+                                                name={`weekend`}
+                                                label="dashboard:providerBranch.weekend"
+                                                options={
+                                                    params ? transformSelectOptions(params.weekend) : defaultOptions
+                                                }
+                                            />
+                                            <Field
+                                                component={SelectField}
+                                                name={`breakTime`}
+                                                label="dashboard:providerBranch.breakTime"
+                                                options={params ? params.breakTime : defaultOptions}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className={s.checkboxGroup}>
-                            <Accordion title="providerBranch.payment.title" open>
-                                <Checkbox
-                                    disabled
-                                    label="providerBranch.payment.cash"
-                                    {...formik.getFieldProps(`payment[0].isActive`)}
-                                />
-                                <Checkbox
-                                    disabled
-                                    label="providerBranch.payment.card"
-                                    {...formik.getFieldProps(`payment[1].isActive`)}
-                                />
-                                <Checkbox
-                                    disabled
-                                    label="providerBranch.payment.transfer"
-                                    {...formik.getFieldProps(`payment[2].isActive`)}
-                                />
-                            </Accordion>
-                            <Accordion title="providerBranch.delivery.title" open>
-                                <Checkbox
-                                    disabled
-                                    label="providerBranch.delivery.pickup"
-                                    {...formik.getFieldProps(`delivery[0].isActive`)}
-                                />
-                                <Checkbox
-                                    disabled
-                                    label="providerBranch.delivery.courier"
-                                    {...formik.getFieldProps(`delivery[1].isActive`)}
-                                />
-                            </Accordion>
-                            <Accordion title="providerBranch.service.title" open>
-                                <Checkbox
-                                    disabled
-                                    label="providerBranch.service.tireFitting"
-                                    {...formik.getFieldProps(`service[0].isActive`)}
-                                />
-                                <Checkbox
-                                    disabled
-                                    label="providerBranch.service.autoService"
-                                    {...formik.getFieldProps(`service[1].isActive`)}
-                                />
-                                <Checkbox
-                                    disabled
-                                    label="providerBranch.service.partSelection"
-                                    {...formik.getFieldProps(`service[2].isActive`)}
-                                />
-                            </Accordion>
-                            <Accordion title="providerBranch.clientType.title" open>
-                                <Checkbox
-                                    disabled
-                                    label="providerBranch.clientType.legal"
-                                    {...formik.getFieldProps(`clientType[0].isActive`)}
-                                />
-                                <Checkbox
-                                    disabled
-                                    label="providerBranch.clientType.individual"
-                                    {...formik.getFieldProps(`clientType[1].isActive`)}
-                                />
-                            </Accordion>
-                        </div>
+                            <div className={s.checkboxGroup}>
+                                <Accordion title="providerBranch.payment.title" open>
+                                    <Checkbox
+                                        disabled
+                                        label="providerBranch.payment.cash"
+                                        {...formik.getFieldProps(`payment[0].isActive`)}
+                                    />
+                                    <Checkbox
+                                        disabled
+                                        label="providerBranch.payment.card"
+                                        {...formik.getFieldProps(`payment[1].isActive`)}
+                                    />
+                                    <Checkbox
+                                        disabled
+                                        label="providerBranch.payment.transfer"
+                                        {...formik.getFieldProps(`payment[2].isActive`)}
+                                    />
+                                </Accordion>
+                                <Accordion title="providerBranch.delivery.title" open>
+                                    <Checkbox
+                                        disabled
+                                        label="providerBranch.delivery.pickup"
+                                        {...formik.getFieldProps(`delivery[0].isActive`)}
+                                    />
+                                    <Checkbox
+                                        disabled
+                                        label="providerBranch.delivery.courier"
+                                        {...formik.getFieldProps(`delivery[1].isActive`)}
+                                    />
+                                </Accordion>
+                                <Accordion title="providerBranch.service.title" open>
+                                    <Checkbox
+                                        disabled
+                                        label="providerBranch.service.tireFitting"
+                                        {...formik.getFieldProps(`service[0].isActive`)}
+                                    />
+                                    <Checkbox
+                                        disabled
+                                        label="providerBranch.service.autoService"
+                                        {...formik.getFieldProps(`service[1].isActive`)}
+                                    />
+                                    <Checkbox
+                                        disabled
+                                        label="providerBranch.service.partSelection"
+                                        {...formik.getFieldProps(`service[2].isActive`)}
+                                    />
+                                </Accordion>
+                                <Accordion title="providerBranch.clientType.title" open>
+                                    <Checkbox
+                                        disabled
+                                        label="providerBranch.clientType.legal"
+                                        {...formik.getFieldProps(`clientType[0].isActive`)}
+                                    />
+                                    <Checkbox
+                                        disabled
+                                        label="providerBranch.clientType.individual"
+                                        {...formik.getFieldProps(`clientType[1].isActive`)}
+                                    />
+                                </Accordion>
+                            </div>
 
-                        <div className={s.imgGroup}>
-                            <FieldArray
-                                name={`images`}
-                                render={(helperProps) => {
-                                    return branch?.images && branch?.images.length ? (
-                                        branch?.images?.map((image: IImage, i: number) => {
-                                            return (
-                                                <div key={i}>
-                                                    <ImageUpload
-                                                        preview={`${image.url}`}
-                                                        setFieldValue={formik.setFieldValue}
-                                                        name={`images[${i}]`}
-                                                    />
-                                                    {/* {branch.images.length > 0 && branch.images.length !== 5 && (
-                                                        <div className={s.actionButtons}>
-                                                            <span onClick={() => helperProps.push({ url: '' })}>
-                                                                <Icon name="add_circle" size={18} />
-                                                                Добавить
-                                                            </span>
-                                                            <span onClick={() => helperProps.remove(i)}>
-                                                                <Icon name="delete" size={18} />
-                                                                Удалить
-                                                            </span>
-                                                        </div>
-                                                    )} */}
-                                                </div>
-                                            );
-                                        })
-                                    ) : (
-                                        <div className={s.actionButtons}>
-                                            <span
-                                                onClick={() => helperProps.push({ url: '' })}
-                                                style={{ whiteSpace: 'nowrap' }}
-                                            >
-                                                <Icon name="add_circle" size={18} />
-                                                {t('dashboard:add_photo')}
-                                            </span>
-                                        </div>
-                                    );
-                                }}
-                            />
-                        </div>
+                            <div className={s.imgGroup}>
+                                <FieldArray
+                                    name={`images`}
+                                    render={(helperProps) => {
+                                        return branch?.images && branch?.images.length ? (
+                                            branch?.images?.map((image: IImage, i: number) => {
+                                                return (
+                                                    <div key={i}>
+                                                        <ImageUpload
+                                                            preview={`${image.url}`}
+                                                            setFieldValue={formik.setFieldValue}
+                                                            name={`images[${i}]`}
+                                                        />
+                                                        {/*{branch.images.length > 0 && branch.images.length !== 5 && (*/}
+                                                        {/*    <div className={s.actionButtons}>*/}
+                                                        {/*        <span onClick={() => helperProps.push({ url: '' })}>*/}
+                                                        {/*            <Icon name="add_circle" size={18} />*/}
+                                                        {/*            Добавить*/}
+                                                        {/*        </span>*/}
+                                                        {/*        <span onClick={() => helperProps.remove(i)}>*/}
+                                                        {/*            <Icon name="delete" size={18} />*/}
+                                                        {/*            Удалить*/}
+                                                        {/*        </span>*/}
+                                                        {/*    </div>*/}
+                                                        {/*)}*/}
+                                                    </div>
+                                                );
+                                            })
+                                        ) : (
+                                            <div className={s.actionButtons}>
+                                                <span
+                                                    onClick={() => helperProps.push({ url: '' })}
+                                                    style={{ whiteSpace: 'nowrap' }}
+                                                >
+                                                    <Icon name="add_circle" size={18} />
+                                                    {t('dashboard:add_photo')}
+                                                </span>
+                                            </div>
+                                        );
+                                    }}
+                                />
+                            </div>
 
-                        <div className={s.actionButtons}>
-                            <Button variant="disabled" type="reset" onClick={() => push('/cabinet/main/branches')}>
-                                {t('common:cancel')}
-                            </Button>
-                            <Button variant="primary" type="submit">
-                                {t('dashboard:refresh')}
-                            </Button>
+                            <div className={s.actionButtons}>
+                                <Button variant="disabled" type="reset" onClick={() => push('/cabinet/main/branches')}>
+                                    {t('common:cancel')}
+                                </Button>
+                                <Button variant="primary" type="submit">
+                                    {t('dashboard:refresh')}
+                                </Button>
+                            </div>
                         </div>
-                    </div>
-                </Form>
+                    </Form>
+                )}
             </FormikProvider>
         </>
     );

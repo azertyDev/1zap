@@ -92,6 +92,7 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
                             <TableElement className={'table_h'}>{t('common:selects.manufacturers')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.number')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.photo')}</TableElement>
+                            <TableElement className={'table_h'}>{t('common:selects.params')}</TableElement>
                             <TableElement className={'table_h'}>
                                 <div className={s.filter_price_wr}>
                                     <div className={s.filter_price_buttons}>
@@ -125,7 +126,9 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
                                             quality={100}
                                         />
                                     </TableElement>
-
+                                    <TableElement className={'table_b'}>
+                                        <h5>{item.property}</h5>
+                                    </TableElement>
                                     <TableElement className={'table_b'}>
                                         <h5>
                                             {currency === 'usd'
@@ -167,7 +170,7 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
                 </div>
             )}
 
-            {dataOut && dataOut.totalPages !== 0 && <Pagination pageCount={data.totalPages} />}
+            {dataOut && dataOut.totalPages !== 0 && <Pagination pageCount={data?.totalPages} />}
         </>
     );
 };

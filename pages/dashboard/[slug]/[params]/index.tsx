@@ -8,6 +8,7 @@ import { CenterForm } from 'components/pages/dashboard/admin/sections/center/sub
 import { VinRequests } from 'components/pages/dashboard/admin/sections/vin_request';
 import { EditPromoForm } from 'components/pages/dashboard/admin/sections/promo/edit';
 import { PriceListEdit } from 'components/pages/dashboard/cabinet/sections/price_list/edit';
+import { ProfileEditProvider } from 'components/pages/dashboard/admin/sections/providers/edit/profile';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale, query } = context;
@@ -34,6 +35,7 @@ const routes = {
     vin_request_primary: '/vin-requests/primary',
     vin_request_completed: '/vin-requests/completed',
     edit_promo: '/promo/edit',
+    edit_provider: '/providers/edit',
 };
 
 const Index: NextPageWithLayout = ({ query }: any) => {
@@ -50,6 +52,8 @@ const Index: NextPageWithLayout = ({ query }: any) => {
             return <VinRequests query={query.params} />;
         case routes.edit_promo:
             return <EditPromoForm query={query} />;
+        case routes.edit_provider:
+            return <ProfileEditProvider />;
         default:
             break;
     }

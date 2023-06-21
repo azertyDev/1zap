@@ -1,18 +1,20 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useCallback, useMemo, useState } from 'react';
 import s from './index.module.scss';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import { Icon } from 'components/ui/icon';
 import { useTranslation } from 'next-i18next';
-
 import { IconsWrapper } from 'components/ui/icons_wrapper';
 
-export const FilterCalendar: FC<{ showCalendar?: boolean }> = ({ showCalendar = true }) => {
+export const FilterCalendar: FC<{
+    showCalendar?: boolean;
+    setFullDate?: Dispatch<SetStateAction<string | null>>;
+    fullDate: null | string;
+    setMonth: Dispatch<SetStateAction<Date>>;
+    month: Date;
+}> = ({ showCalendar = true, setFullDate, fullDate, setMonth, month }) => {
     const { t } = useTranslation();
-    const [value, setValue] = useState<null | string>(null);
     const [isOpen, setIsOpen] = useState(false);
-
-    const [month, setMonth] = useState(new Date());
 
     const handleMonth = (type: string) => {
         return () => {
@@ -40,7 +42,7 @@ export const FilterCalendar: FC<{ showCalendar?: boolean }> = ({ showCalendar = 
     );
 
     const handleChange = useCallback((e: string) => {
-        setValue(e);
+        setFullDate && setFullDate(e);
     }, []);
 
     const handleCalendar = useCallback((val: boolean) => {
@@ -69,7 +71,7 @@ export const FilterCalendar: FC<{ showCalendar?: boolean }> = ({ showCalendar = 
                     <DatePicker
                         calendarClassName={'calendar'}
                         onChange={handleChange as any}
-                        value={value}
+                        value={fullDate}
                         isOpen={isOpen}
                         onCalendarClose={handleCalendar(false)}
                     />

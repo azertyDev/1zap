@@ -78,7 +78,7 @@ export const ResultTableForm: FC<{
                             <TableElement className={'table_b'}>
                                 <h5>
                                     {currency === 'usd'
-                                        ? `$${item.usd}`
+                                        ? `$${formatNumber(item.usd)}`
                                         : `${formatNumber(item.sum)} ${t('common:sum')}`}
                                 </h5>
                                 <p>{item.rtext}</p>

@@ -123,9 +123,9 @@ export const PriceListEdit = () => {
             <StatisticsBlock data={statisticsData as any} title={<h4>{t('dashboard:price_list_info')}</h4>} />
 
             <div className={s.btns_wr}>
-                <FileUpload name="file" title={t('dashboard:download_price')} setFieldValue={formik.setFieldValue} />
+                <FileUpload name="file" title={t('dashboard:refresh_price')} setFieldValue={formik.setFieldValue} />
 
-                <Link href={"'/cabinet/promo/all_lists"}>
+                <Link href={'/cabinet/promo/all_lists'}>
                     <Button variant="primary">
                         <Icon name="label" color="white" />
                         {t('dashboard:add_adv')}

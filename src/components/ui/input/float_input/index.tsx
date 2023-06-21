@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useCallback, useState } from 'react';
 import { ErrorMessage, Field, FieldHookConfig, useField } from 'formik';
 import { Icon } from 'src/components/ui/icon';
 import { useTranslation } from 'next-i18next';
@@ -9,12 +9,19 @@ interface InputProps {
     iconname?: string;
     iconSize?: number;
     isPhone?: boolean;
+    isPassword?: boolean;
 }
 
 const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
-    const { iconname, iconSize = 18, isPhone } = props;
+    const { iconname, iconSize = 18, isPhone, isPassword } = props;
     const [field, meta] = useField(props);
     const { t } = useTranslation();
+
+    const [passwordType, setPasswordType] = useState(true);
+
+    const handlePasswordType = useCallback(() => {
+        setPasswordType((prev) => !prev);
+    }, []);
 
     return (
         <div className={s.container}>
@@ -28,13 +35,32 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                     {t(`common:${field.name}`)}
                 </label>
 
-                {isPhone ? (
+                {isPassword && (
+                    <div className={s.password_input_wr}>
+                        <Field
+                            type={passwordType ? 'password' : 'text'}
+                            {...field}
+                            {...props}
+                            className={` ${meta.error && meta.touched ? s.err : ''}`}
+                        />
+                        <div className={s.password_input_icon} onClick={handlePasswordType}>
+                            {!passwordType ? (
+                                <Icon name={'visibility'} size={20} />
+                            ) : (
+                                <Icon name={'visibility_off'} size={20} />
+                            )}
+                        </div>
+                    </div>
+                )}
+                {isPhone && (
                     <Field {...props}>
                         {() => {
                             return <PatternFormat type="tel" format="+998 ## #######" autoComplete="on" {...field} />;
                         }}
                     </Field>
-                ) : (
+                )}
+
+                {!isPassword && !isPhone && (
                     <Field {...field} {...props} className={meta.error && meta.touched ? s.err : ''} />
                 )}
 

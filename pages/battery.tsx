@@ -20,7 +20,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     let data = await productsApi
         .getProductsWithGroup(
             'batteries',
-            `?page=${page ?? 1}${manufacturers ? `&manufacturer=${manufacturers}` : ''}}`
+            `?page=${page ?? 1}${manufacturers ? `&manufacturer=${manufacturers}` : ''}${
+                polarities ? `&polarity=${polarities}` : ''
+            }${capacities ? `&capacity=${capacities}` : ''}${currents ? `&current=${currents}` : ''}`
         )
         .then((res) => res)
         .catch((err) => null);

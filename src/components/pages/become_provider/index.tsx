@@ -38,6 +38,7 @@ export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar
             applicationApi
                 .addApplication(val)
                 .then((response) => {
+                    formik.setSubmitting(true);
                     push('/become_provider/final_step');
                 })
                 .catch(({ response }) => {
@@ -71,7 +72,7 @@ export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar
                             <Field
                                 component={SelectField}
                                 name="service"
-                                label={t('common:selects.autoService')}
+                                label={t('common:selects.shop_type')}
                                 options={
                                     staticPar ? transformSelectOptions(staticPar.service) : [{ value: '', label: '' }]
                                 }
@@ -86,11 +87,13 @@ export const BecomeProviderComp: FC<{ staticPar: IStaticParams }> = ({ staticPar
                                 }
                             />
                         </div>
+
                         <Button
                             disabled={!formik.dirty || !formik.isValid}
                             variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
                             fullWidth
                             type={'submit'}
+                            disabledPointer={formik.isSubmitting}
                         >
                             {t('common:next')}
                         </Button>

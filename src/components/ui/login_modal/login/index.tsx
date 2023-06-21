@@ -37,7 +37,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
                     <InputWrapper>
                         <FloatingInput {...formik.getFieldProps('email')} iconname="email" />
                     </InputWrapper>
-                    <FloatingInput {...formik.getFieldProps('password')} iconname="key" type={'password'} />
+                    <FloatingInput {...formik.getFieldProps('password')} iconname="key" isPassword={true} />
 
                     <div className={s.remember_wr}>
                         <p className={s.fix_password} onClick={fun(2)}>

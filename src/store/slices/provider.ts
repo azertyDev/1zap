@@ -17,7 +17,6 @@ export interface IProviderSlice {
     fetchProviderBranches: () => void;
     fetchProviderById: (id: number) => void;
     fetchBranchById: (id: number) => void;
-    addProvider: (data: IProviderData) => void;
 }
 
 const initialState = {
@@ -134,22 +133,6 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
             })
             .finally(() => {
                 set({ loading: false });
-            });
-    },
-
-    addProvider: async (data: any) => {
-        await providerApi
-            .addProvider(data)
-            .then((response) => {
-                toast.success('Провайдер создан', { duration: 5000 });
-                Router.push('/dashboard/providers?page=1&pageSec=1');
-            })
-            .catch(({ response }) => {
-                console.log('@addProvider error:', response);
-
-                toast.success(response.data.error, { icon: '😫', duration: 5000 });
-
-                // set({ branch: null, error: response.data.error, loading: false });
             });
     },
 });

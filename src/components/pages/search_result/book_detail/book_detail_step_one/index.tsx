@@ -2,12 +2,10 @@ import React, { FC, useEffect, useState } from 'react';
 import s from './index.module.scss';
 import { Icon } from 'components/ui/icon';
 import Image from 'next/image';
-
 import { MapPoint } from 'components/ui/map/map_point';
 import { Button } from 'components/ui/button';
 import { useTranslation } from 'next-i18next';
 import { IconsWrapper } from 'components/ui/icons_wrapper';
-
 import { Map, Overlay } from 'pigeon-maps';
 import { maptiler } from 'pigeon-maps/providers';
 import { branchApi, productsApi } from 'src/utils/api';
@@ -23,10 +21,11 @@ const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 export const BookDetailStepOne: FC<{
     handleOrder: (val: number) => () => void;
     toggleBookDetail: (val: boolean) => () => void;
-}> = ({ handleOrder, toggleBookDetail }): JSX.Element => {
+    value: null;
+}> = ({ handleOrder, toggleBookDetail, value }): JSX.Element => {
     const { t } = useTranslation();
-    const [branch, setBranch] = useState<IBranchData | null>(null);
-    const [product, setProdcut] = useState<IPieceProduct | null>(null);
+    const [branch, setBranch] = useState<IBranchData | null>(value);
+    const [product, setProdcut] = useState<IPieceProduct | null>(value);
     const { branchId, productId, currency } = useStore((state) => state);
 
     useEffect(() => {
@@ -43,8 +42,6 @@ export const BookDetailStepOne: FC<{
         })();
     }, [branchId, productId]);
 
-    console.log('branch', branch);
-
     return (
         <div className={s.book_inner}>
             <div className={s.close_res}>
@@ -60,7 +57,7 @@ export const BookDetailStepOne: FC<{
                             provider={maptilerProvider}
                             dprs={[1, 2]}
                             defaultCenter={JSON.parse(branch.location)}
-                            defaultZoom={15}
+                            defaultZoom={20}
                         >
                             <Overlay anchor={JSON.parse(branch.location)} offset={[30, 30]}>
                                 <MapPoint val={product.availability} />
@@ -113,8 +110,7 @@ export const BookDetailStepOne: FC<{
                                     <div>
                                         <p>{t('common:workingScheduleText')}:</p>
                                         <p>
-                                            {t(`common:workingSchedule.${branch.workingSchedule}`)},{t('common:break')}{' '}
-                                            {branch.breakTime}
+                                            {branch.workingSchedule} ({t('common:break')} {branch.breakTime})
                                         </p>
                                     </div>
                                     <div className={s.detail_border_wr}>
@@ -166,7 +162,7 @@ export const BookDetailStepOne: FC<{
                                 >
                                     {branch.images.map((item) => {
                                         return (
-                                            <SwiperSlide key={item.id}>
+                                            <SwiperSlide key={item.id + branch.branchName + branch.id}>
                                                 <div className={s.photo_wr_imgs}>
                                                     <Image src={item.url} alt={'shop'} fill={true} />
                                                 </div>
@@ -180,7 +176,7 @@ export const BookDetailStepOne: FC<{
                                     provider={maptilerProvider}
                                     dprs={[1, 2]}
                                     defaultCenter={JSON.parse(branch.location)}
-                                    defaultZoom={15}
+                                    defaultZoom={20}
                                 >
                                     <Overlay anchor={JSON.parse(branch.location)} offset={[30, 30]}>
                                         <MapPoint val={product.availability} />
@@ -201,7 +197,7 @@ export const BookDetailStepOne: FC<{
                                         <p className={s.final_step_title}>
                                             {currency === 'uzs'
                                                 ? `${formatNumber(product.sum)} ${t('common:sum')}`
-                                                : `$${product.usd}`}
+                                                : `$${formatNumber(product.usd)}`}
                                         </p>
                                         <p className={s.final_step_text}>
                                             {product.availability > 0 ? t('common:wehave') : t('common:wedonthave')}
@@ -215,7 +211,7 @@ export const BookDetailStepOne: FC<{
                                             {' '}
                                             {currency === 'uzs'
                                                 ? `${formatNumber(product.sum)} ${t('common:sum')}`
-                                                : `$${product.usd}`}
+                                                : `$${formatNumber(product.usd)}`}
                                         </p>
                                         <p className={s.final_step_title}>{product.uniqNumber}</p>
                                     </div>

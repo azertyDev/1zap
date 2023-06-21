@@ -116,7 +116,9 @@
   "weekend": {
     "sat-sun": "Сб-Вс",
     "without_weekend": "Без выходных",
-    "sunday": "Воскресенье"
+    "sunday": "Воскресенье",
+    "monday": "Понедельник",
+    "saturday": "Суббота"
   },
   "workingSchedule": {
     "seven-day": "Пн-Вс",
@@ -125,7 +127,7 @@
     "tue-sat": "Вт-Сб",
     "tue-san": "Вт-Вс"
   },
-  "sum": "сум",
+  "sum": "Сум",
   "in": "в {{time}}",
   "weekendSchedule": "Выходные дни",
   "workingScheduleText": "Рабочие дни",
@@ -133,6 +135,8 @@
   "fromTo": "от {{from}} до {{to}}",
   "selects": {
     "all": "Все",
+    "params": "Параметры",
+    "other": "Любой",
     "shop": "Магазин",
     "dealer": "Автодилер",
     "sat-sun": "Сб-Вс",
@@ -143,10 +147,13 @@
     "mon-sat": "Пн-Сб",
     "tue-sat": "Вт-Сб",
     "tue-san": "Вт-Вс",
+    "monday": "Понедельник",
+    "saturday": "Суббота",
     "tireFitting": "Шиномонтаж",
     "autoService": "Автосервис",
+    "partSelection": "Запчасти",
     "payment": "Способ оплаты",
-
+    "shop_type": "Тип магазина",
     "delivery": "Способ доставки",
     "service": "Услуги",
     "supply": "Поставка",
@@ -196,14 +203,28 @@
     "andijan": "Андижан",
     "namangan": "Наманган",
     "choose_img_id": "Перейти к номеру",
-    "status": "Статус выполнения"
+    "status": "Статус выполнения",
+    "shipment": "Поставка",
+    "in_stock": "В наличие",
+    "order": "Под заказ",
+    "one_three_day": "1-3 дня",
+    "up_seven_day": "до 7 дня",
+    "up_thirty_day": "до 30 дня",
+    "today": "Сегодня",
+    "three_day": "3 дня",
+    "seven_day": "7 дней",
+    "fourteen_day": "14 дней",
+    "month": "Месяц"
   },
   "new_password": "Новый пароль",
   "new_password_repeat": "Подтверждение пароля",
   "agreementNumber": "Номер договора",
   "partSelection": "Запчасти",
-  "usd": "доллары",
+  "usd": "Доллары",
   "for_legal": "Для юрлиц",
   "for_people": "Для физлиц",
-  "coin": "монет"
+  "coin": "монет",
+  "ru": "Русский язык",
+  "uz": "Узбекский язык",
+  "rate": "Курс обмена $"
 }

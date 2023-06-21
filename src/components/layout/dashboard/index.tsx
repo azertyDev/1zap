@@ -22,7 +22,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }): JSX.Element => {
         <div className={s.layout}>
             {navbar}
             <div className={s.content}>
-                <Header title={slug as string} />
+                <Header title={slug as string} id={userData?.user.id as number} />
                 <main>{children}</main>
                 <Bottom_footer className={s.footer} />
             </div>

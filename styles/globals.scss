@@ -111,6 +111,9 @@ input {
   width: 100%;
   padding: 20px 17px;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .react-calendar__viewContainer, .react-calendar__month-view {
@@ -127,7 +130,7 @@ input {
   line-height: 0;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-40%);
 }
 
 .react-calendar__navigation__prev-button{
@@ -187,7 +190,6 @@ input {
 }
 .react-calendar__navigation__label{
   background: transparent !important;
-
 }
 
 @media (max-width: 768px) {

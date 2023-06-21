@@ -13,11 +13,16 @@ import { IProductGroup } from '../types';
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {
         locale,
-        query: { page, manufacturers },
+        query: { page, manufacturers, viscosites, volumes, types },
     } = context;
 
     let data = await productsApi
-        .getProductsWithGroup('oils', `?page=${page ?? 1}${manufacturers ? `&manufacturer=${manufacturers}` : ''}`)
+        .getProductsWithGroup(
+            'oils',
+            `?page=${page ?? 1}${manufacturers ? `&manufacturer=${manufacturers}` : ''}${
+                viscosites ? `&viscosity=${viscosites}` : ''
+            }${volumes ? `&volume=${volumes}` : ''}${types ? `&type=${types}` : ''}`
+        )
         .then((res) => res)
         .catch((err) => null);
 

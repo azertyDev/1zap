@@ -14,7 +14,7 @@ import { IProductGroup } from '../types';
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {
         locale,
-        query: { page, manufacturers, seasons, widths, heights },
+        query: { page, manufacturers, seasons, widths, heights, diameters },
     } = context;
 
     let data = await productsApi
@@ -22,7 +22,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             'tires',
             `?page=${page ?? 1}${manufacturers ? `&manufacturer=${manufacturers}` : ''}${
                 seasons ? `&season=${seasons}` : ''
-            }${widths ? `&width=${widths}` : ''}${heights ? `&height=${heights}` : ''}`
+            }${widths ? `&width=${widths}` : ''}${heights ? `&height=${heights}` : ''}${
+                diameters ? `&diameter=${diameters}` : ''
+            }`
         )
         .then((res) => res)
         .catch((err) => null);
@@ -36,7 +38,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const TirePage: NextPageWithLayout<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }) => {
-    console.log(data);
     return <Tires data={data} />;
 };
 

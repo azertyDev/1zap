@@ -11,10 +11,11 @@
   margin-top: 70px;
 }
 
-.table_row{
+.table_row {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr minmax(170px,207px)   124px;
+  grid-template-columns: minmax(100px, 150px) 150px 80px minmax(170px, 1fr) minmax(170px, 1fr) 124px;
 }
+
 
 
 .filter_price_wr {
@@ -36,7 +37,7 @@
     &:first-child {
       left: 0;
       top: -12px;
-      z-index: 1;
+
     }
 
     &:last-child {

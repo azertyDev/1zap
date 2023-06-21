@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
-import { useRouter } from 'next/router';
-import { useStore } from 'src/store/useStore';
+import Router, { useRouter } from 'next/router';
 import { Button } from 'src/components/ui/button';
 import { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import { FloatingInput } from 'src/components/ui/input/float_input';
@@ -9,6 +8,9 @@ import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'fo
 import { IBranchData, IProviderData } from 'types';
 import s from '../index.module.scss';
 import { useTranslation } from 'next-i18next';
+import { providerApi } from 'src/utils/api';
+import { toast } from 'react-hot-toast';
+import { client_validation } from 'src/validation/client_validation';
 
 interface SecondFormProps {
     initialValues: IProviderData;
@@ -45,24 +47,9 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
         query: { id },
     } = useRouter();
 
-    const { addProvider } = useStore((state) => state);
-
     const selectCoin = (value: number) => {
         formik.setFieldValue('coin', value);
     };
-
-    const validationSchema = Yup.object().shape({
-        legalAddress: Yup.string().min(2, 'more_then_two_words').max(50, 'Too Long!').required('required'),
-        phone: Yup.string().required('required'),
-        fullName: Yup.string().min(2, 'more_then_two_words').max(50, 'Too Long!').required('required'),
-        email: Yup.string().email('Invalid email').required('required'),
-        companyName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('required'),
-        inn: Yup.string().max(12, 'Too Long!').required('required'),
-        coin: Yup.number()
-            .label('Coin')
-            .typeError(({ label, type }) => `${label} must be a ${type}`)
-            .required('required'),
-    });
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
         const { coin, applicationId, phone, providerBranch, ...rest } = values;
@@ -80,13 +67,25 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
             ...rest,
         };
 
-        await addProvider(data);
+        await providerApi
+            .addProvider(data)
+            .then(() => {
+                toast.success(t('dashboard:providerCreated'), { duration: 5000 });
+                Router.push('/dashboard/providers?page=1&pageSec=1');
+            })
+            .catch(({ response }) => {
+                if (response.data.error === 'user allready exist') {
+                    toast.error(t('helpers:userAllreadyExist'), { duration: 6000 });
+                } else {
+                    toast.error(t('helpers:allFields'), { duration: 6000 });
+                }
+            });
     };
 
     const formik = useFormik({
         initialValues,
         onSubmit,
-        validationSchema,
+        validationSchema: client_validation.create_provider,
     });
 
     useEffect(() => {

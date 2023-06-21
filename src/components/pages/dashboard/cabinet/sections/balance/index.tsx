@@ -5,16 +5,24 @@ import { useTranslation } from 'next-i18next';
 import { toast } from 'react-hot-toast';
 import { Table } from 'components/ui/dashboard/table';
 import { Pagination } from 'components/ui/pagination/Pagination';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { FilterCalendar } from 'components/ui/dashboard/table/filterCalendar';
 import { IProviderStat } from 'types';
 import { providerApi, walletApi } from 'src/utils/api';
 import { useRouter } from 'next/router';
+import { BaseModal } from 'components/ui/dashboard/modal/base_modal';
+import { useModal } from 'src/hooks/common/useModal';
+import { Completed } from 'components/ui/completed';
+import { Icon } from 'components/ui/icon';
 
 export const Balance = () => {
     const { t } = useTranslation();
     const [data, setData] = useState<any>(null);
+    const { open, handleModalOpen, handleModalClose } = useModal();
+    const [fullDate, setFullDate] = useState<null | string>(null);
+    const [month, setMonth] = useState(new Date());
+
     const {
         query: { page },
     } = useRouter();
@@ -32,32 +40,30 @@ export const Balance = () => {
     useEffect(() => {
         (() => {
             walletApi
-                .getHistoryProvider(page as string)
+                .getHistoryProvider(page as string, fullDate ? dayjs(fullDate).format('YYYY-MM-DD') : null)
                 .then((res) => setData(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [page]);
+    }, [page, fullDate]);
 
     const handleSendBalance = useCallback((val: number) => {
         return () => {
+            handleModalOpen();
             walletApi
                 .addCoins({
                     info: 'wallet_up',
                     coin: val,
                 })
-                .then(() =>
-                    toast.success(t('dashboard:balance_moderation'), {
-                        duration: 4000,
-                    })
-                )
-                .catch(() => toast.error(t('helpers:error_sending')));
+                .catch(() => {
+                    toast.error(t('helpers:error_sending'));
+                });
         };
     }, []);
 
     const balanceStatistics = [
         {
             id: 1,
-            title: t('dashboard:coins'),
+            title: t('dashboard:coinsBig'),
             date: t('dashboard:till', { till: dataStat?.balance.date }),
             count: dataStat?.balance.balance,
         },
@@ -161,9 +167,23 @@ export const Balance = () => {
             </div>
 
             <h4 className={s.title}>{t('dashboard:history_balance')}</h4>
-            <FilterCalendar />
+            <FilterCalendar setFullDate={setFullDate} fullDate={fullDate} setMonth={setMonth} month={month} />
             {data?.data && <Table data={data?.data} columns={cols} isSecondType />}
             {data?.totalPages > 1 && <Pagination pageCount={data?.totalPages} />}
+
+            <BaseModal
+                center
+                open={open}
+                showCloseIcon={false}
+                onClose={handleModalClose}
+                headerContent={<h3> {t('dashboard:balanceFilling')}</h3>}
+            >
+                <div>
+                    <Completed smallTitle title={'thanks'} img={<Icon size={20} name={'done'} />}>
+                        <h4>{t('dashboard:balance_moderation')}</h4>
+                    </Completed>
+                </div>
+            </BaseModal>
         </div>
     );
 };

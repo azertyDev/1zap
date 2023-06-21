@@ -145,6 +145,7 @@ interface IProductGroup {
     uniqNumber: string;
     availability: number;
     currency: string;
+    property: string;
     sum: {
         priceTo: 4234355;
         priceFrom: 4234355;
@@ -201,9 +202,12 @@ interface IStaticParams {
     delivery: params[];
     payment: params[];
     service: params[];
+    service2: params[];
     weekend: params[];
     weekendSchedule: params[];
     workingSchedule: params[];
+    shipment: params[];
+    updates: params[];
 }
 
 interface IOrderDetail {

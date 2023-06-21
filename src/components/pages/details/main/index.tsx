@@ -59,7 +59,7 @@ export const Details: FC<{
                 </Title>
 
                 <div className={s.tabs_wr}>
-                    <SearchTabs activeTab={+tab!} handleTab={handleActivetab} tabs={tabsValue.datails}>
+                    <SearchTabs activeTab={+tab!} handleTab={handleActivetab} tabs={tabsValue.datails} responsiveDif>
                         <InputSelectWrTabs>
                             {+tab! === 1 && <FitParams />}
                             {+tab! === 2 && (

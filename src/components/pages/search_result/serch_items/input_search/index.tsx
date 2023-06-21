@@ -9,17 +9,16 @@ import { Icon } from 'components/ui/icon';
 
 export const InputSearch: FC = (): JSX.Element => {
     const { t } = useTranslation();
-    const [formikValue, setFormikValue] = useState(false);
 
     const {
         pathname,
         push,
-        query: { filter },
+        query: { filter, oem },
     } = useRouter();
 
     const formik = useFormik({
         initialValues: {
-            searchVal: formikValue ? '' : filter,
+            searchVal: filter ?? oem,
         },
         validationSchema: client_validation.search,
         enableReinitialize: true,
@@ -33,11 +32,6 @@ export const InputSearch: FC = (): JSX.Element => {
             });
         },
     });
-
-    const resetForm = useCallback(() => {
-        setFormikValue(true);
-        formik.resetForm();
-    }, []);
 
     return (
         <FormikProvider value={formik}>
@@ -54,14 +48,6 @@ export const InputSearch: FC = (): JSX.Element => {
 
                     <span>{t('common:search')} </span>
                 </button>
-                <div
-                    className={`${s.clean} ${
-                        formik.values.searchVal && formik.values.searchVal.length > 0 ? s.active : ''
-                    }`}
-                    onClick={resetForm}
-                >
-                    <Icon name={'cancel'} color={'#C6303C'} size={18} />
-                </div>
             </Form>
         </FormikProvider>
     );

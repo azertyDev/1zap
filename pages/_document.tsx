@@ -12,6 +12,7 @@ class MyDocument extends Document {
             <Html lang="ru">
                 <Head>
                     <meta charSet="utf-8" />
+
                     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
                 </Head>
 

@@ -18,10 +18,12 @@ import { baseURL } from 'src/utils/constants';
 import { PriceCreateForm } from './form/create';
 import { priceListApi, providerApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
-
+import { Form, FormikProvider, useFormik } from 'formik';
 import s from './index.module.scss';
 import { IProviderStat } from 'types';
 import { Pagination } from 'components/ui/pagination/Pagination';
+import { client_validation } from 'src/validation/client_validation';
+import { FloatingInput } from 'components/ui/input/float_input';
 
 export const PriceList = () => {
     const { t } = useTranslation();
@@ -51,6 +53,14 @@ export const PriceList = () => {
         fetchProviderBranches();
     }, [fetchProviderBranches]);
 
+    const formik = useFormik({
+        initialValues: {
+            rate: '',
+        },
+        onSubmit() {},
+        validationSchema: client_validation.rate,
+    });
+
     const openModal = () => {
         handleModalOpen();
     };
@@ -58,7 +68,7 @@ export const PriceList = () => {
     const deleteCell = (id: number) => {
         priceListApi.delete(id).then(() => {
             fetchPriceList(page as string);
-            toast.success(t('helpers.deleted'));
+            toast.success(t('helpers:deleted'));
         });
     };
 
@@ -184,6 +194,20 @@ export const PriceList = () => {
                     <Icon name="label" color="white" />
                     {t('dashboard:add_adv')}
                 </Button>
+
+                <FormikProvider value={formik}>
+                    <Form className={s.form_rate}>
+                        <FloatingInput {...formik.getFieldProps('rate')} />
+                        <Button
+                            fullWidth
+                            type="submit"
+                            disabled={!formik.dirty || !formik.isValid}
+                            variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                        >
+                            {t('dashboard:refresh')}
+                        </Button>
+                    </Form>
+                </FormikProvider>
             </div>
 
             {priceList?.data?.length > 0 && <Table columns={priceListCols} data={priceList?.data} />}

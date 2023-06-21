@@ -53,4 +53,9 @@
 }
 
 
+@media (max-width: 400px) {
+  .title {
+    @include fs_fw_c(28px,800, $secondary);}
+}
+
 

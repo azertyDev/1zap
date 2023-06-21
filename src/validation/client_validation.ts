@@ -67,14 +67,8 @@ export const client_validation = {
         textUz: yup.string().required('required'),
     }),
     promo: Yup.object({
-        descriptionRu: Yup.string()
-            .min(3, 'Must be at least 3 characters')
-            .max(80, 'Must be 80 characters or less')
-            .required('required'),
-        descriptionUz: Yup.string()
-            .min(3, 'Must be at least 3 characters')
-            .max(80, 'Must be 80 characters or less')
-            .required('required'),
+        descriptionRu: Yup.string().min(3, 'limit_less').max(80, 'limit_more').required('required'),
+        descriptionUz: Yup.string().min(3, 'limit_less').max(80, 'limit_more').required('required'),
     }),
     wallet: Yup.object({
         file: Yup.mixed().required('required'),
@@ -82,5 +76,30 @@ export const client_validation = {
     }),
     price_list_edit: Yup.object({
         file: Yup.mixed().required('required'),
+    }),
+    price_list: Yup.object({
+        file: Yup.mixed().required('required'),
+        title: yup.string().required('required'),
+        currencyType: yup.string().required('required'),
+        clientType: yup.string().required('required'),
+        type: yup.string().required('required'),
+        availability: yup.string().required('required'),
+        branchId: yup.string().required('required'),
+    }),
+    rate: Yup.object({
+        rate: yup.number().typeError('invalid_format').required('required'),
+    }),
+    create_provider: Yup.object().shape({
+        legalAddress: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
+        phone: yup
+            .string()
+            .trim()
+            .matches(/\+998 \d\d \d\d\d\d\d\d\d/, 'invalid_format')
+            .required('required'),
+        fullName: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
+        email: Yup.string().email('Invalid email').required('required'),
+        companyName: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
+        inn: Yup.string().min(9, 'limit_less').max(9, 'limit_more').required('required'),
+        coin: Yup.number().label('Coin').typeError('invalid_format').required('required'),
     }),
 };

@@ -43,9 +43,10 @@ export const providerApi = {
     addProvider: (body: IProviderData): Promise<any> => requests.post('/providers/new', body),
     fetchProviderBranches: (): Promise<any> => requests.get('/provider/branchs'),
     fetchBranchById: (id: number): Promise<any> => requests.get(`/provider/branch/${id}`),
-    updateProvider: (id: number, body: IProviderData) => requests.patch(`/provider/${id}`, { ...body }),
+    updateProviderPhone: (id: number, body: IProviderData) => requests.patch(`provider/phone/${id}`, body),
     getProviderStatistic: (): Promise<any> => requests.get('/provider/observer'),
     getBranchById: (id: string): Promise<any> => requests.get(`provider/branch/${id}`),
+    getProviderRequisites: () => requests.get(`provider/info`),
 };
 
 export const branchApi = {
@@ -63,6 +64,7 @@ export const productsApi = {
     upload: (data: any, config: {}): Promise<any> => requests.post('/products/new', data, config),
     getProductsNoGroup: (params: any) => requests.get(`/branchs?${params}`),
     getPieceProduct: (id: number) => requests.get(`/piece/${id}`),
+
     getProductsWithGroup: (type: string, params: any) => requests.get(`/group/${type}${params}`),
     getBranchInfo: (id: number) => requests.get(`products/countBranch/${id}`),
     getListInfo: (id: number) => requests.get(`products/countPricelist/${id}`),
@@ -142,7 +144,9 @@ export const walletApi = {
         requests.post('replenishment/approved', body, {
             headers: { 'Content-Type': 'multipart/form-data' },
         }),
-    getHistoryAdmin: (page: string) => requests.get(`replenishment/usage?page=${page}`),
-    getHistoryProvider: (page: string) => requests.get(`wallets/usage?page=${page}`),
+    getHistoryAdmin: (page: string, date: string | null) =>
+        requests.get(`replenishment/usage?page=${page}${date ? `&date=${date}` : ''}`),
+    getHistoryProvider: (page: string, date: string | null) =>
+        requests.get(`wallets/usage?page=${page}${date ? `&date=${date}` : ''}`),
     addCoins: (body: any) => requests.post('wallets/up', body),
 };

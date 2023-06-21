@@ -70,7 +70,7 @@ export const Main = () => {
                             <span>ID {userData?.user.id}</span>
                         </h3>
                         <h2 className={s.info_company}>{userData?.user.companyName}</h2>
-                        <h3 className={s.info_phone}>{userData?.user.phone}</h3>
+                        <h3 className={s.info_phone}>{data?.phone}</h3>
                     </div>
                 )}
             </div>

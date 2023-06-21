@@ -8,6 +8,8 @@
         display: flex;
         gap: 30px;
         margin-bottom: 30px;
+
+        justify-content: space-between;
     }
 }
 
@@ -41,4 +43,9 @@
         display: flex;
         gap: 30px;
     }
+}
+
+
+.form_rate{
+    @include dg_gc_gr_gg(143px 115px,auto,20px)
 }

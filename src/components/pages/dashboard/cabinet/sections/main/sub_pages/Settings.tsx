@@ -17,6 +17,9 @@ export const Settings = (props: any) => {
         email: '',
         new_password: '',
         new_password_repeat: '',
+        balance: false,
+        listing: false,
+        request: false,
     };
 
     const onSubmit = async (values: any, {}: FormikHelpers<typeof initialValues>) => {
@@ -45,7 +48,10 @@ export const Settings = (props: any) => {
                                         component={SelectField}
                                         name="branchType"
                                         label={t('dashboard:lang_cabinet')}
-                                        options={selectDefaultVal}
+                                        options={[
+                                            { value: 'ru', label: t('common:ru') },
+                                            { value: 'uz', label: t('common:uz') },
+                                        ]}
                                     />
                                     <FloatingInput {...formik.getFieldProps('email')} iconname="edit" />
                                 </div>
@@ -67,24 +73,29 @@ export const Settings = (props: any) => {
                                     <div className={s.notification_block}>
                                         <span>{t('dashboard:not_balance')}</span>
                                         <div>
-                                            <p>{t('dashboard:not_ziro')}</p>
-                                            <BaseSwitch />
+                                            <p className={!formik.values.balance ? s.disabled : ''}>
+                                                {t('dashboard:not_ziro')}
+                                            </p>
+                                            <BaseSwitch {...formik.getFieldProps('balance')} />
                                         </div>
                                     </div>
                                     <div className={s.notification_block}>
                                         <span>{t('dashboard:not_listing')}</span>
                                         <div>
-                                            <p className={s.disabled}>{t('dashboard:not_listing_day')}</p>
+                                            <p className={!formik.values.listing ? s.disabled : ''}>
+                                                {t('dashboard:not_listing_day')}
+                                            </p>
 
-                                            <BaseSwitch disabled />
+                                            <BaseSwitch {...formik.getFieldProps('listing')} />
                                         </div>
                                     </div>
                                     <div className={s.notification_block}>
                                         <span>{t('dashboard:not_request')}</span>
                                         <div>
-                                            <p>{t('dashboard:get_not_request')}</p>
-
-                                            <BaseSwitch checked />
+                                            <p className={!formik.values.request ? s.disabled : ''}>
+                                                {t('dashboard:get_not_request')}
+                                            </p>
+                                            <BaseSwitch {...formik.getFieldProps('request')} />
                                         </div>
                                     </div>
                                 </div>

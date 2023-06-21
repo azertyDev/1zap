@@ -131,9 +131,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                         component={SelectField}
                                         name={`providerBranch[${index}].workingSchedule`}
                                         label="dashboard:providerBranch.workingSchedule"
-                                        options={
-                                            params ? transformSelectOptions(params.workingSchedule) : defaultOptions
-                                        }
+                                        options={params ? params.workingSchedule : defaultOptions}
                                     />
                                     <Field
                                         component={SelectField}

@@ -33,6 +33,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <>
             <Head>
                 <title>1Zap</title>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=0"
+                />
                 <meta name="description" content="Купи и сравни" />
                 <link rel="icon" href="/assets/favicon/favicon.ico" />
                 <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />

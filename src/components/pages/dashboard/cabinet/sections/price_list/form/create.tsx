@@ -11,6 +11,7 @@ import { useStore } from 'src/store/useStore';
 import { branchApi, productsApi } from 'src/utils/api';
 import { IBranchData } from 'types';
 import s from '../index.module.scss';
+import { client_validation } from 'src/validation/client_validation';
 
 interface IOptions {
     value: number | undefined;
@@ -20,6 +21,7 @@ interface IOptions {
 export const PriceCreateForm: FC<any> = (props) => {
     const { t } = useTranslation();
     const { fetchPriceList } = useStore();
+    const [isSubmiting, setIsSubmiting] = useState(false);
     // const branchesOptions: IOptions[] = useMemo(() => [], []);
     // const [options, setOptions] = useState<IOptions[]>(branchesOptions);
     //
@@ -49,6 +51,7 @@ export const PriceCreateForm: FC<any> = (props) => {
     }, []);
 
     const initialValues = {
+        file: '',
         title: '',
         branchId: null,
         currencyType: '',
@@ -78,6 +81,7 @@ export const PriceCreateForm: FC<any> = (props) => {
             payment: JSON.stringify(payment),
             ...rest,
         };
+        setIsSubmiting(true);
 
         productsApi
             .upload(data, {
@@ -87,12 +91,15 @@ export const PriceCreateForm: FC<any> = (props) => {
                 props.handleModalClose();
                 formik.resetForm();
                 fetchPriceList();
+                setIsSubmiting(false);
             })
             .catch(({ response }) => {
+                setIsSubmiting(false);
+                console.log(response);
                 toast.error(
                     response.data.error
                         ? t(`helpers:${response.data.error.replaceAll(' ', '_')}`)
-                        : 'Error while uploading'
+                        : t(`helpers:error_sending`)
                 );
             });
     };
@@ -100,7 +107,7 @@ export const PriceCreateForm: FC<any> = (props) => {
     const formik = useFormik({
         initialValues,
         onSubmit,
-        // validationSchema,
+        validationSchema: client_validation.price_list,
     });
 
     return (
@@ -170,12 +177,24 @@ export const PriceCreateForm: FC<any> = (props) => {
                         label="dashboard:availability"
                         options={[
                             {
-                                value: 'from_seven',
-                                label: t('dashboard:delivery', { day: 7 }),
+                                value: 'in_stock',
+                                label: t('dashboard:in_stock'),
                             },
                             {
-                                value: 'from_fourteen',
-                                label: t('dashboard:delivery', { day: 14 }),
+                                value: 'order',
+                                label: t('common:selects.order'),
+                            },
+                            {
+                                value: 'one_three_day',
+                                label: t('common:selects.one_three_day'),
+                            },
+                            {
+                                value: 'up_seven_day',
+                                label: t('common:selects.up_seven_day'),
+                            },
+                            {
+                                value: 'up_thirty_day',
+                                label: t('common:selects.up_thirty_day'),
                             },
                         ]}
                     />
@@ -211,6 +230,7 @@ export const PriceCreateForm: FC<any> = (props) => {
                         type="submit"
                         disabled={!formik.dirty || !formik.isValid}
                         variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                        disabledPointer={isSubmiting}
                     >
                         {t('common:save')}
                     </Button>

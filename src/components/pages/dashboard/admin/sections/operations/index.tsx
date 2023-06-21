@@ -15,6 +15,9 @@ export const OperationsPage: FC = () => {
     const [activeData, setActiveData] = useState<any>(null);
     const { t } = useTranslation();
 
+    const [fullDate, setFullDate] = useState<null | string>(null);
+    const [month, setMonth] = useState(new Date());
+
     const {
         query: { page },
     } = useRouter();
@@ -22,11 +25,11 @@ export const OperationsPage: FC = () => {
     useEffect(() => {
         (() => {
             walletApi
-                .getHistoryAdmin(page as string)
+                .getHistoryAdmin(page as string, fullDate ? dayjs(fullDate).format('YYYY-MM-DD') : null)
                 .then((res) => setActiveData(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [page]);
+    }, [page, fullDate]);
 
     const cols = [
         {
@@ -64,10 +67,8 @@ export const OperationsPage: FC = () => {
         },
         {
             Header: t('dashboard:info') as string,
-            accessor: 'action',
-            Cell: ({ cell }: any) => {
-                return cell.value;
-            },
+            accessor: 'info',
+            Cell: ({ cell }: any) => t(`dashboard:wallet_info.${cell.value.toLowerCase()}`),
             disableFilters: true,
             disableSortBy: false,
             minWidth: 200,
@@ -86,11 +87,11 @@ export const OperationsPage: FC = () => {
             },
         },
     ];
-
+    console.log(dayjs(fullDate).format('YYYY-MM-DD'));
     return (
         <div>
             <h4 className={s.titles}>{t('dashboard:history_last_oper')}</h4>
-            <FilterCalendar />
+            <FilterCalendar setFullDate={setFullDate} fullDate={fullDate} setMonth={setMonth} month={month} />
             {activeData?.data && <Table data={activeData?.data} columns={cols} isSecondType />}
             {activeData?.totalPages > 1 && <Pagination pageCount={activeData?.totalPages} />}
         </div>

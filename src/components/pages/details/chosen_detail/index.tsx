@@ -23,7 +23,7 @@ export const ChosenDetail: FC<{
     dataGetUnitInfo: string;
 }> = ({ dataAuto, dataDetailByUnit, dataGetUnitInfo }): JSX.Element => {
     const { t } = useTranslation();
-    const { back, pathname } = useRouter();
+    const { back } = useRouter();
 
     const { auto, detailByUnit, unitInfo } = useChosenDetail(dataAuto, dataDetailByUnit, dataGetUnitInfo);
 
@@ -91,6 +91,7 @@ export const ChosenDetail: FC<{
                                         component={SelectField}
                                         name="codeimg"
                                         label={t('common:selects.choose_img_id')}
+                                        isSearchable={true}
                                         options={
                                             detailByUnit
                                                 ? detailByUnit.map((item) => ({

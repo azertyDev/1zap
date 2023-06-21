@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction, useEffect } from 'react';
-import * as Yup from 'yup';
+
 import { FormikHelpers, FormikProvider, FormikValues, useFormik, FieldArray, Form } from 'formik';
 import { DynamicForm } from './dynamic_form';
 import { Button } from 'src/components/ui/button';
@@ -7,6 +7,7 @@ import { Button } from 'src/components/ui/button';
 import s from '../index.module.scss';
 import { IProviderData } from 'types';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 interface FirstFormProps {
     initialValues: IProviderData;
@@ -15,12 +16,11 @@ interface FirstFormProps {
 }
 
 export const FirstForm: FC<FirstFormProps> = ({ initialValues, setInitialValues, handleTabChange }) => {
-    const validationSchema = Yup.object().shape({});
-
     const { t } = useTranslation();
 
+    const { push } = useRouter();
+
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
-        console.log('First form values:', values);
         return values;
     };
 
@@ -45,7 +45,11 @@ export const FirstForm: FC<FirstFormProps> = ({ initialValues, setInitialValues,
                     }}
                 />
                 <div className={s.actionButtons}>
-                    <Button variant="disabled" type="reset">
+                    <Button
+                        variant="disabled"
+                        type="reset"
+                        onClick={() => push('/dashboard/providers?page=1&pageSec=1')}
+                    >
                         {t('common:cancel')}
                     </Button>
                     <Button variant="primary" type="submit" onClick={() => handleTabChange(2)}>

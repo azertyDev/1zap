@@ -48,7 +48,10 @@
 .title_item {
   margin-right: 25px;
 }
-
+.desc{
+  @include fs_fw_c(12px, 600, $secondary);
+  margin-bottom: 2px;
+}
 
 .show_btn {
   @include fs_fw_c(14px, 600, $main);
@@ -95,6 +98,7 @@
 }
 
 
+
 @media (max-width: 1110px) {
   .table {
     display: block;
@@ -102,7 +106,7 @@
 
 }
 
-@media (max-width: 375px) {
+@media (max-width: 400px) {
   .last_item {
 
     justify-content: stretch;

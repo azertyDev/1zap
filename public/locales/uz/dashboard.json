@@ -116,9 +116,10 @@
     "chosen_position_text": "Reklama matni narxlar ro'yxatidan tanlangan mahsulotlar uchun 30 kalendar kunlik muddatga mahsulot elementi kartasining chap tomonida joylashgan."
   },
   "promo_place": "Reklama materiallarini joylashtirish",
-  "need_change": "Ehtiyojlar va o'zgarishlar",
+  "need_change": "O'zgartirish kerak",
   "active_promo": "Faol reklama materiallari",
   "coins": "tangalar",
+  "coinsBig": "Tangalar",
   "coin": "tanga",
   "coins_from": "{{coin}} tangadan",
   "place": "Post",
@@ -279,5 +280,8 @@
   "add_branch_info": "Filial ma'lumotlarini kiriting va rasmni yuklang",
   "ready": "Tayyor",
   "back": "Orqaga",
-  "price_list_info": "Narxlar ro'yxatiga muvofiq joriy ko'rsatkichlar"
+  "price_list_info": "Narxlar ro'yxatiga muvofiq joriy ko'rsatkichlar",
+  "in_stock": "Sotuvda mavjud",
+  "refresh_price": "Narxni yangilash",
+  "providerCreated": "Provayder yaratilgan"
 }

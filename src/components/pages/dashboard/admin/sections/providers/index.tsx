@@ -40,15 +40,11 @@ export const Providers: FC = (props): JSX.Element => {
     };
 
     const menuContent = (data: any) => (
-        <>
-            <MenuItem onClick={() => deleteApp(data.id)}>
-                <Icon name="delete" color="black" />
-                {t('dashboard:delete')}
-            </MenuItem>
-        </>
+        <MenuItem onClick={() => deleteApp(data.id)}>
+            <Icon name="delete" color="black" />
+            {t('dashboard:delete')}
+        </MenuItem>
     );
-
-    console.log(providers);
 
     const applicationCols = [
         {
@@ -140,25 +136,20 @@ export const Providers: FC = (props): JSX.Element => {
             maxWidth: 90,
             minWidth: 90,
         },
-        // {
-        //     Header: t('dashboard:action') as string,
-        //     disableFilters: true,
-        //     disableSortBy: true,
-        //     accessor: (cell: any) => {
-        //         return (
-        //             <ActionsBlock>
-        //                 <Link
-        //                     href={{
-        //                         pathname: '/dashboard/[slug]/[params]',
-        //                         query: { id: cell.id, slug: 'providers', params: 'create' },
-        //                     }}
-        //                 >
-        //                     {t('dashboard:change')}
-        //                 </Link>
-        //             </ActionsBlock>
-        //         );
-        //     },
-        // },
+        {
+            Header: t('dashboard:action') as string,
+            disableFilters: true,
+            disableSortBy: true,
+            accessor: (cell: any) => {
+                return (
+                    <ActionsBlock cell={cell} menu={menuContent(cell)}>
+                        <Link href={`/dashboard/providers/edit?type=profile&id=${cell.id}`}>
+                            {t('dashboard:change')}
+                        </Link>
+                    </ActionsBlock>
+                );
+            },
+        },
     ];
 
     const data = [

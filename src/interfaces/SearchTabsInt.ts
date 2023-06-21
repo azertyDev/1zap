@@ -6,4 +6,5 @@ export interface SearchTabsInt {
     children: React.ReactNode;
     tabs: { id: number; text: string; link?: string; altText?: string }[];
     searchRes?: boolean;
+    responsiveDif?: boolean;
 }

@@ -9,10 +9,20 @@ export interface ButtonPropsType extends HTMLAttributes<HTMLButtonElement> {
     fullWidth?: boolean;
     ref?: React.Ref<HTMLButtonElement>;
     disabled?: boolean;
+    disabledPointer?: boolean;
 }
 
 export const Button: FC<ButtonPropsType> = forwardRef((props, ref) => {
-    const { className, children, variant, type = 'button', fullWidth, disabled = false, ...rest } = props;
+    const {
+        className,
+        children,
+        variant,
+        type = 'button',
+        fullWidth,
+        disabled = false,
+        disabledPointer,
+        ...rest
+    } = props;
 
     return (
         <button
@@ -20,7 +30,9 @@ export const Button: FC<ButtonPropsType> = forwardRef((props, ref) => {
             type={type}
             {...rest}
             disabled={disabled}
-            className={`${s.btn} ${className ?? ''} ${s[variant]} ${fullWidth && s.fullWidth}`}
+            className={`${s.btn} ${className ?? ''} ${s[variant]} ${fullWidth && s.fullWidth} ${
+                disabledPointer ? s.disable_pointer : ''
+            }`}
         >
             {children}
         </button>

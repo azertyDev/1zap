@@ -26,7 +26,9 @@ export const BookDetail = ({}): JSX.Element => {
 
     return (
         <div className={`${s.book_wr} ${bookDetailToggle ? s.active : ''}`} id={'book_wr'} onClick={handleLoginClose}>
-            {order === 1 && <BookDetailStepOne handleOrder={handleOrder} toggleBookDetail={toggleBookDetail} />}
+            {order === 1 && (
+                <BookDetailStepOne handleOrder={handleOrder} toggleBookDetail={toggleBookDetail} value={null} />
+            )}
             {order === 2 && <BookDetailStepTwo handleOrder={handleOrder} toggleBookDetail={toggleBookDetail} />}
         </div>
     );
