@@ -32,8 +32,6 @@ export const EditForm = (props: any) => {
     const [location, setLocation] = useState<any>(branch?.location);
     const { t } = useTranslation();
 
-    console.log(branch);
-
     const defaultOptions = [
         {
             value: '',
@@ -69,6 +67,8 @@ export const EditForm = (props: any) => {
     };
 
     const onSubmit = async (values: any, {}: FormikHelpers<typeof initialValues>) => {
+        console.log('@valllL ', values);
+
         await branchApi.updateBranch(id as any, values);
         push('/cabinet/main/branches');
     };
@@ -258,38 +258,51 @@ export const EditForm = (props: any) => {
                                 </Accordion>
                             </div>
 
+                            <div>
+                                {branch.images.map(({ image, index }: any) => {
+                                    // console.log(branch);
+
+                                    return <div key={index}>image</div>;
+                                })}
+                            </div>
+
                             <div className={s.imgGroup}>
                                 <FieldArray
-                                    name={`images`}
+                                    name="images"
                                     render={(helperProps) => {
-                                        return branch?.images && branch?.images.length ? (
-                                            branch?.images?.map((image: IImage, i: number) => {
+                                        return formik.values?.images && formik.values?.images.length ? (
+                                            formik.values?.images?.map((image: IImage, i: number) => {
                                                 return (
                                                     <div key={i}>
                                                         <ImageUpload
+                                                            id={image.id}
                                                             preview={`${image.url}`}
                                                             setFieldValue={formik.setFieldValue}
                                                             name={`images[${i}]`}
                                                         />
-                                                        {/*{branch.images.length > 0 && branch.images.length !== 5 && (*/}
-                                                        {/*    <div className={s.actionButtons}>*/}
-                                                        {/*        <span onClick={() => helperProps.push({ url: '' })}>*/}
-                                                        {/*            <Icon name="add_circle" size={18} />*/}
-                                                        {/*            Добавить*/}
-                                                        {/*        </span>*/}
-                                                        {/*        <span onClick={() => helperProps.remove(i)}>*/}
-                                                        {/*            <Icon name="delete" size={18} />*/}
-                                                        {/*            Удалить*/}
-                                                        {/*        </span>*/}
-                                                        {/*    </div>*/}
-                                                        {/*)}*/}
+                                                        {branch.images.length > 0 && branch.images.length !== 5 && (
+                                                            <div className={s.actionButtons}>
+                                                                <span
+                                                                    onClick={() =>
+                                                                        helperProps.push({ id: null, url: '' })
+                                                                    }
+                                                                >
+                                                                    <Icon name="add_circle" size={18} />
+                                                                    Добавить
+                                                                </span>
+                                                                <span onClick={() => helperProps.remove(i)}>
+                                                                    <Icon name="delete" size={18} />
+                                                                    Удалить
+                                                                </span>
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 );
                                             })
                                         ) : (
                                             <div className={s.actionButtons}>
                                                 <span
-                                                    onClick={() => helperProps.push({ url: '' })}
+                                                    onClick={() => helperProps.push({ id: null, url: '' })}
                                                     style={{ whiteSpace: 'nowrap' }}
                                                 >
                                                     <Icon name="add_circle" size={18} />

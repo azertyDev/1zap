@@ -129,7 +129,7 @@ export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ que
                 disableList
             />
             <div className={s.buttons_wr}>
-                <Link href={'/dashboard/promo'}>
+                <Link href={'/dashboard/promo?page=1&pageSec=1'}>
                     <Button type="button" variant={'disabled'} fullWidth>
                         {t('common:cancel')}
                     </Button>
