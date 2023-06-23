@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next';
 import s from './index.module.scss';
 import { useEffect, useState } from 'react';
 import { IProviderStat } from 'types';
-import { priceListApi, promoApi, providerApi } from 'src/utils/api';
+import { priceListApi, productsApi, promoApi, providerApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { StatisticsBlock } from 'components/ui/dashboard/statistics_block';
 import { FileUpload } from 'components/ui/upload/file';
@@ -27,7 +27,7 @@ export const PriceListEdit = () => {
         locale,
         push,
     } = useRouter();
-    const [dataStat, setDataStat] = useState<IProviderStat | null>(null);
+    const [dataStat, setDataStat] = useState<any>(null);
     const [data, setData] = useState<any>(null);
 
     useEffect(() => {
@@ -41,8 +41,8 @@ export const PriceListEdit = () => {
 
     useEffect(() => {
         (() => {
-            providerApi
-                .getProviderStatistic()
+            productsApi
+                .getListInfo(id as any)
                 .then((res) => setDataStat(res))
                 .catch(() => toast.error('helpers:error_getting'));
         })();
@@ -76,8 +76,8 @@ export const PriceListEdit = () => {
         {
             id: 1,
             title: t('dashboard:position'),
-            date: t('dashboard:refresh_day', { day: dataStat?.products?.date }),
-            count: dataStat?.products?.total,
+            date: t('dashboard:refresh_day', { day: dataStat?.updatedAt }),
+            count: dataStat?.total,
         },
     ];
     const cols = [

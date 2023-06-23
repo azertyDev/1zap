@@ -49,6 +49,7 @@ export const providerApi = {
     getProviderRequisites: () => requests.get(`provider/info`),
     deleteBranch: (id: number) => requests.delete(`provider/branch/${id}`),
     activateOrdisactivateBranch: (id: number) => requests.patch(`provider/branch/activate/${id}`),
+    addRate: (body: any) => requests.post(`provider/rate`, body),
 };
 
 export const branchApi = {
@@ -66,7 +67,6 @@ export const productsApi = {
     upload: (data: any, config: {}): Promise<any> => requests.post('/products/new', data, config),
     getProductsNoGroup: (params: any) => requests.get(`/branchs?${params}`),
     getPieceProduct: (id: number) => requests.get(`/piece/${id}`),
-
     getProductsWithGroup: (type: string, params: any) => requests.get(`/group/${type}${params}`),
     getBranchInfo: (id: number) => requests.get(`products/countBranch/${id}`),
     getListInfo: (id: number) => requests.get(`products/countPricelist/${id}`),

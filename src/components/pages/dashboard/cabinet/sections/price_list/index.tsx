@@ -55,9 +55,15 @@ export const PriceList = () => {
 
     const formik = useFormik({
         initialValues: {
-            rate: '',
+            rate: dataStat?.rate,
         },
-        onSubmit() {},
+        onSubmit(values) {
+            providerApi
+                .addRate({ rate: +values.rate! })
+                .then(() => toast.success(t('dashboard:rate_changed')))
+                .catch(() => toast.error(t('helpers:error_sending')));
+        },
+        enableReinitialize: true,
         validationSchema: client_validation.rate,
     });
 

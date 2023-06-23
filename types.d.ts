@@ -280,4 +280,5 @@ interface IProviderStat {
     providerId: number;
     requests: { total: number; info: number };
     transitions: { total: number; info: number };
+    rate: string;
 }

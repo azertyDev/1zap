@@ -97,7 +97,7 @@ export const client_validation = {
             .matches(/\+998 \d\d \d\d\d\d\d\d\d/, 'invalid_format')
             .required('required'),
         fullName: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
-        email: Yup.string().email('Invalid email').required('required'),
+        email: yup.string().email('invalid_format').required('required'),
         companyName: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
         inn: Yup.string().min(9, 'limit_less').max(9, 'limit_more').required('required'),
         coin: Yup.number().label('Coin').typeError('invalid_format').required('required'),

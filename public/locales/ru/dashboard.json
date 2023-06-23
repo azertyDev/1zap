@@ -284,5 +284,6 @@
   "price_list_info": "Текущие показатели по прайс листу",
   "in_stock": "В наличии",
   "refresh_price": "Обновить прайс",
-  "providerCreated": "Провайдер создан"
+  "providerCreated": "Провайдер создан",
+  "rate_changed": "Курс доллара изменен!"
 }

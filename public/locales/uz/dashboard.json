@@ -284,5 +284,6 @@
   "price_list_info": "Narxlar ro'yxatiga muvofiq joriy ko'rsatkichlar",
   "in_stock": "Sotuvda mavjud",
   "refresh_price": "Narxni yangilash",
-  "providerCreated": "Provayder yaratilgan"
+  "providerCreated": "Provayder yaratilgan",
+  "rate_changed": "Dollar kursi o'zgardi!"
 }
