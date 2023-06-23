@@ -93,8 +93,6 @@ export const CenterForm: FC<{ query: { idC: string; idE: string } }> = ({ query 
             });
     }, [dataTopic]);
 
-    console.log(dataTopic?.topicId);
-
     return (
         <div>
             <div className={s.form_top_wr}>

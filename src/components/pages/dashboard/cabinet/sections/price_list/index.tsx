@@ -199,6 +199,7 @@ export const PriceList = () => {
                     <Form className={s.form_rate}>
                         <FloatingInput {...formik.getFieldProps('rate')} />
                         <Button
+                            className={s.actionBtns}
                             fullWidth
                             type="submit"
                             disabled={!formik.dirty || !formik.isValid}

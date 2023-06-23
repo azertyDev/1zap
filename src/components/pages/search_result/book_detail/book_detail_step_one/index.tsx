@@ -36,7 +36,6 @@ export const BookDetailStepOne: FC<{
                 });
             productId &&
                 productsApi.getPieceProduct(productId).then((res) => {
-                    console.log('product', res);
                     setProdcut(res);
                 });
         })();

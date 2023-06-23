@@ -47,6 +47,8 @@ export const providerApi = {
     getProviderStatistic: (): Promise<any> => requests.get('/provider/observer'),
     getBranchById: (id: string): Promise<any> => requests.get(`provider/branch/${id}`),
     getProviderRequisites: () => requests.get(`provider/info`),
+    deleteBranch: (id: number) => requests.delete(`provider/branch/${id}`),
+    activateOrdisactivateBranch: (id: number) => requests.patch(`provider/branch/activate/${id}`),
 };
 
 export const branchApi = {
@@ -98,6 +100,10 @@ export const priceListApi = {
     fetchPriceList: (page: number | string = 1, limit: number = 10): Promise<any> =>
         requests.get(`/pricelist/all?page=${page}&limit=${limit}`),
     delete: (id: number): Promise<any> => requests.delete(`/pricelist/${id}`),
+    updatePriceList: (body: any): Promise<any> =>
+        requests.post(`/products/add`, body, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        }),
 };
 
 export const orderDetails = {
@@ -123,6 +129,7 @@ export const promoApi = {
     rejectPromoByAdmin: (id: number, body: any) => requests.patch(`promo/block/${id}`, body),
     acceptPromoByAdmin: (id: number) => requests.patch(`promo/activate/${id}`),
     deletePromoByAdmin: (id: number) => requests.delete(`promo/${id}`),
+    editPromoByAdmin: (id: number, body: any) => requests.patch(`promo/${id}`, body),
 };
 
 export const centerApi = {
@@ -138,15 +145,17 @@ export const centerApi = {
 };
 
 export const walletApi = {
-    getIncomingRequest: (page: string) => requests.get(`replenishment/incoming?page=${page}`),
-    getApprovedRequest: (page: string) => requests.get(`replenishment/approved?page=${page}`),
+    getIncomingRequest: (page: string, date: string | null | Date) =>
+        requests.get(`replenishment/incoming?page=${page}${date ? `&date=${date}` : ''}`),
+    getApprovedRequest: (page: string, date: string | null | Date) =>
+        requests.get(`replenishment/approved?page=${page}${date ? `&date=${date}` : ''}`),
     approveRequest: (body: any) =>
         requests.post('replenishment/approved', body, {
             headers: { 'Content-Type': 'multipart/form-data' },
         }),
-    getHistoryAdmin: (page: string, date: string | null) =>
+    getHistoryAdmin: (page: string, date: string | null | Date) =>
         requests.get(`replenishment/usage?page=${page}${date ? `&date=${date}` : ''}`),
-    getHistoryProvider: (page: string, date: string | null) =>
+    getHistoryProvider: (page: string, date: string | null | Date) =>
         requests.get(`wallets/usage?page=${page}${date ? `&date=${date}` : ''}`),
     addCoins: (body: any) => requests.post('wallets/up', body),
 };

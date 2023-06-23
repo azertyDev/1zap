@@ -2,16 +2,17 @@ import { MenuItem } from '@szhsin/react-menu';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import { Column } from 'react-table';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useStore } from 'src/store/useStore';
 import { Icon } from 'src/components/ui/icon';
-import { Button } from 'src/components/ui/button';
 import { Table } from 'src/components/ui/dashboard/table';
 import { Heading } from 'src/components/ui/dashboard/heading';
 import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
 import { BaseSwitch } from 'src/components/ui/switch/BaseSwitch';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { providerApi } from 'src/utils/api';
+import { toast } from 'react-hot-toast';
 
 export const Branches = (props: any) => {
     const { pageProps } = props;
@@ -24,22 +25,27 @@ export const Branches = (props: any) => {
         fetchProviderBranches();
     }, [fetchProviderBranches]);
 
-    const updateBranch = (id: number) => {
+    const updateBranch = useCallback((id: number) => {
         push({
             pathname: '/cabinet/main/editBranch',
             query: { id: id },
         });
-    };
+    }, []);
+
+    const handleActiviteBranch = useCallback((id: number) => {
+        return () => {
+            providerApi
+                .activateOrdisactivateBranch(id)
+                .then(() => fetchProviderBranches())
+                .catch(() => toast.error(t('helpers:error_sending')));
+        };
+    }, []);
 
     const columnMenu = (data: any) => (
         <>
             <MenuItem onClick={() => updateBranch(data.id)}>
                 <Icon name="edit" color="black" />
                 {t('dashboard:edit')}
-            </MenuItem>
-            <MenuItem>
-                <Icon name="delete" color="black" />
-                {t('dashboard:delete')}
             </MenuItem>
         </>
     );
@@ -59,13 +65,13 @@ export const Branches = (props: any) => {
         },
         {
             Header: t('dashboard:price-list') as string,
-            accessor: 'type',
+            accessor: 'pricelist',
             disableSortBy: true,
             disableFilters: true,
         },
         {
             Header: t('dashboard:positions') as string,
-            // accessor: 'branchName',
+            accessor: 'products',
             disableFilters: true,
             disableSortBy: true,
         },
@@ -92,12 +98,10 @@ export const Branches = (props: any) => {
             disableFilters: true,
             disableSortBy: true,
             accessor: (cell: any) => {
+                console.log(cell);
                 return (
                     <ActionsBlock cell={cell} menu={columnMenu(cell)}>
-                        <BaseSwitch
-                        // checked={active}
-                        // onChange={handleChange}
-                        />
+                        <BaseSwitch checked={cell.isActive} onChange={handleActiviteBranch(cell.id)} />
                     </ActionsBlock>
                 );
             },

@@ -54,7 +54,7 @@ export const ResponsTable: FC<{ item: IProductGroup; img: string }> = ({ item, i
                     </IconsWrapper>
                 </div>
 
-                <Image src={img} alt={'image'} width={100} height={70} quality={100} />
+                <Image src={img} alt={'image'} width={80} height={70} quality={100} />
             </div>
         </div>
     );

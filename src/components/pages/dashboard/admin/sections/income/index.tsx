@@ -25,6 +25,13 @@ export const IncomePage: FC = () => {
 
     const [trigger, setTrigger] = useState(false);
 
+    const [filtringByDateMonth, setFiltringByDateMonth] = useState<null | string>(null);
+    const [monthModeration, setMonthModeration] = useState(new Date());
+
+    const [filtringByDate, setFiltringByDate] = useState<null | string>(null);
+    const [fullDate, setFullDate] = useState<null | string>(null);
+    const [month, setMonth] = useState(new Date());
+
     const {
         query: { page, pageSec },
     } = useRouter();
@@ -32,20 +39,27 @@ export const IncomePage: FC = () => {
     useEffect(() => {
         (() => {
             walletApi
-                .getIncomingRequest(page as string)
+                .getIncomingRequest(page as string, filtringByDateMonth ? dayjs(monthModeration).format('YYYY-MM') : '')
                 .then((res) => setModerationData(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [page, trigger]);
+    }, [page, trigger, monthModeration]);
 
     useEffect(() => {
         (() => {
             walletApi
-                .getApprovedRequest(pageSec as string)
+                .getApprovedRequest(
+                    pageSec as string,
+                    filtringByDate
+                        ? filtringByDate === 'month'
+                            ? dayjs(month).format('YYYY-MM')
+                            : dayjs(fullDate).format('YYYY-MM-DD')
+                        : null
+                )
                 .then((res) => setActiveData(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [pageSec, trigger]);
+    }, [pageSec, trigger, month, fullDate]);
 
     const formik = useFormik({
         initialValues: { file: '', requestId: '', providerId: '', agreementNumber: '' },
@@ -220,12 +234,23 @@ export const IncomePage: FC = () => {
     return (
         <div>
             <h4 className={s.titles}>{t('dashboard:incoming_wallet')}</h4>
-            <FilterCalendar showCalendar={false} />
+            <FilterCalendar
+                setMonth={setMonthModeration}
+                month={monthModeration}
+                setFiltringByDate={setFiltringByDateMonth}
+                showCalendar={false}
+            />
             {moderationData?.data && <Table data={moderationData?.data} columns={cols} isSecondType />}
             {moderationData?.totalPages > 1 && <Pagination pageCount={moderationData?.totalPages} />}
 
             <h4 className={`${s.titles} ${s.last}`}>{t('dashboard:accepted_wallet')}</h4>
-            <FilterCalendar />
+            <FilterCalendar
+                setFullDate={setFullDate}
+                fullDate={fullDate}
+                setMonth={setMonth}
+                month={month}
+                setFiltringByDate={setFiltringByDate}
+            />
             {activeData?.data && <Table data={activeData?.data} columns={colsActive} isSecondType />}
             {activeData?.totalPages > 1 && <Pagination pageCount={activeData?.totalPages} isSecPage />}
 

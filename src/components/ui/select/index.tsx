@@ -16,7 +16,6 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
     const onChange = ({ value }: any) => {
         setValue(value);
     };
-    console.log(field.name);
 
     const NoOptionsMessage = useCallback((props: any) => {
         return (

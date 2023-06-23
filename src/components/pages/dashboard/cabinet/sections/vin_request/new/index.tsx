@@ -119,7 +119,6 @@ export const IncominRequests = () => {
             disableSortBy: true,
             width: 110,
             accessor: (cell: any) => {
-                console.log(cell);
                 return (
                     <ActionsBlock>
                         <Button variant="primary" fullWidth onClick={handleVinData(cell)}>

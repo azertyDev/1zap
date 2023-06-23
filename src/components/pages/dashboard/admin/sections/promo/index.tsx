@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import { FC, useCallback, useEffect, useState } from 'react';
-
 import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';

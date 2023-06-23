@@ -28,10 +28,16 @@ export const EditForm = () => {
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<any>) => {
         promoApi
             .editPromoByProvider(query.id as string, values)
-            .then((res) => push('/cabinet/promo?page=1'))
+            .then(() => push('/cabinet/promo?page=1'))
             .catch(() => toast.error(t('helpers:error_sending')));
     };
-    const { formikBranches, formikPrice, branches, lists } = useGetBranchesAndPriceLists(false, false);
+    const { formikBranches, formikPrice, branches, lists } = useGetBranchesAndPriceLists(
+        false,
+        false,
+        dataFormik,
+        [{ value: '', label: dataFormik?.branchName }],
+        [{ value: '', label: dataFormik?.pricelistName }]
+    );
 
     const formik = useFormik({
         onSubmit,
@@ -101,11 +107,13 @@ export const EditForm = () => {
                 formikPrice={formikPrice}
                 formikTexts={formik}
                 formik={formikBranches}
+                branchesOptions={branches}
+                lists={lists}
                 disableBranch
                 disableList
             />
             <div className={s.buttons_wr}>
-                <Link href={'/cabinet/promo'}>
+                <Link href={'/cabinet/promo?page=1'}>
                     <Button type="button" variant={'disabled'} fullWidth>
                         {t('common:cancel')}
                     </Button>

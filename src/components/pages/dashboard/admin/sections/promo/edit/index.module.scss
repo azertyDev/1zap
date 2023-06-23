@@ -2,7 +2,7 @@
 @import "styles/variables";
 
 .buttons_wr {
-  @include dg_gc_gr_gg(128px 128px 172px, auto, 10px)
+  @include dg_gc_gr_gg(128px 128px 172px 172px, auto, 10px)
 }
 
 .statistic_wr {

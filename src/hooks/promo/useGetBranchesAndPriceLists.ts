@@ -9,7 +9,13 @@ interface IOptions {
     value: number | undefined;
 }
 
-export const useGetBranchesAndPriceLists = (sendBranch: boolean = true, sentList: boolean = true) => {
+export const useGetBranchesAndPriceLists = (
+    sendBranch: boolean = true,
+    sentList: boolean = true,
+    refresh?: any,
+    showValueBranch?: { value: string; label: string }[],
+    showValueList?: { value: string; label: string }[]
+) => {
     const [branches, setBranches] = useState<IOptions[] | null>(null);
     const [lists, setLists] = useState<IOptions[] | null>(null);
     const { t } = useTranslation();
@@ -31,6 +37,9 @@ export const useGetBranchesAndPriceLists = (sendBranch: boolean = true, sentList
     });
 
     useEffect(() => {
+        if (showValueBranch) {
+            setBranches(showValueBranch as any);
+        }
         if (sendBranch) {
             (async () => {
                 branchApi
@@ -47,8 +56,13 @@ export const useGetBranchesAndPriceLists = (sendBranch: boolean = true, sentList
                     });
             })();
         }
-    }, []);
+    }, [refresh]);
+    console.log(refresh);
+
     useEffect(() => {
+        if (showValueList) {
+            setLists(showValueList as any);
+        }
         if (sentList) {
             (async () => {
                 if (formikBranches.values.branchId) {
@@ -72,7 +86,7 @@ export const useGetBranchesAndPriceLists = (sendBranch: boolean = true, sentList
                 }
             })();
         }
-    }, [formikBranches.values.branchId]);
+    }, [formikBranches.values.branchId, refresh]);
 
     return { formikBranches, formikPrice, branches, lists };
 };

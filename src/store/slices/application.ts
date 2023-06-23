@@ -35,8 +35,6 @@ export const applicationSlice: StateCreator<IApplicationSlice> = (set, get) => (
                 // toast.success('Successfully fetched!', { icon: '👏' });
             })
             .catch(({ response }) => {
-                // console.log('fetchApplications', response);
-
                 set({ applications: null, error: response.data, loading: false });
             })
             .finally(() => {

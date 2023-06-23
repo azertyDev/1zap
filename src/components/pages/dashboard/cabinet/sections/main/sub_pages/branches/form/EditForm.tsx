@@ -32,8 +32,6 @@ export const EditForm = (props: any) => {
     const [location, setLocation] = useState<any>(branch?.location);
     const { t } = useTranslation();
 
-    console.log(branch);
-
     const defaultOptions = [
         {
             value: '',
@@ -79,8 +77,6 @@ export const EditForm = (props: any) => {
         // validationSchema,
         enableReinitialize: true,
     });
-
-    console.log('values', formik.values);
 
     return (
         <>
