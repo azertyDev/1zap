@@ -49,6 +49,9 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
         form.setFieldValue(field, JSON.stringify(latLng));
     };
 
+    console.log(form.values);
+    
+
     return form?.values.providerBranch && form?.values.providerBranch.length > 0 ? (
         form?.values.providerBranch.map((branch: IBranchData, index: number) => {
             const coords = branch.location

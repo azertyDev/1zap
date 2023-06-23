@@ -4,6 +4,7 @@ import { useImageUpload } from 'src/hooks/common/useImageUpload';
 import s from './index.module.scss';
 
 interface FileUploaderProps {
+    id?: any;
     name: string;
     preview?: string;
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
@@ -18,7 +19,7 @@ export const ImageUpload = (props: FileUploaderProps) => {
                 <div className={s.preview_block}>
                     <img width={170} height={170} alt="preview" src={props.preview} />
 
-                    <span onClick={deleteCurrentImage}>
+                    <span onClick={(e) => deleteCurrentImage(props.id)}>
                         <Icon name="delete" size={18} color="#C6303C" />
                     </span>
                 </div>

@@ -40,9 +40,9 @@ export const useImageUpload = (props: FileUploaderProps) => {
             });
     };
 
-    const deleteCurrentImage = async (event: MouseEvent<HTMLElement>) => {
+    const deleteCurrentImage = async (value?: number) => {
         await imageApi
-            .delete(imageData.id!)
+            .delete(value ?? imageData.id!)
             .then((data) => {
                 toast.success(t('image_del'), {
                     duration: 5000,
