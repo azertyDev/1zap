@@ -15,7 +15,7 @@ const Header = ({ title, id, logo }: HeaderProps): JSX.Element => {
         <div className={s.wrapper}>
             <h2>{t(`dashboard:${title}`)}</h2>
             <div className={s.user_info}>
-                <p>ID {id}</p>
+                {id && <p>ID {id}</p>}
                 <Avatar src={logo} alt="avatar" />
             </div>
         </div>
