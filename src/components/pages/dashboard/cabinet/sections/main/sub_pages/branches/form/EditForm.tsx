@@ -258,14 +258,6 @@ export const EditForm = (props: any) => {
                                 </Accordion>
                             </div>
 
-                            <div>
-                                {branch.images.map(({ image, index }: any) => {
-                                    // console.log(branch);
-
-                                    return <div key={index}>image</div>;
-                                })}
-                            </div>
-
                             <div className={s.imgGroup}>
                                 <FieldArray
                                     name="images"
@@ -280,22 +272,23 @@ export const EditForm = (props: any) => {
                                                             setFieldValue={formik.setFieldValue}
                                                             name={`images[${i}]`}
                                                         />
-                                                        {branch.images.length > 0 && branch.images.length !== 5 && (
-                                                            <div className={s.actionButtons}>
-                                                                <span
-                                                                    onClick={() =>
-                                                                        helperProps.push({ id: null, url: '' })
-                                                                    }
-                                                                >
-                                                                    <Icon name="add_circle" size={18} />
-                                                                    Добавить
-                                                                </span>
-                                                                <span onClick={() => helperProps.remove(i)}>
-                                                                    <Icon name="delete" size={18} />
-                                                                    Удалить
-                                                                </span>
-                                                            </div>
-                                                        )}
+                                                        {formik.values?.images.length > 0 &&
+                                                            formik.values?.images.length !== 5 && (
+                                                                <div className={s.actionButtons}>
+                                                                    <span
+                                                                        onClick={() =>
+                                                                            helperProps.push({ id: null, url: '' })
+                                                                        }
+                                                                    >
+                                                                        <Icon name="add_circle" size={18} />
+                                                                        Добавить
+                                                                    </span>
+                                                                    <span onClick={() => helperProps.remove(i)}>
+                                                                        <Icon name="delete" size={18} />
+                                                                        Удалить
+                                                                    </span>
+                                                                </div>
+                                                            )}
                                                     </div>
                                                 );
                                             })
