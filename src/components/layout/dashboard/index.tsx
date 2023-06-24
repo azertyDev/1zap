@@ -20,15 +20,17 @@ export const Layout: FC<PropsWithChildren> = ({ children }): JSX.Element => {
     } = useRouter();
 
     const navbar = userData?.user.role === 'admin' ? <DashboardNav t={t} /> : <ProviderNav t={t} />;
-
     const [data, setData] = useState<IProviderStat | null>(null);
+
     useEffect(() => {
-        (() => {
-            providerApi
-                .getProviderStatistic()
-                .then((res) => setData(res))
-                .catch(() => toast.error(t('helpers:error_getting')));
-        })();
+        if (userData?.user.role !== 'admin') {
+            (() => {
+                providerApi
+                    .getProviderStatistic()
+                    .then((res) => setData(res))
+                    .catch(() => toast.error(t('helpers:error_getting')));
+            })();
+        }
     }, []);
 
     return (
@@ -37,7 +39,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }): JSX.Element => {
             <div className={s.content}>
                 <Header
                     title={slug as string}
-                    id={data?.providerId as number}
+                    id={data ? (data?.providerId as number) : (userData?.user?.id as number)}
                     logo={data?.image && data?.image.length > 0 ? data.image : '/assets/icons/person.svg'}
                 />
                 <main>{children}</main>

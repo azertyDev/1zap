@@ -1,9 +1,7 @@
 @import 'styles/mixins';
 @import 'styles/variables.scss';
 
-.wrapper {
-    margin: 0;
-}
+
 
 .title {
     margin-bottom: 25px;
@@ -11,4 +9,148 @@
 
 .divider{
     margin: 50px 0 ;
+}
+@import 'styles/variables.scss';
+@import 'styles/mixins';
+
+.wrapper {
+
+    h1 {
+        font-size: 2.6rem;
+        font-weight: 500;
+        color: $secondary;
+        line-height: 63px;
+        margin-bottom: 30px;
+
+        span {
+            display: block;
+            font-size: 0.875rem;
+            line-height: normal;
+            color: $text;
+            font-weight: 400;
+        }
+    }
+
+    hr {
+        width: 100%;
+        height: 1px;
+        background-color: #e4e6e8;
+        margin: 30px 0;
+    }
+}
+
+form {
+    div.formGroup {
+        gap: 30px;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+        border: 1px solid #ede8e9;
+        padding: 10px;
+        border-radius: 14px;
+    }
+
+    .gap_30 {
+        gap: 30px !important;
+    }
+
+    .gap_20 {
+        gap: 20px !important;
+    }
+
+    .row {
+        gap: 100px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .blockName {
+        margin-bottom: 25px;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .block {
+        gap: 30px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .checkboxGroup {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+    }
+
+    .notification_block {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #ede8e9;
+        padding-bottom: 15px;
+
+        span {
+            font-size: 0.75rem;
+            color: $text;
+            margin-bottom: 5px;
+        }
+
+        div {
+            gap: 30px;
+            display: flex;
+            justify-content: space-between;
+
+            p {
+                font-weight: 700;
+                font-size: 0.875rem;
+
+                &.disabled {
+                    color: $text;
+                }
+            }
+        }
+    }
+
+    .imgGroup {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(5, 1fr);
+        border: 2px dashed #ececf2;
+        border-radius: 12px;
+        padding: 18px;
+    }
+
+    .actionButtons {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        user-select: none;
+        width: max-content;
+
+        & button {
+            width: auto;
+        }
+
+        & span {
+            padding: 5px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            color: $text;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.7;
+            }
+
+            i {
+                margin-right: 8px;
+            }
+        }
+    }
+}
+
+.block_map_edit{
+    pointer-events: none;
 }

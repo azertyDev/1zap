@@ -39,7 +39,7 @@ export const applicationApi = {
 
 export const providerApi = {
     fetchProviders: (page: string): Promise<any> => requests.get(`/provider/all?page=${page}`),
-    fetchProviderById: (id: number): Promise<any> => requests.get(`/providers/${id}`),
+    fetchProviderById: (id: number | string): Promise<any> => requests.get(`/providers/${id}`),
     addProvider: (body: IProviderData): Promise<any> => requests.post('/providers/new', body),
     fetchProviderBranches: (): Promise<any> => requests.get('/provider/branchs'),
     fetchBranchById: (id: number): Promise<any> => requests.get(`/provider/branch/${id}`),
@@ -50,6 +50,7 @@ export const providerApi = {
     deleteBranch: (id: number) => requests.delete(`provider/branch/${id}`),
     activateOrdisactivateBranch: (id: number) => requests.patch(`provider/branch/activate/${id}`),
     addRate: (body: any) => requests.post(`provider/rate`, body),
+    getProviderStatisticByAdmin: (id: string): Promise<any> => requests.get(`providers/observer/${id}`),
 };
 
 export const branchApi = {

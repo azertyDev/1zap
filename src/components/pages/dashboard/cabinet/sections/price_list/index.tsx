@@ -43,7 +43,7 @@ export const PriceList = () => {
                 .then((res) => setDataStat(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, []);
+    }, [priceList]);
 
     useEffect(() => {
         fetchPriceList(page as string);

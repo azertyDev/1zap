@@ -281,4 +281,5 @@ interface IProviderStat {
     requests: { total: number; info: number };
     transitions: { total: number; info: number };
     rate: string;
+    companyName: string;
 }

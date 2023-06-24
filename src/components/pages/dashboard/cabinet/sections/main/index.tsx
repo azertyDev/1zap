@@ -1,17 +1,16 @@
-import { useStore } from 'src/store/useStore';
 import { linksData } from 'src/data/common';
 import { InfoLinks } from 'src/components/ui/dashboard/info_links';
 import { OverviewBlock } from 'src/components/ui/dashboard/overview_block';
-import { Avatar } from 'src/components/ui/avatar';
+
 import s from './index.module.scss';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import { providerApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { IProviderStat } from 'types';
+import { InfoBanner } from 'components/ui/dashboard/info_banner';
 
 export const Main = () => {
-    const { userData } = useStore();
     const { t } = useTranslation();
 
     const [data, setData] = useState<IProviderStat | null>(null);
@@ -61,25 +60,7 @@ export const Main = () => {
 
     return (
         <div className={s.wrapper}>
-            {data && (
-                <div className={s.info}>
-                    <Avatar
-                        src={data?.image && data?.image.length > 0 ? data.image : '/assets/icons/person_2.svg'}
-                        size={114}
-                        alt="user-avatar"
-                    />
-                    {data && (
-                        <div className={s.info__block}>
-                            <h3 className={s.info_username}>
-                                {userData?.user.fullName}
-                                <span>ID {data?.providerId}</span>
-                            </h3>
-                            <h2 className={s.info_company}>{userData?.user.companyName}</h2>
-                            <h3 className={s.info_phone}>{data?.phone}</h3>
-                        </div>
-                    )}
-                </div>
-            )}
+            {data && <InfoBanner data={data} />}
 
             {data && <OverviewBlock data={overviewData} />}
 

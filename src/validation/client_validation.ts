@@ -102,4 +102,11 @@ export const client_validation = {
         inn: Yup.string().min(9, 'limit_less').max(9, 'limit_more').required('required'),
         coin: Yup.number().label('Coin').typeError('invalid_format').required('required'),
     }),
+    requisites_provider: Yup.object().shape({
+        legalAddress: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
+        phone: Yup.string().required('required'),
+        fullName: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
+        email: yup.string().email('invalid_format').required('required'),
+        inn: Yup.string().min(9, 'limit_less').max(9, 'limit_more').required('required'),
+    }),
 };

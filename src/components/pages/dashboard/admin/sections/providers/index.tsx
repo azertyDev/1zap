@@ -143,9 +143,7 @@ export const Providers: FC = (props): JSX.Element => {
             accessor: (cell: any) => {
                 return (
                     <ActionsBlock>
-                        <Link href={`/dashboard/providers/edit?type=profile&id=${cell.id}`}>
-                            {t('dashboard:change')}
-                        </Link>
+                        <Link href={`/dashboard/providers/profile?id=${cell.id}`}>{t('dashboard:change')}</Link>
                     </ActionsBlock>
                 );
             },

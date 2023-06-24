@@ -8,7 +8,8 @@ import { CenterForm } from 'components/pages/dashboard/admin/sections/center/sub
 import { VinRequests } from 'components/pages/dashboard/admin/sections/vin_request';
 import { EditPromoForm } from 'components/pages/dashboard/admin/sections/promo/edit';
 import { PriceListEdit } from 'components/pages/dashboard/cabinet/sections/price_list/edit';
-import { ProfileEditProvider } from 'components/pages/dashboard/admin/sections/providers/edit/profile';
+import { ProfileEditProvider } from 'src/components/pages/dashboard/admin/sections/providers/profile';
+import { RequisitesEditProvider } from 'components/pages/dashboard/admin/sections/providers/requisites';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { locale, query } = context;
@@ -35,7 +36,8 @@ const routes = {
     vin_request_primary: '/vin-requests/primary',
     vin_request_completed: '/vin-requests/completed',
     edit_promo: '/promo/edit',
-    edit_provider: '/providers/edit',
+    profile_provider: '/providers/profile',
+    requisites_provider: '/providers/requisites',
 };
 
 const Index: NextPageWithLayout = ({ query }: any) => {
@@ -52,8 +54,10 @@ const Index: NextPageWithLayout = ({ query }: any) => {
             return <VinRequests query={query.params} />;
         case routes.edit_promo:
             return <EditPromoForm query={query} />;
-        case routes.edit_provider:
+        case routes.profile_provider:
             return <ProfileEditProvider />;
+        case routes.requisites_provider:
+            return <RequisitesEditProvider />;
         default:
             break;
     }
