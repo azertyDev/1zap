@@ -17,12 +17,11 @@ export const useFilterTabs = (catalogNumber: number) => {
                 for (const key in temp) {
                     temp[key].unshift({ value: '', label: t('common:selects.all') });
                 }
-                console.log(data?.category);
+
                 setFilterData(temp);
             }
         })();
     }, []);
 
-    console.log(filterData);
     return { filterData };
 };

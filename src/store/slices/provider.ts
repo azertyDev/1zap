@@ -43,13 +43,9 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
         await providerApi
             .fetchProviders(page)
             .then((response) => {
-                // console.log('fetchProviders', response);
-
                 set({ providers: response, loading: false });
             })
             .catch(({ response }) => {
-                // console.log('Error', response);
-
                 set({ providers: undefined, error: response.data, loading: false });
             })
             .finally(() => {
@@ -62,13 +58,9 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
         await priceListApi
             .fetchPriceList(page, limit)
             .then((response) => {
-                // console.log('fetchPriceList', response);
-
                 set({ priceList: response, loading: false });
             })
             .catch(({ response }) => {
-                // console.log('Error', response);
-
                 set({ priceList: undefined, error: response.data, loading: false });
             })
             .finally(() => {
@@ -82,13 +74,9 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
         await providerApi
             .fetchProviderById(id)
             .then((response) => {
-                // console.log('fetchProviderById', response);
-
                 set({ provider: response, loading: false });
             })
             .catch(({ response }) => {
-                // console.log('Error', response);
-
                 set({ provider: null, error: response.data, loading: false });
             })
             .finally(() => {
@@ -102,13 +90,9 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
         await providerApi
             .fetchProviderBranches()
             .then((response) => {
-                // console.log('fetchProviderBranches', response);
-
                 set({ providerBranches: response });
             })
             .catch(({ response }) => {
-                // console.log('Error', response);
-
                 set({ providerBranches: null, error: response.data, loading: false });
             })
             .finally(() => {
@@ -122,13 +106,9 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
         await providerApi
             .fetchBranchById(id)
             .then((response) => {
-                // console.log('fetchBranchById', response);
-
                 set({ branch: response });
             })
             .catch(({ response }) => {
-                // console.log('Error', response);
-
                 set({ branch: null, error: response.data, loading: false });
             })
             .finally(() => {

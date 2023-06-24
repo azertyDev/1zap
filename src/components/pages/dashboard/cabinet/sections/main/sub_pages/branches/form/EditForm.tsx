@@ -80,8 +80,6 @@ export const EditForm = (props: any) => {
         enableReinitialize: true,
     });
 
-    console.log('values', formik.values);
-
     return (
         <>
             <Heading title={t(`dashboard:branch_settings`)} desc={t(`dashboard:edit_branch`)} />

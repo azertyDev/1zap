@@ -142,7 +142,7 @@ export const Providers: FC = (props): JSX.Element => {
             disableSortBy: true,
             accessor: (cell: any) => {
                 return (
-                    <ActionsBlock cell={cell} menu={menuContent(cell)}>
+                    <ActionsBlock>
                         <Link href={`/dashboard/providers/edit?type=profile&id=${cell.id}`}>
                             {t('dashboard:change')}
                         </Link>

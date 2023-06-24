@@ -29,7 +29,7 @@ export const CenterPage: FC = () => {
         onSubmit: async (values) => {
             // @ts-ignore
             const objData = { ...values, isProvider: values.isProvider === 'provider' };
-            console.log(objData);
+
             centerApi
                 .addTopic(objData as ITopic)
                 .then((response) => {

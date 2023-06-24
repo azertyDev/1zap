@@ -259,7 +259,8 @@
     "viewing_branch_info": "Yetkazib beruvchi kontaktlarini ko'ring",
     "buying_product_ads": "Mahsulot uchun reklamalarni sotib olish",
     "buying_branch_ads": "Filial uchun e'lonlarni sotib olish",
-    "buying_pricelist_ads": "Narxlar ro'yxatida e'lonlarni sotib olish"
+    "buying_pricelist_ads": "Narxlar ro'yxatida e'lonlarni sotib olish",
+    "edit_ads": "Reklamani tahrirlash"
   },
   "wallet_type": {
     "TOP": "To'ldirish",
@@ -283,5 +284,6 @@
   "price_list_info": "Narxlar ro'yxatiga muvofiq joriy ko'rsatkichlar",
   "in_stock": "Sotuvda mavjud",
   "refresh_price": "Narxni yangilash",
-  "providerCreated": "Provayder yaratilgan"
+  "providerCreated": "Provayder yaratilgan",
+  "rate_changed": "Dollar kursi o'zgardi!"
 }

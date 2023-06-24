@@ -6,16 +6,17 @@ import s from './index.module.scss';
 interface HeaderProps {
     title: string;
     id: number;
+    logo: string;
 }
 
-const Header = ({ title, id }: HeaderProps): JSX.Element => {
+const Header = ({ title, id, logo }: HeaderProps): JSX.Element => {
     const { t } = useTranslation();
     return (
         <div className={s.wrapper}>
             <h2>{t(`dashboard:${title}`)}</h2>
             <div className={s.user_info}>
                 <p>ID {id}</p>
-                <Avatar src="/assets/images/avatar2.jpeg" alt="avatar" />
+                <Avatar src={logo} alt="avatar" />
             </div>
         </div>
     );

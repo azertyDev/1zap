@@ -7,10 +7,14 @@
     div.actionBtns {
         display: flex;
         gap: 30px;
-        margin-bottom: 30px;
+        margin-bottom: 50px;
 
         justify-content: space-between;
     }
+}
+
+.actionBtns{
+    height: 72px;
 }
 
 .modalHeader {

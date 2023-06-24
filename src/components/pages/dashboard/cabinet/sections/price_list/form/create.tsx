@@ -9,7 +9,6 @@ import { SelectField } from 'src/components/ui/select';
 import { FileUpload } from 'src/components/ui/upload/file';
 import { useStore } from 'src/store/useStore';
 import { branchApi, productsApi } from 'src/utils/api';
-import { IBranchData } from 'types';
 import s from '../index.module.scss';
 import { client_validation } from 'src/validation/client_validation';
 
@@ -95,7 +94,7 @@ export const PriceCreateForm: FC<any> = (props) => {
             })
             .catch(({ response }) => {
                 setIsSubmiting(false);
-                console.log(response);
+
                 toast.error(
                     response.data.error
                         ? t(`helpers:${response.data.error.replaceAll(' ', '_')}`)

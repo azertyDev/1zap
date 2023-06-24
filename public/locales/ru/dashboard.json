@@ -259,7 +259,8 @@
     "viewing_branch_info": "Просмотр контактов поставщика",
     "buying_product_ads": "Покупка рекламы на продукт",
     "buying_branch_ads": "Покупка рекламы на филиал",
-    "buying_pricelist_ads": "Покупка рекламы на прайслист"
+    "buying_pricelist_ads": "Покупка рекламы на прайслист",
+    "edit_ads": "Редактирование рекламы"
   },
   "wallet_type": {
     "TOP": "Пополнение",
@@ -283,5 +284,6 @@
   "price_list_info": "Текущие показатели по прайс листу",
   "in_stock": "В наличии",
   "refresh_price": "Обновить прайс",
-  "providerCreated": "Провайдер создан"
+  "providerCreated": "Провайдер создан",
+  "rate_changed": "Курс доллара изменен!"
 }

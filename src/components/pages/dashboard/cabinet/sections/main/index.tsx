@@ -61,19 +61,25 @@ export const Main = () => {
 
     return (
         <div className={s.wrapper}>
-            <div className={s.info}>
-                <Avatar src="/assets/images/avatar2.jpeg" size={114} alt="user-avatar" />
-                {data && (
-                    <div className={s.info__block}>
-                        <h3 className={s.info_username}>
-                            {userData?.user.fullName}
-                            <span>ID {userData?.user.id}</span>
-                        </h3>
-                        <h2 className={s.info_company}>{userData?.user.companyName}</h2>
-                        <h3 className={s.info_phone}>{data?.phone}</h3>
-                    </div>
-                )}
-            </div>
+            {data && (
+                <div className={s.info}>
+                    <Avatar
+                        src={data?.image && data?.image.length > 0 ? data.image : '/assets/icons/person_2.svg'}
+                        size={114}
+                        alt="user-avatar"
+                    />
+                    {data && (
+                        <div className={s.info__block}>
+                            <h3 className={s.info_username}>
+                                {userData?.user.fullName}
+                                <span>ID {data?.providerId}</span>
+                            </h3>
+                            <h2 className={s.info_company}>{userData?.user.companyName}</h2>
+                            <h3 className={s.info_phone}>{data?.phone}</h3>
+                        </div>
+                    )}
+                </div>
+            )}
 
             {data && <OverviewBlock data={overviewData} />}
 

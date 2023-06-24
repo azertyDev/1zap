@@ -7,10 +7,8 @@ import { client_validation } from 'src/validation/client_validation';
 import { useTranslation } from 'next-i18next';
 import { toast } from 'react-hot-toast';
 import { Button } from 'components/ui/button';
-import Link from 'next/link';
 import React, { FC, useEffect, useState } from 'react';
 import { promoApi } from 'src/utils/api';
-import { StatisticsBlock } from 'components/ui/dashboard/statistics_block';
 import { useModal } from 'src/hooks/common/useModal';
 import { BaseModal } from 'components/ui/dashboard/modal/base_modal';
 import dayjs from 'dayjs';
@@ -24,14 +22,33 @@ interface IOptions {
 
 export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ query }) => {
     const { t } = useTranslation();
-    const { push } = useRouter();
+    const {
+        push,
+        query: { type },
+    } = useRouter();
     const [dataStat, setDataStat] = useState<any>(null);
     const [dataFormik, setDataFormik] = useState<any>(null);
     const { open, handleModalClose, handleModalOpen } = useModal();
+    const [isEdit, setEdit] = useState(false);
 
-    const { formikBranches, formikPrice, branches, lists } = useGetBranchesAndPriceLists(false, false);
+    const { formikBranches, formikPrice, branches, lists } = useGetBranchesAndPriceLists(
+        false,
+        false,
+        dataFormik,
+        [{ value: '', label: dataFormik?.branchName }],
+        [{ value: '', label: dataFormik?.pricelistName }]
+    );
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<any>) => {
+        if (isEdit) {
+            promoApi
+                .editPromoByAdmin(query.id, {
+                    descriptionRu: values.descriptionRu,
+                    descriptionUz: values.descriptionUz,
+                })
+                .catch(() => toast.error(t('helpers:error_sending')));
+        }
+
         promoApi
             .acceptPromoByAdmin(query.id)
             .then(() => {
@@ -40,7 +57,6 @@ export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ que
             })
             .catch(() => toast.error(t('helpers:error_sending')));
     };
-
     const formik = useFormik({
         onSubmit,
         enableReinitialize: true,
@@ -118,26 +134,37 @@ export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ que
                 </div>
             )}
 
-            <PromoForm
-                formik={formikBranches}
-                formikPrice={formikPrice}
-                formikTexts={formik}
-                branchesOptions={branches}
-                lists={lists}
-                disableTextarea
-                disableBranch
-                disableList
-            />
+            {dataFormik && (
+                <PromoForm
+                    formik={formikBranches}
+                    formikPrice={formikPrice}
+                    formikTexts={formik}
+                    branchesOptions={branches}
+                    lists={lists}
+                    disableBranch
+                    disableList
+                    disableTextarea={type === 'active' || !isEdit}
+                />
+            )}
+
             <div className={s.buttons_wr}>
-                <Link href={'/dashboard/promo?page=1&pageSec=1'}>
-                    <Button type="button" variant={'disabled'} fullWidth>
-                        {t('common:cancel')}
-                    </Button>
-                </Link>
+                <Button
+                    type="button"
+                    variant={'disabled'}
+                    fullWidth
+                    onClick={() => push('/dashboard/promo?page=1&pageSec=1')}
+                >
+                    {t('common:cancel')}
+                </Button>
+
                 {query.type === 'moderation' && (
                     <>
                         <Button type="submit" onClick={handleModalOpen} fullWidth variant={'primary'}>
                             {t('dashboard:deny')}
+                        </Button>
+
+                        <Button type="button" variant={'primary'} fullWidth onClick={() => setEdit(true)}>
+                            {t('dashboard:edit')}
                         </Button>
 
                         <Button type="submit" onClick={() => formik.submitForm()} fullWidth variant={'primary'}>

@@ -20,6 +20,8 @@ export const Balance = () => {
     const { t } = useTranslation();
     const [data, setData] = useState<any>(null);
     const { open, handleModalOpen, handleModalClose } = useModal();
+
+    const [filtringByDate, setFiltringByDate] = useState<null | string>(null);
     const [fullDate, setFullDate] = useState<null | string>(null);
     const [month, setMonth] = useState(new Date());
 
@@ -40,11 +42,18 @@ export const Balance = () => {
     useEffect(() => {
         (() => {
             walletApi
-                .getHistoryProvider(page as string, fullDate ? dayjs(fullDate).format('YYYY-MM-DD') : null)
+                .getHistoryProvider(
+                    page as string,
+                    filtringByDate
+                        ? filtringByDate === 'month'
+                            ? dayjs(month).format('YYYY-MM')
+                            : dayjs(fullDate).format('YYYY-MM-DD')
+                        : null
+                )
                 .then((res) => setData(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [page, fullDate]);
+    }, [page, fullDate, month]);
 
     const handleSendBalance = useCallback((val: number) => {
         return () => {
@@ -167,7 +176,13 @@ export const Balance = () => {
             </div>
 
             <h4 className={s.title}>{t('dashboard:history_balance')}</h4>
-            <FilterCalendar setFullDate={setFullDate} fullDate={fullDate} setMonth={setMonth} month={month} />
+            <FilterCalendar
+                setFullDate={setFullDate}
+                fullDate={fullDate}
+                setMonth={setMonth}
+                month={month}
+                setFiltringByDate={setFiltringByDate}
+            />
             {data?.data && <Table data={data?.data} columns={cols} isSecondType />}
             {data?.totalPages > 1 && <Pagination pageCount={data?.totalPages} />}
 

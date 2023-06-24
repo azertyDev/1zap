@@ -23,7 +23,7 @@ export const DetailsChosenCategories: FC<{ dataAuto: string; dataList: string }>
     } = useRouter();
 
     const { auto, list } = useDetailChosenCateg(dataAuto, dataList);
-    console.log(list);
+
     return (
         <PageWrapper>
             <Container>

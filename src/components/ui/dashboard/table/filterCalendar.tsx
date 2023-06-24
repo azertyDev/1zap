@@ -9,15 +9,17 @@ import { IconsWrapper } from 'components/ui/icons_wrapper';
 export const FilterCalendar: FC<{
     showCalendar?: boolean;
     setFullDate?: Dispatch<SetStateAction<string | null>>;
-    fullDate: null | string;
+    fullDate?: null | string;
     setMonth: Dispatch<SetStateAction<Date>>;
     month: Date;
-}> = ({ showCalendar = true, setFullDate, fullDate, setMonth, month }) => {
+    setFiltringByDate: Dispatch<SetStateAction<null | string>>;
+}> = ({ showCalendar = true, setFullDate, fullDate, setMonth, month, setFiltringByDate }) => {
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
 
     const handleMonth = (type: string) => {
         return () => {
+            setFiltringByDate('month');
             if (type === 'plus') {
                 setMonth((prev) => {
                     const formDate = new Date(prev);
@@ -46,7 +48,10 @@ export const FilterCalendar: FC<{
     }, []);
 
     const handleCalendar = useCallback((val: boolean) => {
-        return () => setIsOpen(val);
+        return () => {
+            setFiltringByDate('full');
+            setIsOpen(val);
+        };
     }, []);
 
     return (

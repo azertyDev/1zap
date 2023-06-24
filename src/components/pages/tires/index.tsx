@@ -1,13 +1,10 @@
 import s from './index.module.scss';
-
 import { Title } from 'components/ui/title';
 import { SearchTabs } from 'components/ui/search/tabs';
 import { InputSelectWrTabs } from 'components/ui/input/input_filter_wr_tabs';
 import { useHandleActivetTabHome } from 'src/hooks/search_home/useHandleActivetTabHome';
 import { useTranslation } from 'next-i18next';
-
 import { FilterSelections } from 'components/ui/filter/filter_selections';
-
 import { filterTitles } from 'src/constants/filterTitles';
 import { FilterSelect } from 'components/ui/filter/filter_selections/filter_select';
 import { useFilter } from 'src/hooks/common/useFilter';
@@ -28,7 +25,6 @@ import { IProductGroup } from 'types';
 import { formatNumber } from 'src/helpers/formatNumber';
 import { useStore } from 'src/store/useStore';
 import { useFiltersAscDesc } from 'src/hooks/common/filtersAscDesc';
-import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 
 export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
@@ -40,6 +36,7 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
 
     const { currency } = useStore((state) => state);
     const { dataOut, handleAsc, handleDesc } = useFiltersAscDesc(data);
+
     return (
         <>
             <Title main className={s.title}>

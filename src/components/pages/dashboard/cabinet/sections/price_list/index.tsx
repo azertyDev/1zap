@@ -55,9 +55,15 @@ export const PriceList = () => {
 
     const formik = useFormik({
         initialValues: {
-            rate: '',
+            rate: dataStat?.rate,
         },
-        onSubmit() {},
+        onSubmit(values) {
+            providerApi
+                .addRate({ rate: +values.rate! })
+                .then(() => toast.success(t('dashboard:rate_changed')))
+                .catch(() => toast.error(t('helpers:error_sending')));
+        },
+        enableReinitialize: true,
         validationSchema: client_validation.rate,
     });
 
@@ -199,6 +205,7 @@ export const PriceList = () => {
                     <Form className={s.form_rate}>
                         <FloatingInput {...formik.getFieldProps('rate')} />
                         <Button
+                            className={s.actionBtns}
                             fullWidth
                             type="submit"
                             disabled={!formik.dirty || !formik.isValid}
