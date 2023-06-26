@@ -13,7 +13,6 @@ import {
     ISubTopicCreate,
     IBranchData,
 } from 'types';
-import { sticky } from 'jodit/types/plugins/sticky/sticky';
 
 const responseBody = (response: AxiosResponse) => response.data;
 
@@ -55,7 +54,7 @@ export const providerApi = {
 export const branchApi = {
     getBranchById: (id: number) => requests.get(`/branch/${id}`),
     getBranchByIdAdmin: (id: string): Promise<any> => requests.get(`providers/branch/${id}`),
-    getBranchBdyIdProvider: (id: string): Promise<any> => requests.get(`provider/branch/${id}`),
+    getBranchByIdProvider: (id: string | number): Promise<any> => requests.get(`provider/branch/${id}`),
     getProviderBranchesByid: (id: string) => requests.get(`providers/branchs/${id}`),
     getAllBranches: () => requests.get('provider/branchs'),
     updateBranch: (id: number, body: IBranchData) => requests.patch(`/provider/branch/${id}`, { ...body }),
