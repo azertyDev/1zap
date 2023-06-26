@@ -10,8 +10,6 @@
 .divider{
     margin: 50px 0 ;
 }
-@import 'styles/variables.scss';
-@import 'styles/mixins';
 
 .wrapper {
 
@@ -151,6 +149,15 @@ form {
     }
 }
 
-.block_map_edit{
+.table_btn{
+    width: 100%;
     pointer-events: none;
+    &.active{
+        button{
+
+            background: $main !important;
+            color: #fff;
+        }
+
+    }
 }

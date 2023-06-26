@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
+import { checkPhone } from 'src/helpers/checkPhone';
 
 const Requisites = (props: any) => {
     const { pageProps } = props;
@@ -46,7 +47,7 @@ const Requisites = (props: any) => {
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
         await providerApi
-            .updateProviderPhone(userData?.user?.id!, { phone: values.phone.replaceAll(' ', '') })
+            .updateProviderPhone(userData?.user?.id!, { phone: checkPhone(values.phone) })
             .then(() => push('/cabinet/main'))
             .catch(() => toast.error(t('helpers:error_sending')));
     };

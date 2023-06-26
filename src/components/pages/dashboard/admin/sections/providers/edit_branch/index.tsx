@@ -1,29 +1,29 @@
-import { useEffect, useState } from 'react';
-import { Field, FieldArray, Form, FormikHelpers, FormikProvider, useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import { Heading } from 'src/components/ui/dashboard/heading';
-import { branchApi, providerApi, staticParamsApi } from 'src/utils/api';
-import { initialValues } from './initialValues';
-import { Accordion } from 'src/components/ui/accordion';
-import { Checkbox } from 'src/components/ui/dashboard/checkbox';
-import { Map, Marker } from 'pigeon-maps';
-import { StandartInput } from 'src/components/ui/input/standart_input';
-import { maptiler } from 'pigeon-maps/providers';
-import { Icon } from 'src/components/ui/icon';
-import { SelectField } from 'src/components/ui/select';
-import { ZoomControl } from 'src/components/ui/map/map_controls/zoom';
-import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
-import { Button } from 'src/components/ui/button';
-import { ImageUpload } from 'src/components/ui/upload/image';
-import { IImage } from 'types';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
-import { toast } from 'react-hot-toast';
-import s from '../../../index.module.scss';
+import { branchApi, staticParamsApi } from 'src/utils/api';
+import { Field, FieldArray, Form, FormikHelpers, FormikProvider, useFormik } from 'formik';
+import { initialValues } from 'components/pages/dashboard/cabinet/sections/main/sub_pages/branches/form/initialValues';
 import { checkPhone } from 'src/helpers/checkPhone';
+import { toast } from 'react-hot-toast';
+import { Heading } from 'components/ui/dashboard/heading';
+import s from '../index.module.scss';
+import { StandartInput } from 'components/ui/input/standart_input';
+import { Map, Marker } from 'pigeon-maps';
+import { Icon } from 'components/ui/icon';
+import { ZoomControl } from 'components/ui/map/map_controls/zoom';
+import { SelectField } from 'components/ui/select';
+import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
+import { Accordion } from 'components/ui/accordion';
+import { Checkbox } from 'components/ui/dashboard/checkbox';
+import { IImage } from 'types';
+import { ImageUpload } from 'components/ui/upload/image';
+import { Button } from 'components/ui/button';
+import { maptiler } from 'pigeon-maps/providers';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
-export const EditForm = (props: any) => {
+export const EditBranchByProvider = () => {
     const {
         query: { id },
         push,
@@ -55,7 +55,7 @@ export const EditForm = (props: any) => {
     }, []);
 
     useEffect(() => {
-        branchApi.getBranchByIdProvider(id as string).then((branch) => {
+        branchApi.getBranchByIdAdmin(id as string).then((branch) => {
             setBranch(branch);
         });
     }, [id]);
@@ -70,12 +70,12 @@ export const EditForm = (props: any) => {
 
     const onSubmit = async (values: any, {}: FormikHelpers<typeof initialValues>) => {
         await branchApi
-            .updateBranch(id as any, { ...values, phone: checkPhone(values.phone) })
+            .editBranchByAdmin(id as any, { ...values, phone: checkPhone(values.phone) })
             .then(() => {
                 toast.success(t('dashboard:branch_changed'), {
                     duration: 5000,
                 });
-                push('/cabinet/main/branches');
+                push(`/dashboard/providers/branch?id=${id}`);
             })
             .catch(() => toast.error(t('helpers:error_sending')));
     };
@@ -83,7 +83,6 @@ export const EditForm = (props: any) => {
     const formik = useFormik({
         onSubmit,
         initialValues: !!branch ? { ...branch, phone: branch.phone.slice(4) } : initialValues,
-        // validationSchema,
         enableReinitialize: true,
     });
 
@@ -98,17 +97,14 @@ export const EditForm = (props: any) => {
                             <div className={s.row}>
                                 <div className={s.block}>
                                     <StandartInput
-                                        disabled
                                         label="dashboard:providerBranch.phisicalAddress"
                                         {...formik.getFieldProps(`phisicalAddress`)}
                                     />
                                     <StandartInput
-                                        disabled
                                         label="dashboard:providerBranch.branchName"
                                         {...formik.getFieldProps(`branchName`)}
                                     />
                                     <StandartInput
-                                        disabled
                                         label="dashboard:providerBranch.managerName"
                                         {...formik.getFieldProps(`managerName`)}
                                     />
@@ -120,7 +116,7 @@ export const EditForm = (props: any) => {
                                     />
                                 </div>
 
-                                <div className={`${s.block} ${s.block_map_edit}`}>
+                                <div className={s.block}>
                                     {!!branch?.location && (
                                         <>
                                             <Map
@@ -139,7 +135,6 @@ export const EditForm = (props: any) => {
                                             </Map>
 
                                             <StandartInput
-                                                disabled
                                                 label="dashboard:providerBranch.landmark"
                                                 {...formik.getFieldProps(`landmark`)}
                                             />
@@ -151,14 +146,12 @@ export const EditForm = (props: any) => {
                             <div className={s.row}>
                                 <div className={`${s.row} ${s.gap_30}`}>
                                     <Field
-                                        isDisabled
                                         component={SelectField}
                                         name={`branchType`}
                                         label="dashboard:providerBranch.branchType"
                                         options={params ? transformSelectOptions(params.branchType) : defaultOptions}
                                     />
                                     <Field
-                                        isDisabled
                                         component={SelectField}
                                         name={`city`}
                                         label="dashboard:providerBranch.city"
@@ -205,58 +198,48 @@ export const EditForm = (props: any) => {
                             <div className={s.checkboxGroup}>
                                 <Accordion title="providerBranch.payment.title" open>
                                     <Checkbox
-                                        disabled
                                         label="providerBranch.payment.cash"
                                         {...formik.getFieldProps(`payment[0].isActive`)}
                                     />
                                     <Checkbox
-                                        disabled
                                         label="providerBranch.payment.card"
                                         {...formik.getFieldProps(`payment[1].isActive`)}
                                     />
                                     <Checkbox
-                                        disabled
                                         label="providerBranch.payment.transfer"
                                         {...formik.getFieldProps(`payment[2].isActive`)}
                                     />
                                 </Accordion>
                                 <Accordion title="providerBranch.delivery.title" open>
                                     <Checkbox
-                                        disabled
                                         label="providerBranch.delivery.pickup"
                                         {...formik.getFieldProps(`delivery[0].isActive`)}
                                     />
                                     <Checkbox
-                                        disabled
                                         label="providerBranch.delivery.courier"
                                         {...formik.getFieldProps(`delivery[1].isActive`)}
                                     />
                                 </Accordion>
                                 <Accordion title="providerBranch.service.title" open>
                                     <Checkbox
-                                        disabled
                                         label="providerBranch.service.tireFitting"
                                         {...formik.getFieldProps(`service[0].isActive`)}
                                     />
                                     <Checkbox
-                                        disabled
                                         label="providerBranch.service.autoService"
                                         {...formik.getFieldProps(`service[1].isActive`)}
                                     />
                                     <Checkbox
-                                        disabled
                                         label="providerBranch.service.partSelection"
                                         {...formik.getFieldProps(`service[2].isActive`)}
                                     />
                                 </Accordion>
                                 <Accordion title="providerBranch.clientType.title" open>
                                     <Checkbox
-                                        disabled
                                         label="providerBranch.clientType.legal"
                                         {...formik.getFieldProps(`clientType[0].isActive`)}
                                     />
                                     <Checkbox
-                                        disabled
                                         label="providerBranch.clientType.individual"
                                         {...formik.getFieldProps(`clientType[1].isActive`)}
                                     />
@@ -313,7 +296,11 @@ export const EditForm = (props: any) => {
                             </div>
 
                             <div className={s.actionButtons}>
-                                <Button variant="disabled" type="reset" onClick={() => push('/cabinet/main/branches')}>
+                                <Button
+                                    variant="disabled"
+                                    type="reset"
+                                    onClick={() => push(`/dashboard/providers/branch?id=${id}`)}
+                                >
                                     {t('common:cancel')}
                                 </Button>
                                 <Button variant="primary" type="submit">

@@ -13,6 +13,7 @@ import {
     ISubTopicCreate,
     IBranchData,
 } from 'types';
+import { sticky } from 'jodit/types/plugins/sticky/sticky';
 
 const responseBody = (response: AxiosResponse) => response.data;
 
@@ -42,21 +43,24 @@ export const providerApi = {
     fetchProviderById: (id: number | string): Promise<any> => requests.get(`/providers/${id}`),
     addProvider: (body: IProviderData): Promise<any> => requests.post('/providers/new', body),
     fetchProviderBranches: (): Promise<any> => requests.get('/provider/branchs'),
-    fetchBranchById: (id: number): Promise<any> => requests.get(`/provider/branch/${id}`),
     updateProviderPhone: (id: number, body: IProviderData) => requests.patch(`provider/phone/${id}`, body),
     getProviderStatistic: (): Promise<any> => requests.get('/provider/observer'),
-    getBranchById: (id: string): Promise<any> => requests.get(`provider/branch/${id}`),
     getProviderRequisites: () => requests.get(`provider/info`),
-    deleteBranch: (id: number) => requests.delete(`provider/branch/${id}`),
     activateOrdisactivateBranch: (id: number) => requests.patch(`provider/branch/activate/${id}`),
     addRate: (body: any) => requests.post(`provider/rate`, body),
     getProviderStatisticByAdmin: (id: string): Promise<any> => requests.get(`providers/observer/${id}`),
+    editProviderRequisites: (id: string, body: any): Promise<any> => requests.patch(`providers/${id}`, body),
 };
 
 export const branchApi = {
     getBranchById: (id: number) => requests.get(`/branch/${id}`),
+    getBranchByIdAdmin: (id: string): Promise<any> => requests.get(`providers/branch/${id}`),
+    getBranchBdyIdProvider: (id: string): Promise<any> => requests.get(`provider/branch/${id}`),
+    getProviderBranchesByid: (id: string) => requests.get(`providers/branchs/${id}`),
     getAllBranches: () => requests.get('provider/branchs'),
     updateBranch: (id: number, body: IBranchData) => requests.patch(`/provider/branch/${id}`, { ...body }),
+    editBranchByAdmin: (id: number, body: IBranchData) => requests.patch(`providers/branch//${id}`, { ...body }),
+    deleteBranch: (id: number) => requests.delete(`provider/branch/${id}`),
 };
 
 export const imageApi = {
@@ -105,6 +109,10 @@ export const priceListApi = {
         requests.post(`/products/add`, body, {
             headers: { 'Content-Type': 'multipart/form-data' },
         }),
+    getPriceListByProviderId: (id: string, page: string): Promise<any> =>
+        requests.get(`pricelists/all?page=${page}&limit=20?type=parts&providerId=${id}`),
+    getProductsByPriceListId: (id: string, locale: string, page: string) =>
+        requests.get(`products/byPricelistId?id=${id}&lang=${locale}&page=${page}`),
 };
 
 export const orderDetails = {
@@ -156,7 +164,11 @@ export const walletApi = {
         }),
     getHistoryAdmin: (page: string, date: string | null | Date) =>
         requests.get(`replenishment/usage?page=${page}${date ? `&date=${date}` : ''}`),
+    getHistoryProviderByAdmin: (id: string, page: string, date: string | null | Date) =>
+        requests.get(`replenishment/usageByProviderId?providerId=${id}&page=${page}${date ? `&date=${date}` : ''}`),
     getHistoryProvider: (page: string, date: string | null | Date) =>
         requests.get(`wallets/usage?page=${page}${date ? `&date=${date}` : ''}`),
     addCoins: (body: any) => requests.post('wallets/up', body),
+    getProviderWalletInfo: () => requests.get('wallets/packages'),
+    getProviderWalletInfoByAdmin: (id: string) => requests.get(`replenishment/packages/${id}`),
 };

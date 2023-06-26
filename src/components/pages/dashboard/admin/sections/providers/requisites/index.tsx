@@ -9,6 +9,7 @@ import s from '../index.module.scss';
 import { StandartInput } from 'components/ui/input/standart_input';
 import { Button } from 'components/ui/button';
 import { client_validation } from 'src/validation/client_validation';
+import { checkPhone } from 'src/helpers/checkPhone';
 
 export const RequisitesEditProvider = () => {
     const { t } = useTranslation();
@@ -31,7 +32,6 @@ export const RequisitesEditProvider = () => {
             .then((res) => setData(res))
             .catch(() => toast.error(t('helpers:error_getting')));
     }, []);
-    console.log(data && data?.phone?.slice(4));
 
     const initialValues = {
         fullName: data?.fullName ?? '',
@@ -42,7 +42,10 @@ export const RequisitesEditProvider = () => {
     };
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
-        alert(JSON.stringify({ ...values, phone: `+998${values.phone}` }));
+        providerApi
+            .editProviderRequisites(id as string, { ...values, phone: checkPhone(values.phone) })
+            .then(() => push(`/dashboard/providers/profile?id=${id}`))
+            .catch(() => toast.error(t('helpers:error_sending')));
     };
 
     const formik = useFormik({
@@ -79,7 +82,11 @@ export const RequisitesEditProvider = () => {
                         </div>
 
                         <div className={s.actionButtons}>
-                            <Button variant="disabled" type="reset" onClick={() => push('/cabinet/main')}>
+                            <Button
+                                variant="disabled"
+                                type="reset"
+                                onClick={() => push(`/dashboard/providers/profile?id=${id}`)}
+                            >
                                 {t('common:cancel')}
                             </Button>
                             <Button

@@ -253,7 +253,7 @@
   "download_price": "Yuklab olish narxi",
   "delivery": "{{day}} kundan boshlab yetkazib berish",
   "wallet_info": {
-    "viewing_product": "Reklamani ko'rish",
+    "viewing_product": "Vin so'rovi qabul qilinmoqda",
     "top_account": "Hisobni to'ldirish",
     "compensation": "Kompensatsiya",
     "viewing_statistic": "Statistikani ko'rish",
@@ -267,7 +267,7 @@
     "TOP": "To'ldirish",
     "DOWN": "Hisobdan o'chirish"
   },
-  "addv": "Реклама",
+  "addv": "Reklama",
   "for_search": "Qidirish uchun kiring...",
   "have": "Mavjud",
   "dont_have": "Yo'q",

@@ -98,7 +98,6 @@ export const Branches = (props: any) => {
             disableFilters: true,
             disableSortBy: true,
             accessor: (cell: any) => {
-                console.log(cell);
                 return (
                     <ActionsBlock cell={cell} menu={columnMenu(cell)}>
                         <BaseSwitch checked={cell.isActive} onChange={handleActiviteBranch(cell.id)} />

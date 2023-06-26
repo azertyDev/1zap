@@ -30,7 +30,6 @@ export const Main = () => {
             body: data?.balance?.balance ?? 0,
             footer: t('dashboard:till', { till: data?.balance?.date ?? '' }),
             icon: 'payments',
-            link: '/cabinet/balance?page=1',
         },
         {
             id: 2,
@@ -38,7 +37,6 @@ export const Main = () => {
             body: data?.transitions?.total ?? 0,
             footer: `+${data?.transitions?.info ?? ''} ${t('dashboard:today')}`,
             icon: 'ads_click',
-            link: '/cabinet/statistics',
         },
         {
             id: 3,
@@ -46,7 +44,6 @@ export const Main = () => {
             body: data?.products?.total ?? 0,
             footer: t('dashboard:refresh_day', { day: data?.products?.date ?? '' }),
             icon: 'inventory_2',
-            link: '/cabinet/price-list?page=1',
         },
         {
             id: 4,
@@ -54,7 +51,6 @@ export const Main = () => {
             body: data?.requests?.total ?? 0,
             footer: `+${data?.requests?.info ?? ''} ${t('dashboard:today')}`,
             icon: 'inbox',
-            link: '/cabinet/statistics',
         },
     ];
 

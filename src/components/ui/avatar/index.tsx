@@ -10,6 +10,7 @@ export const Avatar = ({ src, alt, size = 44 }: PropsType): JSX.Element => {
     return (
         <Image
             priority
+            quality={100}
             src={src}
             alt={alt}
             width={size}

@@ -26,7 +26,7 @@ export const OverviewBlock = ({
                     <>
                         {data.map((overview: any) => {
                             return (
-                                <Link href={overview.link} className={s.item} key={overview.id}>
+                                <div className={s.item} key={overview.id}>
                                     <div className={s.header}>
                                         <IconsWrapper size="big" variant="rounded" aria-label="icon">
                                             <Icon name={overview.icon} size={22} />
@@ -35,7 +35,7 @@ export const OverviewBlock = ({
                                     </div>
                                     <div className={s.description}>{overview.body}</div>
                                     <div className={s.footer}>{overview.footer}</div>
-                                </Link>
+                                </div>
                             );
                         })}
                     </>

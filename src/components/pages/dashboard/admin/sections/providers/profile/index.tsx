@@ -1,16 +1,14 @@
-import { useStore } from 'src/store/useStore';
 import { InfoLinks } from 'components/ui/dashboard/info_links';
 import { OverviewBlock } from 'components/ui/dashboard/overview_block';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import { providerApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
-import { IProviderStat } from '../../../../../../../../types';
+import { IProviderStat } from 'types';
 import { useRouter } from 'next/router';
 import { InfoBanner } from 'components/ui/dashboard/info_banner';
 
 export const ProfileEditProvider = () => {
-    const { userData } = useStore();
     const {
         query: { id },
     } = useRouter();
@@ -32,7 +30,6 @@ export const ProfileEditProvider = () => {
             body: data?.balance?.balance ?? 0,
             footer: t('dashboard:till', { till: data?.balance?.date ?? '' }),
             icon: 'payments',
-            link: '/cabinet/balance?page=1',
         },
         {
             id: 2,
@@ -40,7 +37,6 @@ export const ProfileEditProvider = () => {
             body: data?.transitions?.total ?? 0,
             footer: `+${data?.transitions?.info ?? ''} ${t('dashboard:today')}`,
             icon: 'ads_click',
-            link: '/cabinet/statistics',
         },
         {
             id: 3,
@@ -48,7 +44,6 @@ export const ProfileEditProvider = () => {
             body: data?.products?.total ?? 0,
             footer: t('dashboard:refresh_day', { day: data?.products?.date ?? '' }),
             icon: 'inventory_2',
-            link: '/cabinet/price-list?page=1',
         },
         {
             id: 4,
@@ -56,24 +51,37 @@ export const ProfileEditProvider = () => {
             body: data?.requests?.total ?? 0,
             footer: `+${data?.requests?.info ?? ''} ${t('dashboard:today')}`,
             icon: 'inbox',
-            link: '/cabinet/statistics',
         },
     ];
 
     const linksDataAdmin = [
         {
-            id: 2,
+            id: 1,
             link: `/dashboard/providers/requisites?id=${data?.providerId}`,
             icon: 'account_balance',
             title: 'requisites',
             desc: 'req_and_doc',
         },
         {
-            id: 1,
-            link: '/cabinet/main/branches',
+            id: 2,
+            link: `/dashboard/providers/branch?id=${data?.providerId}`,
             icon: 'place',
             title: 'branches',
             desc: 'change_and_add',
+        },
+        {
+            id: 3,
+            link: `/dashboard/providers/balance?id=${data?.providerId}&page=1`,
+            icon: 'monetization_on',
+            title: 'account_balance',
+            desc: 'info_fillup',
+        },
+        {
+            id: 4,
+            link: `/dashboard/providers/price_lists?id=${data?.providerId}&page=1`,
+            icon: 'inventory_2',
+            title: 'products',
+            desc: '',
         },
     ];
 

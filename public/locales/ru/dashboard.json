@@ -253,7 +253,7 @@
   "download_price": "Загрузить прайс",
   "delivery": "Поставка от {{day}} дней",
   "wallet_info": {
-    "viewing_product": "Просмотр объявления",
+    "viewing_product": "Принятие vin запроса",
     "top_account": "Пополнения счета",
     "compensation": "Конпенсация",
     "viewing_statistic": "Просмотр статистики",
