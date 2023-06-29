@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { checkPhone } from 'src/helpers/checkPhone';
+import { client_validation } from 'src/validation/client_validation';
 
 const Requisites = (props: any) => {
     const { pageProps } = props;
@@ -24,6 +25,7 @@ const Requisites = (props: any) => {
         phone: string;
         email: string;
         inn: string;
+        dealNumber: string;
     } | null>(null);
 
     useEffect(() => {
@@ -39,23 +41,24 @@ const Requisites = (props: any) => {
         phone: data?.phone?.slice(4) ?? '',
         email: data?.email ?? '',
         inn: data?.inn ?? '',
+        dealNumber: data?.dealNumber ?? '',
     };
-
-    const validationSchema = Yup.object().shape({
-        phone: Yup.string().required('required'),
-    });
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
         await providerApi
-            .updateProviderPhone(userData?.user?.id!, { phone: checkPhone(values.phone) })
+            .updateProviderPhone(userData?.user?.id!, { phone: checkPhone(values.phone) as any, email: values.email })
             .then(() => push('/cabinet/main'))
-            .catch(() => toast.error(t('helpers:error_sending')));
+            .catch((err) => {
+                if (err.response.data.error === 'user allready exist') {
+                    toast.error(t('helpers:userAllreadyExist'));
+                } else toast.error(t('helpers:error_sending'));
+            });
     };
 
     const formik = useFormik({
         initialValues,
         onSubmit,
-        validationSchema,
+        validationSchema: client_validation.requisites_provider,
         enableReinitialize: true,
     });
 
@@ -77,10 +80,15 @@ const Requisites = (props: any) => {
 
                         <div className={s.row}>
                             <StandartInput disabled label="common:inn" iconname="" {...formik.getFieldProps('inn')} />
-                            <StandartInput disabled label="dashboard:email" {...formik.getFieldProps('email')} />
+                            <StandartInput label="dashboard:email" {...formik.getFieldProps('email')} />
                         </div>
 
                         <div className={s.row}>
+                            <StandartInput
+                                disabled
+                                label="dashboard:dealNumber"
+                                {...formik.getFieldProps('dealNumber')}
+                            />
                             <StandartInput
                                 isPhone
                                 label="dashboard:phone"
@@ -97,6 +105,7 @@ const Requisites = (props: any) => {
                                 type="submit"
                                 disabled={!(formik.dirty || formik.isValid || formik.isSubmitting)}
                                 variant={!(formik.dirty || formik.isValid) ? 'disabled' : 'primary'}
+                                disabledPointer={formik.isSubmitting}
                             >
                                 {t('dashboard:refresh')}
                             </Button>

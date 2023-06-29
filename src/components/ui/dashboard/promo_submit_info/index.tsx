@@ -38,6 +38,7 @@ export const PromoSubmitInfo: FC<{
                     onClick={() => formik.submitForm()}
                     disabled={!(formik.isValid && formik.dirty)}
                     variant={!(formik.isValid && formik.dirty) ? 'disabled' : 'primary'}
+                    disabledPointer={formik.isSubmitting}
                 >
                     {t('dashboard:publish')}
                 </Button>

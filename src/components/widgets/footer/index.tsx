@@ -8,12 +8,7 @@ import BottomFooter from './bottom_footer';
 
 import s from './index.module.scss';
 
-import {
-    footerLinksFirst,
-    footerLinksSec,
-    footerLinksThird,
-    footerLinksFourth,
-} from 'src/constants/footerLinks';
+import { footerLinksFirst, footerLinksSec, footerLinksThird, footerLinksFourth } from 'src/constants/footerLinks';
 import { Language } from 'components/ui/language';
 import { ExchangeRate } from 'components/ui/exchange_rate';
 import Link from 'next/link';
@@ -26,30 +21,18 @@ export const Footer: FC = (): JSX.Element => {
             <div className={s.footer_top}>
                 <Container>
                     <div className={s.footer_top_inner}>
-                        <FooterItem
-                            title={footerLinksFirst.title}
-                            links={footerLinksFirst.links}
-                        />
+                        <FooterItem title={footerLinksFirst.title} links={footerLinksFirst.links} />
 
-                        <FooterItem
-                            title={footerLinksSec.title}
-                            links={footerLinksSec.links}
-                        ></FooterItem>
+                        <FooterItem title={footerLinksSec.title} links={footerLinksSec.links}></FooterItem>
 
-                        <FooterItem
-                            title={footerLinksThird.title}
-                            links={footerLinksThird.links}
-                        />
-                        <FooterItem
-                            title={footerLinksFourth.title}
-                            links={footerLinksFourth.links}
-                        />
+                        <FooterItem title={footerLinksThird.title} links={footerLinksThird.links} />
+                        <FooterItem title={footerLinksFourth.title} links={footerLinksFourth.links} />
                     </div>
                 </Container>
             </div>
             <div className={s.controls_wr}>
                 <Container>
-                    <BottomFooter />
+                    <BottomFooter showLang={true} />
                 </Container>
             </div>
 
@@ -60,18 +43,9 @@ export const Footer: FC = (): JSX.Element => {
                         <Language />
                     </div>
                     <div className={s.footer_resp_link}>
-                        <FooterItem
-                            title={footerLinksFirst.title}
-                            links={footerLinksFirst.links}
-                        />
-                        <FooterItem
-                            title={footerLinksSec.title}
-                            links={footerLinksSec.links}
-                        ></FooterItem>
-                        <FooterItem
-                            title={footerLinksThird.title}
-                            links={footerLinksThird.links}
-                        />
+                        <FooterItem title={footerLinksFirst.title} links={footerLinksFirst.links} />
+                        <FooterItem title={footerLinksSec.title} links={footerLinksSec.links}></FooterItem>
+                        <FooterItem title={footerLinksThird.title} links={footerLinksThird.links} />
                     </div>
                     <p className={s.copy}>&copy; 2022 All rights reserved</p>
                 </Container>

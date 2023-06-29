@@ -8,6 +8,7 @@ export const providerValues: IProviderData = {
     companyName: '',
     inn: '',
     coin: 0,
+    dealNumber: '',
     providerBranch: [
         {
             branchName: '',

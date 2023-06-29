@@ -17,12 +17,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const filteredParam = staticPar
         ? {
-              payment: [{ value: null, label: 'all' }, ...staticPar.payment],
+              payment: [{ value: null, label: 'all' }, ...staticPar.payment.slice(0, 3)],
               delivery: [{ value: null, label: 'all' }, ...staticPar.delivery],
               service: [{ value: null, label: 'all' }, ...staticPar.service2],
-              client: [{ value: null, label: 'all' }, ...staticPar.client],
+              client: staticPar.client,
               shipment: [{ value: null, label: 'all' }, ...staticPar.shipment],
               updates: [{ value: null, label: 'all' }, ...staticPar.updates],
+              isOrigin: [{ value: null, label: 'all' }, ...staticPar.isOrigin],
           }
         : null;
 

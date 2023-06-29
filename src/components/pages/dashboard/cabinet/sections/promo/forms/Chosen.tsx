@@ -43,7 +43,9 @@ export const ChosenForm = () => {
                 push('/cabinet/promo?page=1');
             })
             .catch((err) => {
-                toast.error(t('helpers:error_sending'));
+                if (err.response.data.error === 'insufficient funds') {
+                    toast.error(t('dashboard:no_coins'));
+                } else toast.error(t('helpers:error_sending'));
             });
     };
 
@@ -162,19 +164,23 @@ export const ChosenForm = () => {
                 disableTextarea={listInfo.hasReclam || branchInfo.hasReclam}
                 lists={lists}
             />
-
             {!branchInfo.hasReclam && !listInfo.hasReclam && (
                 <>
                     {data?.data && <Table data={data.data} columns={cols} />}
                     {data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}
                 </>
             )}
-
             {!branchInfo.hasReclam && !listInfo.hasReclam && (
                 <PromoSubmitInfo
                     formik={formikTexts}
                     info={{ ...mathPromo(activeIds.length * 5), position: activeIds.length }}
                 />
+            )}
+
+            {(listInfo.hasReclam || branchInfo.hasReclam) && (
+                <div className={s.has_promo}>
+                    <h5>{t('dashboard:has_promo')}</h5>
+                </div>
             )}
         </div>
     );

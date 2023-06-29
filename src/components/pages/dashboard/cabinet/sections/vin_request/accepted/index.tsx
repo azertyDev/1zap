@@ -65,7 +65,7 @@ export const IncominRequestsAccepted = () => {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
             disableFilters: true,
             disableSortBy: false,
             width: 60,

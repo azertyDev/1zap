@@ -21,15 +21,7 @@ export const PriceCreateForm: FC<any> = (props) => {
     const { t } = useTranslation();
     const { fetchPriceList } = useStore();
     const [isSubmiting, setIsSubmiting] = useState(false);
-    // const branchesOptions: IOptions[] = useMemo(() => [], []);
-    // const [options, setOptions] = useState<IOptions[]>(branchesOptions);
-    //
-    // useEffect(() => {
-    //     providerBranches?.map((branch: IBranchData) => {
-    //         branchesOptions.push({ value: branch.id, label: branch.branchName });
-    //     });
-    //     setOptions([...branchesOptions]);
-    // }, [branchesOptions]);
+
     const [branches, setBranches] = useState(null);
 
     useEffect(() => {
@@ -137,6 +129,10 @@ export const PriceCreateForm: FC<any> = (props) => {
                         name="clientType"
                         label="dashboard:providerBranch.clientType.title"
                         options={[
+                            {
+                                value: 'all',
+                                label: t('common:selects.all'),
+                            },
                             {
                                 value: 'legal',
                                 label: t('common:for_legal'),

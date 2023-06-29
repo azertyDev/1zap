@@ -25,7 +25,9 @@ export const BranchForm = () => {
                 push('/cabinet/promo?page=1');
             })
             .catch((err) => {
-                toast.error(t('helpers:error_sending'));
+                if (err.response.data.error === 'insufficient funds') {
+                    toast.error(t('dashboard:no_coins'));
+                } else toast.error(t('helpers:error_sending'));
             });
     };
 
@@ -54,6 +56,11 @@ export const BranchForm = () => {
 
             {!branchInfo.hasReclam && (
                 <PromoSubmitInfo formik={formik} info={{ coin: 1000, discount: 0, position: branchInfo.total }} />
+            )}
+            {branchInfo.hasReclam && (
+                <div className={s.has_promo}>
+                    <h5>{t('dashboard:has_promo')}</h5>
+                </div>
             )}
         </div>
     );

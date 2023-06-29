@@ -43,19 +43,20 @@ export const providerApi = {
     fetchProviderById: (id: number | string): Promise<any> => requests.get(`/providers/${id}`),
     addProvider: (body: IProviderData): Promise<any> => requests.post('/providers/new', body),
     fetchProviderBranches: (): Promise<any> => requests.get('/provider/branchs'),
-    updateProviderPhone: (id: number, body: IProviderData) => requests.patch(`provider/phone/${id}`, body),
+    updateProviderPhone: (id: number, body: any) => requests.patch(`provider/phone/${id}`, body),
     getProviderStatistic: (): Promise<any> => requests.get('/provider/observer'),
     getProviderRequisites: () => requests.get(`provider/info`),
     activateOrdisactivateBranch: (id: number) => requests.patch(`provider/branch/activate/${id}`),
     addRate: (body: any) => requests.post(`provider/rate`, body),
     getProviderStatisticByAdmin: (id: string): Promise<any> => requests.get(`providers/observer/${id}`),
     editProviderRequisites: (id: string, body: any): Promise<any> => requests.patch(`providers/${id}`, body),
+    editPasswordByProvider: (body: any) => requests.post('provider/recovery', body),
 };
 
 export const branchApi = {
     getBranchById: (id: number) => requests.get(`/branch/${id}`),
     getBranchByIdAdmin: (id: string): Promise<any> => requests.get(`providers/branch/${id}`),
-    getBranchBdyIdProvider: (id: string): Promise<any> => requests.get(`provider/branch/${id}`),
+    getBranchByIdProvider: (id: string): Promise<any> => requests.get(`provider/branch/${id}`),
     getProviderBranchesByid: (id: string) => requests.get(`providers/branchs/${id}`),
     getAllBranches: () => requests.get('provider/branchs'),
     updateBranch: (id: number, body: IBranchData) => requests.patch(`/provider/branch/${id}`, { ...body }),
@@ -171,4 +172,8 @@ export const walletApi = {
     addCoins: (body: any) => requests.post('wallets/up', body),
     getProviderWalletInfo: () => requests.get('wallets/packages'),
     getProviderWalletInfoByAdmin: (id: string) => requests.get(`replenishment/packages/${id}`),
+};
+
+export const smsApi = {
+    order: (id: string) => requests.get(`orders/${id}`),
 };

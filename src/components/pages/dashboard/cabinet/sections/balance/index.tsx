@@ -20,6 +20,7 @@ export const Balance = () => {
     const { t } = useTranslation();
     const [data, setData] = useState<any>(null);
     const { open, handleModalOpen, handleModalClose } = useModal();
+    const [trigger, setTrigger] = useState(false);
 
     const [filtringByDate, setFiltringByDate] = useState<null | string>(null);
     const [fullDate, setFullDate] = useState<null | string>(null);
@@ -65,7 +66,7 @@ export const Balance = () => {
                 .then((res) => setData(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [page, fullDate, month]);
+    }, [page, fullDate, month, trigger]);
 
     const handleSendBalance = useCallback((val: number) => {
         return () => {
@@ -75,6 +76,7 @@ export const Balance = () => {
                     info: 'wallet_up',
                     coin: val,
                 })
+                .then(() => setTrigger((prev) => !prev))
                 .catch(() => {
                     toast.error(t('helpers:error_sending'));
                 });
@@ -126,7 +128,7 @@ export const Balance = () => {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
             disableFilters: true,
             disableSortBy: false,
             maxWidth: 70,
@@ -143,7 +145,7 @@ export const Balance = () => {
             Header: t('dashboard:cost') as string,
             accessor: 'amount',
             Cell: ({ cell }: any) => {
-                return `${cell.value} ${t('dashboard:coins')}`;
+                return cell.value == 1 ? t('dashboard:one_coin') : `${cell.value} ${t('dashboard:coins')}`;
             },
             disableFilters: true,
             disableSortBy: false,
@@ -152,7 +154,11 @@ export const Balance = () => {
         {
             Header: t('dashboard:info') as string,
             accessor: 'info',
-            Cell: ({ cell }: any) => t(`dashboard:wallet_info.${cell.value.toLowerCase()}`),
+            Cell: ({ cell }: any) => {
+                const val = cell.row.original?.uniqNumber;
+
+                return `${t(`dashboard:wallet_info.${cell.value.toLowerCase()}`)}${val ? ` (${val})` : ''}`;
+            },
             disableFilters: true,
             disableSortBy: false,
             minWidth: 220,

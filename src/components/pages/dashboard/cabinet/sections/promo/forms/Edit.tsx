@@ -9,15 +9,9 @@ import { toast } from 'react-hot-toast';
 import { Button } from 'components/ui/button';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-
 import { promoApi } from 'src/utils/api';
 import dayjs from 'dayjs';
 import { useGetBranchesAndPriceLists } from 'src/hooks/promo/useGetBranchesAndPriceLists';
-
-interface IOptions {
-    label: string;
-    value: number | undefined;
-}
 
 export const EditForm = () => {
     const { t } = useTranslation();
@@ -29,7 +23,11 @@ export const EditForm = () => {
         promoApi
             .editPromoByProvider(query.id as string, values)
             .then(() => push('/cabinet/promo?page=1'))
-            .catch(() => toast.error(t('helpers:error_sending')));
+            .catch((err) => {
+                if (err.response.data.error === 'insufficient funds') {
+                    toast.error(t('dashboard:no_coins'));
+                } else toast.error(t('helpers:error_sending'));
+            });
     };
     const { formikBranches, formikPrice, branches, lists } = useGetBranchesAndPriceLists(
         false,
@@ -125,6 +123,7 @@ export const EditForm = () => {
                     fullWidth
                     type={'submit'}
                     onClick={() => formik.submitForm()}
+                    disabledPointer={formik.isSubmitting}
                 >
                     {t('dashboard:refresh')}
                 </Button>

@@ -101,6 +101,7 @@ export const client_validation = {
         companyName: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
         inn: Yup.string().min(9, 'limit_less').max(9, 'limit_more').required('required'),
         coin: Yup.number().label('Coin').typeError('invalid_format').required('required'),
+        dealNumber: Yup.number().typeError('invalid_format').required('required'),
     }),
     requisites_provider: Yup.object().shape({
         legalAddress: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
@@ -108,5 +109,10 @@ export const client_validation = {
         fullName: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
         email: yup.string().email('invalid_format').required('required'),
         inn: Yup.string().min(9, 'limit_less').max(9, 'limit_more').required('required'),
+        dealNumber: Yup.number().typeError('invalid_format').required('required'),
+    }),
+    password_reset: Yup.object().shape({
+        newPassword: yup.string().min(6, 'limit_less').max(10, 'limit_more').required('required'),
+        oldPassword: yup.string().min(6, 'limit_less').max(10, 'limit_more').required('required'),
     }),
 };

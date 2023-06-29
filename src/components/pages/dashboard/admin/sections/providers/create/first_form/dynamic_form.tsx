@@ -151,7 +151,17 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                         component={SelectField}
                                         name={`providerBranch[${index}].breakTime`}
                                         label="dashboard:providerBranch.breakTime"
-                                        options={params ? params.breakTime : defaultOptions}
+                                        options={
+                                            params
+                                                ? [
+                                                      ...params.breakTime.slice(0, 2),
+                                                      {
+                                                          value: params.breakTime[2].value,
+                                                          label: t(`dashboard:${params.breakTime[2].label}`),
+                                                      },
+                                                  ]
+                                                : defaultOptions
+                                        }
                                     />
                                 </div>
                             </div>

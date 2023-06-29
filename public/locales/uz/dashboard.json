@@ -185,6 +185,7 @@
   "promo_rejected": "Promo rad etildi",
   "promo_accepted": "Promo qabul qilindi",
   "promo_deleted": "Promo masofadan turib",
+  "has_promo":"Ushbu filial yoki narxlar ro'yxatida promo mavjud!",
   "transitions": "O'tishlar",
   "productss": "Tovarlar",
   "requests": "So'rovlar",
@@ -261,7 +262,8 @@
     "buying_product_ads": "Mahsulot uchun reklamalarni sotib olish",
     "buying_branch_ads": "Filial uchun e'lonlarni sotib olish",
     "buying_pricelist_ads": "Narxlar ro'yxatida e'lonlarni sotib olish",
-    "edit_ads": "Reklamani tahrirlash"
+    "edit_ads": "Reklamani tahrirlash",
+    "top_account_request": "Qayta ishlashda"
   },
   "wallet_type": {
     "TOP": "To'ldirish",
@@ -286,5 +288,10 @@
   "in_stock": "Sotuvda mavjud",
   "refresh_price": "Narxni yangilash",
   "providerCreated": "Provayder yaratilgan",
-  "rate_changed": "Dollar kursi o'zgardi!"
+  "rate_changed": "Dollar kursi o'zgardi!",
+  "vin_accepted_already": "Vin so'rovi boshqa provayder tomonidan qabul qilingan yoki administrator tomonidan bekor qilingan!",
+  "no_coins": "Pul yetarli emas!",
+  "dealNumber": "Shartnoma raqami",
+  "one_coin": "1 tanga",
+  "without_break": "Tanaffuslar yo'q"
 }

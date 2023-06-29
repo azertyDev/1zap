@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';
 import { Avatar } from 'src/components/ui/avatar';
 import s from './index.module.scss';
+import { Language } from 'components/ui/language';
 
 interface HeaderProps {
     title: string;
@@ -14,6 +15,7 @@ const Header = ({ title, id, logo }: HeaderProps): JSX.Element => {
     return (
         <div className={s.wrapper}>
             <h2>{t(`dashboard:${title}`)}</h2>
+            <Language />
             <div className={s.user_info}>
                 {id && <p>ID {id}</p>}
                 <Avatar src={logo} alt="avatar" />

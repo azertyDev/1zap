@@ -154,6 +154,7 @@
     "service": "Xizmatlar",
     "supply": "Ta'minot",
     "manufacturers": "Ishlab chiqaruvchi",
+    "isOrigin": "Ishlab chiqaruvchi",
     "clientType": "Shartlar",
     "updates": "Yangilash",
     "company": "Ishlab chiqaruvchi",
@@ -205,10 +206,12 @@
     "three_day": "3 kun",
     "seven_day": "7 kun",
     "fourteen_day": "14 kun",
-    "month": "Oy"
+    "month": "Oy",
+    "original": "Asl",
+    "analog": "Analog"
   },
-  "new_password": "Yangi parol",
-  "new_password_repeat": "Parolni tasdiqlash",
+  "newPassword": "Yangi parol",
+  "oldPassword": "Oldingi parol",
   "agreementNumber": "Shartnoma raqami",
   "partSelection": "Аvtomobil qismlari",
   "usd": "Dollar",

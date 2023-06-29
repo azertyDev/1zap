@@ -60,6 +60,7 @@ export const ForgotPassword: FC = (): JSX.Element => {
                                     disabled={!formik.dirty || !formik.isValid}
                                     variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
                                     type={'submit'}
+                                    disabledPointer={formik.isSubmitting}
                                 >
                                     {t('common:tofixPassword')}
                                 </Button>

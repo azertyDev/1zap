@@ -10,7 +10,7 @@ export interface IUserSlice {
     userData?: IUserData;
     loading?: boolean;
     error?: null;
-    login: (email: string, password: string, setErrors: any) => void;
+    login: (email: string, password: string, setErrors: any, setIsSubmiting: any) => void;
     logout: () => void;
 }
 
@@ -27,14 +27,14 @@ const initialState = {
 export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
     ...initialState,
 
-    login: async (email, password, setErrors) => {
+    login: async (email, password, setErrors, setIsSubmiting) => {
         const json = JSON.stringify({
             email,
             password,
         });
 
         set({ loading: true });
-
+        setIsSubmiting(true);
         await userApi
             .login(json)
             .then((response) => {
@@ -56,6 +56,7 @@ export const userSlice: StateCreator<IUserSlice> = (set, get) => ({
             })
             .finally(() => {
                 set({ loading: false });
+                setIsSubmiting(false);
             });
     },
     logout: () => {

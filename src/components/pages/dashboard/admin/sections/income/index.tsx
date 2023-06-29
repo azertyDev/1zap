@@ -108,7 +108,7 @@ export const IncomePage: FC = () => {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
             disableFilters: true,
             disableSortBy: false,
             maxWidth: 70,
@@ -177,7 +177,7 @@ export const IncomePage: FC = () => {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
             disableFilters: true,
             disableSortBy: false,
             maxWidth: 70,
@@ -280,6 +280,7 @@ export const IncomePage: FC = () => {
                             variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
                             fullWidth
                             type={'submit'}
+                            disabledPointer={formik.isSubmitting}
                         >
                             {t('dashboard:accrue')}
                         </Button>

@@ -53,7 +53,7 @@ export const OperationsPage: FC = () => {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
             disableFilters: true,
             disableSortBy: false,
             maxWidth: 70,
@@ -68,7 +68,7 @@ export const OperationsPage: FC = () => {
             Header: t('dashboard:cost') as string,
             accessor: 'amount',
             Cell: ({ cell }: any) => {
-                return `${cell.value} ${t('dashboard:coins')}`;
+                return cell.value == 1 ? t('dashboard:one_coin') : `${cell.value} ${t('dashboard:coins')}`;
             },
             disableFilters: true,
             disableSortBy: false,
@@ -76,7 +76,11 @@ export const OperationsPage: FC = () => {
         {
             Header: t('dashboard:info') as string,
             accessor: 'info',
-            Cell: ({ cell }: any) => t(`dashboard:wallet_info.${cell.value.toLowerCase()}`),
+            Cell: ({ cell }: any) => {
+                const val = cell.row.original?.uniqNumber;
+
+                return `${t(`dashboard:wallet_info.${cell.value.toLowerCase()}`)}${val ? ` (${val})` : ''}`;
+            },
             disableFilters: true,
             disableSortBy: false,
             minWidth: 200,

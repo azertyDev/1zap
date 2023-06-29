@@ -23,7 +23,7 @@ import { checkPhone } from 'src/helpers/checkPhone';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
-export const EditForm = (props: any) => {
+export const EditForm = () => {
     const {
         query: { id },
         push,
@@ -195,7 +195,17 @@ export const EditForm = (props: any) => {
                                                 component={SelectField}
                                                 name={`breakTime`}
                                                 label="dashboard:providerBranch.breakTime"
-                                                options={params ? params.breakTime : defaultOptions}
+                                                options={
+                                                    params
+                                                        ? [
+                                                              ...params.breakTime.slice(0, 2),
+                                                              {
+                                                                  value: params.breakTime[2].value,
+                                                                  label: t(`dashboard:${params.breakTime[2].label}`),
+                                                              },
+                                                          ]
+                                                        : defaultOptions
+                                                }
                                             />
                                         </div>
                                     </div>
@@ -316,7 +326,12 @@ export const EditForm = (props: any) => {
                                 <Button variant="disabled" type="reset" onClick={() => push('/cabinet/main/branches')}>
                                     {t('common:cancel')}
                                 </Button>
-                                <Button variant="primary" type="submit">
+                                <Button
+                                    type="submit"
+                                    disabled={!(formik.dirty || formik.isValid || formik.isSubmitting)}
+                                    variant={!(formik.dirty || formik.isValid) ? 'disabled' : 'primary'}
+                                    disabledPointer={formik.isSubmitting}
+                                >
                                     {t('dashboard:refresh')}
                                 </Button>
                             </div>

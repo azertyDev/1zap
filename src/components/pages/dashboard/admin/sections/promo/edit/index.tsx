@@ -167,7 +167,13 @@ export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ que
                             {t('dashboard:edit')}
                         </Button>
 
-                        <Button type="submit" onClick={() => formik.submitForm()} fullWidth variant={'primary'}>
+                        <Button
+                            type="submit"
+                            onClick={() => formik.submitForm()}
+                            fullWidth
+                            variant={'primary'}
+                            disabledPointer={formik.isSubmitting}
+                        >
                             {t('dashboard:publish')}
                         </Button>
                     </>
@@ -232,6 +238,7 @@ export const EditPromoForm: FC<{ query: { id: number; type: string } }> = ({ que
                                 variant={!formikReject.dirty || !formikReject.isValid ? 'disabled' : 'primary'}
                                 fullWidth
                                 type={'submit'}
+                                disabledPointer={formikReject.isSubmitting}
                             >
                                 {t('dashboard:refuse_public')}
                             </Button>

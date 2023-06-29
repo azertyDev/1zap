@@ -59,6 +59,7 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
             return { phone: phone.replaceAll(' ', ''), ...all };
         });
 
+        // @ts-ignore
         const data: IProviderData = {
             coin: Number(coin),
             applicationId: Number(id),
@@ -102,6 +103,7 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
                             <StandartInput label="dashboard:legalAddress" {...formik.getFieldProps('legalAddress')} />
                             <StandartInput label="dashboard:fullName" {...formik.getFieldProps('fullName')} />
                             <StandartInput label="dashboard:inn" {...formik.getFieldProps('inn')} />
+                            <StandartInput label="dashboard:dealNumber" {...formik.getFieldProps('dealNumber')} />
                         </div>
                         <div className={s.block}>
                             <StandartInput label="dashboard:companyName" {...formik.getFieldProps('companyName')} />

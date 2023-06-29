@@ -24,6 +24,7 @@ export const RequisitesEditProvider = () => {
         phone: string;
         email: string;
         inn: string;
+        dealNumber: string;
     } | null>(null);
 
     useEffect(() => {
@@ -39,6 +40,7 @@ export const RequisitesEditProvider = () => {
         phone: data?.phone?.slice(4) ?? '',
         email: data?.email ?? '',
         inn: data?.inn ?? '',
+        dealNumber: data?.dealNumber ?? '',
     };
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
@@ -73,6 +75,7 @@ export const RequisitesEditProvider = () => {
                         </div>
 
                         <div className={s.row}>
+                            <StandartInput label="dashboard:dealNumber" {...formik.getFieldProps('dealNumber')} />
                             <StandartInput
                                 isPhone
                                 label="dashboard:phone"
@@ -93,6 +96,7 @@ export const RequisitesEditProvider = () => {
                                 type="submit"
                                 disabled={!(formik.dirty || formik.isValid || formik.isSubmitting)}
                                 variant={!(formik.dirty || formik.isValid) ? 'disabled' : 'primary'}
+                                disabledPointer={formik.isSubmitting}
                             >
                                 {t('dashboard:refresh')}
                             </Button>

@@ -188,7 +188,17 @@ export const EditBranchByProvider = () => {
                                                 component={SelectField}
                                                 name={`breakTime`}
                                                 label="dashboard:providerBranch.breakTime"
-                                                options={params ? params.breakTime : defaultOptions}
+                                                options={
+                                                    params
+                                                        ? [
+                                                              ...params.breakTime.slice(0, 2),
+                                                              {
+                                                                  value: params.breakTime[2].value,
+                                                                  label: t(`dashboard:${params.breakTime[2].label}`),
+                                                              },
+                                                          ]
+                                                        : defaultOptions
+                                                }
                                             />
                                         </div>
                                     </div>
@@ -303,7 +313,7 @@ export const EditBranchByProvider = () => {
                                 >
                                     {t('common:cancel')}
                                 </Button>
-                                <Button variant="primary" type="submit">
+                                <Button variant="primary" type="submit" disabledPointer={formik.isSubmitting}>
                                     {t('dashboard:refresh')}
                                 </Button>
                             </div>

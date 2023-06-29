@@ -4,7 +4,7 @@ import { SelectField } from 'components/ui/select';
 import s from 'components/pages/dashboard/cabinet/sections/vin_request/accepted/index.module.scss';
 import { Button } from 'components/ui/button';
 import { useTranslation } from 'next-i18next';
-import React, { Dispatch, FC, SetStateAction, useCallback, useEffect } from 'react';
+import React, { Dispatch, FC, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { vinOrderApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 
@@ -19,12 +19,14 @@ export const VinSelectProvider: FC<{
     open: boolean;
 }> = ({ status, vinId, children, closeModal, trigger, setOrder, modalOrder, open }) => {
     const { t } = useTranslation();
+    const [isSubmiting, setIsSubmiting] = useState(false);
 
     const formik = useFormik({
         initialValues: { status: status, reason: '', description: '' },
         enableReinitialize: true,
         onSubmit: async (values) => {
             if (values.status === 'completed' && status !== 'completed') {
+                setIsSubmiting(true);
                 vinOrderApi
                     .completeVinByProvider(vinId)
                     .then((response) => {
@@ -34,7 +36,8 @@ export const VinSelectProvider: FC<{
                     })
                     .catch((err) => {
                         toast.error(t('helpers:error_sending'));
-                    });
+                    })
+                    .finally(() => setIsSubmiting(false));
             }
             if (values.status === 'rejected') {
                 setOrder(3)();
@@ -50,20 +53,21 @@ export const VinSelectProvider: FC<{
             toast.error(t('dashboard:vin_reject_problem'));
             return;
         }
-
+        setIsSubmiting(true);
         vinOrderApi
             .rejectVinByProvider(vinId, {
                 description: formik.values.description,
                 reason: formik.values.reason,
             })
-            .then((response) => {
+            .then(() => {
                 toast.success(t('helpers:vin_reject'));
                 closeModal();
                 trigger((prev) => !prev);
             })
-            .catch((err) => {
+            .catch(() => {
                 toast.error(t('helpers:error_sending'));
-            });
+            })
+            .finally(() => setIsSubmiting(false));
     };
 
     useEffect(() => {
@@ -175,6 +179,7 @@ export const VinSelectProvider: FC<{
                                         fullWidth
                                         onClick={handleRejectVin}
                                         type={'button'}
+                                        disabledPointer={isSubmiting}
                                     >
                                         {t('dashboard:req_reject')}
                                     </Button>
@@ -197,6 +202,7 @@ export const VinSelectProvider: FC<{
                                 variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
                                 fullWidth
                                 type={'submit'}
+                                disabledPointer={isSubmiting}
                             >
                                 {t('common:save')}
                             </Button>

@@ -11,20 +11,23 @@ import { useGetPriceListInfo } from 'src/hooks/promo/useGetPriceListInfo';
 import { promoApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/router';
+import { useGetBranchInfo } from 'src/hooks/promo/useGetBranchInfo';
 
 export const ListsForm = () => {
     const { t } = useTranslation();
     const { push } = useRouter();
     const { formikBranches, formikPrice, branches, lists } = useGetBranchesAndPriceLists();
-
+    const { branchInfo } = useGetBranchInfo(formikBranches, formikBranches.values.branchId);
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<any>) => {
         promoApi
             .addPromoByPriceList({ ...values, ...formikPrice.values })
             .then((res) => {
                 push('/cabinet/promo?page=1');
             })
-            .catch(() => {
-                toast.error(t('helpers:error_getting'));
+            .catch((err) => {
+                if (err.response.data.error === 'insufficient funds') {
+                    toast.error(t('dashboard:no_coins'));
+                } else toast.error(t('helpers:error_sending'));
             });
     };
 
@@ -34,8 +37,8 @@ export const ListsForm = () => {
         onSubmit,
         enableReinitialize: true,
         initialValues: {
-            descriptionRu: listInfo.textRu ? listInfo.textRu : '',
-            descriptionUz: listInfo.textUz ? listInfo.textUz : '',
+            descriptionRu: listInfo.textRu || branchInfo.textRu ? listInfo.textRu ?? branchInfo.textRu : '',
+            descriptionUz: listInfo.textUz || branchInfo.textUz ? listInfo.textUz ?? branchInfo.textUz : '',
         },
         validationSchema: client_validation.promo,
     });
@@ -49,14 +52,19 @@ export const ListsForm = () => {
                 formikPrice={formikPrice}
                 formikTexts={formikTexts}
                 branchesOptions={branches}
-                disableTextarea={listInfo.hasReclam}
+                disableTextarea={listInfo.hasReclam || branchInfo.hasReclam}
                 lists={lists}
             />
-            {!listInfo.hasReclam && (
+            {!branchInfo.hasReclam && !listInfo.hasReclam && (
                 <PromoSubmitInfo
                     formik={formikTexts}
                     info={{ ...mathPromo(listInfo.total * 5), position: listInfo.total }}
                 />
+            )}
+            {(listInfo.hasReclam || branchInfo.hasReclam) && (
+                <div className={s.has_promo}>
+                    <h5>{t('dashboard:has_promo')}</h5>
+                </div>
             )}
         </div>
     );

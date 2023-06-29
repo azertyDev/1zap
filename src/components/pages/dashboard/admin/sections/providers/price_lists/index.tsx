@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { Column } from 'react-table';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatisticsBlock } from 'src/components/ui/dashboard/statistics_block';
 import { Table } from 'src/components/ui/dashboard/table';
 import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
@@ -12,6 +12,7 @@ import { IProviderStat } from 'types';
 import { Pagination } from 'components/ui/pagination/Pagination';
 import { toast } from 'react-hot-toast';
 import { priceListApi, providerApi } from 'src/utils/api';
+import { Heading } from 'components/ui/dashboard/heading';
 
 export const ViewPriceLists = () => {
     const { t } = useTranslation();
@@ -111,6 +112,7 @@ export const ViewPriceLists = () => {
 
     return (
         <div className={s.wrapper}>
+            <Heading title={t(`dashboard:products`)} desc={''} />
             <StatisticsBlock data={statisticsData as any} title={<h4>{t('dashboard:current_res')}</h4>} />
 
             {priceLists?.data?.length > 0 && <Table columns={priceListCols} data={priceLists?.data} />}

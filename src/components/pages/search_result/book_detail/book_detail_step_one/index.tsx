@@ -15,6 +15,7 @@ import { Pagination } from 'swiper';
 import { formatPhoneToClient } from 'src/helpers/formatPhoneToClient';
 import { formatNumber } from 'src/helpers/formatNumber';
 import { IBranchData, IPieceProduct } from 'types';
+import { toast } from 'react-hot-toast';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
@@ -31,13 +32,19 @@ export const BookDetailStepOne: FC<{
     useEffect(() => {
         (() => {
             branchId &&
-                branchApi.getBranchById(branchId as number).then((res) => {
-                    setBranch(res);
-                });
+                branchApi
+                    .getBranchById(branchId as number)
+                    .then((res) => {
+                        setBranch(res);
+                    })
+                    .catch((err) => toast.error(t('helpers:can_accept')));
             productId &&
-                productsApi.getPieceProduct(productId).then((res) => {
-                    setProdcut(res);
-                });
+                productsApi
+                    .getPieceProduct(productId)
+                    .then((res) => {
+                        setProdcut(res);
+                    })
+                    .catch((err) => toast.error(t('helpers:can_accept')));
         })();
     }, [branchId, productId]);
 

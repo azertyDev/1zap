@@ -6,7 +6,7 @@ import Header from 'src/components/ui/dashboard/header';
 import DashboardNav from 'src/components/ui/dashboard/navbar/dashboardNav';
 import ProviderNav from 'src/components/ui/dashboard/navbar/providerNav';
 import Bottom_footer from 'src/components/widgets/footer/bottom_footer';
-import { IProviderStat } from '../../../../types';
+import { IProviderStat } from 'types';
 import { providerApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import s from './index.module.scss';
@@ -44,7 +44,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }): JSX.Element => {
                     logo={data?.image && data?.image.length > 0 ? data.image : '/assets/icons/person.svg'}
                 />
                 <main>{children}</main>
-                <Bottom_footer className={s.footer} />
+                <Bottom_footer className={s.footer} showLang={false} />
             </div>
         </div>
     );

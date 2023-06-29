@@ -7,7 +7,7 @@ export const MapPoint: FC<{ val: number; hidePoint?: boolean }> = ({ val, hidePo
     return (
         <div className={`${s.point_wr} ${hidePoint ? s.hide : ''}`}>
             <Image src="/assets/icons/map_point.svg" alt={'point'} fill={true} />
-            <p className={s.point_number}>{String(val).slice(0, 2)}</p>
+            <p className={s.point_number}></p>
         </div>
     );
 };

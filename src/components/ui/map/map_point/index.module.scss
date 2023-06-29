@@ -7,19 +7,23 @@
   cursor: pointer;
   margin-bottom: 7px;
   z-index: 2;
-  img{
+
+  img {
     filter: grayscale(0) !important;
   }
 }
 
 .point_number {
-  @include pa_t_l(40%, 50%);
-  @include fs_fw_c(15px, 600, $light);
-  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+  background: #fff;
+  @include pa_t_l(50%,50%);
+  transform: translate(-50%,-50%);
 }
 
 @media (max-width: 768px) {
-  .point_wr.hide{
+  .point_wr.hide {
     display: none;
   }
 }

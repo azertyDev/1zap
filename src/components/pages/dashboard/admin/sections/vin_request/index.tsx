@@ -91,7 +91,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
             Header: t('dashboard:date') as string,
             id: 'eventdate',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY') as any,
             disableFilters: true,
             disableSortBy: false,
             maxWidth: 80,
@@ -100,7 +100,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
             disableFilters: true,
             disableSortBy: false,
             maxWidth: 70,
@@ -332,6 +332,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
                                         variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
                                         fullWidth
                                         type={'submit'}
+                                        disabledPointer={formik.isSubmitting}
                                     >
                                         {t('common:save')}
                                     </Button>

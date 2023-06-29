@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { useStore } from 'src/store/useStore';
@@ -13,15 +13,16 @@ import s from '../index.module.scss';
 
 export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.Element => {
     const { t } = useTranslation();
-    const { error, login } = useStore((state) => state, shallow);
+    const { login } = useStore((state) => state, shallow);
+    const [isSubmiting, setIsSubmiting] = useState(false);
 
     const initialValues = {
         email: '',
         password: '',
     };
 
-    const onSubmit = async (values: FormikValues, { setStatus, setErrors }: FormikHelpers<typeof initialValues>) => {
-        login(values.email, values.password, setErrors);
+    const onSubmit = async (values: FormikValues, { setErrors }: FormikHelpers<typeof initialValues>) => {
+        login(values.email, values.password, setErrors, setIsSubmiting);
     };
 
     const formik = useFormik({
@@ -50,6 +51,7 @@ export const Login: FC<{ fun: (val: number) => () => void }> = ({ fun }): JSX.El
                         type={'submit'}
                         disabled={!formik.dirty || !formik.isValid}
                         variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                        disabledPointer={isSubmiting}
                     >
                         {t('header:login')}
                     </Button>

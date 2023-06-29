@@ -21,5 +21,7 @@
     "limit_more": "Belgilar chegarasidan oshib ketdi",
     "limit_less": "Belgilar yetarli emas",
     "userAllreadyExist": "Foydalanuvchi allaqachon mavjud (elektron pochta, telefon)",
-    "allFields": "Maʼlumotlarni yuborishda xatolik yuz berdi (barcha maydonlar toʻldirilganligini tekshiring!)"
+    "allFields": "Maʼlumotlarni yuborishda xatolik yuz berdi (barcha maydonlar toʻldirilganligini tekshiring!)",
+    "can_accept": "Provayder boshqa so'rovlarni qabul qila olmaydi!",
+    "to_home": "Parol o'zgartirildi, asosiy sahifaga yo'naltirilmoqda!"
 }

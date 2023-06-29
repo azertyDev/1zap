@@ -2,8 +2,9 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { ExchangeRate } from 'src/components/ui/exchange_rate';
-import { Language } from 'src/components/ui/language';
 import s from '../index.module.scss';
+import { Language } from 'components/ui/language';
+import { useRouter } from 'next/router';
 
 const BottomFooter = (props: any) => {
     const { t } = useTranslation();
@@ -18,7 +19,7 @@ const BottomFooter = (props: any) => {
             </div>
             <p className={s.copy}>&copy; 2023 All rights reserved</p>
             <div className={s.controls}>
-                <Language />
+                {props.showLang && <Language />}
                 <ExchangeRate />
             </div>
         </div>

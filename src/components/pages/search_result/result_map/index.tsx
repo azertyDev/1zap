@@ -43,7 +43,8 @@ const getFilterParamsResultPage = (
     service: string,
     client: string,
     shipment: string,
-    updates: string
+    updates: string,
+    isOrigin: string
 ) => {
     const formatQuery = (param: string, val: string) => {
         return val ? `&${param}=${val}` : '';
@@ -52,7 +53,10 @@ const getFilterParamsResultPage = (
     return `${formatQuery('payment', payment)}${formatQuery('delivery', delivery)}${formatQuery(
         'service',
         service
-    )}${formatQuery('clientType', client)}${formatQuery('shipment', shipment)}${formatQuery('updates', updates)}`;
+    )}${formatQuery('clientType', client)}${formatQuery('shipment', shipment)}${formatQuery(
+        'updates',
+        updates
+    )}${formatQuery('isOrigin', isOrigin)}`;
 };
 
 export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
@@ -61,7 +65,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
         pathname,
         push,
         locale,
-        query: { page, filter, oem, payment, delivery, service, client, shipment, updates },
+        query: { page, filter, oem, payment, delivery, service, client, shipment, updates, isOrigin },
         query,
     } = useRouter();
 
@@ -85,7 +89,8 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                         service as string,
                         client as string,
                         shipment as string,
-                        updates as string
+                        updates as string,
+                        isOrigin as string
                     )}`
                 )
                 .then((res) => setData(res))

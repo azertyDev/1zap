@@ -65,6 +65,7 @@ interface IProvidersData {
 interface IProviderData {
     legalAddress?: string;
     phone?: string;
+    dealNumber: string;
     fullName?: string;
     email?: string;
     companyName?: string;
@@ -208,6 +209,7 @@ interface IStaticParams {
     workingSchedule: params[];
     shipment: params[];
     updates: params[];
+    isOrigin: params[];
 }
 
 interface IOrderDetail {

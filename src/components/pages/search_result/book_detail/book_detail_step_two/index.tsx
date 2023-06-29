@@ -1,10 +1,8 @@
 import React, { FC, useState } from 'react';
-
 import s from './index.module.scss';
 import { Icon } from 'components/ui/icon';
 import { useTranslation } from 'next-i18next';
 import { Completed } from 'components/ui/completed';
-
 import { FloatingInput } from 'components/ui/input/float_input';
 import { Button } from 'components/ui/button';
 import { IconsWrapper } from 'components/ui/icons_wrapper';
@@ -31,10 +29,10 @@ export const BookDetailStepTwo: FC<{
             productId: productId,
         },
         validationSchema: client_validation.book,
-        onSubmit: async (values) => {
-            await orderDetails
+        onSubmit: (values) => {
+            orderDetails
                 .order({ ...values, phone: values.phone.replaceAll(' ', '') })
-                .then((res) => {
+                .then(() => {
                     setDone(true);
                     setPhoneVal(values.phone);
                 })
@@ -87,6 +85,7 @@ export const BookDetailStepTwo: FC<{
                                     type={'submit'}
                                     disabled={!formik.dirty || !formik.isValid}
                                     variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                                    disabledPointer={formik.isSubmitting}
                                 >
                                     {t('common:toOrder')}
                                 </Button>

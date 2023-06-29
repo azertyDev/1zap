@@ -67,3 +67,11 @@
     @include fs_fw_c(14px, 400, $text);
   }
 }
+
+
+.has_promo{
+  padding: 20px;
+  background: $main;
+  border-radius: 10px;
+  @include fs_fw_c(18px,500,#fff)
+}

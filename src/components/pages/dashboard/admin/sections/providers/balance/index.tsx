@@ -9,6 +9,7 @@ import { StatisticsBlock } from 'components/ui/dashboard/statistics_block';
 import { FilterCalendar } from 'components/ui/dashboard/table/filterCalendar';
 import { Table } from 'components/ui/dashboard/table';
 import { Pagination } from 'components/ui/pagination/Pagination';
+import { Heading } from 'components/ui/dashboard/heading';
 
 export const ViewProviderBalance = () => {
     const { t } = useTranslation();
@@ -75,7 +76,7 @@ export const ViewProviderBalance = () => {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
             disableFilters: true,
             disableSortBy: false,
             maxWidth: 70,
@@ -110,6 +111,7 @@ export const ViewProviderBalance = () => {
 
     return (
         <div className={s.wrapper}>
+            <Heading title={t(`dashboard:balance`)} desc={''} />
             <div>
                 {walletInfo && (
                     <StatisticsBlock

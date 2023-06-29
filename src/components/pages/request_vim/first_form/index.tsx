@@ -72,6 +72,7 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
                     .createOrder(dataSend)
                     .then(() => {
                         push('/request_vim/final_step');
+                        formik.setSubmitting(true);
                     })
                     .catch(() => {
                         toast.error(t('helpers:error_sending'));
@@ -188,6 +189,7 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
                         className={s.submit_btn}
                         disabled={!formik.dirty || !formik.isValid}
                         variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                        disabledPointer={formik.isSubmitting}
                     >
                         <Icon size={15} name={'send'} color={!formik.dirty || !formik.isValid ? '#9A9EA7' : '#fff'} />
                         {t('common:sendRequest')}

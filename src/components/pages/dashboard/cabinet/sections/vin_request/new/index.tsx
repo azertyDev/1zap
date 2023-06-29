@@ -49,12 +49,18 @@ export const IncominRequests = () => {
         return async () => {
             vinOrderApi
                 .acceptVinByProvider(id)
-                .then((response) => {
+                .then(() => {
                     push('/cabinet/incoming_requests?status=accepted&page=1');
                     toast.success(t('helpers:vin_accept'));
                 })
                 .catch((err) => {
-                    toast.error(t('helpers:error_sending'));
+                    if (err.response.data.error === 'insufficient funds') {
+                        toast.error(t('dashboard:no_coins'));
+                    } else {
+                        toast.error(t('dashboard:vin_accepted_already'), {
+                            duration: 5000,
+                        });
+                    }
                 });
         };
     }, []);
@@ -73,7 +79,7 @@ export const IncominRequests = () => {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('h:mm') as any,
+            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
             disableFilters: true,
             disableSortBy: false,
             width: 60,
