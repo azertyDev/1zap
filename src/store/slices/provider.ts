@@ -1,5 +1,5 @@
 import { toast } from 'react-hot-toast';
-import { priceListApi, providerApi } from 'src/utils/api';
+import { branchApi, priceListApi, providerApi } from 'src/utils/api';
 import { StateCreator } from 'zustand';
 import { IProviderData, IProviders, IBranchData } from 'types';
 import Router from 'next/router';
@@ -103,8 +103,8 @@ export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
     fetchBranchById: async (id: number) => {
         set({ loading: true });
 
-        await providerApi
-            .fetchBranchById(id)
+        await branchApi
+            .getBranchByIdProvider(id)
             .then((response) => {
                 set({ branch: response });
             })

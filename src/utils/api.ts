@@ -13,7 +13,6 @@ import {
     ISubTopicCreate,
     IBranchData,
 } from 'types';
-import { sticky } from 'jodit/types/plugins/sticky/sticky';
 
 const responseBody = (response: AxiosResponse) => response.data;
 

@@ -55,7 +55,7 @@ export const EditForm = () => {
     }, []);
 
     useEffect(() => {
-        branchApi.getBranchByIdProvider(id as string).then((branch) => {
+        branchApi.getBranchByIdProvider(id as string).then((branch: any) => {
             setBranch(branch);
         });
     }, [id]);
