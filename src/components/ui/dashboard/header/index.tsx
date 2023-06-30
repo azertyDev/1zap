@@ -15,8 +15,9 @@ const Header = ({ title, id, logo }: HeaderProps): JSX.Element => {
     return (
         <div className={s.wrapper}>
             <h2>{t(`dashboard:${title}`)}</h2>
-            <Language />
+
             <div className={s.user_info}>
+                <Language />
                 {id && <p>ID {id}</p>}
                 <Avatar src={logo} alt="avatar" />
             </div>
