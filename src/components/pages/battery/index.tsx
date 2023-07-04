@@ -132,19 +132,19 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
                                     <TableElement className={'table_b'}>
                                         <h5>
                                             {currency === 'usd'
-                                                ? `$${item.usd.average}`
-                                                : `${formatNumber(item.sum.average)} сум`}
+                                                ? `$${formatNumber(item.usd.average)}`
+                                                : `${formatNumber(item.sum.average)} ${t('common:sum')}`}
                                         </h5>
                                         <p>
                                             {t('common:fromTo', {
                                                 from:
                                                     currency === 'usd'
-                                                        ? `$${item.usd.priceFrom}`
-                                                        : `${formatNumber(item.sum.priceFrom)}`,
+                                                        ? `$${formatNumber(item.usd.priceFrom)}`
+                                                        : `${formatNumber(parseInt(`${item.sum.priceFrom}`))}`,
                                                 to:
                                                     currency === 'usd'
-                                                        ? `$${item.usd.priceTo}`
-                                                        : `${formatNumber(item.sum.priceTo)}`,
+                                                        ? `$${formatNumber(item.usd.priceTo)}`
+                                                        : `${formatNumber(parseInt(`${item.sum.priceTo}`))}`,
                                             })}
                                         </p>
                                     </TableElement>

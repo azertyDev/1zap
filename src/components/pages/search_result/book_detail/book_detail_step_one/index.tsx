@@ -59,12 +59,7 @@ export const BookDetailStepOne: FC<{
             {branch && product && (
                 <>
                     <div className={s.map_wr_res}>
-                        <Map
-                            provider={maptilerProvider}
-                            dprs={[1, 2]}
-                            defaultCenter={JSON.parse(branch.location)}
-                            defaultZoom={20}
-                        >
+                        <Map provider={maptilerProvider} dprs={[1, 2]} defaultCenter={JSON.parse(branch.location)}>
                             <Overlay anchor={JSON.parse(branch.location)} offset={[30, 30]}>
                                 <MapPoint val={product.availability} />
                             </Overlay>
@@ -116,7 +111,11 @@ export const BookDetailStepOne: FC<{
                                     <div>
                                         <p>{t('common:workingScheduleText')}:</p>
                                         <p>
-                                            {branch.workingSchedule} ({t('common:break')} {branch.breakTime})
+                                            {branch.workingSchedule} ({t('common:break')}{' '}
+                                            {branch.breakTime === 'without_break'
+                                                ? t('without_break')
+                                                : branch.breakTime}
+                                            )
                                         </p>
                                     </div>
                                     <div className={s.detail_border_wr}>
@@ -170,7 +169,7 @@ export const BookDetailStepOne: FC<{
                                         return (
                                             <SwiperSlide key={item.id + branch.branchName + branch.id}>
                                                 <div className={s.photo_wr_imgs}>
-                                                    <Image src={item.url} alt={'shop'} fill={true} />
+                                                    <img src={item.url} alt={'shop'} />
                                                 </div>
                                             </SwiperSlide>
                                         );
@@ -182,7 +181,6 @@ export const BookDetailStepOne: FC<{
                                     provider={maptilerProvider}
                                     dprs={[1, 2]}
                                     defaultCenter={JSON.parse(branch.location)}
-                                    defaultZoom={20}
                                 >
                                     <Overlay anchor={JSON.parse(branch.location)} offset={[30, 30]}>
                                         <MapPoint val={product.availability} />
@@ -204,9 +202,6 @@ export const BookDetailStepOne: FC<{
                                             {currency === 'uzs'
                                                 ? `${formatNumber(product.sum)} ${t('common:sum')}`
                                                 : `$${formatNumber(product.usd)}`}
-                                        </p>
-                                        <p className={s.final_step_text}>
-                                            {product.availability > 0 ? t('common:wehave') : t('common:wedonthave')}
                                         </p>
                                     </div>
                                 </div>

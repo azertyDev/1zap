@@ -22,14 +22,12 @@ export const ResultTableFormResp: FC<{ data: IProduct[] }> = ({ data }): JSX.Ele
                                 <p className={s.titles_small}>
                                     {currency === 'usd'
                                         ? `$${formatNumber(item.usd)}`
-                                        : `${formatNumber(item.sum)} сум`}
+                                        : `${formatNumber(item.sum)} ${t('common:sum')}`}
                                 </p>
                                 <p className={s.titles_small}>
                                     {formatNumber(item.availability)} {t('common:howmany')}
                                 </p>
-                                <p className={s.titles_small}>
-                                    {item.availability > 0 ? t('common:wehave') : t('common:wedonthave')}
-                                </p>
+                                <p className={s.titles_small}>{t(`common:selects.${item.shipment}`)}</p>
                                 {/*<p className={`${s.titles_small} ${s.info_img}`}>*/}
                                 {/*    <Icon size={14} name={'autorenew'} color={'#0D0A19'} />*/}
                                 {/*    <span>24{t('common:hourago')}</span>*/}

@@ -71,7 +71,7 @@ export const ResultTableForm: FC<{
                                     {/*    {t('common:hourago')}*/}
                                     {/*</span>*/}
 
-                                    <span> {item.availability > 0 ? t('common:wehave') : t('common:wedonthave')}</span>
+                                    <span> {t(`common:selects.${item.shipment}`)}</span>
                                 </p>
                             </TableElement>
 

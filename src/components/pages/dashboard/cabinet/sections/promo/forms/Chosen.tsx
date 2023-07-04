@@ -148,7 +148,7 @@ export const ChosenForm = () => {
             Cell: ({ cell }: { cell: any }) => {
                 return currency === 'usd'
                     ? `$${formatNumber(cell.value)}`
-                    : `${formatNumber(cell.value)} ${t('common:sum')}`;
+                    : `${formatNumber(parseInt(`${cell.value}`))} ${t('common:sum')}`;
             },
         },
     ];

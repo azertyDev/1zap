@@ -19,7 +19,7 @@ export const MapItem: FC<{
         <div className={s.mark} onClick={toggleBookDetail(true, branchId, productId, providerId)}>
             <MapPoint val={amount} hidePoint />
             <div className={s.mark_price}>
-                {currency === 'uzs' ? `${formatNumber(price.sum)} ${t('sum')}` : `$${price.usd}`}
+                {currency === 'uzs' ? `${formatNumber(price.sum)} ${t('sum')}` : `$${formatNumber(price.usd)}`}
             </div>
         </div>
     );

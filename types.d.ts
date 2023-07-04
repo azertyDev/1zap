@@ -103,6 +103,7 @@ interface IBranchData {
 interface IProduct {
     id: number;
     pricelistId: number;
+    shipment: string;
     providerId: number;
     uniqNumber: string;
     manufacturer: string;
