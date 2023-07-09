@@ -45,7 +45,16 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
                 <meta name="theme-color" content="#ee3300" />
             </Head>
+            <noscript>
+                <iframe
+                    src="https://www.googletagmanager.com/ns.html?id=GTM-K3W2WTL"
+                    height="0"
+                    width="0"
+                    style={{ display: 'none', visibility: 'hidden' }}
+                ></iframe>
+            </noscript>
             <Toaster position="top-right" />
+
             {getLayout(<Component {...pageProps} />)}
         </>
     );
