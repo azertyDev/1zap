@@ -1,9 +1,10 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { NextPage } from 'next';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useEffect } from 'react';
 import { appWithTranslation } from 'next-i18next';
 import { Toaster } from 'react-hot-toast';
+import TagManager from 'react-gtm-module';
 
 import '../styles/libraries/map.scss';
 import '../styles/libraries/pagination.scss';
@@ -28,6 +29,14 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const getLayout = Component.getLayout ?? ((page) => page);
+
+    const tagManagerArgs = {
+        gtmId: process.env.NEXT_PUBLIC_GTM_ID || '',
+    };
+
+    useEffect(() => {
+        TagManager.initialize(tagManagerArgs);
+    }, []);
 
     return (
         <>
