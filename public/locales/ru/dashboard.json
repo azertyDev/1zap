@@ -160,7 +160,7 @@
   "compensation": {
     "comp": "Компенсация",
     "no_comp": "Без компенсации",
-    "with_comp": "C компенсации"
+    "with_comp": "C компенсацией!"
   },
   "refresh": "Обновить",
   "moder_promo": "Модерация промо материалов",
@@ -256,7 +256,7 @@
   "wallet_info": {
     "viewing_product": "Принятие vin запроса",
     "top_account": "Пополнения счета",
-    "compensation": "Конпенсация",
+    "compensation": "Компенсация",
     "viewing_statistic": "Просмотр статистики",
     "viewing_branch_info": "Просмотр контактов поставщика",
     "buying_product_ads": "Покупка рекламы на продукт",
@@ -293,5 +293,6 @@
   "no_coins": "Недостаточно средств!",
   "dealNumber": "Номер договора",
   "one_coin": "1 монету",
-  "without_break": "Без перерывов"
+  "without_break": "Без перерывов",
+  "edit_price_list": "Редактирование прайс-листа"
 }

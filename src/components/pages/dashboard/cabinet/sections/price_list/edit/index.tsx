@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next';
-import s from './index.module.scss';
+import s from '../index.module.scss';
 import { useEffect, useState } from 'react';
 import { priceListApi, productsApi, promoApi, providerApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
@@ -17,6 +17,9 @@ import { ActionsBlock } from 'components/ui/dashboard/table/ActionsBlock';
 import { formatNumber } from 'src/helpers/formatNumber';
 import { useStore } from 'src/store/useStore';
 import { client_validation } from 'src/validation/client_validation';
+import { BaseModal } from 'components/ui/dashboard/modal/base_modal';
+import { PriceCreateForm } from 'components/pages/dashboard/cabinet/sections/price_list/form/create';
+import { useModal } from 'src/hooks/common/useModal';
 
 export const PriceListEdit = () => {
     const { t } = useTranslation();
@@ -28,12 +31,18 @@ export const PriceListEdit = () => {
     } = useRouter();
     const [dataStat, setDataStat] = useState<any>(null);
     const [data, setData] = useState<any>(null);
+    const [priceList, setPriceList] = useState(null);
+    const { open, handleModalOpen, handleModalClose } = useModal();
 
     useEffect(() => {
         (() => {
             promoApi
                 .getProductsByPriceList(id as string, locale as string, page as string)
                 .then((res) => setData(res))
+                .catch(() => toast.error(t('helpers:error_getting')));
+            priceListApi
+                .getPriceListById(id as string)
+                .then((res) => setPriceList(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
     }, [page]);
@@ -58,7 +67,7 @@ export const PriceListEdit = () => {
             formData.append('file', values.file as string);
 
             priceListApi
-                .updatePriceList(formData)
+                .updatePriceListProducts(formData)
                 .then(() => push('/cabinet/price-list?page=1'))
                 .catch(({ response }) => {
                     toast.error(
@@ -85,7 +94,7 @@ export const PriceListEdit = () => {
             accessor: 'description',
             width: 200,
             disableSortBy: true,
-            Filter: ColumnFilter,
+            Filter: <ColumnFilter setData={setData} />,
         },
         {
             Header: t('common:selects.number'),
@@ -141,13 +150,6 @@ export const PriceListEdit = () => {
             <FormikProvider value={formik}>
                 <Form className={s.btns_wr}>
                     <FileUpload name="file" title={t('dashboard:refresh_price')} setFieldValue={formik.setFieldValue} />
-
-                    <Link href={'/cabinet/promo/all_lists'}>
-                        <Button variant="primary">
-                            <Icon name="label" color="white" />
-                            {t('dashboard:add_adv')}
-                        </Button>
-                    </Link>
                     <Button
                         fullWidth
                         type="submit"
@@ -156,8 +158,28 @@ export const PriceListEdit = () => {
                     >
                         {t('dashboard:refresh')}
                     </Button>
+                    <Button fullWidth type="submit" variant={'primary'} onClick={handleModalOpen}>
+                        {t('dashboard:edit')}
+                    </Button>
+                    <Link href={'/cabinet/promo/all_lists'}>
+                        <Button variant="primary">
+                            <Icon name="label" color="white" />
+                            {t('dashboard:add_adv')}
+                        </Button>
+                    </Link>
                 </Form>
             </FormikProvider>
+            <BaseModal
+                center
+                open={open}
+                showCloseIcon={false}
+                onClose={handleModalClose}
+                headerContent={<div className={s.modalHeader}> {t('dashboard:edit_price_list')}</div>}
+            >
+                <div className={s.modalContent}>
+                    <PriceCreateForm data={priceList} handleModalClose={handleModalClose} />
+                </div>
+            </BaseModal>
 
             {data?.data && <Table data={data.data} columns={cols} />}
             {data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}

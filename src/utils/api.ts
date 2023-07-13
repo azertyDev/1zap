@@ -105,14 +105,16 @@ export const priceListApi = {
     fetchPriceList: (page: number | string = 1, limit: number = 10): Promise<any> =>
         requests.get(`/pricelist/all?page=${page}&limit=${limit}`),
     delete: (id: number): Promise<any> => requests.delete(`/pricelist/${id}`),
-    updatePriceList: (body: any): Promise<any> =>
+    updatePriceListProducts: (body: any): Promise<any> =>
         requests.post(`/products/add`, body, {
             headers: { 'Content-Type': 'multipart/form-data' },
         }),
+    editPriceList: (id: number, body: any) => requests.patch(`/pricelist/${id}`, body),
     getPriceListByProviderId: (id: string, page: string): Promise<any> =>
         requests.get(`pricelists/all?page=${page}&limit=20?type=parts&providerId=${id}`),
     getProductsByPriceListId: (id: string, locale: string, page: string) =>
         requests.get(`products/byPricelistId?id=${id}&lang=${locale}&page=${page}`),
+    getPriceListById: (id: string): Promise<any> => requests.get(`pricelist/${id}`),
 };
 
 export const orderDetails = {
@@ -124,8 +126,10 @@ export const promoApi = {
     getActivePromoByProvider: (page: string) =>
         requests.get(`products/marketing/all?active=1&pending=1&expired=1&page=${page}`),
     getPriceListByBranch: (id: number) => requests.get(`pricelist/branch/${id}`),
-    getProductsByPriceList: (id: number | string, locale: string, page: string) =>
-        requests.get(`products/common/byPricelistId?id=${id}&lang=${locale}&page=${page}`),
+    getProductsByPriceList: (id: number | string, locale: string, page: string | false, filter?: string) =>
+        requests.get(
+            `products/common/byPricelistId?id=${id}&lang=${locale}&page=${page}${filter ? `&filter=${filter}` : ''}`
+        ),
     addPromoByChosenProducts: (body: any) => requests.post('products/marketing', body),
     addPromoByBranch: (body: any) => requests.post('products/marketing/branch', body),
     addPromoByPriceList: (body: any) => requests.post('products/marketing/pricelist', body),

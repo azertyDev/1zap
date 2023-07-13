@@ -13,7 +13,7 @@ export const useFilter = () => {
                 pathname: pathname,
                 query: {
                     ...query,
-                    page: page ?? 1,
+                    page: 1,
                     [key]: ev.value,
                 },
             });

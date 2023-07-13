@@ -86,6 +86,14 @@ export const client_validation = {
         availability: yup.string().required('required'),
         branchId: yup.string().required('required'),
     }),
+    price_list_no_file: Yup.object({
+        title: yup.string().required('required'),
+        currencyType: yup.string().required('required'),
+        clientType: yup.string().required('required'),
+        type: yup.string().required('required'),
+        availability: yup.string().required('required'),
+        branchId: yup.string().required('required'),
+    }),
     rate: Yup.object({
         rate: yup.number().typeError('invalid_format').required('required'),
     }),
@@ -112,7 +120,13 @@ export const client_validation = {
         dealNumber: Yup.number().typeError('invalid_format').required('required'),
     }),
     password_reset: Yup.object().shape({
-        newPassword: yup.string().min(6, 'limit_less').max(10, 'limit_more').required('required'),
-        oldPassword: yup.string().min(6, 'limit_less').max(10, 'limit_more').required('required'),
+        newPassword: yup.string().min(6, 'limit_less').max(16, 'limit_more').required('required'),
+        repeatPassword: yup
+            .string()
+            .oneOf([Yup.ref('newPassword'), null], 'match_password')
+            .min(6, 'limit_less')
+            .max(16, 'limit_more')
+            .required('required'),
+        oldPassword: yup.string().min(6, 'limit_less').max(16, 'limit_more').required('required'),
     }),
 };

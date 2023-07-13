@@ -104,7 +104,7 @@ export const ChosenForm = () => {
             accessor: 'description',
             width: 300,
             disableSortBy: true,
-            Filter: ColumnFilter,
+            Filter: <ColumnFilter setData={setData} idOut={formikPrice.values.pricelistId as number} />,
             Cell: ({ cell }: any) => {
                 return (
                     <div

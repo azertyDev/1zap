@@ -212,6 +212,7 @@
   },
   "newPassword": "Yangi parol",
   "oldPassword": "Oldingi parol",
+  "repeatPassword": "Yangi parolni takrorlang",
   "agreementNumber": "Shartnoma raqami",
   "partSelection": "Аvtomobil qismlari",
   "usd": "Dollar",
@@ -221,5 +222,6 @@
   "ru": "Rus tili",
   "uz": "O'zbek tili",
   "rate": "Ayirboshlash kursi $",
-  "without_break": "Tanaffuslar yo'q"
+  "without_break": "Tanaffuslar yo'q",
+  "branchId": "Filial"
 }

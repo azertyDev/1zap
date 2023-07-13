@@ -187,6 +187,10 @@ export const IncominRequests = () => {
                                 <p> VIN</p>
                                 <p>{vinData.vinNumber}</p>
                             </div>
+                            <div>
+                                <p> {t('dashboard:payment')}</p>
+                                <p>{t(`common:selects.${vinData.payment}`)}</p>
+                            </div>
                         </div>
                         <div className={s.modal_description}>
                             <h6 className={s.modal_tabs_title}> {t('dashboard:info_detail')}</h6>

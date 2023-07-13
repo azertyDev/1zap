@@ -36,4 +36,27 @@ export const formikValues = {
         textUz: '',
         isOften: false,
     },
+    price_list: {
+        file: '',
+        title: '',
+        branchId: null,
+        currencyType: '',
+        clientType: '',
+        type: '',
+        availability: '',
+        payment: [
+            {
+                method: 'cash',
+                isActive: false,
+            },
+            {
+                method: 'card',
+                isActive: false,
+            },
+            {
+                method: 'transfer',
+                isActive: false,
+            },
+        ],
+    },
 };

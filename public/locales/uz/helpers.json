@@ -23,5 +23,6 @@
     "userAllreadyExist": "Foydalanuvchi allaqachon mavjud (elektron pochta, telefon)",
     "allFields": "Maʼlumotlarni yuborishda xatolik yuz berdi (barcha maydonlar toʻldirilganligini tekshiring!)",
     "can_accept": "Provayder boshqa so'rovlarni qabul qila olmaydi!",
-    "to_home": "Parol o'zgartirildi, asosiy sahifaga yo'naltirilmoqda!"
+    "to_home": "Parol o'zgartirildi, asosiy sahifaga yo'naltirilmoqda!",
+    "match_password": "Parollar mos kelmayapti!"
 }

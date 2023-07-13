@@ -5,6 +5,7 @@ import 'react-date-picker/dist/DatePicker.css';
 import { Icon } from 'components/ui/icon';
 import { useTranslation } from 'next-i18next';
 import { IconsWrapper } from 'components/ui/icons_wrapper';
+import { useRouter } from 'next/router';
 
 export const FilterCalendar: FC<{
     showCalendar?: boolean;
@@ -16,10 +17,22 @@ export const FilterCalendar: FC<{
 }> = ({ showCalendar = true, setFullDate, fullDate, setMonth, month, setFiltringByDate }) => {
     const { t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
+    const {
+        push,
+        pathname,
+        query: { page, secPage },
+    } = useRouter();
 
     const handleMonth = (type: string) => {
         return () => {
             setFiltringByDate('month');
+            push({
+                pathname: pathname,
+                query: {
+                    page: 1,
+                },
+            });
+
             if (type === 'plus') {
                 setMonth((prev) => {
                     const formDate = new Date(prev);

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import dayjs from 'dayjs';
 import { Column } from 'react-table';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MenuItem } from '@szhsin/react-menu';
 import { Button } from 'src/components/ui/button';
 import { BaseModal } from 'src/components/ui/dashboard/modal/base_modal';
@@ -30,6 +30,7 @@ export const PriceList = () => {
     const { push } = useRouter();
     const { priceList, fetchPriceList, fetchProviderBranches } = useStore();
     const { open, handleModalOpen, handleModalClose } = useModal();
+
     const {
         query: { page },
     } = useRouter();
@@ -78,8 +79,10 @@ export const PriceList = () => {
         });
     };
 
+    const handleDeletePrice = useCallback((id: number) => () => deleteCell(id), []);
+
     const menuContent = (data: any) => (
-        <MenuItem onClick={() => deleteCell(data.id)}>
+        <MenuItem onClick={handleDeletePrice(data.id)}>
             <Icon name="delete" color="black" />
             {t('dashboard:delete')}
         </MenuItem>

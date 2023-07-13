@@ -293,5 +293,6 @@
   "no_coins": "Pul yetarli emas!",
   "dealNumber": "Shartnoma raqami",
   "one_coin": "1 tanga",
-  "without_break": "Tanaffuslar yo'q"
+  "without_break": "Tanaffuslar yo'q",
+  "edit_price_list": "Narxlar ro'yxatini tahrirlash"
 }

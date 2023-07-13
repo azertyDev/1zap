@@ -53,3 +53,21 @@
 .form_rate{
     @include dg_gc_gr_gg(143px 115px,auto,20px)
 }
+.btns_wr {
+    @include dg_gc_gr_gg(repeat(4, 223px), auto, 30px);
+    margin-bottom: 26px;
+}
+
+
+.table_btn{
+    width: 100%;
+    pointer-events: none;
+    &.active{
+        button{
+
+            background: $main !important;
+            color: #fff;
+        }
+
+    }
+}

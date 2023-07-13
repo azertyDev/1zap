@@ -8,9 +8,12 @@ import { FloatingInput } from 'src/components/ui/input/float_input';
 import { SelectField } from 'src/components/ui/select';
 import { FileUpload } from 'src/components/ui/upload/file';
 import { useStore } from 'src/store/useStore';
-import { branchApi, productsApi } from 'src/utils/api';
+import { branchApi, priceListApi, productsApi } from 'src/utils/api';
 import s from '../index.module.scss';
 import { client_validation } from 'src/validation/client_validation';
+import { formikValues } from 'src/constants/formik_values';
+import { formPriceListEdit } from 'src/helpers/formPriceListEdit';
+import { useRouter } from 'next/router';
 
 interface IOptions {
     value: number | undefined;
@@ -21,7 +24,7 @@ export const PriceCreateForm: FC<any> = (props) => {
     const { t } = useTranslation();
     const { fetchPriceList } = useStore();
     const [isSubmiting, setIsSubmiting] = useState(false);
-
+    const { push } = useRouter();
     const [branches, setBranches] = useState(null);
 
     useEffect(() => {
@@ -41,64 +44,54 @@ export const PriceCreateForm: FC<any> = (props) => {
         })();
     }, []);
 
-    const initialValues = {
-        file: '',
-        title: '',
-        branchId: null,
-        currencyType: '',
-        clientType: '',
-        type: '',
-        availability: '',
-        payment: [
-            {
-                method: 'cash',
-                isActive: false,
-            },
-            {
-                method: 'card',
-                isActive: false,
-            },
-            {
-                method: 'transfer',
-                isActive: false,
-            },
-        ],
-    };
-
-    const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
+    const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof formikValues.price_list>) => {
         const { payment, ...rest } = values;
+        if (props.data) {
+            priceListApi
+                .editPriceList(values.id, {
+                    ...formPriceListEdit(values),
+                    branchId: props.data.branchId,
+                })
+                .then(() => push('/cabinet/price-list?page=1'))
+                .catch(() => toast.error(t(`helpers:error_sending`)));
+        } else {
+            const data = {
+                payment: JSON.stringify(payment),
+                ...rest,
+            };
+            setIsSubmiting(true);
+            productsApi
+                .upload(data, {
+                    headers: { 'Content-Type': 'multipart/form-data' },
+                })
+                .then(() => {
+                    props.handleModalClose();
+                    formik.resetForm();
+                    fetchPriceList();
+                    setIsSubmiting(false);
+                })
+                .catch(({ response }) => {
+                    setIsSubmiting(false);
 
-        const data = {
-            payment: JSON.stringify(payment),
-            ...rest,
-        };
-        setIsSubmiting(true);
-
-        productsApi
-            .upload(data, {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            })
-            .then(() => {
-                props.handleModalClose();
-                formik.resetForm();
-                fetchPriceList();
-                setIsSubmiting(false);
-            })
-            .catch(({ response }) => {
-                setIsSubmiting(false);
-
-                toast.error(
-                    response.data.error
-                        ? t(`helpers:${response.data.error.replaceAll(' ', '_')}`)
-                        : t(`helpers:error_sending`)
-                );
-            });
+                    toast.error(
+                        response.data.error
+                            ? t(`helpers:${response.data.error.replaceAll(' ', '_')}`)
+                            : t(`helpers:error_sending`)
+                    );
+                });
+        }
     };
 
     const formik = useFormik({
-        initialValues,
+        enableReinitialize: true,
+        initialValues: props.data
+            ? {
+                  ...props.data,
+                  branchId: props.data.branchName,
+              }
+            : formikValues.price_list,
         onSubmit,
-        validationSchema: client_validation.price_list,
+        validationSchema: props.data ? client_validation.price_list_no_file : client_validation.price_list,
     });
 
     return (
@@ -106,9 +99,19 @@ export const PriceCreateForm: FC<any> = (props) => {
             <Form>
                 <div className={s.form__group}>
                     <FloatingInput {...formik.getFieldProps('title')} title={t('common.price_list_name')!} />
-                    {branches && (
-                        <Field component={SelectField} name="branchId" label="dashboard:branch" options={branches} />
+
+                    {props?.data && <FloatingInput disabled={props.data} {...formik.getFieldProps('branchId')} />}
+
+                    {branches && !props?.data && (
+                        <Field
+                            disabled={props.data}
+                            component={SelectField}
+                            name="branchId"
+                            label="dashboard:branch"
+                            options={branches}
+                        />
                     )}
+
                     <Field
                         component={SelectField}
                         name="currencyType"
@@ -145,6 +148,7 @@ export const PriceCreateForm: FC<any> = (props) => {
                     />
                     <Field
                         component={SelectField}
+                        isDisabled={props.data}
                         name="type"
                         label="dashboard:productType"
                         options={[
@@ -214,11 +218,13 @@ export const PriceCreateForm: FC<any> = (props) => {
                 </div>
 
                 <div className={s.modalButtons}>
-                    <FileUpload
-                        name="file"
-                        title={t('dashboard:download_price')}
-                        setFieldValue={formik.setFieldValue}
-                    />
+                    {!props?.data && (
+                        <FileUpload
+                            name="file"
+                            title={t('dashboard:download_price')}
+                            setFieldValue={formik.setFieldValue}
+                        />
+                    )}
 
                     <Button
                         fullWidth

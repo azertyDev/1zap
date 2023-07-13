@@ -121,7 +121,8 @@ export const BookDetailStepOne: FC<{
                                     <div className={s.detail_border_wr}>
                                         <p>{t('common:weekendSchedule')}:</p>
                                         <p>
-                                            {t(`common:weekend.${branch.weekend}`)}({branch.weekendSchedule})
+                                            {t(`common:weekend.${branch.weekend}`)}
+                                            {branch.weekend === 'without_weekend' && `(${branch.weekendSchedule})`}
                                         </p>
                                     </div>
 

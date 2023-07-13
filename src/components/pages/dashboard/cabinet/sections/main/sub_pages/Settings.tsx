@@ -32,7 +32,7 @@ export const Settings = (props: any) => {
             providerApi
                 .editPasswordByProvider(values)
                 .then(() => {
-                    toast.success(t('helpers:to_home'), { duration: 5000 });
+                    toast.success(t('helpers:to_home'), { duration: 3000 });
                     setTimeout(() => {
                         logout();
                     }, 5000);
@@ -41,6 +41,7 @@ export const Settings = (props: any) => {
         },
         initialValues: {
             newPassword: '',
+            repeatPassword: '',
             oldPassword: '',
         },
         validationSchema: client_validation.password_reset,
@@ -104,7 +105,13 @@ export const Settings = (props: any) => {
                                     <FloatingInput {...formikPassword.getFieldProps('newPassword')} iconname="lock" />
                                 </InputWrapper>
                                 <InputWrapper>
-                                    <FloatingInput {...formikPassword.getFieldProps('oldPassword')} iconname="edit" />
+                                    <FloatingInput
+                                        {...formikPassword.getFieldProps('repeatPassword')}
+                                        iconname="lock"
+                                    />
+                                </InputWrapper>
+                                <InputWrapper>
+                                    <FloatingInput {...formikPassword.getFieldProps('oldPassword')} iconname="lock" />
                                 </InputWrapper>
 
                                 <Button

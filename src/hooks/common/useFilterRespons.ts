@@ -22,7 +22,7 @@ export const useFilterRespons = (fun: (val: boolean) => () => void) => {
         push({
             pathname: pathname,
             query: {
-                page: page ?? 1,
+                page: 1,
                 ...filterVal,
             },
         });
