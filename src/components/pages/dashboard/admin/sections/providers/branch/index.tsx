@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 import { branchApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { Table } from 'components/ui/dashboard/table';
+import { Button } from 'src/components/ui/button';
+import { Icon } from 'src/components/ui/icon';
 
 export const BranchesEditProvider = () => {
     const { t } = useTranslation();
@@ -17,6 +19,7 @@ export const BranchesEditProvider = () => {
 
     const {
         query: { id },
+        push,
     } = useRouter();
 
     useEffect(() => {
@@ -82,6 +85,7 @@ export const BranchesEditProvider = () => {
     return (
         <div>
             <Heading title={t(`dashboard:branches`)} desc={''} />
+
             {data && <Table columns={branchesCols} data={data} />}
         </div>
     );

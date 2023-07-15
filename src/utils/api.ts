@@ -38,7 +38,7 @@ export const applicationApi = {
 };
 
 export const providerApi = {
-    fetchProviders: (page: string): Promise<any> => requests.get(`/provider/all?page=${page}`),
+    fetchProviders: (page: string): Promise<any> => requests.get(`/providers/all?page=${page}`),
     fetchProviderById: (id: number | string): Promise<any> => requests.get(`/providers/${id}`),
     addProvider: (body: IProviderData): Promise<any> => requests.post('/providers/new', body),
     fetchProviderBranches: (): Promise<any> => requests.get('/provider/branchs'),
@@ -59,7 +59,8 @@ export const branchApi = {
     getProviderBranchesByid: (id: string) => requests.get(`providers/branchs/${id}`),
     getAllBranches: () => requests.get('provider/branchs'),
     updateBranch: (id: number, body: IBranchData) => requests.patch(`/provider/branch/${id}`, { ...body }),
-    editBranchByAdmin: (id: number, body: IBranchData) => requests.patch(`providers/branch//${id}`, { ...body }),
+    editBranchByAdmin: (id: number, body: IBranchData) => requests.patch(`providers/branch/${id}`, { ...body }),
+    createProviderBranch: (body: IBranchData) => requests.post(`provider/branch`, { ...body }),
     deleteBranch: (id: number) => requests.delete(`provider/branch/${id}`),
 };
 

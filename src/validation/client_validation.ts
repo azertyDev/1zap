@@ -89,6 +89,7 @@ export const client_validation = {
     rate: Yup.object({
         rate: yup.number().typeError('invalid_format').required('required'),
     }),
+
     create_provider: Yup.object().shape({
         legalAddress: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
         phone: yup
@@ -102,7 +103,100 @@ export const client_validation = {
         inn: Yup.string().min(9, 'limit_less').max(9, 'limit_more').required('required'),
         coin: Yup.number().label('Coin').typeError('invalid_format').required('required'),
         dealNumber: Yup.number().typeError('invalid_format').required('required'),
+
+        // providerBranch: Yup.array().of(
+        //     Yup.object().shape({
+        //         branchName: Yup.string().required('required'),
+        //         location: Yup.string().required('required'),
+        //         landmark: Yup.string().required('required'),
+        //         managerName: Yup.string().required('required'),
+        //         phisicalAddress: Yup.string().required('required'),
+        //         images: Yup.array().of(
+        //             Yup.object().shape({
+        //                 id: Yup.number().required('required'),
+        //                 // url: Yup.string().required('Image is required'),
+        //             })
+        //         ),
+
+        //         phone: Yup.string(),
+        //         branchType: Yup.string(),
+        //         city: Yup.string(),
+        //         workingSchedule: Yup.string(),
+        //         weekendSchedule: Yup.string(),
+        //         weekend: Yup.string(),
+        //         breakTime: Yup.string(),
+
+        //         payment: Yup.array().of(
+        //             Yup.object().shape({
+        //                 isActive: Yup.bool(),
+        //             })
+        //         ),
+        //         delivery: Yup.array().of(
+        //             Yup.object().shape({
+        //                 isActive: Yup.bool(),
+        //             })
+        //         ),
+        //         service: Yup.array().of(
+        //             Yup.object().shape({
+        //                 isActive: Yup.bool(),
+        //             })
+        //         ),
+        //         clientType: Yup.array().of(
+        //             Yup.object().shape({
+        //                 isActive: Yup.bool(),
+        //             })
+        //         ),
+        //     })
+        // ),
     }),
+
+    create_provider_branch: Yup.object().shape({
+        providerBranch: Yup.array().of(
+            Yup.object().shape({
+                branchName: Yup.string().required('required'),
+                location: Yup.string().required('location_required'),
+                landmark: Yup.string().required('required'),
+                managerName: Yup.string().required('required'),
+                phisicalAddress: Yup.string().required('required'),
+                images: Yup.array().of(
+                    Yup.object().shape({
+                        // id: Yup.number().required('required'),
+                        url: Yup.string().required('image_required'),
+                    })
+                ),
+
+                phone: Yup.string(),
+                branchType: Yup.string(),
+                city: Yup.string(),
+                workingSchedule: Yup.string(),
+                weekendSchedule: Yup.string(),
+                weekend: Yup.string(),
+                breakTime: Yup.string(),
+
+                payment: Yup.array().of(
+                    Yup.object().shape({
+                        isActive: Yup.bool().required('Image is required'),
+                    })
+                ),
+                delivery: Yup.array().of(
+                    Yup.object().shape({
+                        isActive: Yup.bool().required('Image is required'),
+                    })
+                ),
+                service: Yup.array().of(
+                    Yup.object().shape({
+                        isActive: Yup.bool().required('Image is required'),
+                    })
+                ),
+                clientType: Yup.array().of(
+                    Yup.object().shape({
+                        isActive: Yup.bool().required('Image is required'),
+                    })
+                ),
+            })
+        ),
+    }),
+
     requisites_provider: Yup.object().shape({
         legalAddress: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
         phone: Yup.string().required('required'),

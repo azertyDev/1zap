@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { providerApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
+import { Button } from 'src/components/ui/button';
 
 export const Branches = (props: any) => {
     const { pageProps } = props;
@@ -110,6 +111,11 @@ export const Branches = (props: any) => {
     return (
         <>
             <Heading title={t(`dashboard:${pageProps.title}`)} desc={t(`dashboard:branch_info_setting`)} />
+
+            <Button variant="primary" style={{ marginBottom: 25 }} onClick={() => push(`/cabinet/main/createBranch`)}>
+                <Icon name="storefront" color="#fff" />
+                {t('dashboard:add_new_branch')}
+            </Button>
 
             {!!providerBranches && <Table columns={branchesCols} data={providerBranches} />}
         </>

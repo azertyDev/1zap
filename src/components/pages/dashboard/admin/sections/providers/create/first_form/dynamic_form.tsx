@@ -13,8 +13,8 @@ import { staticParamsApi } from 'src/utils/api';
 import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
 import { providerValues } from './initialValues';
 import { IBranchData, IImage } from 'types';
-import s from '../index.module.scss';
 import { useTranslation } from 'next-i18next';
+import s from '../index.module.scss';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
@@ -83,23 +83,29 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                         </div>
 
                         <div className={s.block}>
-                            <Map
-                                // boxClassname={s.map}
-                                provider={maptilerProvider}
-                                dprs={[1, 2]}
-                                defaultCenter={[41.31172327941058, 69.2818072781773]}
-                                defaultZoom={15}
-                                // metaWheelZoom
-                                onClick={(event) => handleMap(event, `providerBranch[${index}].location`)}
-                            >
-                                {branch.location ? (
-                                    <Marker anchor={coords as [number, number]}>
-                                        <Icon name="location_on" size={30} color="#C6303C" />
-                                    </Marker>
-                                ) : null}
+                            <div style={{ height: '100%' }}>
+                                <Map
+                                    provider={maptilerProvider}
+                                    dprs={[1, 2]}
+                                    defaultCenter={[41.31172327941058, 69.2818072781773]}
+                                    defaultZoom={15}
+                                    // metaWheelZoom
+                                    onClick={(event) => handleMap(event, `providerBranch[${index}].location`)}
+                                >
+                                    {branch.location ? (
+                                        <Marker anchor={coords as [number, number]}>
+                                            <Icon name="location_on" size={30} color="#C6303C" />
+                                        </Marker>
+                                    ) : null}
 
-                                <ZoomControl />
-                            </Map>
+                                    <ZoomControl />
+                                </Map>
+                                {form.getFieldMeta(`providerBranch[${index}].location`).error && (
+                                    <span className="error">
+                                        {t(`helpers:${form.getFieldMeta(`providerBranch[${index}].location`).error}`)}
+                                    </span>
+                                )}
+                            </div>
 
                             <StandartInput
                                 label="dashboard:providerBranch.landmark"
@@ -242,6 +248,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                                     setFieldValue={form.setFieldValue}
                                                     name={`providerBranch.[${index}].images[${i}]`}
                                                 />
+
                                                 {branch.images.length > 0 && branch.images.length !== 5 && (
                                                     <div className={s.actionButtons}>
                                                         <span onClick={() => helperProps.push({ url: '' })}>
@@ -253,6 +260,18 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                                             {t('dashboard:delete')}
                                                         </span>
                                                     </div>
+                                                )}
+                                                {form.getFieldMeta(`providerBranch.[${index}].images[${i}].url`)
+                                                    .error && (
+                                                    <span className="error">
+                                                        {t(
+                                                            `helpers:${
+                                                                form.getFieldMeta(
+                                                                    `providerBranch.[${index}].images[${i}].url`
+                                                                ).error
+                                                            }`
+                                                        )}
+                                                    </span>
                                                 )}
                                             </div>
                                         );

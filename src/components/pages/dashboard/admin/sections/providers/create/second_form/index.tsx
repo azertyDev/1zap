@@ -59,7 +59,6 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
             return { phone: phone.replaceAll(' ', ''), ...all };
         });
 
-        // @ts-ignore
         const data: IProviderData = {
             coin: Number(coin),
             applicationId: Number(id),
@@ -86,6 +85,7 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
     const formik = useFormik({
         initialValues,
         onSubmit,
+        enableReinitialize: true,
         validationSchema: client_validation.create_provider,
     });
 
