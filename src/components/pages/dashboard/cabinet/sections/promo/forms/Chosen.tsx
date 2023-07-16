@@ -107,7 +107,7 @@ export const ChosenForm = () => {
             undefined,
             { scroll: false }
         );
-    }, [formikPrice.values.pricelistId, formikBranches.values.branchId, searchVal, sortType, sortBy]);
+    }, [formikPrice.values.pricelistId, formikBranches.values.branchId, searchVal]);
 
     const cols = [
         {

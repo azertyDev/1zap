@@ -35,6 +35,7 @@ export const applicationApi = {
     addApplication: (body: IApplicationDataProvider): Promise<IApplicationDataProvider> =>
         requests.post('/app', { ...body }),
     delete: (id: number) => requests.delete(`/applications/remove/${id}`),
+    getApplicationStatistic: (): Promise<any> => requests.get('applications/statistics'),
 };
 
 export const providerApi = {
@@ -203,5 +204,5 @@ export const smsApi = {
 };
 
 export const captchaApi = {
-    virefy: (body: string) => requests.post(`orders/verify`, body),
+    virefy: (body: any) => requests.post(`orders/verify`, body),
 };

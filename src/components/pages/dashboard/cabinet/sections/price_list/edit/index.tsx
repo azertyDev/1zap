@@ -61,7 +61,7 @@ export const PriceListEdit = () => {
             undefined,
             { scroll: false }
         );
-    }, [searchVal, sortType, sortBy]);
+    }, [searchVal]);
 
     useEffect(() => {
         (() => {

@@ -9,7 +9,7 @@ import { IconsWrapper } from 'components/ui/icons_wrapper';
 import { client_validation } from 'src/validation/client_validation';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useStore } from 'src/store/useStore';
-import { orderDetails } from 'src/utils/api';
+import { captchaApi, orderDetails } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import ReCAPTCHA from 'react-google-recaptcha';
 import process from 'process';
@@ -44,7 +44,10 @@ export const BookDetailStepTwo: FC<{
     });
 
     const onCaptchaChange = (value: any) => {
-        console.log('Captcha value:', value);
+        captchaApi
+            .virefy({ token: value })
+            .then((res) => setCheckedCaptch(true))
+            .catch(() => toast.error(t('helpers:error_sending')));
     };
 
     return (
@@ -87,18 +90,25 @@ export const BookDetailStepTwo: FC<{
                                     <FloatingInput {...formik.getFieldProps('phone')} isPhone />
                                 </div>
                                 <div className={s.captcha}>
-                                    <ReCAPTCHA sitekey={`${process.env.NEXT_CAPTCHA_KEY}`} onChange={onCaptchaChange} />
+                                    {!checkedCaptcha && (
+                                        <ReCAPTCHA
+                                            sitekey={`${process.env.NEXT_CAPTCHA_KEY}`}
+                                            onChange={onCaptchaChange}
+                                        />
+                                    )}
                                 </div>
 
-                                <Button
-                                    fullWidth
-                                    type={'submit'}
-                                    disabled={!formik.dirty || !formik.isValid}
-                                    variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
-                                    disabledPointer={formik.isSubmitting}
-                                >
-                                    {t('common:toOrder')}
-                                </Button>
+                                {checkedCaptcha && (
+                                    <Button
+                                        fullWidth
+                                        type={'submit'}
+                                        disabled={!formik.dirty || !formik.isValid}
+                                        variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                                        disabledPointer={formik.isSubmitting}
+                                    >
+                                        {t('common:toOrder')}
+                                    </Button>
+                                )}
                             </Form>
                         </FormikProvider>
                     </div>

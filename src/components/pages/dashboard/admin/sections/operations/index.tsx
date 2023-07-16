@@ -113,7 +113,6 @@ export const OperationsPage: FC = () => {
     return (
         <div>
             <h4 className={s.titles}>{t('dashboard:history_last_oper')}</h4>
-            {sortBy} {sortType}
             <FilterCalendar
                 setFullDate={setFullDate}
                 fullDate={fullDate}

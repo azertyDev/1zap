@@ -24,7 +24,10 @@ export const Providers: FC = (props): JSX.Element => {
         query: { page, pageSec },
     } = useRouter();
     const { applications, providers, fetchProviders, fetchApplications } = useStore((state) => state, shallow);
-
+    const [statistic, setStatistic] = useState({
+        numberOfApp: 0,
+        numberOfProviders: 0,
+    });
     const [searchValProviders, setSearchValProviders] = useState('');
     const [searchValApplications, setSearchValApplications] = useState('');
 
@@ -34,6 +37,10 @@ export const Providers: FC = (props): JSX.Element => {
         sortType: sortTypeProvider,
         handleSortProducts: handleSortProductsProvider,
     } = useSortDataAdminProvider();
+
+    useEffect(() => {
+        applicationApi.getApplicationStatistic().then((res) => setStatistic(res));
+    }, []);
 
     useEffect(() => {
         fetchApplications('active', page as string, searchValApplications, sortBy);
@@ -189,13 +196,13 @@ export const Providers: FC = (props): JSX.Element => {
             id: 1,
             title: t('dashboard:new_requests'),
             date: t('dashboard:have_to_check'),
-            count: applications?.data.length!,
+            count: statistic.numberOfApp,
         },
         {
             id: 2,
             title: t('dashboard:count_of_providers'),
             date: t('dashboard:all_period'),
-            count: providers?.data.length!,
+            count: statistic.numberOfProviders,
         },
     ];
 
