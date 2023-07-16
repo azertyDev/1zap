@@ -90,9 +90,10 @@ export const BookDetailStepTwo: FC<{
                                     <FloatingInput {...formik.getFieldProps('phone')} isPhone />
                                 </div>
                                 <div className={s.captcha}>
+                                    {process.env.NEXT_CAPTCHA_KEY}
                                     {!checkedCaptcha && (
                                         <ReCAPTCHA
-                                            sitekey={`${process.env.NEXT_CAPTCHA_KEY}`}
+                                            sitekey={'6LcNVyYnAAAAAMJBE-MNg-SkR47ByXeQAVLh666r'}
                                             onChange={onCaptchaChange}
                                         />
                                     )}
