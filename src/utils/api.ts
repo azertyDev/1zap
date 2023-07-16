@@ -61,7 +61,8 @@ export const branchApi = {
     getProviderBranchesByid: (id: string) => requests.get(`providers/branchs/${id}`),
     getAllBranches: () => requests.get('provider/branchs'),
     updateBranch: (id: number, body: IBranchData) => requests.patch(`/provider/branch/${id}`, { ...body }),
-    editBranchByAdmin: (id: number, body: IBranchData) => requests.patch(`providers/branch//${id}`, { ...body }),
+    editBranchByAdmin: (id: number, body: IBranchData) => requests.patch(`providers/branch/${id}`, { ...body }),
+    createProviderBranch: (body: IBranchData) => requests.post(`provider/branch`, { ...body }),
     deleteBranch: (id: number) => requests.delete(`provider/branch/${id}`),
 };
 

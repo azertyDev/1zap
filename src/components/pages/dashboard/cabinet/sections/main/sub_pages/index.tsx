@@ -1,8 +1,9 @@
 import dynamic from 'next/dynamic';
 import { linksData } from 'src/data/common';
 import { Branches } from './branches';
-import { EditForm } from './branches/form/EditForm';
 import { Settings } from './Settings';
+import { EditForm } from './branches/form/EditForm';
+import { CreateForm } from './branches/form/CreateForm';
 
 const DynamicRequisites = dynamic(() => import('./Requisites'), {
     loading: () => <p>Loading...</p>,
@@ -14,6 +15,7 @@ export const router: any = {
     branches: Branches,
     settings: Settings,
     editBranch: EditForm,
+    createBranch: CreateForm,
 };
 
 export const MainInnerPages = ({ subPage }: { subPage: string }) => {

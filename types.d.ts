@@ -70,7 +70,7 @@ interface IProviderData {
     email?: string;
     companyName?: string;
     // Remove in future
-    password?: string;
+    dealNumber?: string;
     inn?: string;
     coin?: number | null;
     applicationId?: number;
