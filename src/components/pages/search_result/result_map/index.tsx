@@ -1,12 +1,8 @@
 import { FC, useCallback, useEffect, useState } from 'react';
-
 import { Map, Overlay } from 'pigeon-maps';
 import s from './index.module.scss';
-
 import { useTranslation } from 'next-i18next';
-
 import { useRouter } from 'next/router';
-
 import { FilterSelections } from 'components/ui/filter/filter_selections';
 import { FilterSelect } from 'components/ui/filter/filter_selections/filter_select';
 import { Container } from 'components/ui/container';
@@ -22,7 +18,6 @@ import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 import { Pagination } from 'components/ui/pagination/Pagination';
 import { useFilter } from 'src/hooks/common/useFilter';
 import { filterTitles } from 'src/constants/filterTitles';
-
 import { ZoomControl } from 'components/ui/map/map_controls/zoom';
 import { maptiler } from 'pigeon-maps/providers';
 import { NoResult } from 'components/ui/no_result';
@@ -31,33 +26,11 @@ import { selectDefaultVal } from 'src/constants/ selectDefaultVal';
 import { productsApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { Icon } from 'components/ui/icon';
-
 import { useStore } from 'src/store/useStore';
 import { IProduct, IStaticParams } from 'types';
+import { getFilterParamsResultPage } from 'src/helpers/getFilterParamsResultPage';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
-
-const getFilterParamsResultPage = (
-    payment: string,
-    delivery: string,
-    service: string,
-    client: string,
-    shipment: string,
-    updates: string,
-    isOrigin: string
-) => {
-    const formatQuery = (param: string, val: string) => {
-        return val ? `&${param}=${val}` : '';
-    };
-
-    return `${formatQuery('payment', payment)}${formatQuery('delivery', delivery)}${formatQuery(
-        'service',
-        service
-    )}${formatQuery('clientType', client)}${formatQuery('shipment', shipment)}${formatQuery(
-        'updates',
-        updates
-    )}${formatQuery('isOrigin', isOrigin)}`;
-};
 
 export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.Element => {
     const { t } = useTranslation();
@@ -65,7 +38,20 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
         pathname,
         push,
         locale,
-        query: { page, filter, oem, payment, delivery, service, client, shipment, updates, isOrigin },
+        query: {
+            page,
+            filter,
+            oem,
+            payment,
+            delivery,
+            service,
+            client,
+            shipment,
+            updates,
+            isOrigin,
+            price,
+            availability,
+        },
         query,
     } = useRouter();
 
@@ -90,7 +76,9 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                         client as string,
                         shipment as string,
                         updates as string,
-                        isOrigin as string
+                        isOrigin as string,
+                        price as string,
+                        availability as string
                     )}`
                 )
                 .then((res) => setData(res))
@@ -115,29 +103,23 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
         [query]
     );
 
-    const handleAsc = useCallback(
-        (param: 'sum' | 'usd' | 'availability') => {
-            return () => {
-                setData({
-                    data: [...(data?.data as any)].sort((a: IProduct, b: IProduct) => a[param] - b[param]),
-                    totalPages: data?.totalPages!,
-                });
-            };
-        },
-        [data]
-    );
+    const sortByPrice = useCallback((by: string) => {
+        return () => {
+            push({
+                pathname: pathname,
+                query: { ...query, page: 1, price: by, availability: '' },
+            });
+        };
+    }, []);
 
-    const handleDesc = useCallback(
-        (param: 'sum' | 'usd' | 'availability') => {
-            return () => {
-                setData({
-                    data: [...(data?.data as any)].sort((a: IProduct, b: IProduct) => b[param] - a[param]),
-                    totalPages: data?.totalPages!,
-                });
-            };
-        },
-        [data]
-    );
+    const sortByAvailability = useCallback((by: string) => {
+        return () => {
+            push({
+                pathname: pathname,
+                query: { ...query, page: 1, availability: by, price: '' },
+            });
+        };
+    }, []);
 
     return (
         <div>
@@ -213,10 +195,10 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                             <button className={s.filter_btn}>
                                 <p> {t('common:selects:price')}</p>
                                 <span className={s.filter_price_buttons}>
-                                    <span onClick={handleAsc(currency === 'uzs' ? 'sum' : 'usd')}>
+                                    <span onClick={sortByPrice('asc')}>
                                         <Icon name={'expand_less'} size={16} color={'#9A9EA7'} />
                                     </span>
-                                    <span onClick={handleDesc(currency === 'uzs' ? 'sum' : 'usd')}>
+                                    <span onClick={sortByPrice('desc')}>
                                         <Icon name={'expand_more'} size={16} color={'#9A9EA7'} />
                                     </span>
                                 </span>
@@ -224,10 +206,10 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                             <button className={s.filter_btn}>
                                 <p>{t('common:selects:howmany')}</p>
                                 <span className={s.filter_price_buttons}>
-                                    <span onClick={handleAsc('availability')}>
+                                    <span onClick={sortByAvailability('asc')}>
                                         <Icon name={'expand_less'} size={16} color={'#9A9EA7'} />
                                     </span>
-                                    <span onClick={handleDesc('availability')}>
+                                    <span onClick={sortByAvailability('desc')}>
                                         <Icon name={'expand_more'} size={16} color={'#9A9EA7'} />
                                     </span>
                                 </span>
@@ -267,9 +249,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                             </FilterSelections>
                         </div>
                     </div>
-                    {data && data.data.length > 0 && (
-                        <ResultTableForm data={data.data} handleAsc={handleAsc} handleDesc={handleDesc} />
-                    )}
+                    {data && data.data.length > 0 && <ResultTableForm sortByPrice={sortByPrice} data={data.data} />}
                     {data && data.data.length > 0 && <ResultTableFormResp data={data.data} />}
 
                     {data && data.data.length > 0 && <Pagination pageCount={data.totalPages} />}

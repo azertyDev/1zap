@@ -11,6 +11,8 @@ import { Form, FormikProvider, useFormik } from 'formik';
 import { useStore } from 'src/store/useStore';
 import { orderDetails } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
+import ReCAPTCHA from 'react-google-recaptcha';
+import process from 'process';
 
 export const BookDetailStepTwo: FC<{
     handleOrder: (val: number) => () => void;
@@ -20,6 +22,7 @@ export const BookDetailStepTwo: FC<{
     const { productId, providerId } = useStore((state) => state);
     const [done, setDone] = useState(false);
     const [phoneVal, setPhoneVal] = useState('');
+    const [checkedCaptcha, setCheckedCaptch] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -39,6 +42,10 @@ export const BookDetailStepTwo: FC<{
                 .catch((err) => toast.error(t('helpers:error_sending')));
         },
     });
+
+    const onCaptchaChange = (value: any) => {
+        console.log('Captcha value:', value);
+    };
 
     return (
         <div className={s.inner}>
@@ -78,6 +85,9 @@ export const BookDetailStepTwo: FC<{
                                 <div className={s.inputs_wr}>
                                     <FloatingInput {...formik.getFieldProps('name')} />
                                     <FloatingInput {...formik.getFieldProps('phone')} isPhone />
+                                </div>
+                                <div className={s.captcha}>
+                                    <ReCAPTCHA sitekey={`${process.env.NEXT_CAPTCHA_KEY}`} onChange={onCaptchaChange} />
                                 </div>
 
                                 <Button

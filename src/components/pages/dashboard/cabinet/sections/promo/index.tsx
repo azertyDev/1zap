@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Table } from 'src/components/ui/dashboard/table';
@@ -12,6 +12,7 @@ import { promoApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { useModal } from 'src/hooks/common/useModal';
 import { BaseModal } from 'components/ui/dashboard/modal/base_modal';
+import { useSortDataAdminProvider } from 'src/hooks/common/useSortDataAdminProvider';
 
 export const PromoPage: FC = () => {
     const {
@@ -23,6 +24,12 @@ export const PromoPage: FC = () => {
     const [comment, setComment] = useState('');
     const [trigger, setTrigger] = useState(false);
     const { open, handleModalClose, handleModalOpen } = useModal();
+    const { sortBy, sortType, handleSortProducts } = useSortDataAdminProvider();
+    const {
+        sortBy: sortByApproved,
+        sortType: sortTypeApproved,
+        handleSortProducts: handleSortProductsApproved,
+    } = useSortDataAdminProvider();
 
     const { t } = useTranslation();
 
@@ -48,20 +55,20 @@ export const PromoPage: FC = () => {
     useEffect(() => {
         (() => {
             promoApi
-                .getActivePromoByProvider((page ?? '1') as string)
-                .then((res) => setActiveData(res))
+                .getBlockedPromoByProvider(sortType, sortBy)
+                .then((res) => setChangeData(res))
                 .catch((err) => toast.error(t('helpers:error_getting')));
         })();
-    }, [page]);
+    }, [trigger, sortBy]);
 
     useEffect(() => {
         (() => {
             promoApi
-                .getBlockedPromoByProvider()
-                .then((res) => setChangeData(res))
+                .getActivePromoByProvider((page ?? '1') as string, sortTypeApproved, sortByApproved)
+                .then((res) => setActiveData(res))
                 .catch((err) => toast.error(t('helpers:error_getting')));
         })();
-    }, [trigger]);
+    }, [page, sortTypeApproved, sortByApproved]);
 
     const colsChange = [
         {
@@ -69,6 +76,9 @@ export const PromoPage: FC = () => {
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY'),
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'date',
             maxWidth: 70,
             minWidth: 70,
         },
@@ -138,6 +148,9 @@ export const PromoPage: FC = () => {
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY'),
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'date',
             maxWidth: 70,
             minWidth: 70,
         },
@@ -241,10 +254,22 @@ export const PromoPage: FC = () => {
                 <p className={s.comment}>{comment}</p>
             </BaseModal>
             {changeData?.data && (
-                <Table data={changeData?.data} columns={colsChange} title={<h4>{t('dashboard:need_change')}</h4>} />
+                <Table
+                    handleSort={handleSortProducts}
+                    enableSort
+                    data={changeData?.data}
+                    columns={colsChange}
+                    title={<h4>{t('dashboard:need_change')}</h4>}
+                />
             )}
             {activeData?.data && (
-                <Table data={activeData?.data} columns={colsActive} title={<h4>{t('dashboard:active_promo')}</h4>} />
+                <Table
+                    handleSort={handleSortProductsApproved}
+                    enableSort
+                    data={activeData?.data}
+                    columns={colsActive}
+                    title={<h4>{t('dashboard:active_promo')}</h4>}
+                />
             )}
             {activeData?.totalPages > 1 && <Pagination pageCount={activeData.totalPages} />}
         </div>

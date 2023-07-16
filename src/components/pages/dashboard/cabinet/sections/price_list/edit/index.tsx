@@ -20,6 +20,7 @@ import { client_validation } from 'src/validation/client_validation';
 import { BaseModal } from 'components/ui/dashboard/modal/base_modal';
 import { PriceCreateForm } from 'components/pages/dashboard/cabinet/sections/price_list/form/create';
 import { useModal } from 'src/hooks/common/useModal';
+import { useSortDataAdminProvider } from 'src/hooks/common/useSortDataAdminProvider';
 
 export const PriceListEdit = () => {
     const { t } = useTranslation();
@@ -27,17 +28,21 @@ export const PriceListEdit = () => {
     const {
         query: { id, page },
         locale,
+        pathname,
+        query,
         push,
     } = useRouter();
     const [dataStat, setDataStat] = useState<any>(null);
     const [data, setData] = useState<any>(null);
     const [priceList, setPriceList] = useState(null);
     const { open, handleModalOpen, handleModalClose } = useModal();
+    const [searchVal, setSearchVal] = useState('');
+    const { sortBy, sortType, handleSortProducts } = useSortDataAdminProvider();
 
     useEffect(() => {
         (() => {
             promoApi
-                .getProductsByPriceList(id as string, locale as string, page as string)
+                .getProductsByPriceList(id as string, locale as string, page as string, searchVal, sortType, sortBy)
                 .then((res) => setData(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
             priceListApi
@@ -45,7 +50,18 @@ export const PriceListEdit = () => {
                 .then((res) => setPriceList(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [page]);
+    }, [page, searchVal, sortType, sortBy]);
+
+    useEffect(() => {
+        push(
+            {
+                pathname: pathname,
+                query: { ...query, page: 1 },
+            },
+            undefined,
+            { scroll: false }
+        );
+    }, [searchVal, sortType, sortBy]);
 
     useEffect(() => {
         (() => {
@@ -94,29 +110,39 @@ export const PriceListEdit = () => {
             accessor: 'description',
             width: 200,
             disableSortBy: true,
-            Filter: <ColumnFilter setData={setData} />,
+            Filter: <ColumnFilter setSearch={setSearchVal} />,
         },
         {
             Header: t('common:selects.number'),
             accessor: 'uniqNumber',
+            typeProperty: 'uniq_number',
             disableFilters: true,
             maxWidth: 90,
+            disableSortBy: true,
+            showSort: true,
         },
         {
             Header: t('common:selects.manufacturers'),
             accessor: 'manufacturer',
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
         },
         {
             Header: t('common:selects.howmany'),
             accessor: 'availability',
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
             Cell: ({ cell }: { cell: any }) => `${cell.value} ${t('common:howmany')}`,
             maxWidth: 90,
         },
         {
             Header: t('common:selects.price'),
             accessor: currency === 'uzs' ? 'sum' : 'usd',
+            typeProperty: 'cost',
+            disableSortBy: true,
+            showSort: true,
             Cell: ({ cell }: { cell: any }) => {
                 return currency === 'usd'
                     ? `$${formatNumber(cell.value)}`
@@ -128,6 +154,7 @@ export const PriceListEdit = () => {
             Header: t('dashboard:addv') as string,
             disableFilters: true,
             disableSortBy: true,
+            showSort: false,
             width: 100,
             accessor: (cell: any) => {
                 return (
@@ -181,7 +208,7 @@ export const PriceListEdit = () => {
                 </div>
             </BaseModal>
 
-            {data?.data && <Table data={data.data} columns={cols} />}
+            {data?.data && <Table handleSort={handleSortProducts} enableSort data={data.data} columns={cols} />}
             {data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}
         </div>
     );

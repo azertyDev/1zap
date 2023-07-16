@@ -10,14 +10,15 @@ import { Pagination } from 'components/ui/pagination/Pagination';
 import { useRouter } from 'next/router';
 import { FilterCalendar } from 'components/ui/dashboard/table/filterCalendar';
 import s from './index.module.scss';
+import { useSortDataAdminProvider } from 'src/hooks/common/useSortDataAdminProvider';
 
 export const OperationsPage: FC = () => {
     const [activeData, setActiveData] = useState<any>(null);
     const { t } = useTranslation();
-
     const [filtringByDate, setFiltringByDate] = useState<null | string>(null);
     const [fullDate, setFullDate] = useState<null | string>(null);
     const [month, setMonth] = useState(new Date());
+    const { sortBy, sortType, handleSortProducts } = useSortDataAdminProvider();
 
     const {
         query: { page },
@@ -32,12 +33,14 @@ export const OperationsPage: FC = () => {
                         ? filtringByDate === 'month'
                             ? dayjs(month).format('YYYY-MM')
                             : dayjs(fullDate).format('YYYY-MM-DD')
-                        : null
+                        : null,
+                    sortType,
+                    sortBy
                 )
                 .then((res) => setActiveData(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [page, fullDate, month]);
+    }, [page, fullDate, month, sortBy, sortType]);
 
     const cols = [
         {
@@ -45,9 +48,11 @@ export const OperationsPage: FC = () => {
             id: 'eventdate',
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY') as any,
-            disableSortBy: false,
-            disableFilters: true,
             maxWidth: 70,
+            disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'created_at',
         },
         {
             Header: t('dashboard:time') as string,
@@ -55,8 +60,10 @@ export const OperationsPage: FC = () => {
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
             maxWidth: 70,
+            typeProperty: 'created_at',
         },
         {
             Header: t('dashboard:provider') as string,
@@ -71,18 +78,21 @@ export const OperationsPage: FC = () => {
                 return cell.value == 1 ? t('dashboard:one_coin') : `${cell.value} ${t('dashboard:coins')}`;
             },
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
         },
         {
             Header: t('dashboard:info') as string,
             accessor: 'info',
+            typeProperty: 'action_type',
             Cell: ({ cell }: any) => {
                 const val = cell.row.original?.uniqNumber;
 
                 return `${t(`dashboard:wallet_info.${cell.value.toLowerCase()}`)}${val ? ` (${val})` : ''}`;
             },
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
             minWidth: 200,
         },
         {
@@ -103,6 +113,7 @@ export const OperationsPage: FC = () => {
     return (
         <div>
             <h4 className={s.titles}>{t('dashboard:history_last_oper')}</h4>
+            {sortBy} {sortType}
             <FilterCalendar
                 setFullDate={setFullDate}
                 fullDate={fullDate}
@@ -110,7 +121,9 @@ export const OperationsPage: FC = () => {
                 month={month}
                 setFiltringByDate={setFiltringByDate}
             />
-            {activeData?.data && <Table data={activeData?.data} columns={cols} isSecondType />}
+            {activeData?.data && (
+                <Table handleSort={handleSortProducts} enableSort data={activeData?.data} columns={cols} isSecondType />
+            )}
             {activeData?.totalPages > 1 && <Pagination pageCount={activeData?.totalPages} />}
         </div>
     );

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
 import s from './index.module.scss';
 import { useTranslation } from 'next-i18next';
@@ -8,12 +8,12 @@ import { Icon } from 'components/ui/icon';
 import { useStore } from 'src/store/useStore';
 import { formatNumber } from 'src/helpers/formatNumber';
 import { IProduct } from 'types';
+import { useRouter } from 'next/router';
 
 export const ResultTableForm: FC<{
     data: IProduct[];
-    handleAsc: (param: 'sum' | 'usd' | 'availability') => () => void;
-    handleDesc: (param: 'sum' | 'usd' | 'availability') => () => void;
-}> = ({ data, handleAsc, handleDesc }): JSX.Element => {
+    sortByPrice: (by: string) => () => void;
+}> = ({ data, sortByPrice }): JSX.Element => {
     const { t } = useTranslation();
     const { toggleBookDetail } = useStore((state) => state);
     const { currency } = useStore((state) => state);
@@ -31,10 +31,10 @@ export const ResultTableForm: FC<{
                             <TableElement className={'table_h'}>
                                 <div className={s.filter_price_wr}>
                                     <div className={s.filter_price_buttons}>
-                                        <div onClick={handleAsc(currency === 'uzs' ? 'sum' : 'usd')}>
+                                        <div onClick={sortByPrice('asc')}>
                                             <Icon name={'expand_less'} size={18} color={'#9A9EA7'} />
                                         </div>
-                                        <div onClick={handleDesc(currency === 'uzs' ? 'sum' : 'usd')}>
+                                        <div onClick={sortByPrice('desc')}>
                                             <Icon name={'expand_more'} size={18} color={'#9A9EA7'} />
                                         </div>
                                     </div>

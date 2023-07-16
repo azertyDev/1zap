@@ -10,11 +10,18 @@ import { Table } from 'components/ui/dashboard/table';
 import { Pagination } from 'components/ui/pagination/Pagination';
 import { MenuItem } from '@szhsin/react-menu';
 import { Icon } from 'components/ui/icon';
+import { useSortDataAdminProvider } from 'src/hooks/common/useSortDataAdminProvider';
 
 export const PromoPage: FC = () => {
     const [dataActive, setDataActive] = useState<any>(null);
     const [dataModeration, setDataModeration] = useState<any>(null);
     const [trigger, setTrigger] = useState(false);
+    const { sortBy, sortType, handleSortProducts } = useSortDataAdminProvider();
+    const {
+        sortBy: sortByApproved,
+        sortType: sortTypeApproved,
+        handleSortProducts: handleSortProductsApproved,
+    } = useSortDataAdminProvider();
 
     const { t } = useTranslation();
     const {
@@ -37,20 +44,20 @@ export const PromoPage: FC = () => {
     useEffect(() => {
         (() => {
             promoApi
-                .getModerationPromoByAdmin(page as string)
+                .getModerationPromoByAdmin(page as string, sortBy)
                 .then((res) => setDataModeration(res))
                 .catch((err) => toast.error(t('helpers:error_getting')));
         })();
-    }, [page]);
+    }, [page, sortBy]);
 
     useEffect(() => {
         (() => {
             promoApi
-                .getActivePromoByAdmin(pageSec as string)
+                .getActivePromoByAdmin(pageSec as string, sortByApproved)
                 .then((res) => setDataActive(res))
                 .catch((err) => toast.error(t('helpers:error_getting')));
         })();
-    }, [pageSec, trigger]);
+    }, [pageSec, sortByApproved, trigger]);
 
     const menuContent = (data: any) => (
         <MenuItem onClick={handleDeletePromo(data.id)}>
@@ -65,6 +72,9 @@ export const PromoPage: FC = () => {
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY'),
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'date',
             maxWidth: 70,
             minWidth: 70,
         },
@@ -107,6 +117,9 @@ export const PromoPage: FC = () => {
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY'),
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'date',
             maxWidth: 70,
             minWidth: 70,
         },
@@ -154,13 +167,21 @@ export const PromoPage: FC = () => {
     return (
         <div>
             {dataModeration?.data && (
-                <Table columns={colsModer} data={dataModeration.data} title={<h4>{t('dashboard:moder_promo')}</h4>} />
+                <Table
+                    handleSort={handleSortProducts}
+                    enableSort
+                    columns={colsModer}
+                    data={dataModeration.data}
+                    title={<h4>{t('dashboard:moder_promo')}</h4>}
+                />
             )}
             {dataModeration?.totalPages > 1 && <Pagination pageCount={dataModeration?.totalPages} />}
 
             <div style={{ margin: '0 0 40px' }}></div>
             {dataActive?.data && (
                 <Table
+                    handleSort={handleSortProductsApproved}
+                    enableSort
                     columns={colsActive}
                     data={dataActive.data}
                     title={<h4>{t('dashboard:active_admin_promo')}</h4>}

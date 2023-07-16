@@ -14,7 +14,7 @@ import { IProductGroup } from '../types';
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {
         locale,
-        query: { page, manufacturers, seasons, widths, heights, diameters },
+        query: { page, manufacturers, seasons, widths, heights, diameters, average },
     } = context;
 
     let data = await productsApi
@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                 seasons ? `&season=${seasons}` : ''
             }${widths ? `&width=${widths}` : ''}${heights ? `&height=${heights}` : ''}${
                 diameters ? `&diameter=${diameters}` : ''
-            }`
+            }${average ? `&average=${average}` : ''}`
         )
         .then((res) => res)
         .catch((err) => null);

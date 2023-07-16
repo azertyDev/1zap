@@ -1,9 +1,7 @@
 import { GetServerSideProps } from 'next';
 import type { NextPageWithLayout } from './_app';
-
 import { Layout } from 'components/layout/client';
 import { Container } from 'components/ui/container';
-
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { PageWrapper } from 'components/ui/page_wrapper';
 import { Oil } from 'components/pages/oil';
@@ -13,7 +11,7 @@ import { IProductGroup } from '../types';
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {
         locale,
-        query: { page, manufacturers, viscosites, volumes, types },
+        query: { page, manufacturers, viscosites, volumes, types, average },
     } = context;
 
     let data = await productsApi
@@ -21,7 +19,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             'oils',
             `?page=${page ?? 1}${manufacturers ? `&manufacturer=${manufacturers}` : ''}${
                 viscosites ? `&viscosity=${viscosites}` : ''
-            }${volumes ? `&volume=${volumes}` : ''}${types ? `&type=${types}` : ''}`
+            }${volumes ? `&volume=${volumes}` : ''}${types ? `&type=${types}` : ''}${
+                average ? `&average=${average}` : ''
+            }`
         )
         .then((res) => res)
         .catch((err) => null);

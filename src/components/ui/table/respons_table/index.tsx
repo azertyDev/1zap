@@ -10,7 +10,11 @@ import { IProductGroup } from 'types';
 import { formatNumber } from 'src/helpers/formatNumber';
 import { useStore } from 'src/store/useStore';
 
-export const ResponsTable: FC<{ item: IProductGroup; img: string }> = ({ item, img }): JSX.Element => {
+export const ResponsTable: FC<{ item: IProductGroup; img: string; isTire?: boolean }> = ({
+    item,
+    img,
+    isTire,
+}): JSX.Element => {
     const { t } = useTranslation();
     const { handleOpenClose, openClose } = useOpenCloseWithVal();
     const { currency } = useStore((state) => state);
@@ -21,7 +25,24 @@ export const ResponsTable: FC<{ item: IProductGroup; img: string }> = ({ item, i
                 <h5>{item.uniqNumber}</h5>
             </div>
 
-            <p className={s.desc}>{item.property}</p>
+            {isTire ? (
+                <div className={s.property_wr}>
+                    <h5>
+                        {item.property[0].value}/{item.property[1].value} {item.property[2].value}
+                    </h5>
+                    <div className={s.circle}></div>
+                    <p>{item.property[3].value}</p>
+                </div>
+            ) : (
+                <div className={s.property_wr}>
+                    {item.property.map((prop, i) => (
+                        <div key={prop.value + i} className={s.property_items}>
+                            <p>{prop.value}</p>
+                            <div className={s.circle}></div>
+                        </div>
+                    ))}
+                </div>
+            )}
 
             <div className={`${s.item} ${s.last_item}`}>
                 <div>

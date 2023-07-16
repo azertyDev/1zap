@@ -180,10 +180,6 @@ export const PriceCreateForm: FC<any> = (props) => {
                                 label: t('dashboard:in_stock'),
                             },
                             {
-                                value: 'order',
-                                label: t('common:selects.order'),
-                            },
-                            {
                                 value: 'one_three_day',
                                 label: t('common:selects.one_three_day'),
                             },

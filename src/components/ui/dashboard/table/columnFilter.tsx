@@ -1,44 +1,26 @@
-import { ChangeEvent, Dispatch, useEffect, useState } from 'react';
+import { ChangeEvent, Dispatch, FC, useEffect, useState } from 'react';
 import s from './index.module.scss';
 import { Icon } from 'components/ui/icon';
 import { useTranslation } from 'next-i18next';
-import { productsApi, promoApi } from 'src/utils/api';
-import { toast } from 'react-hot-toast';
-import { useFormik } from 'formik';
-import { client_validation } from 'src/validation/client_validation';
-import { useRouter } from 'next/router';
 
-export const ColumnFilter = ({ setData, idOut }: { setData: Dispatch<any>; idOut?: number }) => {
+export const ColumnFilter: FC<{ setSearch: Dispatch<any> }> = ({ setSearch }) => {
     const { t } = useTranslation();
     const [val, setVal] = useState('');
-    const [isTouched, setISTouched] = useState(false);
-    const {
-        query: { page, id },
-        locale,
-    } = useRouter();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {
             target: { value },
         } = e;
         setVal(value);
-        setISTouched(true);
     };
 
     useEffect(() => {
-        if (isTouched) {
-            const timer = setTimeout(async () => {
-                (() => {
-                    promoApi
-                        .getProductsByPriceList((id ?? idOut) as number, locale as string, page as string, val)
-                        .then((res) => setData(res))
-                        .catch(() => toast.error(t('helpers:error_getting')));
-                })();
-            }, 1000);
-            return () => {
-                clearTimeout(timer);
-            };
-        }
+        const timer = setTimeout(async () => {
+            setSearch(val);
+        }, 800);
+        return () => {
+            clearTimeout(timer);
+        };
     }, [val]);
 
     return (

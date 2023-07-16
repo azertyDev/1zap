@@ -21,6 +21,7 @@ export const FilterCalendar: FC<{
         push,
         pathname,
         query: { page, secPage },
+        query,
     } = useRouter();
 
     const handleMonth = (type: string) => {
@@ -29,6 +30,7 @@ export const FilterCalendar: FC<{
             push({
                 pathname: pathname,
                 query: {
+                    ...query,
                     page: 1,
                 },
             });

@@ -147,7 +147,7 @@ interface IProductGroup {
     uniqNumber: string;
     availability: number;
     currency: string;
-    property: string;
+    property: { value: string }[];
     sum: {
         priceTo: 4234355;
         priceFrom: 4234355;

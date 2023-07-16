@@ -1,5 +1,5 @@
 import { FC, ReactNode, useMemo } from 'react';
-import { useTable, useSortBy, useFilters, usePagination, useResizeColumns } from 'react-table';
+import { useTable, useSortBy, useFilters } from 'react-table';
 import { Icon } from 'components/ui/icon';
 import { ColumnFilter } from './columnFilter';
 import s from './index.module.scss';
@@ -9,9 +9,12 @@ interface TableProps {
     columns: any;
     title?: ReactNode;
     isSecondType?: boolean;
+    globalSort?: boolean;
+    handleSort?: (type: string, by: string, typeAnother?: string) => () => void;
+    enableSort?: boolean;
 }
 
-export const Table: FC<TableProps> = ({ data, columns, title, isSecondType }) => {
+export const Table: FC<TableProps> = ({ data, columns, title, isSecondType, globalSort, enableSort, handleSort }) => {
     const defaultColumn = useMemo(
         () => ({
             Filter: ColumnFilter,
@@ -26,6 +29,7 @@ export const Table: FC<TableProps> = ({ data, columns, title, isSecondType }) =>
         {
             data: useMemo(() => data, [data]),
             columns: useMemo(() => columns, [columns]),
+            // @ts-ignore
             defaultColumn,
         },
         useFilters,
@@ -55,9 +59,20 @@ export const Table: FC<TableProps> = ({ data, columns, title, isSecondType }) =>
                                     >
                                         <div>
                                             {column.render('Header')}
-                                            {column.canSort ? <Icon name="unfold_more" size={16} /> : null}
-                                            {/* {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''} */}
                                             <div>{column.canFilter ? column?.render('Filter') : null}</div>
+                                            {/*@ts-ignore*/}
+                                            {column.showSort && enableSort && (
+                                                <div className={s.sort_arr_wr}>
+                                                    {/*@ts-ignore*/}
+                                                    <div onClick={handleSort(column.id, 'asc', column.typeProperty)}>
+                                                        <Icon name={'expand_less'} size={16} color={'#9A9EA7'} />
+                                                    </div>
+                                                    {/*@ts-ignore*/}
+                                                    <div onClick={handleSort(column.id, 'desc', column.typeProperty)}>
+                                                        <Icon name={'expand_more'} size={16} color={'#9A9EA7'} />
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </th>
                                 );

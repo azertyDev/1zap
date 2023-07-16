@@ -7,7 +7,7 @@ export interface IApplicationSlice {
     applications: any;
     loading: boolean;
     error: null;
-    fetchApplications: (status?: string, page?: string) => void;
+    fetchApplications: (status?: string, page?: string, filter?: string, date?: string) => void;
 }
 
 const initialState = {
@@ -24,11 +24,11 @@ const initialState = {
 export const applicationSlice: StateCreator<IApplicationSlice> = (set, get) => ({
     ...initialState,
 
-    fetchApplications: async (status = 'active', page = '1') => {
+    fetchApplications: async (status = 'active', page = '1', filter = '', date = undefined) => {
         set({ loading: true });
 
         await applicationApi
-            .fetchApplications(status, page)
+            .fetchApplications(status, page, filter, date)
             .then((response) => {
                 set({ applications: response, loading: false });
 

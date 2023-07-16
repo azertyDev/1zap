@@ -37,7 +37,7 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
     const { query } = useRouter();
     const { currency } = useStore((state) => state);
 
-    const { dataOut, handleAsc, handleDesc } = useFiltersAscDesc(data);
+    const { sortByAverage } = useFiltersAscDesc();
 
     return (
         <>
@@ -85,7 +85,7 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
                     </>
                 )}
             </div>
-            {dataOut && dataOut.totalPages !== 0 && (
+            {data && data.totalPages !== 0 && (
                 <>
                     <div className={s.table}>
                         <TableRow className={s.table_row}>
@@ -96,10 +96,10 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
                             <TableElement className={'table_h'}>
                                 <div className={s.filter_price_wr}>
                                     <div className={s.filter_price_buttons}>
-                                        <div onClick={handleAsc(currency === 'uzs' ? 'sum' : 'usd')}>
+                                        <div onClick={sortByAverage('asc')}>
                                             <Icon name={'expand_less'} size={18} color={'#9A9EA7'} />
                                         </div>
-                                        <div onClick={handleDesc(currency === 'uzs' ? 'sum' : 'usd')}>
+                                        <div onClick={sortByAverage('desc')}>
                                             <Icon name={'expand_more'} size={18} color={'#9A9EA7'} />
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
                             </TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.offer')}</TableElement>
                         </TableRow>
-                        {dataOut.data.map((item) => {
+                        {data.data.map((item) => {
                             return (
                                 <TableRow className={s.table_row} key={item.id}>
                                     <TableElement className={'table_b'}>
@@ -127,7 +127,15 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
                                         />
                                     </TableElement>
                                     <TableElement className={'table_b'}>
-                                        <h5>{item.property}</h5>
+                                        <p>
+                                            {t('common:selects.capacities')}:{item.property[1].value}
+                                        </p>
+                                        <p>
+                                            {t('common:selects.currents')}:{item.property[2].value}
+                                        </p>
+                                        <p>
+                                            {t('common:selects.polarities')}:{item.property[0].value}
+                                        </p>
                                     </TableElement>
                                     <TableElement className={'table_b'}>
                                         <h5>
@@ -162,15 +170,15 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
                 </>
             )}
 
-            {dataOut && dataOut.totalPages !== 0 && (
+            {data && data.totalPages !== 0 && (
                 <div className={s.res_table_wr}>
-                    {dataOut.data.map((item) => {
+                    {data.data.map((item) => {
                         return <ResponsTable item={item} key={item.id} img={'/assets/images/battery.png'} />;
                     })}
                 </div>
             )}
 
-            {dataOut && dataOut.totalPages !== 0 && <Pagination pageCount={data?.totalPages} />}
+            {data && data.totalPages !== 0 && <Pagination pageCount={data?.totalPages} />}
         </>
     );
 };

@@ -7,11 +7,11 @@
   width: 100%;
   margin-bottom: 30px;
 
-  &.second{
-    table{
-      border-radius:  0 0 14px 14px;
+  &.second {
+    table {
+      border-radius: 0 0 14px 14px;
 
-      thead{
+      thead {
         border-radius: 0;
         background: transparent;
         border-bottom: 1px solid #E4E6E8;
@@ -179,7 +179,8 @@ div.actionButtons {
   width: 100%;
   padding: 26px 23px;
 }
-.calendar_btn_lable{
+
+.calendar_btn_lable {
   height: 36px;
 }
 
@@ -197,17 +198,35 @@ div.actionButtons {
 }
 
 
-
-.calendar_btns_wr{
+.calendar_btns_wr {
   display: flex;
   align-items: center;
 }
 
-.btn_control_month{
+.btn_control_month {
   margin-right: 4px;
 }
 
-.month_calendar{
-  @include fs_fw_c(18px,700,$secondary);
+.month_calendar {
+  @include fs_fw_c(18px, 700, $secondary);
   margin-left: 13px;
+}
+
+.sort_arr_wr {
+  margin-left: 2px;
+
+  div {
+    height: 12px;
+
+  }
+
+  div:first-child {
+
+
+  }
+
+  div:last-child {
+
+    height: 14px;
+  }
 }

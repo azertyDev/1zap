@@ -16,6 +16,7 @@ import { useModal } from 'src/hooks/common/useModal';
 import { FloatingInput } from 'components/ui/input/float_input';
 import { FileUpload } from 'components/ui/upload/file';
 import { client_validation } from 'src/validation/client_validation';
+import { useSortDataAdminProvider } from 'src/hooks/common/useSortDataAdminProvider';
 
 export const IncomePage: FC = () => {
     const [moderationData, setModerationData] = useState<any>(null);
@@ -31,6 +32,13 @@ export const IncomePage: FC = () => {
     const [filtringByDate, setFiltringByDate] = useState<null | string>(null);
     const [fullDate, setFullDate] = useState<null | string>(null);
     const [month, setMonth] = useState(new Date());
+
+    const { sortBy, sortType, handleSortProducts } = useSortDataAdminProvider();
+    const {
+        sortBy: sortByAccepted,
+        sortType: sortTypeAccepted,
+        handleSortProducts: handleSortProductsAccepted,
+    } = useSortDataAdminProvider();
 
     const {
         query: { page, pageSec },
@@ -100,8 +108,10 @@ export const IncomePage: FC = () => {
             id: 'eventdate',
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY') as any,
-            disableSortBy: false,
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'date',
             maxWidth: 70,
         },
         {
@@ -169,8 +179,10 @@ export const IncomePage: FC = () => {
             id: 'eventdate',
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY') as any,
-            disableSortBy: false,
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'date',
             maxWidth: 70,
         },
         {
@@ -240,7 +252,15 @@ export const IncomePage: FC = () => {
                 setFiltringByDate={setFiltringByDateMonth}
                 showCalendar={false}
             />
-            {moderationData?.data && <Table data={moderationData?.data} columns={cols} isSecondType />}
+            {moderationData?.data && (
+                <Table
+                    handleSort={handleSortProducts}
+                    enableSort
+                    data={moderationData?.data}
+                    columns={cols}
+                    isSecondType
+                />
+            )}
             {moderationData?.totalPages > 1 && <Pagination pageCount={moderationData?.totalPages} />}
 
             <h4 className={`${s.titles} ${s.last}`}>{t('dashboard:accepted_wallet')}</h4>
@@ -251,7 +271,15 @@ export const IncomePage: FC = () => {
                 month={month}
                 setFiltringByDate={setFiltringByDate}
             />
-            {activeData?.data && <Table data={activeData?.data} columns={colsActive} isSecondType />}
+            {activeData?.data && (
+                <Table
+                    handleSort={handleSortProductsAccepted}
+                    enableSort
+                    data={activeData?.data}
+                    columns={colsActive}
+                    isSecondType
+                />
+            )}
             {activeData?.totalPages > 1 && <Pagination pageCount={activeData?.totalPages} isSecPage />}
 
             <BaseModal

@@ -19,6 +19,7 @@ import { useGetBranchInfo } from 'src/hooks/promo/useGetBranchInfo';
 import { ColumnFilter } from 'components/ui/dashboard/table/columnFilter';
 import { formatNumber } from 'src/helpers/formatNumber';
 import { useStore } from 'src/store/useStore';
+import { useSortDataAdminProvider } from 'src/hooks/common/useSortDataAdminProvider';
 
 export const ChosenForm = () => {
     const { t } = useTranslation();
@@ -29,12 +30,15 @@ export const ChosenForm = () => {
         query,
         query: { page },
     } = useRouter();
-    const { currency } = useStore((state) => state);
 
+    const { currency } = useStore((state) => state);
     const { formikBranches, formikPrice, branches, lists } = useGetBranchesAndPriceLists();
     const { branchInfo } = useGetBranchInfo(formikBranches, formikBranches.values.branchId);
     const [data, setData] = useState<any>(null);
+    const [searchVal, setSearchVal] = useState('');
     const [activeIds, setActiveIds] = useState<number[]>([]);
+
+    const { sortBy, sortType, handleSortProducts } = useSortDataAdminProvider();
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<any>) => {
         await promoApi
@@ -79,7 +83,10 @@ export const ChosenForm = () => {
                     .getProductsByPriceList(
                         formikPrice.values.pricelistId as number,
                         locale as string,
-                        (page as string) ?? '1'
+                        (page as string) ?? '1',
+                        searchVal,
+                        sortType,
+                        sortBy
                     )
                     .then((res) => {
                         setData(res);
@@ -89,22 +96,26 @@ export const ChosenForm = () => {
                     });
             }
         })();
-    }, [locale, page, formikPrice.values.pricelistId, formikBranches.values.branchId]);
+    }, [page, locale, searchVal, formikPrice.values.pricelistId, formikBranches.values.branchId, sortType, sortBy]);
 
     useEffect(() => {
-        push({
-            pathname: pathname,
-            query: { ...query, page: 1 },
-        });
-    }, [formikPrice.values.pricelistId, formikPrice.values.pricelistId]);
+        push(
+            {
+                pathname: pathname,
+                query: { ...query, page: 1 },
+            },
+            undefined,
+            { scroll: false }
+        );
+    }, [formikPrice.values.pricelistId, formikBranches.values.branchId, searchVal, sortType, sortBy]);
 
     const cols = [
         {
             Header: '',
             accessor: 'description',
             width: 300,
-            disableSortBy: true,
-            Filter: <ColumnFilter setData={setData} idOut={formikPrice.values.pricelistId as number} />,
+            disableSortBy: false,
+            Filter: <ColumnFilter setSearch={setSearchVal} />,
             Cell: ({ cell }: any) => {
                 return (
                     <div
@@ -128,23 +139,33 @@ export const ChosenForm = () => {
         {
             Header: t('common:selects.number'),
             accessor: 'uniqNumber',
+            typeProperty: 'uniq_number',
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
         },
         {
             Header: t('common:selects.manufacturers'),
             accessor: 'manufacturer',
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
         },
         {
             Header: t('common:selects.howmany'),
             accessor: 'availability',
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
             Cell: ({ cell }: { cell: any }) => `${cell.value} ${t('common:howmany')}`,
         },
         {
             Header: t('common:selects.price'),
-            accessor: 'sum',
+            accessor: currency === 'uzs' ? 'sum' : 'usd',
+            typeProperty: 'cost',
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
             Cell: ({ cell }: { cell: any }) => {
                 return currency === 'usd'
                     ? `$${formatNumber(cell.value)}`
@@ -156,6 +177,7 @@ export const ChosenForm = () => {
     return (
         <div className={s.root}>
             <Heading title={t('dashboard:promo_place')} desc={t('dashboard:promo_texts.chosen_position')} />
+
             <PromoForm
                 formik={formikBranches}
                 formikPrice={formikPrice}
@@ -166,7 +188,7 @@ export const ChosenForm = () => {
             />
             {!branchInfo.hasReclam && !listInfo.hasReclam && (
                 <>
-                    {data?.data && <Table data={data.data} columns={cols} />}
+                    {data?.data && <Table handleSort={handleSortProducts} enableSort data={data.data} columns={cols} />}
                     {data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}
                 </>
             )}

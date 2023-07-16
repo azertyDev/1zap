@@ -98,6 +98,25 @@
 }
 
 
+.property_items{
+  display: flex;
+  align-items: center;
+
+  &:last-child{
+    .circle{
+      display: none;
+    }
+  }
+}
+
+.property_wr{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  @include fs_fw_c(12px, 600,#0D0A19);
+}
+
+
 
 @media (max-width: 1110px) {
   .table {

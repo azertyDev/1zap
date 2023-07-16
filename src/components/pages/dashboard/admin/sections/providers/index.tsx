@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import { Column } from 'react-table';
-import { FC, useEffect } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'next-i18next';
 import { shallow } from 'zustand/shallow';
 import { useStore } from 'src/store/useStore';
 import { MenuItem } from '@szhsin/react-menu';
-import { applicationApi } from 'src/utils/api';
+import { applicationApi, providerApi } from 'src/utils/api';
 import { Table } from 'src/components/ui/dashboard/table';
 import { ColumnFilter } from 'src/components/ui/dashboard/table/columnFilter';
 import { ActionsBlock } from 'src/components/ui/dashboard/table/ActionsBlock';
@@ -16,6 +16,7 @@ import { Icon } from 'src/components/ui/icon';
 import s from './index.module.scss';
 import { useRouter } from 'next/router';
 import { Pagination } from 'components/ui/pagination/Pagination';
+import { useSortDataAdminProvider } from 'src/hooks/common/useSortDataAdminProvider';
 
 export const Providers: FC = (props): JSX.Element => {
     const { t } = useTranslation();
@@ -24,23 +25,51 @@ export const Providers: FC = (props): JSX.Element => {
     } = useRouter();
     const { applications, providers, fetchProviders, fetchApplications } = useStore((state) => state, shallow);
 
-    useEffect(() => {
-        fetchApplications('active', page as string);
-    }, [page]);
+    const [searchValProviders, setSearchValProviders] = useState('');
+    const [searchValApplications, setSearchValApplications] = useState('');
+
+    const { sortBy, sortType, handleSortProducts } = useSortDataAdminProvider();
+    const {
+        sortBy: sortByProvider,
+        sortType: sortTypeProvider,
+        handleSortProducts: handleSortProductsProvider,
+    } = useSortDataAdminProvider();
 
     useEffect(() => {
-        fetchProviders(pageSec as string);
-    }, [pageSec]);
+        fetchApplications('active', page as string, searchValApplications, sortBy);
+    }, [page, searchValApplications, sortBy]);
 
-    const deleteApp = (id: number) => {
-        applicationApi.delete(id).then(() => {
-            fetchApplications();
-            toast.success(t('helpers:deleted'));
-        });
-    };
+    useEffect(() => {
+        fetchProviders(pageSec as string, searchValProviders, sortByProvider);
+    }, [pageSec, searchValProviders, sortByProvider]);
+
+    const deleteApp = useCallback((id: number) => {
+        return () => {
+            applicationApi.delete(id).then(() => {
+                fetchApplications();
+                toast.success(t('helpers:deleted'));
+            });
+        };
+    }, []);
+
+    const deleteAppCurrent = useCallback((id: number) => {
+        return () => {
+            providerApi.deleteCurrentProvider(id).then(() => {
+                fetchProviders(pageSec as string, '');
+                toast.success(t('helpers:deleted'));
+            });
+        };
+    }, []);
 
     const menuContent = (data: any) => (
-        <MenuItem onClick={() => deleteApp(data.id)}>
+        <MenuItem onClick={deleteApp(data.id)}>
+            <Icon name="delete" color="black" />
+            {t('dashboard:delete')}
+        </MenuItem>
+    );
+
+    const menuContentCurrent = (data: any) => (
+        <MenuItem onClick={deleteAppCurrent(data.id)}>
             <Icon name="delete" color="black" />
             {t('dashboard:delete')}
         </MenuItem>
@@ -52,7 +81,7 @@ export const Providers: FC = (props): JSX.Element => {
             accessor: 'providerName',
             disableSortBy: true,
             minWidth: 200,
-            Filter: ColumnFilter,
+            Filter: <ColumnFilter setSearch={setSearchValApplications} />,
         },
         {
             Header: t('dashboard:organization') as string,
@@ -78,6 +107,8 @@ export const Providers: FC = (props): JSX.Element => {
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY'),
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
             maxWidth: 80,
         },
         {
@@ -101,13 +132,13 @@ export const Providers: FC = (props): JSX.Element => {
         },
     ];
 
-    const providerCols: Column<any>[] = [
+    const providerCols = [
         {
             Header: '',
             accessor: 'fullName',
             disableSortBy: true,
             minWidth: 200,
-            Filter: ColumnFilter,
+            Filter: <ColumnFilter setSearch={setSearchValProviders} />,
         },
         {
             Header: t('dashboard:organization') as string,
@@ -133,6 +164,9 @@ export const Providers: FC = (props): JSX.Element => {
             Header: t('dashboard:date') as string,
             accessor: 'createdAt',
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'date',
             maxWidth: 90,
             minWidth: 90,
         },
@@ -142,7 +176,7 @@ export const Providers: FC = (props): JSX.Element => {
             disableSortBy: true,
             accessor: (cell: any) => {
                 return (
-                    <ActionsBlock>
+                    <ActionsBlock cell={cell} menu={menuContentCurrent(cell)}>
                         <Link href={`/dashboard/providers/profile?id=${cell.id}`}>{t('dashboard:change')}</Link>
                     </ActionsBlock>
                 );
@@ -168,9 +202,12 @@ export const Providers: FC = (props): JSX.Element => {
     return (
         <div>
             <StatisticsBlock data={data} title={<h4>{t('dashboard:current_res')}</h4>} />
-
+            {sortByProvider}
+            {sortTypeProvider}
             {applications?.data && (
                 <Table
+                    handleSort={handleSortProducts}
+                    enableSort
                     columns={applicationCols}
                     data={applications?.data}
                     title={<h4 className={s.title}>{t('dashboard:new_requests')}</h4>}
@@ -180,8 +217,10 @@ export const Providers: FC = (props): JSX.Element => {
             {applications?.totalPages > 1 && <Pagination pageCount={applications.totalPages} />}
 
             <div className={s.divider}></div>
-            {providers?.data.length > 0 && (
+            {providers?.data && (
                 <Table
+                    handleSort={handleSortProductsProvider}
+                    enableSort
                     columns={providerCols}
                     data={providers?.data}
                     title={<h4 className={s.title}>{t('dashboard:all_providers')}</h4>}

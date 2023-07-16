@@ -30,15 +30,16 @@ export const userApi = {
 };
 
 export const applicationApi = {
-    fetchApplications: (status: string, page: string): Promise<IApplicationData> =>
-        requests.get(`/applications/all?page=${page}`, { status }),
+    fetchApplications: (status: string, page: string, filter: string, date?: string): Promise<IApplicationData> =>
+        requests.get(`/applications/all?page=${page}&filter=${filter}${date ? `&date=${date}` : ''}`, { status }),
     addApplication: (body: IApplicationDataProvider): Promise<IApplicationDataProvider> =>
         requests.post('/app', { ...body }),
     delete: (id: number) => requests.delete(`/applications/remove/${id}`),
 };
 
 export const providerApi = {
-    fetchProviders: (page: string): Promise<any> => requests.get(`/provider/all?page=${page}`),
+    fetchProviders: (page: string, filter: string, date?: string): Promise<any> =>
+        requests.get(`/providers/all?page=${page}&filter=${filter}${date ? `&date=${date}` : ''}`),
     fetchProviderById: (id: number | string): Promise<any> => requests.get(`/providers/${id}`),
     addProvider: (body: IProviderData): Promise<any> => requests.post('/providers/new', body),
     fetchProviderBranches: (): Promise<any> => requests.get('/provider/branchs'),
@@ -50,6 +51,7 @@ export const providerApi = {
     getProviderStatisticByAdmin: (id: string): Promise<any> => requests.get(`providers/observer/${id}`),
     editProviderRequisites: (id: string, body: any): Promise<any> => requests.patch(`providers/${id}`, body),
     editPasswordByProvider: (body: any) => requests.post('provider/recovery', body),
+    deleteCurrentProvider: (id: number) => requests.delete(`providers/${id}`),
 };
 
 export const branchApi = {
@@ -122,13 +124,25 @@ export const orderDetails = {
 };
 
 export const promoApi = {
-    getBlockedPromoByProvider: () => requests.get('products/marketing/blocked'),
-    getActivePromoByProvider: (page: string) =>
-        requests.get(`products/marketing/all?active=1&pending=1&expired=1&page=${page}`),
-    getPriceListByBranch: (id: number) => requests.get(`pricelist/branch/${id}`),
-    getProductsByPriceList: (id: number | string, locale: string, page: string | false, filter?: string) =>
+    getBlockedPromoByProvider: (sortType: string | null, sortBy: string) =>
+        requests.get(`products/marketing/blocked${sortType ? `?date=${sortBy}` : ''}`),
+    getActivePromoByProvider: (page: string, sortType: string | null, sortBy: string) =>
         requests.get(
-            `products/common/byPricelistId?id=${id}&lang=${locale}&page=${page}${filter ? `&filter=${filter}` : ''}`
+            `products/marketing/all?active=1&pending=1&expired=1&page=${page}${sortType ? `&date=${sortBy}` : ''}`
+        ),
+    getPriceListByBranch: (id: number) => requests.get(`pricelist/branch/${id}`),
+    getProductsByPriceList: (
+        id: number | string,
+        locale: string,
+        page: string,
+        filter?: string,
+        sort?: string | null,
+        by?: string
+    ) =>
+        requests.get(
+            `products/common/byPricelistId?id=${id}&lang=${locale}&page=${page}&filter=${filter}${
+                sort ? `&order=${sort}&by=${by}` : ''
+            }`
         ),
     addPromoByChosenProducts: (body: any) => requests.post('products/marketing', body),
     addPromoByBranch: (body: any) => requests.post('products/marketing/branch', body),
@@ -136,8 +150,10 @@ export const promoApi = {
     deletePromoByProvider: (id: number) => requests.delete(`products/marketing/${id}`),
     getSinglePromoProvider: (id: string) => requests.get(`products/marketing/${id}`),
     editPromoByProvider: (id: string, body: any) => requests.patch(`products/marketing/edit/${id}`, body),
-    getActivePromoByAdmin: (page: string) => requests.get(`promo/active?page=${page}`),
-    getModerationPromoByAdmin: (page: string) => requests.get(`promo/moderation?page=${page}`),
+    getActivePromoByAdmin: (page: string, date?: string) =>
+        requests.get(`promo/active?page=${page}${date ? `&date=${date}` : ''}`),
+    getModerationPromoByAdmin: (page: string, date?: string) =>
+        requests.get(`promo/moderation?page=${page}${date ? `&date=${date}` : ''}`),
     getSinglePromoAdmin: (id: number) => requests.get(`promo/${id}`),
     rejectPromoByAdmin: (id: number, body: any) => requests.patch(`promo/block/${id}`, body),
     acceptPromoByAdmin: (id: number) => requests.patch(`promo/activate/${id}`),
@@ -158,7 +174,7 @@ export const centerApi = {
 };
 
 export const walletApi = {
-    getIncomingRequest: (page: string, date: string | null | Date) =>
+    getIncomingRequest: (page: string, date: string | null | Date, sort?: string, by?: string) =>
         requests.get(`replenishment/incoming?page=${page}${date ? `&date=${date}` : ''}`),
     getApprovedRequest: (page: string, date: string | null | Date) =>
         requests.get(`replenishment/approved?page=${page}${date ? `&date=${date}` : ''}`),
@@ -166,8 +182,12 @@ export const walletApi = {
         requests.post('replenishment/approved', body, {
             headers: { 'Content-Type': 'multipart/form-data' },
         }),
-    getHistoryAdmin: (page: string, date: string | null | Date) =>
-        requests.get(`replenishment/usage?page=${page}${date ? `&date=${date}` : ''}`),
+    getHistoryAdmin: (page: string, date: string | null | Date, sortType: string | null, by?: string) =>
+        requests.get(
+            `replenishment/usage?page=${page}${date ? `&date=${date}` : ''}${
+                sortType ? `&order=${sortType}&by=${by}` : ''
+            }`
+        ),
     getHistoryProviderByAdmin: (id: string, page: string, date: string | null | Date) =>
         requests.get(`replenishment/usageByProviderId?providerId=${id}&page=${page}${date ? `&date=${date}` : ''}`),
     getHistoryProvider: (page: string, date: string | null | Date) =>
@@ -179,4 +199,8 @@ export const walletApi = {
 
 export const smsApi = {
     order: (id: string) => requests.get(`orders/${id}`),
+};
+
+export const captchaApi = {
+    virefy: (body: string) => requests.post(`orders/verify`, body),
 };

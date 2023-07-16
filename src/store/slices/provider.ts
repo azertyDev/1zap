@@ -12,7 +12,7 @@ export interface IProviderSlice {
     branch: IBranchData[] | null;
     loading: boolean;
     error: null;
-    fetchProviders: (page: string) => void;
+    fetchProviders: (page: string, filter: string, date?: string) => void;
     fetchPriceList: (page?: string, limit?: number) => void;
     fetchProviderBranches: () => void;
     fetchProviderById: (id: number) => void;
@@ -37,11 +37,11 @@ const initialState = {
 export const providerSlice: StateCreator<IProviderSlice> = (set, get) => ({
     ...initialState,
 
-    fetchProviders: async (page = '1') => {
+    fetchProviders: async (page = '1', filter = '', date = undefined) => {
         set({ loading: true });
 
         await providerApi
-            .fetchProviders(page)
+            .fetchProviders(page, filter, date)
             .then((response) => {
                 set({ providers: response, loading: false });
             })

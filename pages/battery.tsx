@@ -14,7 +14,7 @@ import { IProductGroup } from '../types';
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {
         locale,
-        query: { page, manufacturers, polarities, capacities, currents },
+        query: { page, manufacturers, polarities, capacities, currents, average },
     } = context;
 
     let data = await productsApi
@@ -22,7 +22,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             'batteries',
             `?page=${page ?? 1}${manufacturers ? `&manufacturer=${manufacturers}` : ''}${
                 polarities ? `&polarity=${polarities}` : ''
-            }${capacities ? `&capacity=${capacities}` : ''}${currents ? `&current=${currents}` : ''}`
+            }${capacities ? `&capacity=${capacities}` : ''}${currents ? `&current=${currents}` : ''}${
+                average ? `&average=${average}` : ''
+            }`
         )
         .then((res) => res)
         .catch((err) => null);
