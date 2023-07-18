@@ -76,7 +76,7 @@ export const ViewProviderBalance = () => {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
+            Cell: ({ cell }: any) => dayjs.tz(cell.value, 'Asia/Tashkent').format('H:mm') as any,
             disableFilters: true,
             disableSortBy: false,
             maxWidth: 70,

@@ -47,11 +47,16 @@ export const IncomePage: FC = () => {
     useEffect(() => {
         (() => {
             walletApi
-                .getIncomingRequest(page as string, filtringByDateMonth ? dayjs(monthModeration).format('YYYY-MM') : '')
+                .getIncomingRequest(
+                    page as string,
+                    filtringByDateMonth ? dayjs(monthModeration).format('YYYY-MM') : '',
+                    sortType,
+                    sortBy
+                )
                 .then((res) => setModerationData(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [page, trigger, monthModeration]);
+    }, [page, trigger, monthModeration, sortBy, sortType]);
 
     useEffect(() => {
         (() => {
@@ -62,12 +67,14 @@ export const IncomePage: FC = () => {
                         ? filtringByDate === 'month'
                             ? dayjs(month).format('YYYY-MM')
                             : dayjs(fullDate).format('YYYY-MM-DD')
-                        : null
+                        : null,
+                    sortTypeAccepted,
+                    sortByAccepted
                 )
                 .then((res) => setActiveData(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [pageSec, trigger, month, fullDate]);
+    }, [pageSec, trigger, month, fullDate, sortTypeAccepted, sortByAccepted]);
 
     const formik = useFormik({
         initialValues: { file: '', requestId: '', providerId: '', agreementNumber: '' },
@@ -111,14 +118,14 @@ export const IncomePage: FC = () => {
             disableFilters: true,
             disableSortBy: true,
             showSort: true,
-            typeProperty: 'date',
+            typeProperty: 'created_at',
             maxWidth: 70,
         },
         {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
+            Cell: ({ cell }: any) => dayjs.tz(cell.value, 'Asia/Tashkent').format('H:mm') as any,
             disableFilters: true,
             disableSortBy: false,
             maxWidth: 70,
@@ -127,7 +134,9 @@ export const IncomePage: FC = () => {
             Header: t('dashboard:provider') as string,
             accessor: 'companyName',
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'company_name',
         },
         {
             Header: t('dashboard:cost') as string,
@@ -145,7 +154,9 @@ export const IncomePage: FC = () => {
                 }
             },
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'coin',
         },
         {
             Header: t('dashboard:info') as string,
@@ -154,7 +165,8 @@ export const IncomePage: FC = () => {
                 return t('dashboard:wallet_up', { price: cell.row.original.coin });
             },
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
             minWidth: 200,
         },
         {
@@ -182,14 +194,14 @@ export const IncomePage: FC = () => {
             disableFilters: true,
             disableSortBy: true,
             showSort: true,
-            typeProperty: 'date',
+            typeProperty: 'created_at',
             maxWidth: 70,
         },
         {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
+            Cell: ({ cell }: any) => dayjs.tz(cell.value, 'Asia/Tashkent').format('H:mm') as any,
             disableFilters: true,
             disableSortBy: false,
             maxWidth: 70,
@@ -198,7 +210,9 @@ export const IncomePage: FC = () => {
             Header: t('dashboard:provider') as string,
             accessor: 'companyName',
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'company_name',
         },
         {
             Header: t('dashboard:cost') as string,
@@ -216,7 +230,9 @@ export const IncomePage: FC = () => {
                 }
             },
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'coin',
         },
         {
             Header: t('dashboard:info') as string,
@@ -225,7 +241,8 @@ export const IncomePage: FC = () => {
                 return t('dashboard:wallet_up', { price: cell.row.original.coin });
             },
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
             minWidth: 200,
         },
         {

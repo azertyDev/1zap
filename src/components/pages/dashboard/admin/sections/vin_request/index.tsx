@@ -18,6 +18,7 @@ import { SelectField } from 'components/ui/select';
 import { toast } from 'react-hot-toast';
 import { Pagination } from 'components/ui/pagination/Pagination';
 import { useRouter } from 'next/router';
+import { useSortDataAdminProvider } from 'src/hooks/common/useSortDataAdminProvider';
 
 export const VinRequests: FC<{ query: string }> = ({ query }) => {
     const [data, setData] = useState<any>();
@@ -28,6 +29,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
     const {
         query: { page },
     } = useRouter();
+    const { sortBy, sortType, handleSortProducts } = useSortDataAdminProvider();
 
     const [vinData, setVinData] = useState<IVinItem | null>(null);
 
@@ -64,13 +66,14 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
     });
 
     useEffect(() => {
+        const checkSort = `${sortType ? `&order=${sortType}&by=${sortBy}` : ''}`;
         vinOrderApi
             .fetchVinActionAdmin(
                 query === 'primary'
-                    ? `primary=1&repeated=1&accepted=1&page=${page}`
+                    ? `primary=1&repeated=1&accepted=1&page=${page}${checkSort}`
                     : query === 'completed'
-                    ? `rejected=1&completed=1&page=${page}`
-                    : `moderation=1&page=${page ?? '1'}`
+                    ? `rejected=1&completed=1&page=${page}${checkSort}`
+                    : `moderation=1&page=${page ?? '1'}${checkSort}`
             )
             .then((response) => {
                 setData(response);
@@ -78,7 +81,7 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
             .catch((err) => {
                 toast.error(t('helpers:error_getting'));
             });
-    }, [query, toggle, page]);
+    }, [query, toggle, page, sortType, sortBy]);
 
     useEffect(() => {
         return () => {
@@ -86,21 +89,23 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
         };
     }, [open]);
 
-    const vinRequestCols: Column<any>[] = [
+    const vinRequestCols = [
         {
             Header: t('dashboard:date') as string,
             id: 'eventdate',
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY') as any,
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'created_at',
             maxWidth: 80,
         },
         {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
+            Cell: ({ cell }: any) => dayjs.tz(cell.value, 'Asia/Tashkent').format('H:mm') as any,
             disableFilters: true,
             disableSortBy: false,
             maxWidth: 70,
@@ -122,15 +127,15 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
             accessor: 'yearIssue',
             disableSortBy: true,
             disableFilters: true,
-
             maxWidth: 80,
         },
         {
             Header: t('dashboard:status_noun') as string,
             accessor: 'status',
             Cell: ({ cell }: any) => t(`dashboard:status.${cell.value}`) as any,
-            disableSortBy: true,
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
         },
         {
             Header: t('common:selects.city') as string,
@@ -191,7 +196,9 @@ export const VinRequests: FC<{ query: string }> = ({ query }) => {
                 {query === 'primary' && t('dashboard:active_req')}
                 {query === 'moderation' && t('dashboard:moder_req')}
             </h4>
-            {data?.data.length > 0 && <Table data={data?.data} columns={vinRequestCols} />}
+            {data?.data.length > 0 && (
+                <Table handleSort={handleSortProducts} enableSort data={data?.data} columns={vinRequestCols} />
+            )}
             {data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}
             <BaseModal
                 open={open}

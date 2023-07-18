@@ -58,7 +58,7 @@ export const OperationsPage: FC = () => {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
+            Cell: ({ cell }: any) => dayjs.tz(cell.value, 'Asia/Tashkent').format('H:mm') as any,
             disableFilters: true,
             disableSortBy: true,
             showSort: true,
@@ -84,7 +84,7 @@ export const OperationsPage: FC = () => {
         {
             Header: t('dashboard:info') as string,
             accessor: 'info',
-            typeProperty: 'action_type',
+            typeProperty: 'action',
             Cell: ({ cell }: any) => {
                 const val = cell.row.original?.uniqNumber;
 

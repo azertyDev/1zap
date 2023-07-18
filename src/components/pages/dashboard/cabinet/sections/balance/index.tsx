@@ -8,24 +8,24 @@ import { Pagination } from 'components/ui/pagination/Pagination';
 import React, { useCallback, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { FilterCalendar } from 'components/ui/dashboard/table/filterCalendar';
-import { IProviderStat } from 'types';
-import { providerApi, walletApi } from 'src/utils/api';
+import { walletApi } from 'src/utils/api';
 import { useRouter } from 'next/router';
 import { BaseModal } from 'components/ui/dashboard/modal/base_modal';
 import { useModal } from 'src/hooks/common/useModal';
 import { Completed } from 'components/ui/completed';
 import { Icon } from 'components/ui/icon';
+import { useSortDataAdminProvider } from 'src/hooks/common/useSortDataAdminProvider';
 
 export const Balance = () => {
     const { t } = useTranslation();
     const [data, setData] = useState<any>(null);
     const { open, handleModalOpen, handleModalClose } = useModal();
     const [trigger, setTrigger] = useState(false);
-
     const [filtringByDate, setFiltringByDate] = useState<null | string>(null);
     const [fullDate, setFullDate] = useState<null | string>(null);
     const [month, setMonth] = useState(new Date());
     const [walletInfo, setWalletInfo] = useState([]);
+    const { sortBy, sortType, handleSortProducts } = useSortDataAdminProvider();
 
     const {
         locale,
@@ -61,12 +61,14 @@ export const Balance = () => {
                         ? filtringByDate === 'month'
                             ? dayjs(month).format('YYYY-MM')
                             : dayjs(fullDate).format('YYYY-MM-DD')
-                        : null
+                        : null,
+                    sortType,
+                    sortBy
                 )
                 .then((res) => setData(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [page, fullDate, month, trigger]);
+    }, [page, fullDate, month, trigger, sortBy, sortType]);
 
     const handleSendBalance = useCallback((val: number) => {
         return () => {
@@ -120,25 +122,30 @@ export const Balance = () => {
             id: 'eventdate',
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY') as any,
-            disableSortBy: false,
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'created_at',
             maxWidth: 70,
         },
         {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
+            Cell: ({ cell }: any) => dayjs.tz(cell.value, 'Asia/Tashkent').format('H:mm') as any,
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
             maxWidth: 70,
+            typeProperty: 'created_at',
         },
         {
             Header: t('dashboard:type') as string,
             accessor: 'action',
             Cell: ({ cell }: any) => t(`dashboard:wallet_type.${cell.value}`),
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
             minWidth: 200,
         },
         {
@@ -148,7 +155,8 @@ export const Balance = () => {
                 return cell.value == 1 ? t('dashboard:one_coin') : `${cell.value} ${t('dashboard:coins')}`;
             },
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
             maxWidth: 100,
         },
         {
@@ -160,7 +168,8 @@ export const Balance = () => {
                 return `${t(`dashboard:wallet_info.${cell.value.toLowerCase()}`)}${val ? ` (${val})` : ''}`;
             },
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
             minWidth: 220,
         },
     ];
@@ -193,7 +202,9 @@ export const Balance = () => {
                 month={month}
                 setFiltringByDate={setFiltringByDate}
             />
-            {data?.data && <Table data={data?.data} columns={cols} isSecondType />}
+            {data?.data && (
+                <Table handleSort={handleSortProducts} enableSort data={data?.data} columns={cols} isSecondType />
+            )}
             {data?.totalPages > 1 && <Pagination pageCount={data?.totalPages} />}
 
             <BaseModal

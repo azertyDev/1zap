@@ -15,6 +15,7 @@ import { useTranslation } from 'next-i18next';
 import { IVinItem } from 'types';
 import { useRouter } from 'next/router';
 import { Pagination } from 'components/ui/pagination/Pagination';
+import { useSortDataAdminProvider } from 'src/hooks/common/useSortDataAdminProvider';
 
 export const IncominRequests = () => {
     const [data, setData] = useState<any>();
@@ -22,7 +23,7 @@ export const IncominRequests = () => {
     const {
         query: { page },
     } = useRouter();
-
+    const { sortBy, sortType, handleSortProducts } = useSortDataAdminProvider();
     const handleVinData = useCallback((data: IVinItem) => {
         return () => {
             setVinData(data);
@@ -36,14 +37,14 @@ export const IncominRequests = () => {
 
     useEffect(() => {
         vinOrderApi
-            .getAllVinByProviderCommon((page ?? '1') as string)
+            .getAllVinByProviderCommon((page ?? '1') as string, sortType, sortBy)
             .then((response) => {
                 setData(response);
             })
             .catch((err) => {
                 toast.error(t('helpers:error_getting'));
             });
-    }, [page]);
+    }, [page, sortBy, sortType]);
 
     const handleShowContacts = useCallback((id: number) => {
         return async () => {
@@ -65,21 +66,23 @@ export const IncominRequests = () => {
         };
     }, []);
 
-    const vinRequestCols: Column<any>[] = [
+    const vinRequestCols = [
         {
             Header: t('dashboard:date') as string,
             id: 'eventdate',
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YYYY') as any,
             disableFilters: true,
-            disableSortBy: false,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'created_at',
             width: 80,
         },
         {
             Header: t('dashboard:time') as string,
             id: 'eventtime',
             accessor: 'createdAt',
-            Cell: ({ cell }: any) => dayjs(cell.value).format('H:MM') as any,
+            Cell: ({ cell }: any) => dayjs.tz(cell.value, 'Asia/Tashkent').format('H:mm') as any,
             disableFilters: true,
             disableSortBy: false,
             width: 60,
@@ -107,8 +110,9 @@ export const IncominRequests = () => {
             Header: t('dashboard:status_noun') as string,
             accessor: 'status',
             Cell: ({ cell }: any) => t(`dashboard:status.${cell.value}`) as any,
-            disableSortBy: true,
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
             width: 95,
         },
         {
@@ -148,7 +152,9 @@ export const IncominRequests = () => {
                 </Link>
             </div>
 
-            {data?.data.length > 0 && <Table data={data?.data} columns={vinRequestCols} />}
+            {data?.data.length > 0 && (
+                <Table handleSort={handleSortProducts} enableSort data={data?.data} columns={vinRequestCols} />
+            )}
             {data?.totalPages > 1 && <Pagination pageCount={data.totalPages} />}
             <BaseModal
                 center

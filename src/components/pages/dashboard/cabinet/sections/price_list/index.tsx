@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import dayjs from 'dayjs';
-import { Column } from 'react-table';
 import { useCallback, useEffect, useState } from 'react';
 import { MenuItem } from '@szhsin/react-menu';
 import { Button } from 'src/components/ui/button';
@@ -24,13 +23,16 @@ import { IProviderStat } from 'types';
 import { Pagination } from 'components/ui/pagination/Pagination';
 import { client_validation } from 'src/validation/client_validation';
 import { FloatingInput } from 'components/ui/input/float_input';
+import { useSortDataAdminProvider } from 'src/hooks/common/useSortDataAdminProvider';
 
 export const PriceList = () => {
     const { t } = useTranslation();
     const { push } = useRouter();
     const { priceList, fetchPriceList, fetchProviderBranches } = useStore();
     const { open, handleModalOpen, handleModalClose } = useModal();
+    const { sortBy, sortType, handleSortProducts } = useSortDataAdminProvider();
 
+    const [trigger, setTrigger] = useState(false);
     const {
         query: { page },
     } = useRouter();
@@ -44,11 +46,11 @@ export const PriceList = () => {
                 .then((res) => setDataStat(res))
                 .catch(() => toast.error(t('helpers:error_getting')));
         })();
-    }, [priceList]);
+    }, [trigger]);
 
     useEffect(() => {
-        fetchPriceList(page as string);
-    }, [page, fetchPriceList]);
+        fetchPriceList(page as string, sortType, sortBy);
+    }, [page, fetchPriceList, sortBy, sortType]);
 
     useEffect(() => {
         fetchProviderBranches();
@@ -74,7 +76,8 @@ export const PriceList = () => {
 
     const deleteCell = (id: number) => {
         priceListApi.delete(id).then(() => {
-            fetchPriceList(page as string);
+            fetchPriceList(page as string, null, sortBy);
+            setTrigger((prev) => !prev);
             toast.success(t('helpers:deleted'));
         });
     };
@@ -88,7 +91,7 @@ export const PriceList = () => {
         </MenuItem>
     );
 
-    const priceListCols: Column<any>[] = [
+    const priceListCols = [
         {
             Header: t('dashboard:price_list_name') as string,
             accessor: 'title',
@@ -134,6 +137,9 @@ export const PriceList = () => {
             accessor: 'createdAt',
             Cell: ({ cell }: any) => dayjs(cell.value).format('DD/MM/YY') as any,
             disableFilters: true,
+            disableSortBy: true,
+            showSort: true,
+            typeProperty: 'created_at',
         },
         {
             Header: t('dashboard:action') as string,
@@ -220,7 +226,9 @@ export const PriceList = () => {
                 </FormikProvider>
             </div>
 
-            {priceList?.data?.length > 0 && <Table columns={priceListCols} data={priceList?.data} />}
+            {priceList?.data?.length > 0 && (
+                <Table handleSort={handleSortProducts} enableSort columns={priceListCols} data={priceList?.data} />
+            )}
             {priceList?.totalPages > 1 && <Pagination pageCount={priceList?.totalPages} />}
 
             <BaseModal

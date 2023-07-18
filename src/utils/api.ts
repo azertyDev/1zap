@@ -83,9 +83,10 @@ export const productsApi = {
 
 export const vinOrderApi = {
     createOrder: (data: ICreateVinOrder) => requests.post('/vin', data),
-    getAllVinByProviderCommon: (page: string): Promise<any> =>
-        requests.get(`/vinOrder/common?primary=1&repeated=1&page=${page}`),
-    getAllVinByProvider: (page: string) => requests.get(`vinOrder/all?accepted=1&completed=1&page=${page}`),
+    getAllVinByProviderCommon: (page: string, sort: string | null, by: string): Promise<any> =>
+        requests.get(`/vinOrder/common?primary=1&repeated=1&page=${page}${sort ? `&order=${sort}&by=${by}` : ''}`),
+    getAllVinByProvider: (page: string, sort: string | null, by: string) =>
+        requests.get(`vinOrder/all?accepted=1&completed=1&page=${page}${sort ? `&order=${sort}&by=${by}` : ''}`),
     acceptVinByProvider: (id: number) => requests.patch(`/vinOrder/accept/${id}`),
     completeVinByProvider: (id: number) => requests.patch(`/vinOrder/completed/${id}`),
     rejectVinByProvider: (
@@ -106,8 +107,8 @@ export const staticParamsApi = {
 };
 
 export const priceListApi = {
-    fetchPriceList: (page: number | string = 1, limit: number = 10): Promise<any> =>
-        requests.get(`/pricelist/all?page=${page}&limit=${limit}`),
+    fetchPriceList: (page: number | string = 1, limit: number = 10, sort: string | null, by: string): Promise<any> =>
+        requests.get(`/pricelist/all?page=${page}&limit=${limit}${sort ? `&created_at=${by}` : ''}`),
     delete: (id: number): Promise<any> => requests.delete(`/pricelist/${id}`),
     updatePriceListProducts: (body: any): Promise<any> =>
         requests.post(`/products/add`, body, {
@@ -176,10 +177,14 @@ export const centerApi = {
 };
 
 export const walletApi = {
-    getIncomingRequest: (page: string, date: string | null | Date, sort?: string, by?: string) =>
-        requests.get(`replenishment/incoming?page=${page}${date ? `&date=${date}` : ''}`),
-    getApprovedRequest: (page: string, date: string | null | Date) =>
-        requests.get(`replenishment/approved?page=${page}${date ? `&date=${date}` : ''}`),
+    getIncomingRequest: (page: string, date: string | null | Date, sort?: string | null, by?: string) =>
+        requests.get(
+            `replenishment/incoming?page=${page}${date ? `&date=${date}` : ''}${sort ? `&order=${sort}&by=${by}` : ''}`
+        ),
+    getApprovedRequest: (page: string, date: string | null | Date, sort?: string | null, by?: string) =>
+        requests.get(
+            `replenishment/approved?page=${page}${date ? `&date=${date}` : ''}${sort ? `&order=${sort}&by=${by}` : ''}`
+        ),
     approveRequest: (body: any) =>
         requests.post('replenishment/approved', body, {
             headers: { 'Content-Type': 'multipart/form-data' },
@@ -192,8 +197,10 @@ export const walletApi = {
         ),
     getHistoryProviderByAdmin: (id: string, page: string, date: string | null | Date) =>
         requests.get(`replenishment/usageByProviderId?providerId=${id}&page=${page}${date ? `&date=${date}` : ''}`),
-    getHistoryProvider: (page: string, date: string | null | Date) =>
-        requests.get(`wallets/usage?page=${page}${date ? `&date=${date}` : ''}`),
+    getHistoryProvider: (page: string, date: string | null | Date, sortType: string | null, by?: string) =>
+        requests.get(
+            `wallets/usage?page=${page}${date ? `&date=${date}` : ''}${sortType ? `&order=${sortType}&by=${by}` : ''}`
+        ),
     addCoins: (body: any) => requests.post('wallets/up', body),
     getProviderWalletInfo: () => requests.get('wallets/packages'),
     getProviderWalletInfoByAdmin: (id: string) => requests.get(`replenishment/packages/${id}`),
