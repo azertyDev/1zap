@@ -67,7 +67,7 @@ export const PriceCreateForm: FC<any> = (props) => {
                 .then(() => {
                     props.handleModalClose();
                     formik.resetForm();
-                    fetchPriceList();
+                    fetchPriceList('1', null, 'asc');
                     setIsSubmiting(false);
                 })
                 .catch(({ response }) => {
