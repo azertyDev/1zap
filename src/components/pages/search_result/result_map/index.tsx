@@ -62,6 +62,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
 
     const [data, setData] = useState<{ data: IProduct[]; totalPages: number } | null>(null);
 
+    console.log(price);
     useEffect(() => {
         (async () => {
             await productsApi
@@ -105,19 +106,27 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
 
     const sortByPrice = useCallback((by: string) => {
         return () => {
-            push({
-                pathname: pathname,
-                query: { ...query, page: 1, price: by, availability: '' },
-            });
+            push(
+                {
+                    pathname: pathname,
+                    query: { ...query, price: by, availability: '' },
+                },
+                undefined,
+                { scroll: false }
+            );
         };
     }, []);
 
     const sortByAvailability = useCallback((by: string) => {
         return () => {
-            push({
-                pathname: pathname,
-                query: { ...query, page: 1, availability: by, price: '' },
-            });
+            push(
+                {
+                    pathname: pathname,
+                    query: { ...query, availability: by, price: '' },
+                },
+                undefined,
+                { scroll: false }
+            );
         };
     }, []);
 

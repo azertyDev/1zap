@@ -21,20 +21,20 @@
 
   div {
     position: absolute;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
 
+
     &:first-child {
       left: 0;
       top: -12px;
-
     }
 
     &:last-child {
-      top: -2px;
+      top: 2px;
       left: 0;
     }
   }

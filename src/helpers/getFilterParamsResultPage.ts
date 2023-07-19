@@ -6,7 +6,7 @@ export const getFilterParamsResultPage = (
     shipment: string,
     updates: string,
     isOrigin: string,
-    price: string,
+    price: string = 'asc',
     availability: string
 ) => {
     const formatQuery = (param: string, val: string) => {

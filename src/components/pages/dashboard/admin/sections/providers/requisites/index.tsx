@@ -18,14 +18,7 @@ export const RequisitesEditProvider = () => {
         query: { id },
     } = useRouter();
 
-    const [data, setData] = useState<{
-        fullName: string;
-        legalAddress: string;
-        phone: string;
-        email: string;
-        inn: string;
-        dealNumber: string;
-    } | null>(null);
+    const [data, setData] = useState<any>(null);
 
     useEffect(() => {
         providerApi
@@ -41,7 +34,9 @@ export const RequisitesEditProvider = () => {
         email: data?.email ?? '',
         inn: data?.inn ?? '',
         dealNumber: data?.dealNumber ?? '',
+        companyName: data?.companyName ?? '',
     };
+    console.log(data);
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
         providerApi
@@ -81,6 +76,14 @@ export const RequisitesEditProvider = () => {
                                 label="dashboard:phone"
                                 iconname=""
                                 {...formik.getFieldProps('phone')}
+                            />
+                        </div>
+
+                        <div className={s.row}>
+                            <StandartInput
+                                disabled
+                                label="dashboard:companyName"
+                                {...formik.getFieldProps('companyName')}
                             />
                         </div>
 

@@ -19,14 +19,7 @@ const Requisites = (props: any) => {
     const { userData } = useStore();
     const { push } = useRouter();
 
-    const [data, setData] = useState<{
-        fullName: string;
-        legalAddress: string;
-        phone: string;
-        email: string;
-        inn: string;
-        dealNumber: string;
-    } | null>(null);
+    const [data, setData] = useState<any>(null);
 
     useEffect(() => {
         providerApi
@@ -42,11 +35,16 @@ const Requisites = (props: any) => {
         email: data?.email ?? '',
         inn: data?.inn ?? '',
         dealNumber: data?.dealNumber ?? '',
+        companyName: data?.companyName ?? '',
     };
 
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
         await providerApi
-            .updateProviderPhone(userData?.user?.id!, { phone: checkPhone(values.phone) as any, email: values.email })
+            .updateProviderPhone(userData?.user?.id!, {
+                phone: checkPhone(values.phone) as any,
+                email: values.email,
+                companyName: values.companyName,
+            })
             .then(() => push('/cabinet/main'))
             .catch((err) => {
                 if (err.response.data.error === 'user allready exist') {
@@ -95,6 +93,9 @@ const Requisites = (props: any) => {
                                 iconname=""
                                 {...formik.getFieldProps('phone')}
                             />
+                        </div>
+                        <div className={s.row}>
+                            <StandartInput label="dashboard:companyName" {...formik.getFieldProps('companyName')} />
                         </div>
 
                         <div className={s.actionButtons}>

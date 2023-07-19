@@ -32,10 +32,10 @@ export const ResultTableForm: FC<{
                                 <div className={s.filter_price_wr}>
                                     <div className={s.filter_price_buttons}>
                                         <div onClick={sortByPrice('asc')}>
-                                            <Icon name={'expand_less'} size={18} color={'#9A9EA7'} />
+                                            <Icon name={'expand_less'} size={20} color={'#9A9EA7'} />
                                         </div>
                                         <div onClick={sortByPrice('desc')}>
-                                            <Icon name={'expand_more'} size={18} color={'#9A9EA7'} />
+                                            <Icon name={'expand_more'} size={20} color={'#9A9EA7'} />
                                         </div>
                                     </div>
                                     <p> {t('common:selects.price')}</p>
@@ -79,7 +79,7 @@ export const ResultTableForm: FC<{
                                 <h5>
                                     {currency === 'usd'
                                         ? `$${formatNumber(item.usd)}`
-                                        : `${formatNumber(item.sum)} ${t('common:sum')}`}
+                                        : `${formatNumber(parseInt(item.sum))} ${t('common:sum')}`}
                                 </h5>
                                 <p>{item.rtext}</p>
                             </TableElement>

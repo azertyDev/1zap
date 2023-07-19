@@ -22,7 +22,7 @@ export const ResultTableFormResp: FC<{ data: IProduct[] }> = ({ data }): JSX.Ele
                                 <p className={s.titles_small}>
                                     {currency === 'usd'
                                         ? `$${formatNumber(item.usd)}`
-                                        : `${formatNumber(item.sum)} ${t('common:sum')}`}
+                                        : `${formatNumber(parseInt(`${item.sum}`))} ${t('common:sum')}`}
                                 </p>
                                 <p className={s.titles_small}>
                                     {formatNumber(item.availability)} {t('common:howmany')}
