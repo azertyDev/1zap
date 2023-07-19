@@ -11,7 +11,6 @@ import { maptiler } from 'pigeon-maps/providers';
 import { ZoomControl } from 'src/components/ui/map/map_controls/zoom';
 import { staticParamsApi } from 'src/utils/api';
 import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
-import { providerValues } from './initialValues';
 import { IBranchData, IImage } from 'types';
 import { useTranslation } from 'next-i18next';
 import s from '../index.module.scss';

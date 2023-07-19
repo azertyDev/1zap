@@ -2,19 +2,19 @@ import { FC, useState } from 'react';
 import { Heading } from 'src/components/ui/dashboard/heading';
 import { FirstForm } from './first_form';
 import { SecondForm } from './second_form';
-import { providerValues } from './first_form/initialValues';
-import { IProviderData } from 'types';
+import { providerValuesSecond } from './first_form/initialValues';
 import { useTranslation } from 'next-i18next';
 import s from './index.module.scss';
 
 export const CreateProvider: FC<any> = () => {
     const [tab, setTab] = useState(1);
-    const [initialValues, setInitialValues] = useState<IProviderData>({ ...providerValues });
     const { t } = useTranslation();
 
     const handleTabChange = (value: number) => {
         setTab(value);
     };
+
+    const [branches, setBranches] = useState(providerValuesSecond);
 
     return (
         <div className={s.wrapper}>
@@ -22,17 +22,9 @@ export const CreateProvider: FC<any> = () => {
             <div className={s.tabs}>
                 <div className={s.tab}>
                     {tab === 1 ? (
-                        <FirstForm
-                            initialValues={initialValues}
-                            setInitialValues={setInitialValues}
-                            handleTabChange={handleTabChange}
-                        />
+                        <FirstForm branches={branches} setBranches={setBranches} handleTabChange={handleTabChange} />
                     ) : tab === 2 ? (
-                        <SecondForm
-                            initialValues={initialValues}
-                            setInitialValues={setInitialValues}
-                            handleTabChange={handleTabChange}
-                        />
+                        <SecondForm branches={branches} handleTabChange={handleTabChange} setBranches={setBranches} />
                     ) : null}
                 </div>
             </div>

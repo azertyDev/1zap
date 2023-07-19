@@ -17,7 +17,9 @@ export const useImageUpload = (props: FileUploaderProps) => {
     const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
         let formData = new FormData();
         formData.append('image', event.target.files![0]);
-
+        toast.success(t('file_uploading'), {
+            duration: 5000,
+        });
         await imageApi
             .upload(formData, {
                 headers: {

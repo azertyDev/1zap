@@ -26,5 +26,6 @@
     "allFields": "Maʼlumotlarni yuborishda xatolik yuz berdi (barcha maydonlar toʻldirilganligini tekshiring!)",
     "can_accept": "Provayder boshqa so'rovlarni qabul qila olmaydi!",
     "to_home": "Parol o'zgartirildi, asosiy sahifaga yo'naltirilmoqda!",
-    "match_password": "Parollar mos kelmayapti!"
+    "match_password": "Parollar mos kelmayapti!",
+    "file_uploading": "Fayl yuklanmoqda..."
 }

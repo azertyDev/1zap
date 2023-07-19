@@ -1,7 +1,6 @@
-import * as Yup from 'yup';
 import Router, { useRouter } from 'next/router';
 import { Button } from 'src/components/ui/button';
-import { Dispatch, FC, SetStateAction, useEffect } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { FloatingInput } from 'src/components/ui/input/float_input';
 import { StandartInput } from 'src/components/ui/input/standart_input';
 import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
@@ -11,14 +10,15 @@ import { useTranslation } from 'next-i18next';
 import { providerApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { client_validation } from 'src/validation/client_validation';
+import { providerValuesFirst } from 'components/pages/dashboard/admin/sections/providers/create/first_form/initialValues';
 
 interface SecondFormProps {
-    initialValues: IProviderData;
-    setInitialValues: Dispatch<SetStateAction<IProviderData>>;
+    branches: any;
+    setBranches: Dispatch<SetStateAction<any>>;
     handleTabChange: (value: number) => void;
 }
 
-export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValues, handleTabChange }) => {
+export const SecondForm: FC<SecondFormProps> = ({ branches, setBranches, handleTabChange }) => {
     const { t } = useTranslation();
     const coinsData = [
         {
@@ -51,10 +51,11 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
         formik.setFieldValue('coin', value);
     };
 
-    const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
-        const { coin, applicationId, phone, providerBranch, ...rest } = values;
+    console.log(branches.providerBranch);
+    const onSubmit = async (values: FormikValues, {}: FormikHelpers<any>) => {
+        const { coin, applicationId, phone, ...rest } = values;
 
-        const branch = providerBranch.map((branch: IBranchData) => {
+        const branch = branches.providerBranch.map((branch: IBranchData) => {
             const { phone, ...all } = branch;
             return { phone: phone.replaceAll(' ', ''), ...all };
         });
@@ -66,7 +67,7 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
             providerBranch: branch,
             ...rest,
         };
-
+        console.log(data);
         await providerApi
             .addProvider(data)
             .then(() => {
@@ -83,15 +84,11 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
     };
 
     const formik = useFormik({
-        initialValues,
+        initialValues: providerValuesFirst,
         onSubmit,
         enableReinitialize: true,
         validationSchema: client_validation.create_provider,
     });
-
-    useEffect(() => {
-        setInitialValues(formik.values);
-    }, [formik.values, setInitialValues]);
 
     return (
         <FormikProvider value={formik}>
@@ -139,13 +136,21 @@ export const SecondForm: FC<SecondFormProps> = ({ initialValues, setInitialValue
                 </div>
 
                 <div className={s.actionButtons}>
-                    <Button variant="disabled" type="reset" onClick={() => handleTabChange(1)}>
+                    <Button
+                        variant="disabled"
+                        type="reset"
+                        onClick={() => {
+                            handleTabChange(1);
+                            setBranches(branches);
+                        }}
+                    >
                         {t('dashboard:back')}
                     </Button>
                     <Button
                         type="submit"
                         disabled={!(formik.dirty || formik.isValid || formik.isSubmitting)}
                         variant={!(formik.dirty || formik.isValid) ? 'disabled' : 'primary'}
+                        disabledPointer={formik.isSubmitting}
                     >
                         {t('dashboard:ready')}
                     </Button>

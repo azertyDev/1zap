@@ -1,6 +1,6 @@
 import { IProviderData } from 'types';
 
-export const providerValues: IProviderData = {
+export const providerValuesFirst: IProviderData = {
     legalAddress: '',
     phone: '',
     fullName: '',
@@ -9,6 +9,9 @@ export const providerValues: IProviderData = {
     inn: '',
     coin: 0,
     dealNumber: '',
+};
+
+export const providerValuesSecond = {
     providerBranch: [
         {
             branchName: '',

@@ -11,23 +11,18 @@ import { useRouter } from 'next/router';
 import { client_validation } from 'src/validation/client_validation';
 
 interface FirstFormProps {
-    initialValues: IProviderData;
-    setInitialValues: Dispatch<SetStateAction<IProviderData>>;
+    branches: any;
+    setBranches: Dispatch<SetStateAction<any>>;
     handleTabChange: (value: number) => void;
 }
 
-export const FirstForm: FC<FirstFormProps> = ({ initialValues, setInitialValues, handleTabChange }) => {
+export const FirstForm: FC<FirstFormProps> = ({ setBranches, branches, handleTabChange }) => {
     const { t } = useTranslation();
-
     const { push } = useRouter();
 
-    const onSubmit = async (values: FormikValues, {}: FormikHelpers<typeof initialValues>) => {
-        return values;
-    };
-
     const formik = useFormik({
-        onSubmit,
-        initialValues: initialValues,
+        onSubmit(val) {},
+        initialValues: branches,
         enableReinitialize: true,
         validateOnMount: true,
         validationSchema: client_validation.create_provider_branch,
@@ -36,12 +31,9 @@ export const FirstForm: FC<FirstFormProps> = ({ initialValues, setInitialValues,
     const handleButtonClick = () => {
         if (!formik.errors || formik.isValid) {
             handleTabChange(2);
+            setBranches(formik.values);
         }
     };
-
-    useEffect(() => {
-        setInitialValues(formik.values);
-    }, [formik.values, setInitialValues]);
 
     return (
         <FormikProvider value={formik}>
