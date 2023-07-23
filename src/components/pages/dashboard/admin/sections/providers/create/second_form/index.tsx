@@ -67,7 +67,7 @@ export const SecondForm: FC<SecondFormProps> = ({ branches, setBranches, handleT
             providerBranch: branch,
             ...rest,
         };
-        console.log(data);
+
         await providerApi
             .addProvider(data)
             .then(() => {

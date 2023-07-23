@@ -96,12 +96,12 @@ export const Oil: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = 
                             <TableElement className={'table_h'}>{t('common:selects.photo')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.typeAndStick')}</TableElement>
                             <TableElement className={'table_h'}>
-                                <div className={s.filter_price_wr}>
+                                <div className={s.filter_price_wr} onClick={sortByAverage}>
                                     <div className={s.filter_price_buttons}>
-                                        <div onClick={sortByAverage('asc')}>
+                                        <div>
                                             <Icon name={'expand_less'} size={18} color={'#9A9EA7'} />
                                         </div>
-                                        <div onClick={sortByAverage('desc')}>
+                                        <div>
                                             <Icon name={'expand_more'} size={18} color={'#9A9EA7'} />
                                         </div>
                                     </div>

@@ -104,31 +104,22 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
         [query]
     );
 
-    const sortByPrice = useCallback((by: string) => {
-        return () => {
-            push(
-                {
-                    pathname: pathname,
-                    query: { ...query, price: by, availability: '' },
-                },
-                undefined,
-                { scroll: false }
-            );
-        };
-    }, []);
-
-    const sortByAvailability = useCallback((by: string) => {
-        return () => {
-            push(
-                {
-                    pathname: pathname,
-                    query: { ...query, availability: by, price: '' },
-                },
-                undefined,
-                { scroll: false }
-            );
-        };
-    }, []);
+    const sortByPriceAndAval = useCallback(
+        (filterBy: string, filterText: string, removeFilter: string) => {
+            return () => {
+                const by = filterBy ? (filterBy === 'asc' ? 'desc' : 'asc') : 'desc';
+                push(
+                    {
+                        pathname: pathname,
+                        query: { ...query, [filterText]: by, [removeFilter]: '' },
+                    },
+                    undefined,
+                    { scroll: false }
+                );
+            };
+        },
+        [query]
+    );
 
     return (
         <div>
@@ -201,24 +192,30 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                     <div className={`${s.search} ${mapIsOpen ? s.notActive : ''}`}>
                         <InputSearch />
                         <div className={s.filter_for_respon}>
-                            <button className={s.filter_btn}>
+                            <button
+                                className={s.filter_btn}
+                                onClick={sortByPriceAndAval(price as string, 'price', 'availability')}
+                            >
                                 <p> {t('common:selects:price')}</p>
                                 <span className={s.filter_price_buttons}>
-                                    <span onClick={sortByPrice('asc')}>
+                                    <span>
                                         <Icon name={'expand_less'} size={16} color={'#9A9EA7'} />
                                     </span>
-                                    <span onClick={sortByPrice('desc')}>
+                                    <span>
                                         <Icon name={'expand_more'} size={16} color={'#9A9EA7'} />
                                     </span>
                                 </span>
                             </button>
-                            <button className={s.filter_btn}>
+                            <button
+                                className={s.filter_btn}
+                                onClick={sortByPriceAndAval(availability as string, 'availability', 'price')}
+                            >
                                 <p>{t('common:selects:howmany')}</p>
                                 <span className={s.filter_price_buttons}>
-                                    <span onClick={sortByAvailability('asc')}>
+                                    <span>
                                         <Icon name={'expand_less'} size={16} color={'#9A9EA7'} />
                                     </span>
-                                    <span onClick={sortByAvailability('desc')}>
+                                    <span>
                                         <Icon name={'expand_more'} size={16} color={'#9A9EA7'} />
                                     </span>
                                 </span>
@@ -258,7 +255,9 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                             </FilterSelections>
                         </div>
                     </div>
-                    {data && data.data.length > 0 && <ResultTableForm sortByPrice={sortByPrice} data={data.data} />}
+                    {data && data.data.length > 0 && (
+                        <ResultTableForm sortByPrice={sortByPriceAndAval} data={data.data} />
+                    )}
                     {data && data.data.length > 0 && <ResultTableFormResp data={data.data} />}
 
                     {data && data.data.length > 0 && <Pagination pageCount={data.totalPages} />}

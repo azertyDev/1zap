@@ -1,11 +1,9 @@
 import s from './index.module.scss';
-
 import { Title } from 'components/ui/title';
 import { SearchTabs } from 'components/ui/search/tabs';
 import { InputSelectWrTabs } from 'components/ui/input/input_filter_wr_tabs';
 import { useHandleActivetTabHome } from 'src/hooks/search_home/useHandleActivetTabHome';
 import { useTranslation } from 'next-i18next';
-
 import { FilterResponsive } from 'components/ui/filter/filter_responsive';
 import { FilterSelections } from 'components/ui/filter/filter_selections';
 import { filterTitles } from 'src/constants/filterTitles';
@@ -15,7 +13,7 @@ import { useFilter } from 'src/hooks/common/useFilter';
 import { useFilterTabs } from 'src/hooks/common/useFilterTabs';
 import { useRouter } from 'next/router';
 import { tabsValue } from 'src/constants/tabsValue';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { TableRow } from 'components/ui/table/table_row';
 import { TableElement } from 'components/ui/table/table_element';
 import Image from 'next/image';
@@ -94,12 +92,12 @@ export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }
                             <TableElement className={'table_h'}>{t('common:selects.photo')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.params')}</TableElement>
                             <TableElement className={'table_h'}>
-                                <div className={s.filter_price_wr}>
+                                <div className={s.filter_price_wr} onClick={sortByAverage}>
                                     <div className={s.filter_price_buttons}>
-                                        <div onClick={sortByAverage('asc')}>
+                                        <div>
                                             <Icon name={'expand_less'} size={18} color={'#9A9EA7'} />
                                         </div>
-                                        <div onClick={sortByAverage('desc')}>
+                                        <div>
                                             <Icon name={'expand_more'} size={18} color={'#9A9EA7'} />
                                         </div>
                                     </div>

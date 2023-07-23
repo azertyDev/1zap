@@ -1,5 +1,4 @@
 import { FC, useCallback } from 'react';
-
 import s from './index.module.scss';
 import { useTranslation } from 'next-i18next';
 import { TableRow } from 'components/ui/table/table_row';
@@ -12,11 +11,15 @@ import { useRouter } from 'next/router';
 
 export const ResultTableForm: FC<{
     data: IProduct[];
-    sortByPrice: (by: string) => () => void;
+    sortByPrice: (filterBy: string, filterText: string, removeFilter: string) => () => void;
 }> = ({ data, sortByPrice }): JSX.Element => {
     const { t } = useTranslation();
     const { toggleBookDetail } = useStore((state) => state);
     const { currency } = useStore((state) => state);
+
+    const {
+        query: { price },
+    } = useRouter();
 
     return (
         <div>
@@ -29,12 +32,15 @@ export const ResultTableForm: FC<{
                             <TableElement className={'table_h'}>{t('common:selects.nameProduct')}</TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.howmany')}</TableElement>
                             <TableElement className={'table_h'}>
-                                <div className={s.filter_price_wr}>
+                                <div
+                                    className={s.filter_price_wr}
+                                    onClick={sortByPrice(price as string, 'price', 'availability')}
+                                >
                                     <div className={s.filter_price_buttons}>
-                                        <div onClick={sortByPrice('asc')}>
+                                        <div>
                                             <Icon name={'expand_less'} size={20} color={'#9A9EA7'} />
                                         </div>
-                                        <div onClick={sortByPrice('desc')}>
+                                        <div>
                                             <Icon name={'expand_more'} size={20} color={'#9A9EA7'} />
                                         </div>
                                     </div>

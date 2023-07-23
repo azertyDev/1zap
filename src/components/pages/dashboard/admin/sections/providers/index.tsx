@@ -209,8 +209,6 @@ export const Providers: FC = (props): JSX.Element => {
     return (
         <div>
             <StatisticsBlock data={data} title={<h4>{t('dashboard:current_res')}</h4>} />
-            {sortByProvider}
-            {sortTypeProvider}
             {applications?.data && (
                 <Table
                     handleSort={handleSortProducts}

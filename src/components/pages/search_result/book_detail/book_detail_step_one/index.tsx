@@ -48,6 +48,7 @@ export const BookDetailStepOne: FC<{
         })();
     }, [branchId, productId]);
 
+    console.log(branch);
     return (
         <div className={s.book_inner}>
             <div className={s.close_res}>
@@ -69,7 +70,7 @@ export const BookDetailStepOne: FC<{
                         <div className={s.book_inner_top_titles}>
                             <div>
                                 <h4 className={s.title}>{branch.branchName}</h4>
-                                <h5 className={s.subtitle}>{branch.landmark}</h5>
+                                <h5 className={s.subtitle}>{branch.phisicalAddress}</h5>
                             </div>
                             <div onClick={toggleBookDetail(false)} className={s.book_inner_top_titles_close}>
                                 <Icon size={20} name={'close'} />
