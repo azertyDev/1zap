@@ -84,7 +84,9 @@ export const BookDetailStepOne: FC<{
                                     <p>{t('contacts')}</p>
                                 </div>
                                 <div className={s.detail_content}>
-                                    <p>{formatPhoneToClient(branch.phone)}</p>
+                                    {branch.phones.map((phone) => (
+                                        <p key={phone.number}>{formatPhoneToClient(phone.number)}</p>
+                                    ))}
                                 </div>
                             </div>
 
@@ -110,21 +112,20 @@ export const BookDetailStepOne: FC<{
                                 </div>
                                 <div className={s.detail_content}>
                                     <div>
-                                        <p>{t('common:workingScheduleText')}:</p>
                                         <p>
-                                            {branch.workingSchedule} ({t('common:break')}{' '}
-                                            {branch.breakTime === 'without_break'
-                                                ? t('without_break')
-                                                : branch.breakTime}
-                                            )
+                                            {t(`common:selects.${branch.workingDays}`)} {branch.workingSchedule}
                                         </p>
+                                        {branch.weekend !== 'sat-sun' && (
+                                            <p>
+                                                {t(`common:selects.${branch.weekendDays}`)} {branch.workingSchedule}
+                                            </p>
+                                        )}
                                     </div>
                                     <div className={s.detail_border_wr}>
-                                        <p>{t('common:weekendSchedule')}:</p>
                                         <p>
-                                            {t(`common:weekend.${branch.weekend}`)}
-                                            {branch.weekend === 'without_weekend' && `(${branch.weekendSchedule})`}
+                                            {t('common:break')} {`${branch.weekendSchedule}`}
                                         </p>
+                                        <p>{t(`common:weekend.${branch.weekend}`)}</p>
                                     </div>
 
                                     <p>{t('infoonezap')}</p>

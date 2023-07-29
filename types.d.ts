@@ -102,6 +102,8 @@ interface IBranchData {
     service: IMethod[];
     clientType: IMethod[];
     images: IImage[];
+    workingDays: string;
+    weekendDays: string;
 }
 
 interface IProduct {
