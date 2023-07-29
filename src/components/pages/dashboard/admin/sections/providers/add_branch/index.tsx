@@ -101,12 +101,55 @@ export const AddProviderBranch = () => {
                                     label="dashboard:providerBranch.managerName"
                                     {...formik.getFieldProps(`managerName`)}
                                 />
-                                <StandartInput
-                                    isPhone
-                                    label="dashboard:providerBranch.phone"
-                                    {...formik.getFieldProps(`phone`)}
-                                    setFieldValue={formik.setFieldValue}
-                                />
+
+                                <div>
+                                    <FieldArray
+                                        name="phones"
+                                        render={(helperProps) => {
+                                            return formik.values.phones && formik.values.phones.length ? (
+                                                formik.values.phones?.map((phone: any, i: number) => {
+                                                    return (
+                                                        <div key={i}>
+                                                            <StandartInput
+                                                                isPhone
+                                                                label="dashboard:providerBranch.phone"
+                                                                {...formik.getFieldProps(`phones[${i}].number`)}
+                                                                setFieldValue={formik.setFieldValue}
+                                                            />
+
+                                                            {formik?.values?.phones?.length > 0 && (
+                                                                <div className={s.actionButtons}>
+                                                                    <span
+                                                                        onClick={() => {
+                                                                            helperProps.push({ number: '' });
+                                                                        }}
+                                                                    >
+                                                                        <Icon name="add_circle" size={18} />
+                                                                        {t('dashboard:add')}
+                                                                    </span>
+                                                                    <span onClick={() => helperProps.remove(i)}>
+                                                                        <Icon name="delete" size={18} />
+                                                                        {t('dashboard:delete')}
+                                                                    </span>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    );
+                                                })
+                                            ) : (
+                                                <div className={s.actionButtons}>
+                                                    <span
+                                                        onClick={() => helperProps.push({ number: '' })}
+                                                        style={{ whiteSpace: 'nowrap' }}
+                                                    >
+                                                        <Icon name="add_circle" size={18} />
+                                                        {t('dashboard:additional_phone')}
+                                                    </span>
+                                                </div>
+                                            );
+                                        }}
+                                    />
+                                </div>
                             </div>
 
                             <div className={s.block}>

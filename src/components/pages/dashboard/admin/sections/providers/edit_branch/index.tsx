@@ -27,6 +27,7 @@ export const EditBranchByProvider = () => {
     const {
         query: { id },
         push,
+        back,
     } = useRouter();
 
     const [params, setParams] = useState<any>();
@@ -75,7 +76,8 @@ export const EditBranchByProvider = () => {
                 toast.success(t('dashboard:branch_changed'), {
                     duration: 5000,
                 });
-                push(`/dashboard/providers/branch?id=${id}`);
+
+                back();
             })
             .catch(() => toast.error(t('helpers:error_sending')));
     };
@@ -108,31 +110,76 @@ export const EditBranchByProvider = () => {
                                         label="dashboard:providerBranch.managerName"
                                         {...formik.getFieldProps(`managerName`)}
                                     />
-                                    <StandartInput
-                                        isPhone
-                                        label="dashboard:providerBranch.phone"
-                                        {...formik.getFieldProps(`phone`)}
-                                        setFieldValue={formik.setFieldValue}
-                                    />
+
+                                    <div>
+                                        <FieldArray
+                                            name="phones"
+                                            render={(helperProps) => {
+                                                return formik.values.phones && formik.values.phones.length ? (
+                                                    formik.values.phones?.map((phone: any, i: number) => {
+                                                        return (
+                                                            <div key={i}>
+                                                                <StandartInput
+                                                                    isPhone
+                                                                    label="dashboard:providerBranch.phone"
+                                                                    {...formik.getFieldProps(`phones[${i}].number`)}
+                                                                    setFieldValue={formik.setFieldValue}
+                                                                />
+
+                                                                {formik?.values?.phones?.length > 0 && (
+                                                                    <div className={s.actionButtons}>
+                                                                        <span
+                                                                            onClick={() => {
+                                                                                helperProps.push({ number: '' });
+                                                                            }}
+                                                                        >
+                                                                            <Icon name="add_circle" size={18} />
+                                                                            {t('dashboard:add')}
+                                                                        </span>
+                                                                        <span onClick={() => helperProps.remove(i)}>
+                                                                            <Icon name="delete" size={18} />
+                                                                            {t('dashboard:delete')}
+                                                                        </span>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        );
+                                                    })
+                                                ) : (
+                                                    <div className={s.actionButtons}>
+                                                        <span
+                                                            onClick={() => helperProps.push({ number: '' })}
+                                                            style={{ whiteSpace: 'nowrap' }}
+                                                        >
+                                                            <Icon name="add_circle" size={18} />
+                                                            {t('dashboard:additional_phone')}
+                                                        </span>
+                                                    </div>
+                                                );
+                                            }}
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className={s.block}>
                                     {!!branch?.location && (
                                         <>
-                                            <Map
-                                                provider={maptilerProvider}
-                                                dprs={[1, 2]}
-                                                defaultCenter={JSON.parse(branch?.location)}
-                                                defaultZoom={15}
-                                                // metaWheelZoom
-                                                onClick={(event) => handleMap(event, `location`)}
-                                            >
-                                                <Marker anchor={location}>
-                                                    <Icon name="location_on" size={30} color="#C6303C" />
-                                                </Marker>
+                                            <div style={{ height: '100%', maxHeight: '245px' }}>
+                                                <Map
+                                                    provider={maptilerProvider}
+                                                    dprs={[1, 2]}
+                                                    defaultCenter={JSON.parse(branch?.location)}
+                                                    defaultZoom={15}
+                                                    // metaWheelZoom
+                                                    onClick={(event) => handleMap(event, `location`)}
+                                                >
+                                                    <Marker anchor={location}>
+                                                        <Icon name="location_on" size={30} color="#C6303C" />
+                                                    </Marker>
 
-                                                <ZoomControl />
-                                            </Map>
+                                                    <ZoomControl />
+                                                </Map>
+                                            </div>
 
                                             <StandartInput
                                                 label="dashboard:providerBranch.landmark"

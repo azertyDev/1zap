@@ -18,8 +18,8 @@ import { ImageUpload } from 'src/components/ui/upload/image';
 import { IImage } from 'types';
 import { useTranslation } from 'next-i18next';
 import { toast } from 'react-hot-toast';
-import s from '../../../index.module.scss';
 import { checkPhone } from 'src/helpers/checkPhone';
+import s from '../../../index.module.scss';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
@@ -112,31 +112,76 @@ export const EditForm = () => {
                                         label="dashboard:providerBranch.managerName"
                                         {...formik.getFieldProps(`managerName`)}
                                     />
-                                    <StandartInput
-                                        isPhone
-                                        label="dashboard:providerBranch.phone"
-                                        {...formik.getFieldProps(`phone`)}
-                                        setFieldValue={formik.setFieldValue}
-                                    />
+
+                                    <div className={s.phoneBlock}>
+                                        <FieldArray
+                                            name="phones"
+                                            render={(helperProps) => {
+                                                return formik.values.phones && formik.values.phones.length ? (
+                                                    formik.values.phones?.map((phone: any, i: number) => {
+                                                        return (
+                                                            <div key={i}>
+                                                                <StandartInput
+                                                                    isPhone
+                                                                    label="dashboard:providerBranch.phone"
+                                                                    {...formik.getFieldProps(`phones[${i}].number`)}
+                                                                    setFieldValue={formik.setFieldValue}
+                                                                />
+
+                                                                {formik?.values?.phones?.length > 0 && (
+                                                                    <div className={s.actionButtons}>
+                                                                        <span
+                                                                            onClick={() => {
+                                                                                helperProps.push({ number: '' });
+                                                                            }}
+                                                                        >
+                                                                            <Icon name="add_circle" size={18} />
+                                                                            {t('dashboard:add')}
+                                                                        </span>
+                                                                        <span onClick={() => helperProps.remove(i)}>
+                                                                            <Icon name="delete" size={18} />
+                                                                            {t('dashboard:delete')}
+                                                                        </span>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        );
+                                                    })
+                                                ) : (
+                                                    <div className={s.actionButtons}>
+                                                        <span
+                                                            onClick={() => helperProps.push({ number: '' })}
+                                                            style={{ whiteSpace: 'nowrap' }}
+                                                        >
+                                                            <Icon name="add_circle" size={18} />
+                                                            {t('dashboard:additional_phone')}
+                                                        </span>
+                                                    </div>
+                                                );
+                                            }}
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className={`${s.block} ${s.block_map_edit}`}>
                                     {!!branch?.location && (
                                         <>
-                                            <Map
-                                                provider={maptilerProvider}
-                                                dprs={[1, 2]}
-                                                defaultCenter={JSON.parse(branch?.location)}
-                                                defaultZoom={15}
-                                                // metaWheelZoom
-                                                onClick={(event) => handleMap(event, `location`)}
-                                            >
-                                                <Marker anchor={location}>
-                                                    <Icon name="location_on" size={30} color="#C6303C" />
-                                                </Marker>
+                                            <div style={{ height: '100%', maxHeight: '245px' }}>
+                                                <Map
+                                                    provider={maptilerProvider}
+                                                    dprs={[1, 2]}
+                                                    defaultCenter={JSON.parse(branch?.location)}
+                                                    defaultZoom={15}
+                                                    // metaWheelZoom
+                                                    onClick={(event) => handleMap(event, `location`)}
+                                                >
+                                                    <Marker anchor={location}>
+                                                        <Icon name="location_on" size={30} color="#C6303C" />
+                                                    </Marker>
 
-                                                <ZoomControl />
-                                            </Map>
+                                                    <ZoomControl />
+                                                </Map>
+                                            </div>
 
                                             <StandartInput
                                                 disabled
@@ -180,8 +225,8 @@ export const EditForm = () => {
 
                                             <Field
                                                 component={SelectField}
-                                                name={`weekendSchedule`}
-                                                label="dashboard:providerBranch.weekendSchedule"
+                                                name={`workingSchedule`}
+                                                label="dashboard:providerBranch.workingSchedule"
                                                 options={params ? params.weekendSchedule : defaultOptions}
                                             />
                                         </div>
@@ -194,6 +239,7 @@ export const EditForm = () => {
                                                     params ? transformSelectOptions(params.weekendDays) : defaultOptions
                                                 }
                                             />
+
                                             <Field
                                                 component={SelectField}
                                                 name={`weekendSchedule`}
