@@ -134,9 +134,23 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
                                 <div className={`${s.row} ${s.gap_30}`}>
                                     <Field
                                         component={SelectField}
+                                        name={`providerBranch[${index}].workingDays`}
+                                        label="dashboard:workingDays"
+                                        options={params ? transformSelectOptions(params.workingDays) : defaultOptions}
+                                    />
+                                    <Field
+                                        component={SelectField}
                                         name={`providerBranch[${index}].workingSchedule`}
                                         label="dashboard:providerBranch.workingSchedule"
                                         options={params ? params.workingSchedule : defaultOptions}
+                                    />
+                                </div>
+                                <div className={`${s.row} ${s.gap_30}`}>
+                                    <Field
+                                        component={SelectField}
+                                        name={`providerBranch[${index}].weekendDays`}
+                                        label="dashboard:weekendDays"
+                                        options={params ? transformSelectOptions(params.weekendDays) : defaultOptions}
                                     />
                                     <Field
                                         component={SelectField}
@@ -292,6 +306,7 @@ export const DynamicForm: FC<any> = (props: FieldArrayRenderProps) => {
 
                     <div className={s.actionButtons}>
                         {/*@ts-ignore*/}
+
                         <span onClick={() => rest.push({ ...providerValues?.providerBranch[0] })}>
                             <Icon name="add_circle" size={18} />
                             {t('dashboard:add_branch')}

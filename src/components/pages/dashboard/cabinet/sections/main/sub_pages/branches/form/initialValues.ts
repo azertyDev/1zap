@@ -11,6 +11,8 @@ export const initialValues = {
     weekendSchedule: '',
     weekend: '',
     breakTime: '',
+    weekendDays: '',
+    workingDays: '',
     payment: [
         {
             method: 'cash',

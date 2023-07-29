@@ -1,13 +1,16 @@
 {
   "about_us": "О нас",
   "about_company": "О компании",
-  "how_works": "Как это работает ?",
+  "how_works": "Как это работает?",
   "work": "Работа",
   "contacts": "Контакты",
   "become_team": "Станьте частью нашей команды!",
-  "connect_us": "Свяжитесь с нашей командой",
+  "connect_us": "Свяжитесь с нашей командой:",
   "phone": "Телефон",
   "telegram": "Telegram",
   "email": "Почта",
   "insta": "Instagram"
 }
+
+
+

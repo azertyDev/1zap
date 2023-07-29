@@ -171,9 +171,28 @@ export const EditForm = () => {
                                         <div className={`${s.row} ${s.gap_30}`}>
                                             <Field
                                                 component={SelectField}
-                                                name={`workingSchedule`}
-                                                label="dashboard:providerBranch.workingSchedule"
-                                                options={params ? params.workingSchedule : defaultOptions}
+                                                name={`workingDays`}
+                                                label="dashboard:workingDays"
+                                                options={
+                                                    params ? transformSelectOptions(params.workingDays) : defaultOptions
+                                                }
+                                            />
+
+                                            <Field
+                                                component={SelectField}
+                                                name={`weekendSchedule`}
+                                                label="dashboard:providerBranch.weekendSchedule"
+                                                options={params ? params.weekendSchedule : defaultOptions}
+                                            />
+                                        </div>
+                                        <div className={`${s.row} ${s.gap_30}`}>
+                                            <Field
+                                                component={SelectField}
+                                                name={`weekendDays`}
+                                                label="dashboard:weekendDays"
+                                                options={
+                                                    params ? transformSelectOptions(params.weekendDays) : defaultOptions
+                                                }
                                             />
                                             <Field
                                                 component={SelectField}

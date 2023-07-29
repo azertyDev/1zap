@@ -26,6 +26,8 @@ export const providerValuesSecond = {
             weekendSchedule: '',
             weekend: '',
             breakTime: '',
+            weekendDays: '',
+            workingDays: '',
             payment: [
                 {
                     method: 'cash',
