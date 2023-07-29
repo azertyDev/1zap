@@ -5,12 +5,12 @@ import { FloatingInput } from 'src/components/ui/input/float_input';
 import { StandartInput } from 'src/components/ui/input/standart_input';
 import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { IBranchData, IProviderData } from 'types';
-import s from '../index.module.scss';
 import { useTranslation } from 'next-i18next';
 import { providerApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { client_validation } from 'src/validation/client_validation';
 import { providerValuesFirst } from 'components/pages/dashboard/admin/sections/providers/create/first_form/initialValues';
+import s from '../index.module.scss';
 
 interface SecondFormProps {
     branches: any;
@@ -51,13 +51,17 @@ export const SecondForm: FC<SecondFormProps> = ({ branches, setBranches, handleT
         formik.setFieldValue('coin', value);
     };
 
-    console.log(branches.providerBranch);
     const onSubmit = async (values: FormikValues, {}: FormikHelpers<any>) => {
         const { coin, applicationId, phone, ...rest } = values;
 
         const branch = branches.providerBranch.map((branch: IBranchData) => {
-            const { phone, ...all } = branch;
-            return { phone: phone.replaceAll(' ', ''), ...all };
+            const { phones, ...all } = branch;
+
+            const validPhonesList = phones.map((phone: any) => {
+                return { number: phone.number.replaceAll(' ', '') };
+            });
+
+            return { phones: validPhonesList, ...all };
         });
 
         const data: IProviderData = {

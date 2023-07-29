@@ -82,7 +82,11 @@ interface IBranchData {
     providerId?: number;
     branchName: string;
     phisicalAddress: string;
-    phone: string;
+    phones: [
+        {
+            number: string;
+        }
+    ];
     managerName: string;
     landmark: string;
     location: string;

@@ -128,7 +128,11 @@ export const client_validation = {
                     })
                 ),
 
-                phone: Yup.string(),
+                phones: Yup.array().of(
+                    Yup.object().shape({
+                        number: Yup.string(),
+                    })
+                ),
                 branchType: Yup.string(),
                 city: Yup.string(),
                 workingSchedule: Yup.string(),
@@ -138,22 +142,22 @@ export const client_validation = {
 
                 payment: Yup.array().of(
                     Yup.object().shape({
-                        isActive: Yup.bool().required('Image is required'),
+                        isActive: Yup.bool(),
                     })
                 ),
                 delivery: Yup.array().of(
                     Yup.object().shape({
-                        isActive: Yup.bool().required('Image is required'),
+                        isActive: Yup.bool(),
                     })
                 ),
                 service: Yup.array().of(
                     Yup.object().shape({
-                        isActive: Yup.bool().required('Image is required'),
+                        isActive: Yup.bool(),
                     })
                 ),
                 clientType: Yup.array().of(
                     Yup.object().shape({
-                        isActive: Yup.bool().required('Image is required'),
+                        isActive: Yup.bool(),
                     })
                 ),
             })

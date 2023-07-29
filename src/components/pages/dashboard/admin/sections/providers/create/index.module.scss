@@ -54,6 +54,44 @@
         gap: 40px;
     }
 
+    .accordion {
+        margin-bottom: 20px;
+        [class~='szh-accordion__item-btn'] {
+            background: #fff;
+            width: 100%;
+        }
+    }
+
+    .accordionHeader {
+        width: 100%;
+        display: flex;
+        border-radius: 8px;
+        background: #fff;
+        padding: 15px 20px;
+        align-items: center;
+        border: 1px solid #e4e6e8;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .title {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            span {
+                font-size: 12px;
+                color: $text;
+                margin-bottom: 5px;
+            }
+
+            p {
+                font-size: 14px;
+                font-weight: 700;
+                color: $secondary;
+            }
+        }
+    }
+
     .imgGroup {
         display: grid;
         gap: 20px;
@@ -101,7 +139,7 @@
         justify-content: space-between;
         gap: 30px;
         user-select: none;
-        margin-top: 30px;
+        margin-top: 10px;
 
         & button {
             width: auto;

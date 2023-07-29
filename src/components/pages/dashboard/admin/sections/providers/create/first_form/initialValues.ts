@@ -16,7 +16,6 @@ export const providerValuesSecond = {
         {
             branchName: '',
             phisicalAddress: '',
-            phone: '',
             managerName: '',
             landmark: '',
             location: '',
@@ -28,6 +27,11 @@ export const providerValuesSecond = {
             breakTime: '',
             weekendDays: '',
             workingDays: '',
+            phones: [
+                {
+                    number: '',
+                },
+            ],
             payment: [
                 {
                     method: 'cash',
