@@ -28,14 +28,24 @@ const Input: FC<FieldHookConfig<any> & InputProps> = (props): JSX.Element => {
                 {isPhone ? (
                     <Field {...props}>
                         {() => {
-                            return <PatternFormat type="tel" format="+998 ## #######" autoComplete="on" {...field} />;
+                            return (
+                                <PatternFormat
+                                    type="tel"
+                                    format="+998 ## #######"
+                                    autoComplete="on"
+                                    {...field}
+                                    disabled={props.disabled}
+                                />
+                            );
                         }}
                     </Field>
                 ) : (
                     <Field {...field} {...props} />
                 )}
 
-                {iconname && field.value.length === 0 && !meta.error ? <Icon size={iconSize} name={iconname} /> : null}
+                {iconname && field?.value?.length === 0 && !meta.error ? (
+                    <Icon size={iconSize} name={iconname} />
+                ) : null}
 
                 {!props.disabled && field.value && !meta.error ? (
                     <Icon size={iconSize} name={'check_circle'} color={'#C6303C'} />

@@ -14,8 +14,8 @@ import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
 import { IBranchData, IImage } from 'types';
 import { useTranslation } from 'next-i18next';
 import { providerValuesSecond } from './initialValues';
-import s from '../index.module.scss';
 import { ControlledAccordion, AccordionItem, useAccordionProvider } from '@szhsin/react-accordion';
+import s from '../index.module.scss';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 

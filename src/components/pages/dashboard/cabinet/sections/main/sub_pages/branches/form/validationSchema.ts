@@ -14,7 +14,11 @@ export const schema = {
             })
         ),
 
-        phone: Yup.string(),
+        phones: Yup.array().of(
+            Yup.object().shape({
+                isActive: Yup.string(),
+            })
+        ),
         city: Yup.string(),
         // branchType: Yup.string(),
         // workingSchedule: Yup.string(),

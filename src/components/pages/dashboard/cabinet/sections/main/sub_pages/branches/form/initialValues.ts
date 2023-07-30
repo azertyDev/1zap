@@ -1,7 +1,6 @@
 export const initialValues = {
     branchName: '',
     phisicalAddress: '',
-    phone: '',
     managerName: '',
     landmark: '',
     location: '',
@@ -13,6 +12,11 @@ export const initialValues = {
     breakTime: '',
     weekendDays: '',
     workingDays: '',
+    phones: [
+        {
+            number: '',
+        },
+    ],
     payment: [
         {
             method: 'cash',

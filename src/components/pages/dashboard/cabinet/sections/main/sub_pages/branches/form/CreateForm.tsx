@@ -19,8 +19,8 @@ import { IImage } from 'types';
 import { ImageUpload } from 'components/ui/upload/image';
 import { Button } from 'components/ui/button';
 import { maptiler } from 'pigeon-maps/providers';
-import s from '../../../index.module.scss';
 import { schema } from './validationSchema';
+import s from '../../../index.module.scss';
 
 const maptilerProvider = maptiler('Qlx00jY8FseHxRsxC7Dn', 'dataviz-light');
 
@@ -62,8 +62,12 @@ export const CreateForm = () => {
     };
 
     const onSubmit = async (values: any, {}: FormikHelpers<typeof initialValues>) => {
+        const parsedPhones = values.phones.map((value: any) => {
+            return { number: checkPhone(value.number) };
+        });
+
         await branchApi
-            .createProviderBranch({ ...values, phone: checkPhone(values.phone) })
+            .createProviderBranch({ ...values, phones: parsedPhones })
             .then(() => {
                 toast.success(t('dashboard:branch_created'), {
                     duration: 5000,
@@ -101,16 +105,59 @@ export const CreateForm = () => {
                                     label="dashboard:providerBranch.managerName"
                                     {...formik.getFieldProps(`managerName`)}
                                 />
-                                <StandartInput
-                                    isPhone
-                                    label="dashboard:providerBranch.phone"
-                                    {...formik.getFieldProps(`phone`)}
-                                    setFieldValue={formik.setFieldValue}
-                                />
+
+                                <div>
+                                    <FieldArray
+                                        name="phones"
+                                        render={(helperProps) => {
+                                            return formik.values.phones && formik.values.phones.length ? (
+                                                formik.values.phones?.map((phone: any, i: number) => {
+                                                    return (
+                                                        <div key={i}>
+                                                            <StandartInput
+                                                                isPhone
+                                                                label="dashboard:providerBranch.phone"
+                                                                {...formik.getFieldProps(`phones[${i}].number`)}
+                                                                setFieldValue={formik.setFieldValue}
+                                                            />
+
+                                                            {formik?.values?.phones?.length > 0 && (
+                                                                <div className={s.actionButtons}>
+                                                                    <span
+                                                                        onClick={() => {
+                                                                            helperProps.push({ number: '' });
+                                                                        }}
+                                                                    >
+                                                                        <Icon name="add_circle" size={18} />
+                                                                        {t('dashboard:add')}
+                                                                    </span>
+                                                                    <span onClick={() => helperProps.remove(i)}>
+                                                                        <Icon name="delete" size={18} />
+                                                                        {t('dashboard:delete')}
+                                                                    </span>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    );
+                                                })
+                                            ) : (
+                                                <div className={s.actionButtons}>
+                                                    <span
+                                                        onClick={() => helperProps.push({ number: '' })}
+                                                        style={{ whiteSpace: 'nowrap' }}
+                                                    >
+                                                        <Icon name="add_circle" size={18} />
+                                                        {t('dashboard:additional_phone')}
+                                                    </span>
+                                                </div>
+                                            );
+                                        }}
+                                    />
+                                </div>
                             </div>
 
                             <div className={s.block}>
-                                <div style={{ height: '100%' }}>
+                                <div style={{ height: '100%', maxHeight: '245px' }}>
                                     <Map
                                         provider={maptilerProvider}
                                         dprs={[1, 2]}
@@ -169,8 +216,8 @@ export const CreateForm = () => {
                                         />
                                         <Field
                                             component={SelectField}
-                                            name={`weekendSchedule`}
-                                            label="dashboard:providerBranch.weekendSchedule"
+                                            name={`workingSchedule`}
+                                            label="dashboard:providerBranch.workingSchedule"
                                             options={params ? params.weekendSchedule : defaultOptions}
                                         />
                                     </div>
