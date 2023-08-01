@@ -117,15 +117,17 @@ export const BookDetailStepOne: FC<{
                                         </p>
                                         {branch.weekend !== 'sat-sun' && (
                                             <p>
-                                                {t(`common:selects.${branch.weekendDays}`)} {branch.workingSchedule}
+                                                {t(`common:selects.${branch.weekendDays}`)} {branch.weekendSchedule}
                                             </p>
                                         )}
                                     </div>
                                     <div className={s.detail_border_wr}>
                                         <p>
-                                            {t('common:break')} {`${branch.weekendSchedule}`}
+                                            {t('common:break')} {`${branch.breakTime}`}
                                         </p>
-                                        <p>{t(`common:weekend.${branch.weekend}`)}</p>
+                                        <p>
+                                            {t('common:holiday')}:{t(`common:weekend.${branch.weekend}`)}
+                                        </p>
                                     </div>
 
                                     <p>{t('infoonezap')}</p>
