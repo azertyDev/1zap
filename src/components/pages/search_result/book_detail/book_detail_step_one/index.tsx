@@ -123,7 +123,10 @@ export const BookDetailStepOne: FC<{
                                     </div>
                                     <div className={s.detail_border_wr}>
                                         <p>
-                                            {t('common:break')} {`${branch.breakTime}`}
+                                            {t('common:break')}:{' '}
+                                            {branch.breakTime === 'without_break'
+                                                ? t(`common:${branch.breakTime}`)
+                                                : branch.breakTime}
                                         </p>
                                         <p>
                                             {t('common:holiday')}:{t(`common:weekend.${branch.weekend}`)}
