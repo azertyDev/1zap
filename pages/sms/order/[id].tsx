@@ -2,7 +2,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { IProductGroup } from 'types';
 import { SmsOrder } from 'components/pages/sms/order';
 import { Layout } from 'components/layout/client';
-import { Container } from 'components/ui/container';
+
 import { NextPageWithLayout } from '../../_app';
 import { GetServerSideProps } from 'next';
 
@@ -11,14 +11,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
         props: {
-            ...(await serverSideTranslations(locale as string, [
-                'header',
-                'footer',
-                'home',
-                'common',
-                'helpers',
-                'dashboard',
-            ])),
+            ...(await serverSideTranslations(locale as string, ['header', 'footer', 'common', 'helpers', 'sms'])),
         },
     };
 };
@@ -28,10 +21,6 @@ const SmsOrderPage: NextPageWithLayout<{ data: { data: IProductGroup[]; totalPag
 };
 
 SmsOrderPage.getLayout = function getLayout(page: any) {
-    return (
-        <Layout>
-            <Container>{page}</Container>
-        </Layout>
-    );
+    return <Layout>{page}</Layout>;
 };
 export default SmsOrderPage;

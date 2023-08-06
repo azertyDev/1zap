@@ -8,7 +8,6 @@ import TagManager from 'react-gtm-module';
 
 import '../styles/libraries/map.scss';
 import '../styles/libraries/pagination.scss';
-import '../styles/libraries/react_select.scss';
 import '../styles/libraries/home_partners_swiper.scss';
 
 import 'swiper/css/navigation';

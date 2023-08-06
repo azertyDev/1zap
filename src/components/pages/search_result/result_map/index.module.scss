@@ -1,8 +1,6 @@
 @import "styles/variables";
 @import "styles/mixins";
 
-.map_wr {
-}
 
 .map {
   position: absolute;
@@ -32,33 +30,17 @@
   width: 100%;
   z-index: 1;
   position: relative;
-  margin-top: 305px;
-
-  &.active {
-    margin-top: 535px;
-  }
-}
-
-
-
-
-.search_wr {
-  width: 100%;
-  z-index: 1;
-  position: relative;
   margin: 305px 0 60px;
 
   &.active {
     margin-top: 535px;
   }
 
-
 }
 
 .search {
   background: $main;
   padding: 24px;
-  max-width: 1024px;
   margin: 20px auto 0;
   box-shadow: 0 8px 12px rgba(153, 155, 168, 0.15);
   border-radius: 25px;
@@ -128,7 +110,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 855px) {
   .map {
     position: absolute;
     top: 20px;

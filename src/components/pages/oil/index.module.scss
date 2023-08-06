@@ -3,7 +3,7 @@
 }
 
 .tabs_wr {
-  max-width: 751px;
+  max-width: 851px;
 }
 
 .table {
@@ -56,10 +56,8 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 855px) {
   .tabs_wr_out {
     display: none;
   }
-
-
 }

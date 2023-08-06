@@ -62,7 +62,6 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
 
     const [data, setData] = useState<{ data: IProduct[]; totalPages: number } | null>(null);
 
-    console.log(price);
     useEffect(() => {
         (async () => {
             await productsApi
