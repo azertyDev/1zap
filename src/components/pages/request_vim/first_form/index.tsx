@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
 import s from './index.module.scss';
@@ -18,13 +18,14 @@ import { useRouter } from 'next/router';
 import { useGetFitCatalog } from 'src/hooks/laximoData/useGetFitCar';
 import { useFilterSelectFitByCar } from 'src/hooks/laximoData/useFilterSelectFitByCar';
 
-import { vinOrderApi } from 'src/utils/api';
+import { captchaApi, vinOrderApi } from 'src/utils/api';
 import { toast } from 'react-hot-toast';
 import { formatValuesToSend } from 'src/helpers/formatValuesToSend';
 
 import { getModelSwitchCondition } from 'src/helpers/getModelSwitchCondition';
 import { transformSelectOptions } from 'src/helpers/transformSelectOptions';
 import { IStaticParams } from 'types';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPar: IStaticParams }> = ({
     dataCatalog,
@@ -41,7 +42,7 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
     const { catalog } = useGetFitCatalog(dataCatalog);
     const [modelSel, setModelSel] = useState(null);
     const [switchBrand, setSwitchBrand] = useState(true);
-
+    const [checkedCaptcha, setCheckedCaptch] = useState(false);
     useFilterSelectFitByCar(dataModel, setModelSel, getModelSwitchCondition, [brand] as string[]);
 
     const formik = useFormik({
@@ -91,6 +92,13 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
             });
         }
     }, [formik.values.brand]);
+
+    const onCaptchaChange = (value: any) => {
+        captchaApi
+            .virefy({ token: value })
+            .then((res) => setCheckedCaptch(true))
+            .catch(() => toast.error(t('helpers:error_sending')));
+    };
 
     return (
         <div className={s.first_form_wr}>
@@ -183,17 +191,31 @@ export const FirstFormVim: FC<{ dataCatalog: string; dataModel: string; staticPa
                         </div>
                     </div>
 
-                    <Button
-                        fullWidth
-                        type={'submit'}
-                        className={s.submit_btn}
-                        disabled={!formik.dirty || !formik.isValid}
-                        variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
-                        disabledPointer={formik.isSubmitting}
-                    >
-                        <Icon size={15} name={'send'} color={!formik.dirty || !formik.isValid ? '#9A9EA7' : '#fff'} />
-                        {t('common:sendRequest')}
-                    </Button>
+                    {checkedCaptcha && (
+                        <Button
+                            fullWidth
+                            type={'submit'}
+                            className={s.submit_btn}
+                            disabled={!formik.dirty || !formik.isValid}
+                            variant={!formik.dirty || !formik.isValid ? 'disabled' : 'primary'}
+                            disabledPointer={formik.isSubmitting}
+                        >
+                            <Icon
+                                size={15}
+                                name={'send'}
+                                color={!formik.dirty || !formik.isValid ? '#9A9EA7' : '#fff'}
+                            />
+                            {t('common:sendRequest')}
+                        </Button>
+                    )}
+                    {!checkedCaptcha && (
+                        <div className={s.captcha}>
+                            <ReCAPTCHA
+                                sitekey={'6LcNVyYnAAAAAMJBE-MNg-SkR47ByXeQAVLh666r'}
+                                onChange={onCaptchaChange}
+                            />
+                        </div>
+                    )}
                 </Form>
             </FormikProvider>
         </div>

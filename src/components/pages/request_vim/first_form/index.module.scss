@@ -102,7 +102,9 @@
   display: none;
 }
 
-
+.captcha{
+  @include flex-items(center,center)
+}
 @media (max-width: 810px) {
   .first_form {
     display: block;
