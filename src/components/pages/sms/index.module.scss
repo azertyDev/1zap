@@ -2,7 +2,7 @@
 @import "styles/mixins";
 
 
-.wr{
+.wr {
   position: relative;
 }
 
@@ -24,6 +24,7 @@
 .table {
   background: #fff;
   max-width: 350px;
+  min-width: 348px;
   margin: 0 auto 150px;
   border-radius: 25px;
   border: 1px solid #E4E6E8;
@@ -31,51 +32,63 @@
   position: absolute;
   top: 235px;
   left: 50%;
-  transform: translateX(-50%  );
+  transform: translateX(-50%);
 }
 
-.header_wr{
+.header_wr {
   padding: 16px;
+  text-align: center;
+  @include fs_fw_c(12px, 400, $secondary);
 
-  @include fs_fw_c(12px,400,$secondary);
-  h1{
+  h1 {
     text-align: center;
-    @include fs_fw_c(18px,700,$secondary)
+    @include fs_fw_c(18px, 700, $secondary)
   }
 
 }
 
-.sub_titles_wr{
+.sub_titles_wr {
   background: #E4E6E8;
   padding: 2px 16px;
 }
 
-.sub_titles{
-  @include fs_fw_c(10px,600,$text)
+.sub_titles {
+  @include fs_fw_c(10px, 600, $text)
 }
 
-.info_wr{
+.info_wr {
 
-  .info_box:last-child{
+  .info_box:last-child {
     border: none;
   }
 }
 
-.info_box{
+.info_box {
   padding: 8px 16px;
   border-bottom: 1px solid #E4E6E8;;
 }
-.sub_text{
-  @include fs_fw_c(14px,600,$secondary)
+
+.sub_text {
+  @include fs_fw_c(14px, 600, $secondary)
 }
 
-.link_phone{
-  display:block;
+.link_phone {
+  display: block;
   border-radius: 10px;
   max-width: 316px;
   margin: 0 auto 16px;
   background: $main;
-  @include fs_fw_c(14px,600,#fff);
+  @include fs_fw_c(14px, 600, #fff);
   padding: 18px;
   text-align: center;
+}
+
+@media (max-width: 373px) {
+  .table {
+    min-width: 315px;
+  }
+
+  .link_phone {
+    max-width: 290px;
+  }
 }

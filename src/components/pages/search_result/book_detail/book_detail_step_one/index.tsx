@@ -85,7 +85,7 @@ export const BookDetailStepOne: FC<{
                                 </div>
                                 <div className={s.detail_content}>
                                     {branch.phones.map((phone) => (
-                                        <p key={phone.number}>{formatPhoneToClient(phone.number)}</p>
+                                        <p key={phone.number}>{formatPhoneToClient(phone.number.replaceAll(' ', ''))}</p>
                                     ))}
                                 </div>
                             </div>

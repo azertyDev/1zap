@@ -208,6 +208,7 @@ export const walletApi = {
 
 export const smsApi = {
     order: (id: string) => requests.get(`orders/${id}`),
+    orderProvider: (id: string) => requests.get(`orders/provider/${id}`),
 };
 
 export const captchaApi = {
