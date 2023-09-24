@@ -37,6 +37,8 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
     const { currency } = useStore((state) => state);
     const { sortByAverage } = useFiltersAscDesc();
 
+    console.log(data);
+
     return (
         <>
             <Title main className={s.title}>

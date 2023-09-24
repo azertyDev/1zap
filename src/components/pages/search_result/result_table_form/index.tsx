@@ -44,7 +44,7 @@ export const ResultTableForm: FC<{
                                             <Icon name={'expand_more'} size={20} color={'#9A9EA7'} />
                                         </div>
                                     </div>
-                                    <p> {t('common:selects.price')}</p>
+                                    <p> {t('common:selects.price')} / {t('common:howmany')}</p>
                                 </div>
                             </TableElement>
                             <TableElement className={'table_h'}>{t('common:selects.seller')}</TableElement>
