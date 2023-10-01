@@ -2,9 +2,6 @@ export const footerLinksFirst = {
     id: 1,
     title: 'footer:aboutUs',
     links: [
-        { id: 1, link: '/how_works', text: 'footer:howItWork' },
-        { id: 2, link: '/work', text: 'footer:job' },
-        { id: 3, link: '/about_us', text: 'footer:aboutUs' },
         { id: 4, link: '/contacts', text: 'footer:contacts' },
     ],
 };
@@ -25,10 +22,7 @@ export const footerLinksThird = {
     id: 2,
     title: 'footer:becomeSupplier',
     links: [
-        { id: 1, link: '/become_provider', text: 'footer:createAccount' },
-        { id: 2, link: '#!', text: 'footer:addDetail' },
-        { id: 3, link: '#!', text: 'footer:terms' },
-        { id: 4, link: '#!', text: 'footer:helpCenter' },
+        { id: 1, link: '/become_provider', text: 'footer:createAccount' },  
     ],
 };
 
@@ -37,7 +31,7 @@ export const footerLinksFourth = {
     title: 'footer:support',
     links: [
         { id: 1, link: '/center', text: 'footer:infoCenter' },
-        { id: 2, link: '#!', text: 'footer:support' },
-        { id: 3, link: '#!', text: 'footer:trustSecur' },
+        { id: 2, link: '/contacts', text: 'footer:support' },
+    
     ],
 };

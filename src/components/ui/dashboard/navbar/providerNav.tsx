@@ -32,7 +32,7 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                     </Link>
 
                     <p>{t('dashboard:profile_work')}</p>
-                    {cabinetMenu.slice(1, 4).map((item) => {
+                    {cabinetMenu.slice(1, 3).map((item) => {
                         return (
                             <Link
                                 key={item.id}
@@ -47,7 +47,7 @@ const Navbar: FC<NavbarProps> = ({ t }): JSX.Element => {
                         );
                     })}
                     <p>{t('common:position_work')}</p>
-                    {cabinetMenu.slice(4, 15).map((item) => {
+                    {cabinetMenu.slice(3, 15).map((item) => {
                         return (
                             <Link
                                 key={item.id}

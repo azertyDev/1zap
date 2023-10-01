@@ -5,6 +5,7 @@ import { ExchangeRate } from 'src/components/ui/exchange_rate';
 import s from '../index.module.scss';
 import { Language } from 'components/ui/language';
 import { useRouter } from 'next/router';
+;
 
 const BottomFooter = (props: any) => {
     const { t } = useTranslation();
@@ -12,10 +13,10 @@ const BottomFooter = (props: any) => {
     return (
         <div className={props.className ?? s.footer_bot}>
             <div className={s.privacy}>
-                <Link href={'#!'}>
+                <a href={`/assets/files/offerta.doc`} download>
                     <p>{t('footer:privacyPolicy')}</p>
-                </Link>
-                <Link href={'#!'}>{t('footer:offer')}</Link>
+                </a>
+                <a href={`/assets/files/offerta.doc`} download>{t('footer:offer')}</a>
             </div>
             <p className={s.copy}>&copy; 2023 All rights reserved</p>
             <div className={s.controls}>

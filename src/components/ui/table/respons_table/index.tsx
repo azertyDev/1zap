@@ -57,7 +57,7 @@ export const ResponsTable: FC<{ item: IProductGroup; img: string; isTire?: boole
                     </p>
                 </div>
 
-                <Link href={`/search_result?oem=${item.uniqNumber}`}>
+                <Link href={`/search_result?oem=${item.uniqNumber}&client=individual`}>
                     <button type={'button'} className={s.show_btn}>
                         {t('common:show')}
                     </button>

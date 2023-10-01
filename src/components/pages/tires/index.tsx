@@ -146,7 +146,7 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                                         </p>
                                     </TableElement>
                                     <TableElement className={'table_b'}>
-                                        <Link href={`/search_result?oem=${item.uniqNumber}`}>
+                                        <Link href={`/search_result?oem=${item.uniqNumber}&client=individual`}>
                                             <button>
                                                 {t('common:show')} - {item.availability}
                                             </button>

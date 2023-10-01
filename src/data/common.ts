@@ -1,10 +1,10 @@
 export const dashboardMenu = [
-    { id: Math.random(), name: 'providers', icon: 'person', query: '?page=1&pageSec=1' },
-    { id: Math.random(), name: 'income', icon: 'inbox', query: '?page=1&pageSec=1' },
-    { id: Math.random(), name: 'promo', icon: 'label', query: '?page=1&pageSec=1' },
-    { id: Math.random(), name: 'vin-requests', icon: 'inbox', query: '?page=1' },
-    { id: Math.random(), name: 'operations', icon: 'view_day', query: '?page=1' },
-    { id: Math.random(), name: 'center', icon: 'headset_mic' },
+    { id: 1, name: 'providers', icon: 'person', query: '?page=1&pageSec=1' },
+    { id: 2, name: 'income', icon: 'inbox', query: '?page=1&pageSec=1' },
+    { id: 3, name: 'promo', icon: 'label', query: '?page=1&pageSec=1' },
+    { id: 4, name: 'vin-requests', icon: 'inbox', query: '?page=1' },
+    { id:5, name: 'operations', icon: 'view_day', query: '?page=1' },
+    { id: 6, name: 'center', icon: 'headset_mic' },
     // { id: 0, name: 'main', icon: 'timelapse' },
     // { id: 4, name: 'profile', icon: 'person' },
     // { id: 5, name: 'balance', icon: 'payments' },
@@ -15,13 +15,13 @@ export const dashboardMenu = [
 ];
 
 export const cabinetMenu = [
-    { id: Math.random(), name: 'main', icon: 'timelapse' },
-    { id: Math.random(), name: 'balance', icon: 'payments', query: '?page=1' },
-    { id: Math.random(), name: 'promo', icon: 'label', query: '?page=1' },
-    { id: Math.random(), name: 'statistics', icon: 'bar_chart' },
-    { id: Math.random(), name: 'price-list', icon: 'inventory_2', query: '?page=1' },
-    { id: Math.random(), name: 'incoming_requests', icon: 'inbox', query: '?page=1' },
-    { id: Math.random(), name: 'support', icon: 'headset_mic' },
+    { id: 1, name: 'main', icon: 'timelapse' },
+    { id: 2, name: 'balance', icon: 'payments', query: '?page=1' },
+    { id: 3, name: 'promo', icon: 'label', query: '?page=1' },
+    // { id: 4, name: 'statistics', icon: 'bar_chart' },
+    { id: 5, name: 'price-list', icon: 'inventory_2', query: '?page=1' },
+    { id:6, name: 'incoming_requests', icon: 'inbox', query: '?page=1' },
+    // { id: Math.random(), name: 'support', icon: 'headset_mic' },
 ];
 
 export const linksData = [

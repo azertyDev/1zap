@@ -24,8 +24,8 @@ export default (props: PropsType): JSX.Element => {
                 return <Profile />;
             case `/cabinet/balance?page=${query.page}`:
                 return <Balance />;
-            case `/cabinet/statistics`:
-                return <Statistics />;
+            // case `/cabinet/statistics`:
+            //     return <Statistics />;
             case `/cabinet/price-list?page=${query.page}`:
                 return <PriceList />;
             case `/cabinet/promo?page=${query.page}`:
@@ -34,8 +34,8 @@ export default (props: PropsType): JSX.Element => {
                 return <IncominRequests />;
             case `/cabinet/incoming_requests?status=accepted&page=${query.page}`:
                 return <IncominRequestsAccepted />;
-            case `/cabinet/support`:
-                return <SupportProvider />;
+            // case `/cabinet/support`:
+            //     return <SupportProvider />;
             default:
                 return 'Страница не найдена';
         }

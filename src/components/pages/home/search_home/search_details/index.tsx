@@ -24,7 +24,7 @@ export const SearchDetails: FC<{ className: string }> = ({ className }): JSX.Ele
         },
         validationSchema: client_validation.search,
         onSubmit: (values) => {
-            push(`/search_result?filter=${values.searchVal}`);
+            push(`/search_result?filter=${values.searchVal}&client=individual`);
         },
     });
 
