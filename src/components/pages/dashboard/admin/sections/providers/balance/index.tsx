@@ -10,10 +10,16 @@ import { FilterCalendar } from 'components/ui/dashboard/table/filterCalendar';
 import { Table } from 'components/ui/dashboard/table';
 import { Pagination } from 'components/ui/pagination/Pagination';
 import { Heading } from 'components/ui/dashboard/heading';
+import { Button } from 'src/components/ui/button';
+import { Form, FormikHelpers, FormikProvider, useFormik } from 'formik';
+import { FloatingInput } from 'src/components/ui/input/float_input';
+import { client_validation } from 'src/validation/client_validation';
 
 export const ViewProviderBalance = () => {
     const { t } = useTranslation();
     const [data, setData] = useState<any>(null);
+    const [activeCoin, setActiveCoin] = useState(0);
+    const coins = [50, 100, 250, 500, 1000];
 
     const [filtringByDate, setFiltringByDate] = useState<null | string>(null);
     const [fullDate, setFullDate] = useState<null | string>(null);
@@ -23,7 +29,13 @@ export const ViewProviderBalance = () => {
 
     const {
         query: { page, id },
+        back,
+        push,
     } = useRouter();
+
+    const handleActiveCoin = (coin: number) => {
+        return () => setActiveCoin(coin);
+    };
 
     const balanceStatistics = walletInfo.map((item: { id: number; expiredAt: string; coin: number }) => {
         return {
@@ -109,6 +121,21 @@ export const ViewProviderBalance = () => {
         },
     ];
 
+    const formik = useFormik({
+        initialValues: { coinText: activeCoin },
+        enableReinitialize: true,
+        validationSchema: client_validation.coins,
+        onSubmit: (values) => {
+            walletApi
+                .addCoinsByAdmin({
+                    providerId: +id!,
+                    coin: +values.coinText,
+                })
+                .then(() => push(`/dashboard/providers/profile?id=${id}`))
+                .catch(() => toast.error(t('helpers:error_sending')));
+        },
+    });
+
     return (
         <div className={s.wrapper}>
             <Heading title={t(`dashboard:balance`)} desc={''} />
@@ -121,19 +148,56 @@ export const ViewProviderBalance = () => {
                 )}
             </div>
 
-            <h4 className={s.title}>{t('dashboard:history_balance')}</h4>
-            {data && (
-                <FilterCalendar
-                    setFullDate={setFullDate}
-                    fullDate={fullDate}
-                    setMonth={setMonth}
-                    month={month}
-                    setFiltringByDate={setFiltringByDate}
-                />
-            )}
+            <h4 className={s.title}>{t('dashboard:balanceFilling')}</h4>
+            <div className={s.coins_wrapper}>
+                {coins.map((coin) => {
+                    return (
+                        <Button
+                            onClick={handleActiveCoin(coin)}
+                            key={coin}
+                            variant={activeCoin === coin ? 'primary' : 'disabled'}
+                        >
+                            {coin} {t('dashboard:coinsBig')}
+                        </Button>
+                    );
+                })}
+            </div>
+            <FormikProvider value={formik}>
+                <Form>
+                    <div className={s.form}>
+                        <FloatingInput {...formik.getFieldProps('coinText')} />
+                    </div>
 
-            {data?.data && <Table data={data?.data} columns={cols} isSecondType />}
-            {data?.totalPages > 1 && <Pagination pageCount={data?.totalPages} />}
+                    <h4 className={s.title}>{t('dashboard:history_balance')}</h4>
+                    {data && (
+                        <FilterCalendar
+                            setFullDate={setFullDate}
+                            fullDate={fullDate}
+                            setMonth={setMonth}
+                            month={month}
+                            setFiltringByDate={setFiltringByDate}
+                        />
+                    )}
+
+                    {data?.data && <Table data={data?.data} columns={cols} isSecondType />}
+                    {data?.totalPages > 1 && <Pagination pageCount={data?.totalPages} />}
+
+                    <div className={s.submit_btn_wr}>
+                        <Button variant="disabled" type="reset" onClick={back}>
+                            {t('common:cancel')}
+                        </Button>
+                        <Button
+                    
+                            type="submit"
+                            disabledPointer={formik.isSubmitting}
+                            disabled={ activeCoin === 0}
+                            variant={ activeCoin === 0 ? 'disabled' : 'primary'}
+                        >
+                            {t('dashboard:refresh')}
+                        </Button>
+                    </div>
+                </Form>
+            </FormikProvider>
         </div>
     );
 };

@@ -38,6 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const TirePage: NextPageWithLayout<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }) => {
+
     return <Tires data={data} />;
 };
 

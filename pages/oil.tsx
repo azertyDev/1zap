@@ -35,6 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const OilPage: NextPageWithLayout<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }) => {
+   
     return <Oil data={data} />;
 };
 

@@ -36,3 +36,22 @@
 .title{
     margin-bottom: 25px;
 }
+
+.coins_wrapper{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-gap:20px;
+}
+
+.form{
+    width: 368px;
+    margin: 30px 0;
+}
+
+.submit_btn_wr{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 130px 172px;
+    grid-gap:20px;
+  
+}

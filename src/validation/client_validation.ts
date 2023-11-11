@@ -97,7 +97,9 @@ export const client_validation = {
     rate: Yup.object({
         rate: yup.number().typeError('invalid_format').required('required'),
     }),
-
+    coins: Yup.object({
+        coinText: yup.number().typeError('invalid_format').required('required'),
+    }),
     create_provider: Yup.object().shape({
         legalAddress: Yup.string().min(2, 'limit_less').max(50, 'limit_more').required('required'),
         phone: yup

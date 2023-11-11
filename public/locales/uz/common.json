@@ -237,5 +237,6 @@
     "rate": "Valyuta almashtirish kursi $",
     "without_break": "Uzilishlarsiz",
     "branchId": "Filial",
-    "holiday": "Dam olish kuni"
+    "holiday": "Dam olish kuni",
+    "coinText":"Kerakli miqdordagi tangalarni kiriting"
 }

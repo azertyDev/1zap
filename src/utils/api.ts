@@ -177,6 +177,9 @@ export const centerApi = {
 };
 
 export const walletApi = {
+    addCoinsByAdmin: (body: { providerId: number; coin: number }) => {
+        return requests.post('replenishment/package', body);
+    },
     getIncomingRequest: (page: string, date: string | null | Date, sort?: string | null, by?: string) =>
         requests.get(
             `replenishment/incoming?page=${page}${date ? `&date=${date}` : ''}${sort ? `&order=${sort}&by=${by}` : ''}`
