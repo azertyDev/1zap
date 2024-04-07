@@ -4,7 +4,8 @@ import { useTranslation } from 'next-i18next';
 import { ExchangeRate } from 'src/components/ui/exchange_rate';
 import s from '../index.module.scss';
 import { Language } from 'components/ui/language';
-import { useRouter } from 'next/router';
+
+import { Cities } from 'src/components/ui/cities';
 ;
 
 const BottomFooter = (props: any) => {
@@ -21,6 +22,7 @@ const BottomFooter = (props: any) => {
             <p className={s.copy}>&copy; 2023 All rights reserved</p>
             <div className={s.controls}>
                 {props.showLang && <Language />}
+            
                 <ExchangeRate />
             </div>
         </div>

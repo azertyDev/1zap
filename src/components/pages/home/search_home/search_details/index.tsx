@@ -24,7 +24,10 @@ export const SearchDetails: FC<{ className: string }> = ({ className }): JSX.Ele
         },
         validationSchema: client_validation.search,
         onSubmit: (values) => {
-            push(`/search_result?filter=${values.searchVal}&client=individual`);
+            const city = localStorage.getItem('city')
+               
+
+            push(`/search_result?filter=${values.searchVal}&client=individual&city=${city?city:"all_cities"}`);
         },
     });
 

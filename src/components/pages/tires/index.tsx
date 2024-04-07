@@ -19,7 +19,7 @@ import Image from 'next/image';
 import { ResponsTable } from 'components/ui/table/respons_table';
 import { Pagination } from 'components/ui/pagination/Pagination';
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Icon } from 'components/ui/icon';
 import { IProductGroup } from 'types';
 import { formatNumber } from 'src/helpers/formatNumber';
@@ -36,8 +36,6 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
 
     const { currency } = useStore((state) => state);
     const { sortByAverage } = useFiltersAscDesc();
-
-    console.log(data);
 
     return (
         <>

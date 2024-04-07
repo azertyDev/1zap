@@ -1,0 +1,15 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.city_wr{
+  @include  flex-items(stretch,center);
+
+}
+
+.img{
+  position: relative;
+  @include w_mw__h(18px,18px,18px);
+  
+}
+
+

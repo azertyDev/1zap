@@ -21,7 +21,7 @@ import { FilterResponsive } from 'components/ui/filter/filter_responsive';
 import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 import { filterTitles } from 'src/constants/filterTitles';
 import { tabsValue } from 'src/constants/tabsValue';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Link from 'next/link';
 import { Icon } from 'components/ui/icon';
 
@@ -40,6 +40,8 @@ export const Oil: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = 
     const { query } = useRouter();
 
     const { sortByAverage } = useFiltersAscDesc();
+
+
 
     return (
         <>

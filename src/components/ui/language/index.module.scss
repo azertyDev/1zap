@@ -19,10 +19,10 @@
 @media (max-width: 768px) {
   .lang_wr{
     @include  flex-items(stretch,center);
-    margin: 0 0 0 10px;
+    margin: 0  10px;
   }
 
   .link{
-    @include  fs_fw_c(12px,600,$text);
+    @include  fs_fw_c(14px,600,$text);
   }
 }

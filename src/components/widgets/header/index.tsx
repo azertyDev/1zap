@@ -13,6 +13,7 @@ import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 
 import s from './index.module.scss';
 import { useStore } from 'src/store/useStore';
+import { Cities } from 'src/components/ui/cities';
 
 export const Header: FC = (): JSX.Element => {
     const { t } = useTranslation();
@@ -38,7 +39,15 @@ export const Header: FC = (): JSX.Element => {
 
                     <div className={s.controls}>
                         <ExchangeRate />
+                        <div className={s.lang}>
                         <Language />
+                        </div>
+        
+
+                        <Cities/>
+                        
+                     
+                        
                         {signedIn ? (
                             <Link
                                 href={isAdmin ? '/dashboard/providers?page=1&pageSec=1' : '/cabinet/main'}

@@ -1,20 +1,41 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { FieldProps, useField } from 'formik';
 import { useTranslation } from 'next-i18next';
 import Select, { Props as SelectProps, components } from 'react-select';
 
 import s from './index.module.scss';
+import { useRouter } from 'next/router';
+import { useStore } from 'zustand';
 
 interface SelectField extends SelectProps {
-    label?: string;
+
 }
 
-export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ...props }) => {
+export const SimpleSelectField: FC<SelectField & FieldProps> = ({ ...props }) => {
     const { t } = useTranslation();
     const [field, form, { setValue }] = useField(props.field.name);
+    const { push, pathname, query,locale,locales,query:{city:Qcity} } = useRouter();
+    const [city, setCity] = useState("all_cities");
+
+   
+
+    useEffect(() => {
+        const city = localStorage.getItem('city');
+
+        if(city){
+            setCity(city)
+        }
+    }, [Qcity]);
 
     const onChange = ({ value }: any) => {
-        setValue(value);
+        push({
+            pathname: pathname,
+            query: { ...query,city:value},
+        });
+
+        setCity(value)
+        localStorage.setItem('city', value);
+        
     };
 
     const NoOptionsMessage = useCallback((props: any) => {
@@ -27,13 +48,8 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
 
     return (
         <div className={`${s.root} ${props.field.value ? s.active : ''} ${props.isDisabled ? s.disabled : ''}`}>
-            {field.value && (
-                <label htmlFor={field.name} className={s.label}>
-                    {t(label)} fewfewfew
-                </label>
-            )}
             <div className={s.select_wr}>
-                <Select
+            <Select
                     {...props}
                     onChange={onChange}
                     id={field.name}
@@ -42,13 +58,14 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
                     components={{ NoOptionsMessage }}
                     className="select_container"
                     classNamePrefix="select"
-                    placeholder={field.value ? null : t(label)}
+                    placeholder={Qcity?t(`common:selects.${Qcity}`) :t(`common:selects.all_cities`)}
                     value={props.options!.filter((option: any) => {
                         return option.value === field.value;
                     })}
                     styles={{
                         container: (base) => ({
                             ...base,
+                            width :"110px"
                         }),
                         placeholder: (base, state) => ({
                             ...base,
@@ -57,7 +74,6 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
                             margin: 0,
                             fontSize: '14px',
                         }),
-
                         control: (base, state) => ({
                             ...base,
                             border: 'none',
@@ -78,12 +94,10 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
                             color: state.isDisabled ? '#9A9EA7' : '#0D0A19',
                         }),
                         dropdownIndicator: (base, state) => ({
-                            ...base,
+                   
                             color: state.isDisabled ? '#9A9EA7' : '#0D0A19',
                             svg: {
-                                width: '18px',
-                                height: '18px',
-                                fill: state.isDisabled ? '#9A9EA7' : '#0D0A19',
+                               display:"none"
                             },
                         }),
                         indicatorSeparator: (base) => ({

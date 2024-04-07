@@ -12,6 +12,7 @@
 .login {
   @include flex-items(stretch, center);
   cursor: pointer;
+  margin-left: 5px;
 }
 
 .img_block {
@@ -30,5 +31,37 @@
 @media (max-width: 1024px) {
   .login{
     display: none;
+  }
+}
+
+
+@media (max-width: 470px) {
+  .city{
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .inner{
+    display: block;
+  }
+
+  .controls{
+
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .lang{
+    margin: 0 30px;
+  }
+}
+
+
+@media (max-width: 380px) {
+
+  .lang{
+    margin: 0 10px;
   }
 }

@@ -13,7 +13,7 @@ import { useFilter } from 'src/hooks/common/useFilter';
 import { useFilterTabs } from 'src/hooks/common/useFilterTabs';
 import { useRouter } from 'next/router';
 import { tabsValue } from 'src/constants/tabsValue';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { TableRow } from 'components/ui/table/table_row';
 import { TableElement } from 'components/ui/table/table_element';
 import Image from 'next/image';
@@ -26,13 +26,14 @@ import { useStore } from 'src/store/useStore';
 import { formatNumber } from 'src/helpers/formatNumber';
 import { useFiltersAscDesc } from 'src/hooks/common/filtersAscDesc';
 
+import { useSearchParams } from 'next/navigation';
 export const Battery: FC<{ data: { data: IProductGroup[]; totalPages: number } }> = ({ data }): JSX.Element => {
     const { activeTab, handleActivetab } = useHandleActivetTabHome();
     const { handleOpenClose, openClose } = useOpenCloseWithVal();
     const { handleFilter } = useFilter();
     const { filterData } = useFilterTabs(1);
     const { t } = useTranslation();
-    const { query } = useRouter();
+    const { query,push ,pathname} = useRouter();
     const { currency } = useStore((state) => state);
 
     const { sortByAverage } = useFiltersAscDesc();

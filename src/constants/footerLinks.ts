@@ -6,17 +6,6 @@ export const footerLinksFirst = {
     ],
 };
 
-export const footerLinksSec = {
-    id: 2,
-    title: 'footer:mainCateg',
-    links: [
-        { id: 1, link: '/request_vim', text: 'common:searchVin' },
-        { id: 2, link: '/details?tab=2', text: 'common:sparePartsCat' },
-        { id: 3, link: '/oil', text: 'common:oil' },
-        { id: 4, link: '/battery', text: 'common:batteries' },
-        { id: 5, link: '/tires', text: 'common:tires' },
-    ],
-};
 
 export const footerLinksThird = {
     id: 2,
