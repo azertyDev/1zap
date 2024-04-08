@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { IProductGroup } from 'types';
 import { formatNumber } from 'src/helpers/formatNumber';
 import { useStore } from 'src/store/useStore';
+import { useRouter } from 'next/router';
 
 export const ResponsTable: FC<{ item: IProductGroup; img: string; isTire?: boolean }> = ({
     item,
@@ -18,6 +19,7 @@ export const ResponsTable: FC<{ item: IProductGroup; img: string; isTire?: boole
     const { t } = useTranslation();
     const { handleOpenClose, openClose } = useOpenCloseWithVal();
     const { currency } = useStore((state) => state);
+    const {query:{city}}= useRouter()
     return (
         <div className={s.table} key={item.id}>
             <div className={s.item}>
@@ -57,7 +59,7 @@ export const ResponsTable: FC<{ item: IProductGroup; img: string; isTire?: boole
                     </p>
                 </div>
 
-                <Link href={`/search_result?oem=${item.uniqNumber}&client=individual`}>
+                <Link href={`/search_result?oem=${item.uniqNumber}&client=individual&city=${city}`}>
                     <button type={'button'} className={s.show_btn}>
                         {t('common:show')}
                     </button>

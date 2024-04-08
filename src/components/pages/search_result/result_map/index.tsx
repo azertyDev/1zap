@@ -51,6 +51,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
             isOrigin,
             price,
             availability,
+            city
         },
         query,
     } = useRouter();
@@ -79,7 +80,7 @@ export const ResultMap: FC<{ staticPar: IStaticParams }> = ({ staticPar }): JSX.
                         isOrigin as string,
                         price as string,
                         availability as string
-                    )}`
+                    )}${city?`&city=${city}`:'&city=all_cities'}`
                 )
                 .then((res) => setData(res))
                 .catch((err) => toast.error(t('helpers:error_getting')));

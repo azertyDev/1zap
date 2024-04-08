@@ -32,7 +32,7 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
     const { handleFilter } = useFilter();
     const { filterData } = useFilterTabs(4);
     const { t } = useTranslation();
-    const { query } = useRouter();
+    const { query,query:{city} } = useRouter();
 
     const { currency } = useStore((state) => state);
     const { sortByAverage } = useFiltersAscDesc();
@@ -144,7 +144,7 @@ export const Tires: FC<{ data: { data: IProductGroup[]; totalPages: number } }> 
                                         </p>
                                     </TableElement>
                                     <TableElement className={'table_b'}>
-                                        <Link href={`/search_result?oem=${item.uniqNumber}&client=individual`}>
+                                        <Link href={`/search_result?oem=${item.uniqNumber}&client=individual&city=${city}`}>
                                             <button>
                                                 {t('common:show')} - {item.availability}
                                             </button>

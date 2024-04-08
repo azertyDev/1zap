@@ -29,7 +29,7 @@ export const SelectField: FC<SelectField & FieldProps> = ({ label = 'Select', ..
         <div className={`${s.root} ${props.field.value ? s.active : ''} ${props.isDisabled ? s.disabled : ''}`}>
             {field.value && (
                 <label htmlFor={field.name} className={s.label}>
-                    {t(label)} fewfewfew
+                    {t(label)} 
                 </label>
             )}
             <div className={s.select_wr}>

@@ -35,8 +35,6 @@ export const Cities: FC = (): JSX.Element => {
         { value: "gulistan", label: "gulistan" },
         { value: "fergana", label: "fergana" },
         { value: "urgench", label: "urgench" },
-        { value: "urgench", label: "urgench" },
-
     ]) 
 
 

@@ -14,13 +14,14 @@ import { useOpenCloseWithVal } from 'src/hooks/common/useOpenCloseWithVal';
 import s from './index.module.scss';
 import { useStore } from 'src/store/useStore';
 import { Cities } from 'src/components/ui/cities';
+import { useRouter } from 'next/router';
 
 export const Header: FC = (): JSX.Element => {
     const { t } = useTranslation();
     const { userData } = useStore();
     const token = Cookies.get('token');
     const [signedIn, setSignedIn] = useState<boolean>(false);
-
+    const {query:{city}}= useRouter()
     const isAdmin = userData?.user.role === 'admin' || userData?.user.role === 'moderator';
 
     useEffect(() => {
@@ -33,7 +34,7 @@ export const Header: FC = (): JSX.Element => {
         <header>
             <Container>
                 <div className={s.inner}>
-                    <Link href={'/'}>
+                    <Link href={`/?${city?`city=${city}`:""}`}>
                         <Logo />
                     </Link>
 

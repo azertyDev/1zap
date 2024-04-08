@@ -36,7 +36,7 @@ export const Footer: FC = (): JSX.Element => {
             { id: 2, link: '/details?tab=2', text: 'common:sparePartsCat' },
             { id: 3, link: `/oil?city=${city}`, text: 'common:oil' },
             { id: 4, link: `/battery?city=${city}`, text: 'common:batteries' },
-            { id: 5, link: `/tires?city${city}`, text: 'common:tires' },
+            { id: 5, link: `/tires?city=${city}`, text: 'common:tires' },
         ],
     };
     
